@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 
-export default async function module(moduleOptions) {
-  const options = Object.assign({}, this.options.auth, moduleOptions)
+export default async function module (moduleOptions) {
+  // const options = Object.assign({}, this.options.auth, moduleOptions)
 
   // Plugin
   this.addPlugin({ src: resolve(__dirname, '../templates/auth.plugin.js'), fileName: 'auth.plugin.js' })
