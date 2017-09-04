@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/auth",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Authentication module for Nuxt.js",
   "license": "MIT",
   "contributors": [
@@ -20,7 +20,7 @@
     "lint-fix": "eslint --fix lib src test",
     "test": "NODE_ENV=test npm run build && npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish",
-    "prepare": "npm run test && npm run build"
+    "prepare": "npm run build"
   },
   "eslintIgnore": [
     "*.template.*"
