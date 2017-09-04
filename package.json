@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/auth",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Auth Module",
   "license": "MIT",
   "contributors": [
@@ -39,9 +39,7 @@
       "src"
     ]
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "nuxt-module-builder": "latest"
   }
