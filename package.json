@@ -40,7 +40,7 @@
     ]
   },
   "dependencies": {
-    "@nuxtjs/axios": "^4.0.0",
+    "@nuxtjs/axios": "^4.0.1",
     "cookie": "^0.3.1",
     "js-cookie": "^2.1.4"
   },
