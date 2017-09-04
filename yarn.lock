@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@nuxtjs/axios@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-4.0.0.tgz#8d99d253671aa5a2042dcfada7f2f1343594c5ad"
+  dependencies:
+    axios "^0.16.2"
+    chalk "^2.1.0"
+    debug "^3.0.1"
+    nuxt "^1.0.0-rc8"
+    whatwg-url "^6.1.0"
+
 "@nuxtjs/youch@3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/youch/-/youch-3.0.2.tgz#03fff829ca45bd1c3ece84c08270f9686229dd4a"
@@ -310,6 +320,13 @@ aws-sign2@~0.6.0:
 aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
+
+axios@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
+  dependencies:
+    follow-redirects "^1.2.3"
+    is-buffer "^1.1.5"
 
 babel-code-frame@^6.11.0, babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -1851,7 +1868,7 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
 
-debug@2.6.8, debug@^2.2.0, debug@^2.6.3, debug@^2.6.8:
+debug@2.6.8, debug@^2.2.0, debug@^2.4.5, debug@^2.6.3, debug@^2.6.8:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
@@ -2659,6 +2676,12 @@ flat-cache@^1.2.1:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
+
+follow-redirects@^1.2.3:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.2.4.tgz#355e8f4d16876b43f577b0d5ce2668b9723214ea"
+  dependencies:
+    debug "^2.4.5"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -3710,6 +3733,10 @@ js-beautify@^1.6.14:
     mkdirp "~0.5.0"
     nopt "~3.0.1"
 
+js-cookie@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.1.4.tgz#da4ec503866f149d164cf25f579ef31015025d8d"
+
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
@@ -4468,7 +4495,7 @@ nuxt-module-builder@latest:
     rollup-plugin-node-resolve "^3.0.0"
     standard-version "^4.2.0"
 
-nuxt@^1.0.0-rc6:
+nuxt@^1.0.0-rc6, nuxt@^1.0.0-rc8:
   version "1.0.0-rc8"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-1.0.0-rc8.tgz#e073f1b0ce8938b4d0552b1ef68ea70a28d77945"
   dependencies:
