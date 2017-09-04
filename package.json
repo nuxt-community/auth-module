@@ -1,0 +1,48 @@
+{
+  "name": "@nuxtjs/auth",
+  "version": "0.0.0",
+  "description": "Auth Module",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Pooya Parsa <pooya@pi0.ir>"
+    }
+  ],
+  "main": "dist/index.js",
+  "repository": "https://github.com/nuxt-community/auth-module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "nuxt-module",
+    "watch": "nuxt-module --watch",
+    "lint": "eslint lib src test",
+    "lint-fix": "eslint --fix lib src test",
+    "test": "NODE_ENV=test npm run build && npm run lint && jest",
+    "release": "standard-version && git push --follow-tags && npm publish",
+    "prepare": "npm run test && npm run build"
+  },
+  "eslintIgnore": [
+    "*.template.*"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "dist"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib",
+      "src"
+    ]
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "nuxt-module-builder": "latest"
+  }
+}
