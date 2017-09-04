@@ -28,7 +28,8 @@
   "files": [
     "lib",
     "src",
-    "dist"
+    "dist",
+    "templates"
   ],
   "jest": {
     "testEnvironment": "node",
