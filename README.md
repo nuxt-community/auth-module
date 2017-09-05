@@ -20,10 +20,9 @@
 {
   modules: [
     '@nuxtjs/auth',
-     // ...
-     // Axios module should be included AFTER AUTH
+
+     // ...Axios module should be included AFTER @nuxtjs/auth
     '@nuxtjs/axios', 
-    // ...
  ],
  auth: {
    /* auth options */

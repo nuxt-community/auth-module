@@ -4,6 +4,12 @@ import authStore from './auth.store'
 export default async function (ctx, inject) {
   const { store } = ctx
 
+  // Check axios module is correctly registered
+  if (!ctx.$axios) {
+    /* eslint-disable no-console */
+    console.error('[@nuxtjs/auth]', 'Please make sure @nuxtjs/axios is added after this module!')
+  }
+
   // Inject $ctx
   inject('ctx', ctx)
 
