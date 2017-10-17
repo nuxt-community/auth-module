@@ -1,6 +1,8 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
 
+const options = <%= serialize(options) %>
+
 export default {
   namespaced: true,
 
@@ -80,7 +82,13 @@ export default {
       await dispatch('updateToken', null)
     },
 
-    async fetch ({ state, commit, dispatch }, { endpoint = 'auth/user' } = {}) {
+    async fetch ({ state, commit, dispatch }) {
+      let {endpoint, propertyName, paramTokenName, appendToken} = options.user
+      // Append token
+      if (appendToken) {
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        endpoint = endpoint + paramTokenName + state.token
+      }
       // Fetch and update latest token
       await dispatch('fetchToken')
 
@@ -91,18 +99,25 @@ export default {
 
       // Try to get user profile
       try {
-        const userData = await this.$axios.$get(endpoint)
-        commit('SET_USER', userData.user)
+        const headers = {'Authorization': options.tokenType + ' ' + state.token}
+        const userData = await this.$axios.$get(endpoint, {headers})
+
+        if (propertyName) {
+          commit('SET_USER', userData[propertyName])
+        } else {
+          commit('SET_USER', userData)
+        }
       } catch (e) {
         return dispatch('invalidate')
       }
     },
 
     // Login
-    async login ({ commit, dispatch }, { fields, endpoint = 'auth/login', session = false } = {}) {
+    async login ({ commit, dispatch }, { fields } = {}) {
+      let {endpoint, propertyName} = options.login
       // Send credentials to API
       let tokenData = await this.$axios.$post(endpoint, fields)
-      let token = tokenData.token || tokenData.id_token
+      let token = tokenData[propertyName]
 
       // Update new token
       await dispatch('updateToken', token)
@@ -112,15 +127,23 @@ export default {
     },
 
     // Logout
-    async logout ({ commit, dispatch, state }, { endpoint = 'auth/logout', appendToken = false } = {}) {
+    async logout ({ commit, dispatch, state }) {
+      let {endpoint, method, paramTokenName, appendToken} = options.logout
       // Append token
       if (appendToken) {
-        endpoint = endpoint + '/' + state.token
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        endpoint = endpoint + paramTokenName + state.token
       }
 
       // Server side logout
       try {
-        await this.$axios.$get(endpoint)
+        const headers = {'Authorization': options.tokenType + ' ' + state.token}
+
+        if (method.toUpperCase() === 'POST') {
+          await this.$axios.$post(endpoint, {}, {headers})
+        } else {
+          await this.$axios.$get(endpoint, {headers})
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('Error while logging out', e)
