@@ -53,7 +53,16 @@ export default {
         }
       } else {
         // ...Server
-        // TODO: Use set-cookie header for this.$ctx.res
+        if (token) {
+          this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize('token', token, {}))
+        } else {
+          let expires
+          let date = new Date()
+          expires = date.setDate(date.getDate() - 1)
+          this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize('token', '', {
+            expires: new Date(expires)
+          }))
+        }
       }
     },
 
