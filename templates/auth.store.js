@@ -53,16 +53,16 @@ export default {
         }
       } else {
         // ...Server
-        if (token) {
-          this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize('token', token, {}))
-        } else {
+        let params = {
+          domain: '/'
+        }
+        if (!token) {
           let expires
           let date = new Date()
           expires = date.setDate(date.getDate() - 1)
-          this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize('token', '', {
-            expires: new Date(expires)
-          }))
+          params.expires = new Date(expires)
         }
+        this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize(tokenNameCookie, token, params))
       }
     },
 
@@ -86,24 +86,26 @@ export default {
       }
     },
 
-    async invalidate ({ dispatch, commit }) {
+    invalidate ({ dispatch, commit }) {
       commit('SET_USER', null)
-      await dispatch('updateToken', null)
+      dispatch('updateToken', null)
     },
 
     async fetch ({ state, commit, dispatch }) {
       let {endpoint, propertyName, paramTokenName, appendToken} = options.user
-      // Append token
-      if (appendToken) {
-        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
-        endpoint = endpoint + paramTokenName + state.token
-      }
+
       // Fetch and update latest token
-      await dispatch('fetchToken')
+      dispatch('fetchToken')
 
       // Not loggedIn
       if (!state.token) {
         return
+      }
+
+      // Append token
+      if (appendToken) {
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        endpoint = endpoint + paramTokenName + state.token
       }
 
       // Try to get user profile
@@ -122,22 +124,24 @@ export default {
     },
 
     // Login
-    async login ({ commit, dispatch }, { fields } = {}) {
+    async login ({ dispatch }, { fields } = {}) {
       let {endpoint, propertyName} = options.login
+
       // Send credentials to API
       let tokenData = await this.$axios.$post(endpoint, fields)
       let token = tokenData[propertyName]
 
       // Update new token
-      await dispatch('updateToken', token)
+      dispatch('updateToken', token)
 
       // Fetch authenticated user
-      await dispatch('fetch')
+      dispatch('fetch')
     },
 
     // Logout
-    async logout ({ commit, dispatch, state }) {
+    async logout ({ dispatch, state }) {
       let {endpoint, method, paramTokenName, appendToken} = options.logout
+
       // Append token
       if (appendToken) {
         paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
@@ -159,7 +163,7 @@ export default {
       }
 
       // Unload user profile & token
-      await dispatch('invalidate')
+      dispatch('invalidate')
     }
   }
 }
