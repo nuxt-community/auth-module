@@ -22,17 +22,58 @@
     '@nuxtjs/auth',
 
      // ...Axios module should be included AFTER @nuxtjs/auth
-    '@nuxtjs/axios', 
+    '@nuxtjs/axios'
  ],
+ // Default Values
  auth: {
-   /* auth options */
+   login: {
+     endpoint: 'auth/login',
+     propertyName: 'token'
+   },
+   logout: {
+     endpoint: 'auth/logout',
+     method: 'GET',
+     paramTokenName: '',
+     appendToken: false
+   },
+   user: {
+     endpoint: 'auth/user',
+     propertyName: 'user',
+     paramTokenName: '',
+     appendToken: false
+   },
+   storageTokenName: 'nuxt-auth-token',
+   tokenType: 'Bearer'
  }
 }
 ```
 
 ## Options
 
+####login
+Set the global settings for the login action.
+* **endpoint** - Set the URL of the login endpoint. It can be a relative or absolute path.
+* **propertyName** - Set the name of the return object property that contains the access token.
 
+####logout
+Sets the global settings for the logout action.
+* **endpoint** - Set the URL of the logout endpoint. It can be a relative or absolute path.
+* **method** - Set the request to POST or GET.
+* **paramTokenName** - Set the access token query string parameter name.
+* **appendToken** - Set true if you want the access token to be inserted in the URL.
+
+####user
+Sets the global settings for the fetch action.
+* **endpoint** - Set the URL of the user data endpoint. It can be a relative or absolute path.
+* **propertyName** - Set the name of the return object property that contains the user data. If you want the entire object returned, set an empty string.
+* **paramTokenName** - Set the access token query string parameter name.
+* **appendToken** - Set true if you want the access token to be inserted in the URL.
+
+####storageTokenName
+Set the token name in the local storage and in the cookie. 
+
+####tokenType
+Sets the token type of the authorization header.
 
 ## License
 
