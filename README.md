@@ -75,6 +75,27 @@ Set the token name in the local storage and in the cookie.
 #### tokenType
 Sets the token type of the authorization header.
 
+## Example usage
+
+```js
+// ... login code ...
+  store.dispatch('auth/login', {
+    fields: {
+      username: 'your_username',
+      password: 'your_password'
+    }
+  })
+  
+// ... logout code ...
+  store.dispatch('auth/logout')
+  
+// ... code - get access token ...
+  store.state['auth']['token']
+  
+// ... code - get user data ...
+  store.state['auth']['user']
+```
+
 ## License
 
 [MIT License](./LICENSE)

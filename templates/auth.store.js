@@ -64,7 +64,7 @@ export default {
           expires = date.setDate(date.getDate() - 1)
           params.expires = new Date(expires)
         }
-        this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize(tokenNameCookie, token, params))
+        this.$ctx.res.setHeader('Set-Cookie', Cookie.serialize(storageTokenName, token, params))
       }
     },
 
