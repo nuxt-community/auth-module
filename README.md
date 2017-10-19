@@ -78,22 +78,25 @@ Sets the token type of the authorization header.
 ## Example usage
 
 ```js
-// ... login code ...
-  store.dispatch('auth/login', {
-    fields: {
-      username: 'your_username',
-      password: 'your_password'
-    }
-  })
+// ... code ...
+store.dispatch('auth/login', {
+  fields: {
+    username: 'your_username',
+    password: 'your_password'
+  }
+}) // run login
   
-// ... logout code ...
-  store.dispatch('auth/logout')
+// ... code ...
+store.dispatch('auth/logout') // run logout
   
-// ... code - get access token ...
-  store.state['auth']['token']
+// ... code ...
+store.state['auth']['token'] // get access token
   
-// ... code - get user data ...
-  store.state['auth']['user']
+// ... code ...
+store.state['auth']['user'] // get user data
+  
+// ... code ...
+store.getters['auth/loggedIn'] // get login status (true or false)
 ```
 
 ## License
