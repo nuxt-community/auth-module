@@ -5,7 +5,10 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "Pooya Parsa <pooya@pi0.ir>, Herberts Cruz <herbertscruz@gmail.com>"
+      "name": "Pooya Parsa <pooya@pi0.ir>"
+    },
+    {
+      "name": "Herberts Cruz <herbertscruz@gmail.com>"
     }
   ],
   "main": "dist/index.js",
