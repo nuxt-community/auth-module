@@ -1,7 +1,9 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
+const { kebabCase } = require('lodash')
 
 const options = <%= serialize(options) %>
+const storageTokenName = kebabCase(options.storageTokenName)
 
 export default {
   namespaced: true,
@@ -37,9 +39,9 @@ export default {
       // Update localStorage
       if (process.browser && localStorage) {
         if (token) {
-          localStorage.setItem('nuxt::auth::token', token)
+          localStorage.setItem(storageTokenName, token)
         } else {
-          localStorage.removeItem('nuxt::auth::token')
+          localStorage.removeItem(storageTokenName)
         }
       }
 
@@ -47,9 +49,9 @@ export default {
       if (process.browser) {
         // ...Browser
         if (token) {
-          Cookies.set('token', token)
+          Cookies.set(storageTokenName, token)
         } else {
-          Cookies.remove('token')
+          Cookies.remove(storageTokenName)
         }
       } else {
         // ...Server
@@ -71,14 +73,14 @@ export default {
 
       // First try localStorage
       if (process.browser && localStorage) {
-        token = localStorage.getItem('nuxt::auth::token')
+        token = localStorage.getItem(storageTokenName)
       }
 
       // Then try to extract token from cookies
       if (!token) {
         const cookieStr = process.browser ? document.cookie : this.$ctx.req.headers.cookie
         const cookies = Cookie.parse(cookieStr || '') || {}
-        token = cookies.token
+        token = cookies[storageTokenName]
       }
 
       if (token) {
