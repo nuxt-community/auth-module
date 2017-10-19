@@ -1,4 +1,5 @@
 const { resolve } = require('path')
+const { merge } = require('lodash')
 
 export default async function module (moduleOptions) {
   // Apply defaults
@@ -20,10 +21,11 @@ export default async function module (moduleOptions) {
       paramTokenName: '',
       appendToken: false
     },
+    storageTokenName: 'nuxt-auth-token',
     tokenType: 'Bearer'
   }
 
-  const options = Object.assign({}, this.options.auth, moduleOptions, defaults)
+  const options = merge(defaults, moduleOptions, this.options.auth)
 
   // Plugin
   this.addPlugin({ src: resolve(__dirname, '../templates/auth.plugin.js'), fileName: 'auth.plugin.js' })
