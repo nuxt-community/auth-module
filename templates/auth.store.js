@@ -106,7 +106,7 @@ export default {
 
       // Append token
       if (appendToken) {
-        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/'
         endpoint = endpoint + paramTokenName + state.token
       }
 
@@ -121,7 +121,7 @@ export default {
           commit('SET_USER', userData)
         }
       } catch (e) {
-        return dispatch('invalidate')
+        dispatch('invalidate')
       }
     },
 
@@ -146,7 +146,7 @@ export default {
 
       // Append token
       if (appendToken) {
-        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/'
         endpoint = endpoint + paramTokenName + state.token
       }
 
