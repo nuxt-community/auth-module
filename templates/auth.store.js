@@ -112,8 +112,10 @@ export default {
 
       // Try to get user profile
       try {
-        const headers = {'Authorization': options.tokenType + ' ' + state.token}
-        const userData = await this.$axios.$get(endpoint, {headers})
+        // Set Authorization Token in request
+        this.$axios.setToken(state.token, options.tokenType)
+
+        const userData = await this.$axios.$get(endpoint)
 
         if (propertyName) {
           commit('SET_USER', userData[propertyName])
@@ -152,12 +154,13 @@ export default {
 
       // Server side logout
       try {
-        const headers = {'Authorization': options.tokenType + ' ' + state.token}
+        // Set Authorization Token in request
+        this.$axios.setToken(state.token, options.tokenType);
 
         if (method.toUpperCase() === 'POST') {
-          await this.$axios.$post(endpoint, {}, {headers})
+          await this.$axios.$post(endpoint)
         } else {
-          await this.$axios.$get(endpoint, {headers})
+          await this.$axios.$get(endpoint)
         }
       } catch (e) {
         // eslint-disable-next-line no-console

@@ -43,7 +43,9 @@
      appendToken: false
    },
    storageTokenName: 'nuxt-auth-token',
-   tokenType: 'Bearer'
+   tokenType: 'Bearer',
+   notLoggedInRedirectTo: '/login',
+   loggedInRedirectTo: '/',
  }
 }
 ```
@@ -75,6 +77,12 @@ Set the token name in the local storage and in the cookie.
 #### tokenType
 Sets the token type of the authorization header.
 
+#### notLoggedInRedirectTo
+Sets the redirect URL default of the users not logged in. This is actived when 'auth' middeware is register.
+
+#### loggedInRedirectTo
+Sets the redirect URL default of the users logged in. This is actived when 'no-auth' middeware is register.
+
 ## Example usage
 
 ```js
@@ -97,6 +105,18 @@ store.state['auth']['user'] // get user data
   
 // ... code ...
 store.getters['auth/loggedIn'] // get login status (true or false)
+```
+
+## Middleware
+
+```js
+// ... in nuxt.config.js ...
+router: {
+  middleware: [
+    'auth', // If user not logged in, redirect to '/login' or to URL defined in notLoggedInRedirectTo property
+    'no-auth' // If user is already logged in, redirect to '/' or to URL defined in loggedInRedirectTo property
+  ]
+}
 ```
 
 ## License
