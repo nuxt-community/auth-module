@@ -24,7 +24,7 @@ export default function module (moduleOptions) {
     storageTokenName: 'nuxt-auth-token',
     tokenType: 'Bearer',
     notLoggedInRedirectTo: '/login',
-    loggedInRedirectTo: '/',
+    loggedInRedirectTo: '/'
   }
 
   const options = merge(defaults, moduleOptions, this.options.auth)
