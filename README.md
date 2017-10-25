@@ -45,7 +45,7 @@
    storageTokenName: 'nuxt-auth-token',
    tokenType: 'Bearer',
    notLoggedInRedirectTo: '/login',
-   loggedInRedirectTo: '/',
+   loggedInRedirectTo: '/'
  }
 }
 ```
