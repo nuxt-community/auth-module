@@ -139,7 +139,7 @@ export default {
       dispatch('updateToken', token)
 
       // Fetch authenticated user
-      dispatch('fetch')
+      await dispatch('fetch')
     },
 
     // Logout
