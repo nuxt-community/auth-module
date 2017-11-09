@@ -1,5 +1,5 @@
 const { resolve } = require('path')
-const { merge } = require('lodash')
+const merge = require('lodash/merge')
 
 export default async function module (moduleOptions) {
   // Apply defaults
