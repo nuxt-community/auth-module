@@ -106,14 +106,16 @@ export default {
 
       // Append token
       if (appendToken) {
-        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/'
         endpoint = endpoint + paramTokenName + state.token
       }
 
       // Try to get user profile
       try {
-        const headers = {'Authorization': options.tokenType + ' ' + state.token}
-        const userData = await this.$axios.$get(endpoint, {headers})
+        // Set Authorization Token in request
+        this.$axios.setToken(state.token, options.tokenType)
+
+        const userData = await this.$axios.$get(endpoint)
 
         if (propertyName) {
           commit('SET_USER', userData[propertyName])
@@ -121,7 +123,7 @@ export default {
           commit('SET_USER', userData)
         }
       } catch (e) {
-        return dispatch('invalidate')
+        dispatch('invalidate')
       }
     },
 
@@ -137,7 +139,7 @@ export default {
       dispatch('updateToken', token)
 
       // Fetch authenticated user
-      dispatch('fetch')
+      await dispatch('fetch')
     },
 
     // Logout
@@ -146,18 +148,19 @@ export default {
 
       // Append token
       if (appendToken) {
-        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/';
+        paramTokenName = (paramTokenName) ? ('?' + paramTokenName + '=') : '/'
         endpoint = endpoint + paramTokenName + state.token
       }
 
       // Server side logout
       try {
-        const headers = {'Authorization': options.tokenType + ' ' + state.token}
+        // Set Authorization Token in request
+        this.$axios.setToken(state.token, options.tokenType);
 
         if (method.toUpperCase() === 'POST') {
-          await this.$axios.$post(endpoint, {}, {headers})
+          await this.$axios.$post(endpoint)
         } else {
-          await this.$axios.$get(endpoint, {headers})
+          await this.$axios.$get(endpoint)
         }
       } catch (e) {
         // eslint-disable-next-line no-console

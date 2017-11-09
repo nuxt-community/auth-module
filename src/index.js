@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const merge = require('lodash/merge')
 
-export default async function module (moduleOptions) {
+export default function module (moduleOptions) {
   // Apply defaults
   const defaults = {
     login: {
@@ -22,7 +22,9 @@ export default async function module (moduleOptions) {
       appendToken: false
     },
     storageTokenName: 'nuxt-auth-token',
-    tokenType: 'Bearer'
+    tokenType: 'Bearer',
+    notLoggedInRedirectTo: '/login',
+    loggedInRedirectTo: '/'
   }
 
   const options = merge(defaults, moduleOptions, this.options.auth)
@@ -31,7 +33,7 @@ export default async function module (moduleOptions) {
   this.addPlugin({ src: resolve(__dirname, '../templates/auth.plugin.js'), fileName: 'auth.plugin.js' })
 
   // Middleware
-  this.addTemplate({ src: resolve(__dirname, '../templates/auth.middleware.js'), fileName: 'auth.middleware.js' })
+  this.addTemplate({ src: resolve(__dirname, '../templates/auth.middleware.js'), fileName: 'auth.middleware.js', options })
 
   // Store
   this.addTemplate({ src: resolve(__dirname, '../templates/auth.store.js'), fileName: 'auth.store.js', options })
