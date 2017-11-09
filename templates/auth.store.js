@@ -1,6 +1,6 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
-import { kebabCase } from 'lodash'
+import kebabCase from 'lodash/kebabCase'
 
 const options = <%= serialize(options) %>
 const storageTokenName = kebabCase(options.storageTokenName)
