@@ -5,7 +5,7 @@ module.exports = {
     resourceHints: false
   },
   modules: [
-    ['~/../..', {}],
+    ['@@', {}],
     '@nuxtjs/axios'
   ]
 }

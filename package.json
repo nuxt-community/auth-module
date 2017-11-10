@@ -11,22 +11,19 @@
       "name": "Herberts Cruz <herbertscruz@gmail.com>"
     }
   ],
-  "main": "dist/index.js",
+  "main": "lib/module.js",
   "repository": "https://github.com/nuxt-community/auth-module",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "nuxt-module",
-    "watch": "nuxt-module --watch",
     "lint": "eslint lib src test",
     "lint-fix": "eslint --fix lib src test",
-    "test": "NODE_ENV=test npm run build && npm run lint && jest",
-    "release": "standard-version && git push --follow-tags && npm publish",
-    "prepare": "npm run build"
+    "test": "npm run lint && jest",
+    "release": "standard-version && git push --follow-tags && npm publish"
   },
   "eslintIgnore": [
-    "*.template.*"
+    "lib/templates"
   ],
   "files": [
     "lib",

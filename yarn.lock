@@ -2,15 +2,14 @@
 # yarn lockfile v1
 
 
-"@nuxtjs/axios@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-4.0.0.tgz#8d99d253671aa5a2042dcfada7f2f1343594c5ad"
+"@nuxtjs/axios@^4.0.1":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-4.4.0.tgz#33f1b00a3d32978a51c370ec48fd7844c6b40f89"
   dependencies:
     axios "^0.16.2"
     chalk "^2.1.0"
-    debug "^3.0.1"
-    nuxt "^1.0.0-rc8"
-    whatwg-url "^6.1.0"
+    debug "^3.1.0"
+    whatwg-url "^6.3.0"
 
 "@nuxtjs/youch@3.0.2":
   version "3.0.2"
@@ -1877,6 +1876,12 @@ debug@2.6.8, debug@^2.2.0, debug@^2.4.5, debug@^2.6.3, debug@^2.6.8:
 debug@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.1.tgz#0564c612b521dc92d9f2988f0549e34f9c98db64"
+  dependencies:
+    ms "2.0.0"
+
+debug@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
     ms "2.0.0"
 
@@ -4495,7 +4500,7 @@ nuxt-module-builder@latest:
     rollup-plugin-node-resolve "^3.0.0"
     standard-version "^4.2.0"
 
-nuxt@^1.0.0-rc6, nuxt@^1.0.0-rc8:
+nuxt@^1.0.0-rc6:
   version "1.0.0-rc8"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-1.0.0-rc8.tgz#e073f1b0ce8938b4d0552b1ef68ea70a28d77945"
   dependencies:
@@ -5517,6 +5522,10 @@ punycode@^1.2.4, punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
+punycode@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
+
 q@^1.1.2, q@^1.4.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.0.tgz#dd01bac9d06d30e6f219aecb8253ee9ebdc308f1"
@@ -6457,6 +6466,12 @@ tough-cookie@>=2.3.0, tough-cookie@^2.3.2, tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
+tr46@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tr46/-/tr46-1.0.1.tgz#a8b13fd6bfd2489519674ccde55ba3693b706d09"
+  dependencies:
+    punycode "^2.1.0"
+
 tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
@@ -6861,6 +6876,14 @@ whatwg-url@^6.1.0:
   dependencies:
     lodash.sortby "^4.7.0"
     tr46 "~0.0.3"
+    webidl-conversions "^4.0.1"
+
+whatwg-url@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-6.3.0.tgz#597ee5488371abe7922c843397ddec1ae94c048d"
+  dependencies:
+    lodash.sortby "^4.7.0"
+    tr46 "^1.0.0"
     webidl-conversions "^4.0.1"
 
 whet.extend@~0.9.9:
