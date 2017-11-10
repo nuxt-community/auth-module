@@ -3738,9 +3738,9 @@ js-beautify@^1.6.14:
     mkdirp "~0.5.0"
     nopt "~3.0.1"
 
-js-cookie@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.1.4.tgz#da4ec503866f149d164cf25f579ef31015025d8d"
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"

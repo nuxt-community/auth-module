@@ -43,7 +43,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^4.0.1",
     "cookie": "^0.3.1",
-    "js-cookie": "^2.1.4",
+    "js-cookie": "^2.2.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
