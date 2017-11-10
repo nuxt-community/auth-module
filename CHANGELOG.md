@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/nuxt-community/auth-module/compare/v2.0.7...v3.0.0) (2017-11-10)
+
+
+### Features
+
+* improve auth store ([499c28a](https://github.com/nuxt-community/auth-module/commit/499c28a))
+* improvements ([#11](https://github.com/nuxt-community/auth-module/issues/11)) ([5d870c2](https://github.com/nuxt-community/auth-module/commit/5d870c2))
+
+
+### Performance Improvements
+
+* import only needed lodash functions ([#14](https://github.com/nuxt-community/auth-module/issues/14), [@leahci](https://github.com/leahci)Mic) ([fc6ae68](https://github.com/nuxt-community/auth-module/commit/fc6ae68))
+
+
+### BREAKING CHANGES
+
+* Some options changed and/or simplified
+
+
+
 <a name="2.0.7"></a>
 ## [2.0.7](https://github.com/nuxt-community/auth-module/compare/v2.0.6...v2.0.7) (2017-10-19)
 
