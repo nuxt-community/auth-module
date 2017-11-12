@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/nuxt-community/auth-module/compare/v3.0.0...v3.0.1) (2017-11-12)
+
+
+### Bug Fixes
+
+* **middleware:** redirects ([77bd1e4](https://github.com/nuxt-community/auth-module/commit/77bd1e4))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/nuxt-community/auth-module/compare/v2.0.7...v3.0.0) (2017-11-10)
 
