@@ -71,6 +71,7 @@ Sets the global settings for store **logout** action.
 * **name** - Set the token name in the local storage.
 * **cookieName** - Set the token name in Cookies. (Set to `null` to disable)
 * **type** - Sets the token type of the authorization header.
+* **localStorage** - Decide whether to use or not the LocalStorage (default **true**).
 
 #### redirect
 * **notLoggedIn** - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
