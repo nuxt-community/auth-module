@@ -1,12 +1,11 @@
-# Auth
+# Auth Module
 
 [![npm (scoped with tag)](https://img.shields.io/npm/v/@nuxtjs/auth/latest.svg?style=flat-square)](https://npmjs.com/package/@nuxtjs/auth)
 [![npm](https://img.shields.io/npm/dt/@nuxtjs/auth.svg?style=flat-square)](https://npmjs.com/package/@nuxtjs/auth)
 [![CircleCI](https://img.shields.io/circleci/project/github/nuxt-community/auth-module.svg?style=flat-square)](https://circleci.com/gh/nuxt-community/auth-module)
 [![Codecov](https://img.shields.io/codecov/c/github/nuxt-community/auth-module.svg?style=flat-square)](https://codecov.io/gh/nuxt-community/auth-module)
 [![Dependencies](https://david-dm.org/nuxt-community/auth-module/status.svg?style=flat-square)](https://david-dm.org/nuxt-community/auth-module)
-
-[![js-standard-style](https://cdn.rawgit.com/standard/standard/master/badge.svg)](http://standardjs.com)
+[![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com)
 
 > Authentication module for Nuxt.js
 
@@ -68,17 +67,17 @@ Sets the global settings for store **logout** action.
 * **endpoint** - Set the URL of the logout endpoint. It can be a relative or absolute path.
 * **method** - Set the request to POST or GET.
 
-#### Token
-* **enabled** - Get and use tokens for authentication.
+#### token
+* **enabled** (Boolean) - Get and use tokens for authentication.
 * **type** - Sets the token type of the authorization header.
-* **localStorage** - Decide whether to use or not the LocalStorage.
+* **localStorage**(Boolean) - Keeps token in local storage, if enabled.
 * **name** - Set the token name in the local storage.
-* **cookie** - Decide whether to use or not the Cookies.
+* **cookie** (Boolean) - Keeps token in cookies, if enabled.
 * **cookieName** - Set the token name in Cookies.
 
 #### redirect
-* **notLoggedIn** - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
-* **loggedIn** - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
+* **notLoggedIn** (Boolean)  - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
+* **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
 
 ## Example usage
 
