@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/nuxt-community/auth-module/compare/v3.0.1...v3.1.0) (2017-11-15)
+
+
+### Features
+
+* **store:** let LocalStorage to be optional ([#18](https://github.com/nuxt-community/auth-module/issues/18), [@epartipilo](https://github.com/epartipilo)) ([b4086a0](https://github.com/nuxt-community/auth-module/commit/b4086a0))
+* improve token options ([2a2c4c2](https://github.com/nuxt-community/auth-module/commit/2a2c4c2))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/nuxt-community/auth-module/compare/v3.0.0...v3.0.1) (2017-11-12)
 
