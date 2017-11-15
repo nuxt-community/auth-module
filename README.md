@@ -73,8 +73,8 @@ Sets the global settings for store **logout** action.
 * **type** - Sets the token type of the authorization header.
 
 #### redirect
-* **notLoggedInRedirectTo** - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
-* **loggedInRedirectTo** - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
+* **notLoggedIn** - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
+* **loggedIn** - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
 
 ## Example usage
 
