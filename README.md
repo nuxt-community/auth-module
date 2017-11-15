@@ -43,9 +43,11 @@
     },
     token: {
       enabled: true,
+      type: 'Bearer',
+      localStorage: true,
       name: 'token',
-      cookieName: 'token',
-      type: 'Bearer'
+      cookie: true,
+      cookieName: 'token'
     }
 }
 ```
@@ -68,10 +70,11 @@ Sets the global settings for store **logout** action.
 
 #### Token
 * **enabled** - Get and use tokens for authentication.
-* **name** - Set the token name in the local storage.
-* **cookieName** - Set the token name in Cookies. (Set to `null` to disable)
 * **type** - Sets the token type of the authorization header.
-* **localStorage** - Decide whether to use or not the LocalStorage (default **true**).
+* **localStorage** - Decide whether to use or not the LocalStorage.
+* **name** - Set the token name in the local storage.
+* **cookie** - Decide whether to use or not the Cookies.
+* **cookieName** - Set the token name in Cookies.
 
 #### redirect
 * **notLoggedIn** - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
