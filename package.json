@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/auth",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Authentication module for Nuxt.js",
   "license": "MIT",
   "contributors": [
