@@ -28,6 +28,7 @@
     user: {
       endpoint: 'auth/user',
       propertyName: 'user',
+      resetOnFail: true
     },
     login: {
       endpoint: 'auth/login',
@@ -57,6 +58,7 @@
 Sets the global settings for store **fetch** action.
 * **endpoint** - Set the URL of the user data endpoint. It can be a relative or absolute path.
 * **propertyName** - Set the name of the return object property that contains the user data. If you want the entire object returned, set an empty string.
+* **resetOnFail** - Automatically invalidate all tokens if user fetch fails. (Default is `true`)
 
 #### login
 Set the global settings for store **login** action.
