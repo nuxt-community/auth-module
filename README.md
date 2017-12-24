@@ -28,7 +28,8 @@
     user: {
       endpoint: 'auth/user',
       propertyName: 'user',
-      resetOnFail: true
+      resetOnFail: true,
+      enabled: true
     },
     login: {
       endpoint: 'auth/login',
@@ -92,16 +93,16 @@ store.dispatch('auth/login', {
     password: 'your_password'
   }
 })
-  
+
 // ... code ...
 store.dispatch('auth/logout') // run logout
-  
+
 // ... code ...
 store.state.auth.token // get access token
-  
+
 // ... code ...
 store.state.auth.user // get user data
-  
+
 // ... code ...
 store.getters['auth/loggedIn'] // get login status (true or false)
 ```
