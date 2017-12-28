@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/nuxt-community/auth-module/compare/v3.2.1...v3.3.0) (2017-12-28)
+
+
+### Features
+
+* add fetchUser option ([#27](https://github.com/nuxt-community/auth-module/issues/27)) ([1b8856c](https://github.com/nuxt-community/auth-module/commit/1b8856c))
+* allow customizing http method for user endpoint ([#28](https://github.com/nuxt-community/auth-module/issues/28)) ([994152b](https://github.com/nuxt-community/auth-module/commit/994152b))
+* more compability for nuxt@next ([d50be11](https://github.com/nuxt-community/auth-module/commit/d50be11))
+
+
+
 <a name="3.2.1"></a>
 ## [3.2.1](https://github.com/nuxt-community/auth-module/compare/v3.2.0...v3.2.1) (2017-12-20)
 
