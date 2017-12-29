@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/nuxt-community/auth-module/compare/v3.3.0...v3.4.0) (2017-12-29)
+
+
+### Bug Fixes
+
+* **store:** return promise in all actions ([1a9a76e](https://github.com/nuxt-community/auth-module/commit/1a9a76e))
+
+
+### Features
+
+* improve compability for nuxt 1.0.0 ([7740dec](https://github.com/nuxt-community/auth-module/commit/7740dec))
+
+
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/nuxt-community/auth-module/compare/v3.2.1...v3.3.0) (2017-12-28)
 
