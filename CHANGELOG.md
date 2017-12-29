@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.1"></a>
+## [3.4.1](https://github.com/nuxt-community/auth-module/compare/v3.4.0...v3.4.1) (2017-12-29)
+
+
+### Bug Fixes
+
+* rc11 backward compability ([c0222e9](https://github.com/nuxt-community/auth-module/commit/c0222e9))
+
+
+
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/nuxt-community/auth-module/compare/v3.3.0...v3.4.0) (2017-12-29)
 
