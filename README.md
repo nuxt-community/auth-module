@@ -89,8 +89,8 @@ Sets the global settings for store **logout** action.
 * **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
 
 #### errorHandler
-* **fetch** (Function)  - Function will be called when fetch get an exception.
-* **logout** (Function) - Function will be called when logout get an exception.
+* **fetch** (Function(context, error))  - Function will be called when fetch get an exception.
+* **logout** (Function(context, error)) - Function will be called when logout get an exception.
 
 ## Example usage
 
