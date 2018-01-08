@@ -50,6 +50,10 @@
       name: 'token',
       cookie: true,
       cookieName: 'token'
+    },
+    errorHandler: {
+      fetch: null,
+      logout: null
     }
 }
 ```
@@ -83,6 +87,10 @@ Sets the global settings for store **logout** action.
 #### redirect
 * **notLoggedIn** (Boolean)  - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
 * **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
+
+#### errorHandler
+* **fetch** (Function)  - Function will be called when fetch get an exception.
+* **logout** (Function) - Function will be called when logout get an exception.
 
 ## Example usage
 
