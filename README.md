@@ -83,11 +83,10 @@ Sets the global settings for store **logout** action.
 * **cookieName** - Set the token name in Cookies.
 
 #### redirect
-* **guest** (Boolean) - Sets if the middleware should redirect guests users (non-authenticated).
-* **user** (Boolean) - Sets if the middleware should redirect logged users (authenticated).
-* **noAuth** (Boolean) - Sets if the middleware should redirect logged users (authenticated).
+* **guest** (Boolean) - Sets if the middleware should redirect guests users (unauthenticated). Only when `auth` middleware is added to a page.
+* **user** (Boolean) - Sets if the middleware should redirect logged users (authenticated). Only when `auth` middleware is added to a page.
 * **notLoggedIn** (Boolean)  - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
-* **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
+* **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `auth` middleware is added to a page.
 
 
 
@@ -124,6 +123,16 @@ router: {
   middleware: [
     'auth',
   ]
+}
+```
+
+### Middleware Components Exclusion
+You can set a `guarded` option to false in a specific component and the middleware will now ignore this component.
+```js
+export default {
+  options: {
+    guarded: false,
+  }
 }
 ```
 
