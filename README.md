@@ -40,6 +40,8 @@
       method: 'GET',
     },
     redirect: {
+      guest: true,
+      user: true,
       notLoggedIn: '/login',
       loggedIn: '/'
     },
@@ -85,8 +87,12 @@ Sets the global settings for store **logout** action.
 * **cookieName** - Set the token name in Cookies.
 
 #### redirect
+* **guest** (Boolean) - Sets if the middleware should redirect guests users (unauthenticated). Only when `auth` middleware is added to a page.
+* **user** (Boolean) - Sets if the middleware should redirect logged users (authenticated). Only when `auth` middleware is added to a page.
 * **notLoggedIn** (Boolean)  - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
-* **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `no-auth` middleware is added to a page.
+* **loggedIn** (Boolean) - Sets the redirect URL default of the users logged in. Only when `auth` middleware is added to a page.
+
+
 
 #### errorHandler
 * **fetch** (Function(context, error))  - Function will be called when fetch get an exception.
@@ -123,9 +129,18 @@ store.getters['auth/loggedIn'] // get login status (true or false)
 // ... in nuxt.config.js ...
 router: {
   middleware: [
-    'auth', // If user not logged in, redirect to '/login' or to URL defined in redirect property
-    'no-auth' // If user is already logged in, redirect to '/' or to URL defined in redirect property
+    'auth',
   ]
+}
+```
+
+### Middleware Components Exclusion
+You can set a `guarded` option to false in a specific component and the middleware will now ignore this component.
+```js
+export default {
+  options: {
+    guarded: false,
+  }
 }
 ```
 
