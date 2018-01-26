@@ -22,23 +22,13 @@
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": [
-    "lib/templates"
-  ],
-  "files": [
-    "lib",
-    "src",
-    "dist",
-    "templates"
-  ],
+  "eslintIgnore": ["lib/templates"],
+  "files": ["lib", "src", "dist", "templates"],
   "jest": {
     "testEnvironment": "node",
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
-    "collectCoverageFrom": [
-      "lib",
-      "src"
-    ]
+    "collectCoverageFrom": ["lib", "src"]
   },
   "dependencies": {
     "@nuxtjs/axios": "^4.0.1",
@@ -47,6 +37,18 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "nuxt-module-builder": "latest"
+    "nuxt": "^1.1.1",
+    "codecov": "^3.0.0",
+    "eslint": "^4.14.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.5.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^2.1.0",
+    "jest": "^22.0.4",
+    "jsdom": "^11.5.1",
+    "standard-version": "^4.2.0"
   }
 }
