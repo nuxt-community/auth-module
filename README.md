@@ -47,6 +47,7 @@
     },
     token: {
       enabled: true,
+      path: '.token',
       type: 'Bearer',
       localStorage: true,
       name: 'token',
@@ -80,8 +81,9 @@ Sets the global settings for store **logout** action.
 
 #### token
 * **enabled** (Boolean) - Get and use tokens for authentication.
+* **path** - Set the token path on json response.
 * **type** - Sets the token type of the authorization header.
-* **localStorage**(Boolean) - Keeps token in local storage, if enabled.
+* **localStorage** (Boolean) - Keeps token in local storage, if enabled.
 * **name** - Set the token name in the local storage.
 * **cookie** (Boolean) - Keeps token in cookies, if enabled.
 * **cookieName** - Set the token name in Cookies.
