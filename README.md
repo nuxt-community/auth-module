@@ -42,7 +42,7 @@ Install with npm:
 npm install @nuxtjs/auth @nuxtjs/axios
 ```
 
-Edit `nuxt.js.config`:
+Edit `nuxt.config.js`:
 
 ```js
 {
@@ -56,6 +56,7 @@ Edit `nuxt.js.config`:
  }
 ```
 
+See [Options](#options) section for all available options
 
 <h2 align="center">Auth Middleware</h2>
 
@@ -82,88 +83,54 @@ export default {
 
 <h2 align="center">Options</h2>
 
+Check out [this](lib/defaults.js) file for default options.
+
 ### `user`
 Sets the global settings for store **fetch** action.
 
-`endpoint`
+`endpoint` - Set the URL of the user data endpoint. It can be a relative or absolute path.
 
-Set the URL of the user data endpoint. It can be a relative or absolute path.
+`propertyName` - Set the name of the return object property that contains the user data. If you want the entire object returned, set an empty string.
 
-`propertyName`
+`resetOnFail` - Automatically invalidate all tokens if user fetch fails.
 
-Set the name of the return object property that contains the user data. If you want the entire object returned, set an empty string.
-
-`resetOnFail`
-
-- Default: `true`
-
-Automatically invalidate all tokens if user fetch fails.
-
-`method`
-
-Set the request to POST or GET.
+`method` - Set the request to POST or GET.
 
 ### `login`
 Set the global settings for store **login** action.
 
-`endpoint`
-
-Set the URL of the login endpoint. It can be a relative or absolute path.
+`endpoint` - Set the URL of the login endpoint. It can be a relative or absolute path.
 
 ### `logout`
 Sets the global settings for store **logout** action.
 
-`endpoint`
+`endpoint` - Set the URL of the logout endpoint. It can be a relative or absolute path.
 
-Set the URL of the logout endpoint. It can be a relative or absolute path.
-
-`method`
-
-Set the request to POST or GET.
+`method` - Set the request to POST or GET.
 
 ### `token`
 
-`enabled`
+`enabled` - Get and use tokens for authentication.
 
-Get and use tokens for authentication.
+`type` - Sets the token type of the authorization header.
 
-`type`
+`localStorage` - If set to `true`, Keeps token in local storage.
 
-Sets the token type of the authorization header.
+`name` - Set the token name in the local storage.
 
-`localStorage`
+`cookie` - Keeps token in cookies, if enabled.
 
-If set to `true`, Keeps token in local storage.
-
-`name`
-
-Set the token name in the local storage.
-
-`cookie`
-
-Keeps token in cookies, if enabled.
-
-`cookieName`
-
-Set the token name in Cookies.
+`cookieName` - Set the token name in Cookies.
 
 ### `redirect`
 
-`guest`
+`guest` - Sets if the middleware should redirect guests users (unauthenticated). Only when `auth` middleware is added to a page.
 
-Sets if the middleware should redirect guests users (unauthenticated). Only when `auth` middleware is added to a page.
+`user` - Sets if the middleware should redirect logged users (authenticated). Only when `auth` middleware is added to a page.
 
-`user`
+`notLoggedIn` - Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
 
-Sets if the middleware should redirect logged users (authenticated). Only when `auth` middleware is added to a page.
-
-`notLoggedIn`
-
-Sets the redirect URL default of the users not logged in. Only when `auth` middleware is added to a page.
-
-`loggedIn`
-
-Sets the redirect URL default of the users logged in. Only when `auth` middleware is added to a page.
+`loggedIn` - Sets the redirect URL default of the users logged in. Only when `auth` middleware is added to a page.
 
 ### `errorHandler`
 
