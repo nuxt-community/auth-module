@@ -7,5 +7,8 @@ module.exports = {
   render: {
     resourceHints: false
   },
-  modules: ['@@', '@nuxtjs/axios']
+  serverMiddleware: [
+    '~/api/auth'
+  ],
+  modules: ['@nuxtjs/axios', '@@']
 }
