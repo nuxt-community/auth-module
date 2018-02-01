@@ -13,16 +13,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      errors: []
-    }
-  },
   created() {
-    this.$auth.hook('error', (err => {
+    this.$auth.onError(err => {
       console.error(err)
-      this.errors.push(err)
-    }))
+    })
   },
   computed: {
     state() {
