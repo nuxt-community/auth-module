@@ -22,13 +22,23 @@
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": ["lib/templates"],
-  "files": ["lib", "src", "dist", "templates"],
+  "eslintIgnore": [
+    "lib/templates"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "dist",
+    "templates"
+  ],
   "jest": {
     "testEnvironment": "node",
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
-    "collectCoverageFrom": ["lib", "src"]
+    "collectCoverageFrom": [
+      "lib",
+      "src"
+    ]
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0-rc.2",
@@ -48,7 +58,7 @@
     "eslint-plugin-vue": "latest",
     "jest": "latest",
     "jsdom": "latest",
-    "nuxt": "latest",
+    "nuxt": "^1.3.0",
     "standard-version": "latest"
   }
 }
