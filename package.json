@@ -24,13 +24,10 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "eslintIgnore": [
-    "lib/templates"
+    "*.tmpl.*"
   ],
   "files": [
-    "lib",
-    "src",
-    "dist",
-    "templates"
+    "lib"
   ],
   "jest": {
     "testEnvironment": "node",
@@ -64,6 +61,7 @@
     "jest": "latest",
     "jsdom": "latest",
     "nuxt": "latest",
+    "puppeteer": "^1.0.0",
     "standard-version": "latest"
   }
 }
