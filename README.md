@@ -47,7 +47,7 @@ Edit `nuxt.config.js`:
 ```js
 {
   modules: [
-    '@nuxtjs/axios', // <-- Should be before @nuxtjs/auth
+    '@nuxtjs/axios',
     '@nuxtjs/auth'
  ],
 
