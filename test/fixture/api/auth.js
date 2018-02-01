@@ -48,7 +48,7 @@ app.post('/logout', (req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error(err)
+  console.error(err) // eslint-disable-line no-console
   res.status(401).send(err + '')
 })
 

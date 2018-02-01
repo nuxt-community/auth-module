@@ -1,36 +1,56 @@
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
-process.env.PORT = process.env.PORT || 5060
-process.env.NODE_ENV = 'production'
-
 const { Nuxt, Builder } = require('nuxt')
-const request = require('request-promise-native')
+const puppeteer = require('puppeteer')
 
 const config = require('./fixture/nuxt.config')
 
-const url = path => `http://localhost:${process.env.PORT}${path}`
-const get = path => request(url(path))
+const url = path => `http://localhost:3000${path}`
 
-describe('Module', () => {
+describe('auth', () => {
   let nuxt
+  let browser
 
   beforeAll(async () => {
-    config.modules.unshift(function () {
-      // Add test specific test only hooks on nuxt life cycle
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
     })
 
-    // Build a fresh nuxt
     nuxt = new Nuxt(config)
-    await new Builder(nuxt).build()
+    // await new Builder(nuxt).build()
     await nuxt.listen(process.env.PORT)
-  })
+  }, 60000)
 
   afterAll(async () => {
-    // Close all opened resources
+    await browser.close()
     await nuxt.close()
   })
 
-  test('render', async () => {
-    let html = await get('/')
-    expect(html).toContain('Works!')
+  test('initial state', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+
+    const state = await page.evaluate(() => window.__NUXT__.state)
+    expect(state.auth).toEqual({ user: null, loggedIn: false })
+
+    await page.close()
+  })
+
+  test('login', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+    await page.waitForFunction('!!window.$nuxt')
+
+    const { token, user } = await page.evaluate(async () => {
+      await window.$nuxt.$auth.login({
+        data: { username: 'user', password: 'pass' }
+      })
+
+      return {
+        token: window.$nuxt.$auth.getState('token'),
+        user: window.$nuxt.$auth.getState('user')
+      }
+    })
+
+    expect(token).toBeDefined()
+    expect(user.username).toBe('user')
   })
 })
