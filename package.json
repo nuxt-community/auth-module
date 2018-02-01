@@ -31,12 +31,7 @@
   ],
   "jest": {
     "testEnvironment": "node",
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "lib",
-      "src"
-    ]
+    "collectCoverage": true
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0-rc.2",

@@ -15,7 +15,7 @@ describe('auth', () => {
     })
 
     nuxt = new Nuxt(config)
-    // await new Builder(nuxt).build()
+    await new Builder(nuxt).build()
     await nuxt.listen(process.env.PORT)
   }, 60000)
 
