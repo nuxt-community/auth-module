@@ -8,6 +8,11 @@
         </b-card>
       </b-col>
       <b-col md="4">
+        <b-card title="Scopes" class="mb-2">
+          User: <b-badge>{{ $auth.hasScope('user') }}</b-badge>
+          Test: <b-badge>{{ $auth.hasScope('test') }}</b-badge>
+          Admin: <b-badge>{{ $auth.hasScope('admin') }}</b-badge>
+        </b-card>
         <b-card title="token">
           {{ $auth.token || '-' }}
         </b-card>
