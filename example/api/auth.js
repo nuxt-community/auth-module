@@ -25,15 +25,22 @@ app.use(
 // [POST] /login
 app.post('/login', (req, res, next) => {
   const { username, password } = req.body
-  const valid = username === 'user' && password === 'pass'
+  const valid = username.length && password === '123'
 
   if (!valid) {
     throw new Error('Invalid username or password')
   }
 
-  const token = jsonwebtoken.sign({ username }, 'dummy')
+  const accessToken = jsonwebtoken.sign(
+    { username, rand: Math.random() * 1000 },
+    'dummy'
+  )
 
-  res.json({ token })
+  res.json({
+    token: {
+      accessToken
+    }
+  })
 })
 
 // [GET] /user

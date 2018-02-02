@@ -22,14 +22,18 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "nuxt test/fixture",
+    "dev": "nuxt example",
     "lint": "eslint lib src test",
     "lint-fix": "eslint --fix lib src test",
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": ["*.tmpl.*"],
-  "files": ["lib"],
+  "eslintIgnore": [
+    "*.tmpl.*"
+  ],
+  "files": [
+    "lib"
+  ],
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true
@@ -43,6 +47,7 @@
   },
   "devDependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap-vue": "^2.0.0-rc.1",
     "codecov": "latest",
     "cookie-parser": "^1.4.3",
     "eslint": "latest",

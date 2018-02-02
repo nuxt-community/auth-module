@@ -1,7 +1,7 @@
 const { Nuxt, Builder } = require('nuxt')
 const puppeteer = require('puppeteer')
 
-const config = require('./fixture/nuxt.config')
+const config = require('../example/nuxt.config')
 
 const url = path => `http://localhost:3000${path}`
 
