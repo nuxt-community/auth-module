@@ -5,10 +5,15 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "Pooya Parsa <pooya@pi0.ir>"
+      "name": "Pooya Parsa <pooya@pi0.ir>",
+      "url": "https://github.com/pi0"
     },
     {
       "name": "Herberts Cruz <herbertscruz@gmail.com>"
+    },
+    {
+      "name": "Tony Briet",
+      "url": "https://github.com/breakingrobot"
     }
   ],
   "main": "lib/module.js",
@@ -23,12 +28,8 @@
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": [
-    "*.tmpl.*"
-  ],
-  "files": [
-    "lib"
-  ],
+  "eslintIgnore": ["*.tmpl.*"],
+  "files": ["lib"],
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true
