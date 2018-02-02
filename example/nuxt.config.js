@@ -7,6 +7,9 @@ module.exports = {
   render: {
     resourceHints: false
   },
+  build: {
+    extractCSS: true
+  },
   serverMiddleware: ['~/api/auth'],
   auth: {
     endpoints: {
