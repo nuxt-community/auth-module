@@ -32,7 +32,11 @@ app.post('/login', (req, res, next) => {
   }
 
   const accessToken = jsonwebtoken.sign(
-    { username, rand: Math.random() * 1000 },
+    {
+      username,
+      rand: Math.random() * 1000,
+      scope: ['test', 'user']
+    },
     'dummy'
   )
 
