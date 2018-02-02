@@ -77,13 +77,13 @@ Logout:
 this.$auth.logout()
 ```
 
-Get token:
+Auth token: (Reactive value)
 
 ```js
 this.$auth.token
 ```
 
-Get user object:
+User object: (Reactive value)
 
 ```js
 // Using $auth
@@ -93,7 +93,7 @@ this.$auth.state.user
 this.$store.state.auth.user
 ```
 
-Get login status:
+LoggedIn status: (Reactive value)
 
 ```js
 // Using $auth
@@ -103,11 +103,22 @@ this.$auth.state.loggedIn
 this.$store.state.auth.loggedIn
 ```
 
-
 <h2 align="center">Auth Middleware</h2>
 
+You can enable `auth` middleware either globally or per route.
+When this middleware is enabled on a route and `loggedIn` is `false` user will be redirected to `redirect.login` route. (`/login` by default)
+
+Setting per route:
+
 ```js
-// ... in nuxt.config.js ...
+export default {
+  middleware: 'auth'
+}
+```
+
+Globally setting in `nuxt.config.js`:
+
+```js
 router: {
   middleware: [
     'auth',
@@ -115,9 +126,7 @@ router: {
 }
 ```
 
-### Components Exclusion
-
-You can set a `guarded` option to false in a specific component and the middleware will ignore this component.
+In case of global usage, You can set `guarded` option to `false` in a specific component and the middleware will ignore that route.
 
 ```js
 export default {
