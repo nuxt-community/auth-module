@@ -180,7 +180,7 @@ redirect: {
 },
 ```
 
-Redirect paths, after for authenticated and non-authenticated routes. Each can be disabled by setting to `false`.
+Redirect paths to redirect user after login and logout. Each can be disabled by setting to `false`.
 
 ### `token`
 Default:
@@ -192,7 +192,7 @@ token: {
 ```
 
 * **type** - Authotization header type to be used in axios requests.
-* **name** - Token name to be stored in **localtorage**. Can be disabled by setting to `false`.
+* **name** - Token name to be stored in Browser localStorage. It can be disabled by setting to `false`.
 
 ### `cookie`
 Default:
@@ -205,15 +205,14 @@ cookie: {
 }
 ```
 
-Using cookies is **REQUIRED** for SSR requests working with JWT authentication.
+Using cookies is **required** for SSR requests to work with JWT tokens.
+
 It can be disabled by setting `cookie` to `false`.
 
-* **name**: Cookie name,
-* **params** Cookie params.
+* **name** - Cookie name,
+* **params** - Cookie params.
   * `params.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
 
 ## License
 
-[MIT License](./LICENSE)
-
-Copyright (c) Nuxt Community
+[MIT License](./LICENSE) - Copyright (c) Nuxt Community
