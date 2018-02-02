@@ -150,6 +150,11 @@ If enabled, user will be auto fetched after login.
 
 If enabled, user will be automatically logged out if any error happens. (For example when token expired)
 
+### `rewriteRedirects`
+- Default: `true`
+
+If enabled, user will came back to the original guarded route instead of `redirects.home`. 
+
 ### `namespace`
 - Default: `auth`
 
