@@ -22,6 +22,8 @@
     "access": "public"
   },
   "scripts": {
+    "build": "nuxt build example",
+    "start": "nuxt start example",
     "dev": "nuxt example",
     "lint": "eslint lib src test",
     "lint-fix": "eslint --fix lib src test",
