@@ -58,6 +58,52 @@ Edit `nuxt.config.js`:
 
 See [Options](#options) section for all available options
 
+<h2 align="center">Usage</h2>
+
+Do a password based login:
+
+```js
+this.$auth.login({
+  data: {
+    username: 'your_username',
+    password: 'your_password'
+  }
+})
+```
+
+Logout:
+
+```js
+this.$auth.logout()
+```
+
+Get token:
+
+```js
+this.$auth.token
+```
+
+Get user object:
+
+```js
+// Using $auth
+this.$auth.state.user
+
+// Using $store
+this.$store.state.auth.user
+```
+
+Get login status:
+
+```js
+// Using $auth
+this.$auth.state.loggedIn
+
+// Using $store
+this.$store.state.auth.loggedIn
+```
+
+
 <h2 align="center">Auth Middleware</h2>
 
 ```js
@@ -156,44 +202,6 @@ It can be disabled by setting `cookie` to `false`.
 * **name**: Cookie name,
 * **params** Cookie params.
   * `params.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
-
-
-<h2 align="center">Snippets</h2>
-
-Do a password based login:
-
-```js
-this.$store.dispatch('auth/login', {
-  fields: {
-    username: 'your_username',
-    password: 'your_password'
-  }
-})
-```
-
-Logout:
-
-```js
-this.$store.dispatch('auth/logout')
-```
-
-Get access token:
-
-```js
-console.log($store.state.auth.token)
-```
-
-Get user data:
-
-```js
-console.log($store.state.auth.user)
-```
-
-Get login status (Boolean):
-
-```js
-store.getters['auth/loggedIn']
-```
 
 ## License
 
