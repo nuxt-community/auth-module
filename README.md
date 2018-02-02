@@ -90,7 +90,7 @@ this.$auth.fetchUser()
 // Access using $auth (reactive)
 this.$auth.state.loggedIn
 
-// Access using $store
+// Access using $store (reactive)
 this.$store.state.auth.loggedIn
 
 // Do logout
@@ -100,7 +100,7 @@ this.$auth.logout()
 Check if user has a speficic scope:
 
 ```js
-// Returned is a reactive boolean
+// Returned is a computed boolean
 this.$auth.hasScope('admin')
 ```
 
@@ -237,7 +237,7 @@ Using cookies is **required** for SSR requests to work with JWT tokens.
 
 It can be disabled by setting `cookie` to `false`.
 
-* **name** - Cookie name,
+* **name** - Cookie name.
 * **options** - Cookie options.
   * `options.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
 
@@ -257,7 +257,7 @@ If enabled, user will be automatically logged out if any error happens. (For exa
 
 * Default: `true`
 
-If enabled, user will came back to the original guarded route instead of `redirects.home`.
+If enabled, user will redirect back to the original guarded route instead of `redirects.home`.
 
 ### `namespace`
 
@@ -269,7 +269,7 @@ Vuex store namespace for keeping state.
 
 * Default: `scope`
 
-User object proprty (Array) for scope checkings.
+`user` object proprty used for scope checkings (`hasScope`). Can be either an array or a object.
 
 ## License
 
