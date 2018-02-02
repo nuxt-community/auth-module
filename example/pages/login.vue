@@ -4,7 +4,7 @@
   <hr>
   <b-alert v-model="hasError" dismissible variant="danger">Please check credentials.</b-alert>
   <b-alert show v-if="redirect">
-    You have to login before accessing to this page.
+    You have to login before accessing to <strong>{{ redirect }}</strong>
   </b-alert>
   <form @keydown.enter="login">
     <b-form-group label="Username">
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     redirect() {
-      return Boolean(this.$route.query.redirect)
+      return this.$route.query.redirect && decodeURIComponent(this.$route.query.redirect)
     }
   },
   mounted() {
