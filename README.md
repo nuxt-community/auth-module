@@ -1,4 +1,4 @@
-<h1 align="center">Auth</h1>
+<h1 align="center">🔑 Auth</h1>
 
 <p align="center">Authentication module for Nuxt.js</p>
 
@@ -100,7 +100,7 @@ this.$auth.logout()
 Check if user has a speficic scope:
 
 ```js
-// Returned is a computed boolean
+// Returns is a computed boolean
 this.$auth.hasScope('admin')
 ```
 
