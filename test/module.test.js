@@ -41,7 +41,7 @@ describe('auth', () => {
 
     const { token, user } = await page.evaluate(async () => {
       await window.$nuxt.$auth.login({
-        data: { username: 'user', password: 'pass' }
+        data: { username: 'test_username', password: '123' }
       })
 
       return {
@@ -51,6 +51,6 @@ describe('auth', () => {
     })
 
     expect(token).toBeDefined()
-    expect(user.username).toBe('user')
+    expect(user.username).toBe('test_username')
   })
 })
