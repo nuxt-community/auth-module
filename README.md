@@ -239,7 +239,7 @@ It can be disabled by setting `cookie` to `false`.
 
 * **name** - Cookie name.
 * **options** - Cookie options.
-  * `options.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
+  * `options.expires` can be used to speficy cookie lifetime in days. Default is session only.
 
 ### `fetchUserOnLogin`
 
