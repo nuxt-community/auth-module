@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/auth",
-  "version": "3.4.1",
+  "version": "4.0.0-rc.0",
   "description": "Authentication module for Nuxt.js",
   "license": "MIT",
   "contributors": [
@@ -30,8 +30,12 @@
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": ["**/templates/**"],
-  "files": ["lib"],
+  "eslintIgnore": [
+    "**/templates/**"
+  ],
+  "files": [
+    "lib"
+  ],
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true

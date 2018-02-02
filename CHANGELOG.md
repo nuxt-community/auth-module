@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-rc.0"></a>
+# [4.0.0-rc.0](https://github.com/nuxt-community/auth-module/compare/v3.4.1...v4.0.0-rc.0) (2018-02-02)
+
+
+### Bug Fixes
+
+* guard check ([cf013a0](https://github.com/nuxt-community/auth-module/commit/cf013a0))
+* prevent middleware infinite loops ([6ec1b34](https://github.com/nuxt-community/auth-module/commit/6ec1b34))
+* ssr and code reduction ([952700c](https://github.com/nuxt-community/auth-module/commit/952700c))
+* typo in lodash template ([eac33d2](https://github.com/nuxt-community/auth-module/commit/eac33d2))
+
+
+### Features
+
+* $auth.hasScope ([6d6c7b3](https://github.com/nuxt-community/auth-module/commit/6d6c7b3))
+* $auth.onError ([151868a](https://github.com/nuxt-community/auth-module/commit/151868a))
+* allow `token` to be a nested object in the response ([#45](https://github.com/nuxt-community/auth-module/issues/45)) ([8064839](https://github.com/nuxt-community/auth-module/commit/8064839))
+* handle endpoints.propertyName ([710561b](https://github.com/nuxt-community/auth-module/commit/710561b)), closes [#46](https://github.com/nuxt-community/auth-module/issues/46)
+* rewriteRedirects ([dde409a](https://github.com/nuxt-community/auth-module/commit/dde409a))
+* update defaults to axios 5.x ([10157aa](https://github.com/nuxt-community/auth-module/commit/10157aa))
+* use new Auth class ([d4da740](https://github.com/nuxt-community/auth-module/commit/d4da740))
+
+
+### Performance Improvements
+
+* improve cookie handling ([c50e68f](https://github.com/nuxt-community/auth-module/commit/c50e68f))
+
+
+### BREAKING CHANGES
+
+* Lot's of API and Usage changes
+
+
+
 <a name="3.4.1"></a>
 ## [3.4.1](https://github.com/nuxt-community/auth-module/compare/v3.4.0...v3.4.1) (2017-12-29)
 
