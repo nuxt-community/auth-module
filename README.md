@@ -199,7 +199,7 @@ Default:
 ```js
 cookie: {
   name: 'token',
-  params: {
+  options: {
     path: '/'
   }
 }
@@ -210,8 +210,8 @@ Using cookies is **required** for SSR requests to work with JWT tokens.
 It can be disabled by setting `cookie` to `false`.
 
 * **name** - Cookie name,
-* **params** - Cookie params.
-  * `params.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
+* **options** - Cookie options.
+  * `options.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
 
 ## License
 
