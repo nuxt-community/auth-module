@@ -22,7 +22,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "nuxt build example",
+    "heroku-postbuild": "nuxt build example",
     "start": "nuxt start example",
     "dev": "nuxt example",
     "lint": "eslint lib src test",
@@ -30,12 +30,8 @@
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": [
-    "**/templates/**"
-  ],
-  "files": [
-    "lib"
-  ],
+  "eslintIgnore": ["**/templates/**"],
+  "files": ["lib"],
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true
