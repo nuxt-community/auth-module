@@ -11,9 +11,6 @@ module.exports = {
   auth: {
     endpoints: {
       login: { propertyName: 'token.accessToken' }
-    },
-    redirect: {
-      home: '/profile'
     }
   },
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@']

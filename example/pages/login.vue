@@ -3,6 +3,9 @@
   <h2>Login</h2>
   <hr>
   <b-alert v-model="hasError" dismissible variant="danger">Please check credentials.</b-alert>
+  <b-alert show v-if="redirect">
+    You have to login before accessing to this page.
+  </b-alert>
   <form @keydown.enter="login">
     <b-form-group label="Username">
       <b-input v-model="username" placeholder="Use any username" ref="username" />
@@ -27,6 +30,11 @@ export default {
       username: '',
       password: '123',
       hasError: false
+    }
+  },
+  computed: {
+    redirect() {
+      return Boolean(this.$route.query.redirect)
     }
   },
   mounted() {
