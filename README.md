@@ -82,7 +82,6 @@ this.$store.state.auth.user
 
 // Refetch user
 this.$auth.fetchUser()
-
 ```
 
 `loggedIn` status:
@@ -118,7 +117,7 @@ this.$auth.setToken('123')
 Listen for auth errors: (`plugins/auth.js`)
 
 ```js
-export default function ({ $auth }) {
+export default function({ $auth }) {
   $auth.onError(({ name, error }) => {
     console.error(name, error)
   })
@@ -158,9 +157,7 @@ Globally setting in `nuxt.config.js`:
 
 ```js
 router: {
-  middleware: [
-    'auth',
-  ]
+  middleware: ['auth']
 }
 ```
 
@@ -169,7 +166,7 @@ In case of global usage, You can set `auth` option to `false` in a specific comp
 ```js
 export default {
   options: {
-    auth: false,
+    auth: false
   }
 }
 ```
@@ -179,7 +176,9 @@ export default {
 See [defaults.js](lib/defaults.js) for defaults.
 
 ### `endpoints`
+
 Default:
+
 ```js
 endpoints: {
   login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
@@ -195,7 +194,9 @@ Endpoints used to make requests using axios. They are basically extending Axios 
 To disable each endpoint, simply set it's value to `false`.
 
 ### `redirect`
+
 Default:
+
 ```js
 redirect: {
   login: '/login',
@@ -206,7 +207,9 @@ redirect: {
 Redirect paths to redirect user after login and logout. Each can be disabled by setting to `false`.
 
 ### `token`
+
 Default:
+
 ```js
 token: {
   type: 'Bearer',
@@ -218,7 +221,9 @@ token: {
 * **name** - Token name to be stored in Browser localStorage. It can be disabled by setting to `false`.
 
 ### `cookie`
+
 Default:
+
 ```js
 cookie: {
   name: 'token',
@@ -237,27 +242,32 @@ It can be disabled by setting `cookie` to `false`.
   * `options.expires` can be used to speficy cookie lifetime in seconds. Default is session only.
 
 ### `fetchUserOnLogin`
-- Default: `true`
+
+* Default: `true`
 
 If enabled, user will be auto fetched after login.
 
 ### `resetOnError`
-- Default: `true`
+
+* Default: `true`
 
 If enabled, user will be automatically logged out if any error happens. (For example when token expired)
 
 ### `rewriteRedirects`
-- Default: `true`
 
-If enabled, user will came back to the original guarded route instead of `redirects.home`. 
+* Default: `true`
+
+If enabled, user will came back to the original guarded route instead of `redirects.home`.
 
 ### `namespace`
-- Default: `auth`
+
+* Default: `auth`
 
 Vuex store namespace for keeping state.
 
 ### `scopeKey`
-- Default: `scope`
+
+* Default: `scope`
 
 User object proprty (Array) for scope checkings.
 
