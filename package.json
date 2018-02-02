@@ -22,8 +22,8 @@
     "access": "public"
   },
   "scripts": {
-    "heroku-postbuild": "yarn nuxt build example",
-    "start": "yarn nuxt start example",
+    "heroku-postbuild": "nuxt build example",
+    "start": "nuxt start example",
     "dev": "nuxt example",
     "lint": "eslint lib src test",
     "lint-fix": "eslint --fix lib src test",
