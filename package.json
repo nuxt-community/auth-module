@@ -29,7 +29,7 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "eslintIgnore": [
-    "*.tmpl.*"
+    "**/templates/**"
   ],
   "files": [
     "lib"
