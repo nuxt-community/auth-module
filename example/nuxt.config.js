@@ -16,5 +16,11 @@ module.exports = {
       login: { propertyName: 'token.accessToken' }
     }
   },
-  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@']
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@'],
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': 'http://localhost:3000'
+  }
 }
