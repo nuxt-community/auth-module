@@ -126,12 +126,12 @@ router: {
 }
 ```
 
-In case of global usage, You can set `guarded` option to `false` in a specific component and the middleware will ignore that route.
+In case of global usage, You can set `auth` option to `false` in a specific component and the middleware will ignore that route.
 
 ```js
 export default {
   options: {
-    guarded: false,
+    auth: false,
   }
 }
 ```
