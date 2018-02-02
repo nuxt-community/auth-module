@@ -22,8 +22,8 @@
     "access": "public"
   },
   "scripts": {
-    "heroku-postbuild": "nuxt build example",
-    "start": "nuxt start example",
+    "heroku-postbuild": "./node_modules/nuxt/bin/nuxt build example",
+    "start": "./node_modules/nuxt/bin/nuxt start example",
     "dev": "nuxt example",
     "lint": "eslint lib src test",
     "lint-fix": "eslint --fix lib src test",
