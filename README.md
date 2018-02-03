@@ -131,6 +131,9 @@ Working with low level state: (Not recommended)
 this.$auth.setState(key, val)
 this.$auth.getState(key)
 
+// Watch state changes
+this.$auth.watchState('loggedIn', newValue => { })
+
 // Cookie
 this.$auth.setCookie(key, val, options)
 this.$auth.getCookie(key)
@@ -256,6 +259,12 @@ If enabled, user will be automatically logged out if any error happens. (For exa
 * Default: `true`
 
 If enabled, user will redirect back to the original guarded route instead of `redirects.home`.
+
+### `watchLoggedIn`
+
+* Default: `true`
+
+If enabled, user will automatically redirected to `redirects.home` after login/logout.
 
 ### `namespace`
 
