@@ -165,9 +165,7 @@ In case of global usage, You can set `auth` option to `false` in a specific comp
 
 ```js
 export default {
-  options: {
-    auth: false
-  }
+  auth: false
 }
 ```
 
