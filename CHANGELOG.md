@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-rc.1"></a>
+# [4.0.0-rc.1](https://github.com/nuxt-community/auth-module/compare/v4.0.0-rc.0...v4.0.0-rc.1) (2018-02-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies ([5d6cb8a](https://github.com/nuxt-community/auth-module/commit/5d6cb8a))
+* **watcher:** close [#52](https://github.com/nuxt-community/auth-module/issues/52) and undefined bug ([2a03f2f](https://github.com/nuxt-community/auth-module/commit/2a03f2f))
+
+
+### Features
+
+* watchState and watchLoggedIn ([b628455](https://github.com/nuxt-community/auth-module/commit/b628455)), closes [#52](https://github.com/nuxt-community/auth-module/issues/52)
+
+
+
 <a name="4.0.0-rc.0"></a>
 # [4.0.0-rc.0](https://github.com/nuxt-community/auth-module/compare/v3.4.1...v4.0.0-rc.0) (2018-02-02)
 
