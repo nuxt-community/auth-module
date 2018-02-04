@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-rc.3"></a>
+# [4.0.0-rc.3](https://github.com/nuxt-community/auth-module/compare/v4.0.0-rc.2...v4.0.0-rc.3) (2018-02-04)
+
+
+### Bug Fixes
+
+* fix scope checks during logout ([e2ebd97](https://github.com/nuxt-community/auth-module/commit/e2ebd97))
+
+
+### Features
+
+* refactor init logic to $auth.init and improve error handling ([b58ca17](https://github.com/nuxt-community/auth-module/commit/b58ca17))
+
+
+
 <a name="4.0.0-rc.2"></a>
 # [4.0.0-rc.2](https://github.com/nuxt-community/auth-module/compare/v4.0.0-rc.1...v4.0.0-rc.2) (2018-02-03)
 
