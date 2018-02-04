@@ -118,7 +118,7 @@ Listen for auth errors: (`plugins/auth.js`)
 
 ```js
 export default function({ $auth }) {
-  $auth.onError(({ name, error }) => {
+  $auth.onError((error, name, endpoint) => {
     console.error(name, error)
   })
 }
@@ -250,7 +250,7 @@ If enabled, user will be auto fetched after login.
 
 ### `resetOnError`
 
-* Default: `true`
+* Default: `false`
 
 If enabled, user will be automatically logged out if any error happens. (For example when token expired)
 
