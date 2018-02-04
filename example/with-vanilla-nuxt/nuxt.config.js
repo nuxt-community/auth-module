@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 
 module.exports = {
-  rootDir: resolve(__dirname, '..'),
+  rootDir: resolve(__dirname, '../..'),
   srcDir: __dirname,
   dev: false,
   render: {
@@ -10,7 +10,7 @@ module.exports = {
   build: {
     extractCSS: true
   },
-  serverMiddleware: ['~/api/auth'],
+  serverMiddleware: ['../api/auth'],
   auth: {
     endpoints: {
       login: { propertyName: 'token.accessToken' }
