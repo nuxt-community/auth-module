@@ -22,28 +22,22 @@
     "access": "public"
   },
   "scripts": {
-    "heroku-postbuild": "nuxt build example",
-    "start": "nuxt start example/with-vanilla-nuxt",
-    "dev": "nuxt example/with-vanilla-nuxt",
+    "heroku-postbuild": "nuxt build examples/demo",
+    "start": "nuxt start examples/demo",
+    "dev": "nuxt examples/demo",
     "lint": "eslint lib src test",
     "lint-fix": "eslint --fix lib src test",
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
-  "eslintIgnore": [
-    "**/templates/**"
-  ],
-  "files": [
-    "lib"
-  ],
+  "eslintIgnore": ["**/templates/**"],
+  "files": ["lib"],
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0-rc.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "cookie": "^0.3.1",
     "dotprop": "^1.0.2",
     "js-cookie": "^2.2.0",
@@ -51,6 +45,8 @@
   },
   "devDependencies": {
     "@nuxtjs/toast": "^2.3.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "body-parser": "^1.18.2",
     "bootstrap-vue": "^2.0.0-rc.1",
     "codecov": "latest",
