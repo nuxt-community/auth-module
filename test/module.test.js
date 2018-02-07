@@ -29,7 +29,7 @@ describe('auth', () => {
     await page.goto(url('/'))
 
     const state = await page.evaluate(() => window.__NUXT__.state)
-    expect(state.auth).toEqual({ user: null, loggedIn: false })
+    expect(state.auth).toEqual({ user: null, loggedIn: false, strategy: 'local' })
 
     await page.close()
   })
@@ -45,8 +45,8 @@ describe('auth', () => {
       })
 
       return {
-        token: window.$nuxt.$auth.getState('token'),
-        user: window.$nuxt.$auth.getState('user')
+        token: window.$nuxt.$auth.token,
+        user: window.$nuxt.$auth.state.user
       }
     })
 
