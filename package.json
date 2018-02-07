@@ -31,7 +31,7 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "eslintIgnore": [
-    "**/templates/**"
+    "lib/auth/plugin.js"
   ],
   "files": [
     "lib"
