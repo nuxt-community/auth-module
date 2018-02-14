@@ -258,13 +258,13 @@ If enabled, user will be automatically logged out if any error happens. (For exa
 
 * Default: `true`
 
-If enabled, user will redirect back to the original guarded route instead of `redirects.home`.
+If enabled, user will redirect back to the original guarded route instead of `redirect.home`.
 
 ### `watchLoggedIn`
 
 * Default: `true`
 
-If enabled, user will automatically redirected to `redirects.home` after login/logout.
+If enabled, user will automatically redirected to `redirect.home` after login/logout.
 
 ### `namespace`
 
