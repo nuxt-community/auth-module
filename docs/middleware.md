@@ -27,4 +27,4 @@ export default {
 }
 ```
 
-👉 Now you have to configure some [Strategies](strategies.md) for auth.
+👉 Now you have to configure some [Strategies](strategies/README.md) for auth.
