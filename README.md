@@ -28,7 +28,6 @@
 
 If you are coming from an older release please be sure to read [Migration Guide](https://github.com/nuxt-community/auth-module/wiki/Migration-guide).
 
-
 ## License
 
 [MIT License](./LICENSE) - Copyright (c) Nuxt Community
