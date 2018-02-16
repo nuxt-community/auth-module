@@ -11,14 +11,14 @@ By default `local` scheme is enabled and preconfigured.
 ```js
 auth: {
   strategies: {
-  local: {
-    endpoints: {
-      login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-      logout: { url: '/api/auth/logout', method: 'post' },
-      user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+    local: {
+      endpoints: {
+        login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+        logout: { url: '/api/auth/logout', method: 'post' },
+        user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+      }
     }
   }
-}
 }
 ```
 

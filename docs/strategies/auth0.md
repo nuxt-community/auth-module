@@ -11,21 +11,21 @@ You can use this scheme to easily add Oauth login support using auth0.
 ```js
 auth: {
   strategies: {
-  auth0: {
-    clientID: 'the-client-id',
-    domain: 'your-domain.auth0.com'
+    auth0: {
+      clientID: 'the-client-id',
+      domain: 'your-domain.auth0.com'
+    }
   }
-}
 }
 ```
 
-### clientID** and **domain**
+### **`clientID`** and **`domain`**
 
 This options are **REQUIRED**. Your application needs some details about this client to communicate with Auth0. You can get these details from the Settings section for your client in the [Auth0 dashboard](https://manage.auth0.com).
 
 <img align="center" src="https://cdn2.auth0.com/docs/media/articles/dashboard/client_settings.png">
 
-### redirectUri
+### `redirectUri`
 
 A callback URL is a URL in your application where Auth0 redirects the user after they have authenticated.
 
