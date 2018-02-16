@@ -1,6 +1,6 @@
-# Auth
+<h1 align="center">Auth</h1>
 
-> Authentication module for Nuxt.js
+<p align="center">Authentication module for Nuxt.js</p>
 
 <p align="center">
 <a href="https://david-dm.org/nuxt-community/auth-module">
@@ -24,9 +24,11 @@
 </a>
 </p>
 
-* **[📖Full Documentation](https://nuxt-community.gitbooks.io/auth)**
 
-## Examples
+* 📖 **[Read Documentation](https://nuxt-community.gitbooks.io/auth)**
+
+
+### Examples
 
 * [JWT API with Express](examples/api)
 * [Demo](examples/demo)
