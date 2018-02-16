@@ -1,4 +1,4 @@
-<h1 align="center">🔑 Auth</h1>
+<h1 align="center">Auth</h1>
 
 <p align="center">Authentication module for Nuxt.js</p>
 
@@ -23,10 +23,6 @@
     <img alt="" src="https://img.shields.io/npm/dt/@nuxtjs/auth.svg?style=flat-square">
 </a>
 </p>
-
-[📖 **Release Notes**](./CHANGELOG.md)
-
-If you are coming from an older release please be sure to read [Migration Guide](https://github.com/nuxt-community/auth-module/wiki/Migration-guide).
 
 ## License
 
