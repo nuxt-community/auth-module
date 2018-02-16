@@ -26,3 +26,5 @@ export default {
   auth: false
 }
 ```
+
+👉 Now you have to configure some [Strategies](strategies.md) for auth.

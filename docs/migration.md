@@ -1,7 +1,9 @@
-# From 3.x to 4.x
+# Migration Guide
+
+## From 3.x to 4.x
 4.x is a new rewrite of Auth module. This release introduces some new features but also includes breaking changes with both usage and options, this guide will allow you to easily upgrade from 3.x to 4.x
 
-## Behavioural changes
+### Behavioural changes
  - The module now watches any changes from `loggedIn` and automatically redirects users on login and logout.
 
 **NOTE :** *User will be redirected using `login` and `home` from `redirect` options*
@@ -40,7 +42,7 @@ this.$auth.logout()
 ```
 
 
-## Middleware changes
+### Middleware changes
  - `auth` middleware  now manages both authenticated and unauthenticated user redirection
  - `no-auth` middleware have been **removed** and merged into `auth` middleware
 

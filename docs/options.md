@@ -1,4 +1,4 @@
-<h2 align="center">Options</h2>
+# Options
 
 General options shared with all strategies. See [defaults.js](lib/defaults.js) for defaults.
 
@@ -79,3 +79,4 @@ Vuex store namespace for keeping state.
 * Default: `scope`
 
 `user` object proprty used for scope checkings (`hasScope`). Can be either an array or a object.
+

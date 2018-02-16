@@ -1,8 +1,9 @@
 # Auth Module
 
-> Authentication module for Nuxt.js
+> Authentication module for Nuxt.js.
 
-* [😺 Github](https://github.com/nuxt-community/auth-module)
-* [📖 Release Notes](./CHANGELOG.md)
+* [Github](https://github.com/nuxt-community/auth-module)
+* [Release Notes](./CHANGELOG.md)
+* [Migration Guide](migration.md)
 
-If you are coming from an older release please be sure to read Migration Guide.
+👉 To get started head to [Setup](setup.md) section.
