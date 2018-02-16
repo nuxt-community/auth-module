@@ -5,7 +5,7 @@
   "plugins": [
     "edit-link",
     "prism",
-    "theme-vuejs",
+    "theme-vuejs-2",
     "-fontsettings",
     "-highlight",
     "github",
