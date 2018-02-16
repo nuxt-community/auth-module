@@ -15,8 +15,12 @@ module.exports = {
   },
   serverMiddleware: ['../api/auth'],
   auth: {
-    endpoints: {
-      login: { propertyName: 'token.accessToken' }
+    strategies: {
+      local: {
+        endpoints: {
+          login: { propertyName: 'token.accessToken' }
+        }
+      }
     }
   },
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@nuxtjs/toast', '@@'],
