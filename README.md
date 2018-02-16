@@ -24,17 +24,12 @@
 </a>
 </p>
 
+<p align="center">
+📖 <a href="https://nuxt-community.gitbooks.io/auth" target="_blank">Read Documentation</a>
+</p>
 
-* 📖 **[Read Documentation](https://nuxt-community.gitbooks.io/auth)**
 
-
-### Examples
-
-* [JWT API with Express](examples/api)
-* [Demo](examples/demo)
-* [With Class Component](examples/with-class-components)
-
-Running demo for development:
+**Running demo for development:**
 
 ```bash
 $ yarn install
