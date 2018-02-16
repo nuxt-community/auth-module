@@ -56,12 +56,6 @@ It can be disabled by setting `cookie` to `false`.
 * **options** - Cookie options.
   * `options.expires` can be used to speficy cookie lifetime in days. Default is session only.
 
-### `fetchUserOnLogin`
-
-* Default: `true`
-
-If enabled, user will be auto fetched after login.
-
 ### `resetOnError`
 
 * Default: `false`
