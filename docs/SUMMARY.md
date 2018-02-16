@@ -4,7 +4,7 @@
 * [Setup](setup.md)
 * [Middleware](middleware.md)
 * [Strategies](strategies/README.md)
-  * [Local](schemes/local.md)
+  * [Local](strategies/local.md)
 * [API](api/README.md)
   * [Properties](api/properties.md)
   * [Methods](api/methods.md)
