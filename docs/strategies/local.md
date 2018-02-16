@@ -9,7 +9,8 @@ By default `local` scheme is enabled and preconfigured.
 ## Options
 
 ```js
-strategies: {
+auth: {
+  strategies: {
   local: {
     endpoints: {
       login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
@@ -17,6 +18,7 @@ strategies: {
       user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
     }
   }
+}
 }
 ```
 
@@ -40,7 +42,7 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 To do a password based login by sending credentials in request body as a JSON object:
 
 ```js
-this.$auth.login({
+this.$auth.local.login({
   data: {
     username: 'your_username',
     password: 'your_password'
