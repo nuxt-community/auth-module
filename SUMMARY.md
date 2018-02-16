@@ -7,3 +7,5 @@
   * [Local](docs/strategies/local.md)
 * [Usage](docs/usage.md)
 * [Options](docs/options.md)
+* [Migration Guide](docs/migration.md)
+* [Changelog](changelog.md)
