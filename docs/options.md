@@ -72,7 +72,7 @@ If enabled, user will be automatically logged out if any error happens. (For exa
 
 * Default: `true`
 
-If enabled, user will redirect back to the original guarded route instead of `redirects.home`.
+If enabled, user will redirect back to the original guarded route instead of `redirect.home`.
 
 ### `namespace`
 
