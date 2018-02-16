@@ -48,4 +48,4 @@ this.$auth.login({
 })
 ```
 
-👉 There are more [common options](../options.md) available too.
+> 👉 There are more [common options](../options.md) available too.

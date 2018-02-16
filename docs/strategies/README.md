@@ -26,4 +26,4 @@ auth: {
 }
 ```
 
-👉 Now that you have idea what are schemes and strategies, you can configure default [Local Scheme](schemes/local.md) and [common options](options.md).
+> 👉 Now that you have idea what are schemes and strategies, you can configure default [Local Scheme](local.md) and [common options](../options.md).

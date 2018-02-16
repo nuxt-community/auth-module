@@ -1,6 +1,6 @@
-<h1 align="center">Auth</h1>
+# Auth
 
-<p align="center">Authentication module for Nuxt.js</p>
+> Authentication module for Nuxt.js
 
 <p align="center">
 <a href="https://david-dm.org/nuxt-community/auth-module">
@@ -23,6 +23,21 @@
     <img alt="" src="https://img.shields.io/npm/dt/@nuxtjs/auth.svg?style=flat-square">
 </a>
 </p>
+
+* [Full Documentation](nuxt-community.gitbooks.io/auth)
+
+## Examples
+
+* [JWT API with Express](examples/api)
+* [Demo](examples/demo)
+* [With Class Component](examples/with-class-components)
+
+Running demo for development:
+
+```bash
+$ yarn install
+$ yarn dev
+```
 
 ## License
 
