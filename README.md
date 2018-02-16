@@ -24,7 +24,7 @@
 </a>
 </p>
 
-* [Full Documentation](nuxt-community.gitbooks.io/auth)
+* **[📖Full Documentation](https://nuxt-community.gitbooks.io/auth)**
 
 ## Examples
 
