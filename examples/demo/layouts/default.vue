@@ -12,9 +12,10 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <template v-if="$auth.state.loggedIn">
-            <b-nav-item-dropdown :text="$auth.state.user.username" right>
+            <b-nav-item-dropdown :text="$auth.state.user.name" right>
               <b-dropdown-item @click="$auth.logout()">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
+            <b-img :src="$auth.state.user.picture" class="mt-1" rounded="circle" width="30px" height="30px" />
           </template>
           <template v-else>
             <b-dropdown-item to="/login">Login</b-dropdown-item>

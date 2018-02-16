@@ -16,7 +16,10 @@
     </b-form-group>
 
     <div class="text-center">
-      <b-btn @click="login" variant="outline-primary" size="lg">Login</b-btn>
+      <b-btn-group>
+        <b-btn @click="login" variant="outline-primary" size="lg">Login</b-btn>
+        <b-btn @click="$auth.strategies.auth0.login()" variant="outline-primary" size="lg">Login with Auth0</b-btn>
+      </b-btn-group>
     </div>
   </form>
 </div>
@@ -42,7 +45,7 @@ export default {
   },
   methods: {
     async login() {
-      return this.$auth.login({
+      return this.$auth.strategies.local.login({
         data: {
           username: this.username,
           password: this.password

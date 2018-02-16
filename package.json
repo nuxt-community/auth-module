@@ -42,6 +42,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "auth0-js": "^9.2.3",
+    "auth0-lock": "^11.2.3",
     "cookie": "^0.3.1",
     "dotprop": "^1.0.2",
     "js-cookie": "^2.2.0",
