@@ -25,5 +25,3 @@ Edit `nuxt.config.js`:
    // Options
  }
 ```
-
-See [Options](#options) section for all available options.

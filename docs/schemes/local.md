@@ -1,8 +1,8 @@
-# Local Strategy
+# Local Scheme
 
-This is the default, general purpose authentication strategy, supporting `Cookie` and `JWT` login flows.
+This is the default, general purpose authentication scheme, supporting `Cookie` and `JWT` login flows.
 
-By default `local` strategy is enabled. You can set `strategies.local` to `false` to disable it.
+By default `local` scheme is enabled. You can set `strategies.local` to `false` to disable it.
 
 ```js
 strategies: {
@@ -22,7 +22,7 @@ strategies: {
 
 * Optional `tokenRequired` option can be used to disable all token handling. Useful for Cookie only flows. (Enabled by default)
 
-#### Usage
+## Usage
 
 Do a password based login by sending credentials in request body as a JSON object:
 

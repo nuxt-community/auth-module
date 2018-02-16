@@ -2,8 +2,8 @@
 
 * [Introduction](README.md)
 * [Setup](docs/setup.md)
-* [Usage API](docs/usage.md)
 * [Middleware](docs/middleware.md)
-* [Options](docs/options.md)
-* [Strategies](docs/strategies.md)
+* [Schemes and Strategies](docs/schemes-and-strategies.md)
   * [Local](docs/strategies/local.md)
+* [Usage](docs/usage.md)
+* [Options](docs/options.md)
