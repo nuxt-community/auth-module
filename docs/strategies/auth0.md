@@ -38,7 +38,7 @@ If this option is not provided, URL of login (or page which initiates login) wil
 To initiate login:
 
 ```js
-this.$auth.strategies.auth0.login()
+this.$auth.loginWith('auth0')
 ```
 
 User will be redirected to a page like this:

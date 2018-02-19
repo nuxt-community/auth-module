@@ -2,18 +2,31 @@
 
 > You can all auth methods anywhere that `this` or `context.app` is available using `$auth`.
 
-### `login`
+### `loginWith(strategyName, ...args)`
 
 - Returns: `Promise`
 
-Login using active strategy. Usage varies by current scheme.
+Set current strategy to `strategyName` and try to do login. Usage varies by current strategy.
+
+```js
+this.$auth.loginWith('local', /* .... */)
+  .then(() => this.$toast.success('Logged In!'))
+```
+
+### `login(...args)`
+
+- Returns: `Promise`
+
+Login using active strategy. Usage varies by current strategy.
+
+> Using `loginWith` is recommended instead of this function!
 
 ```js
 this.$auth.login(/* .... */)
   .then(() => this.$toast.success('Logged In!'))
 ```
 
-## `logout`
+## `logout()`
 
 - Returns: `Promise`
 
@@ -23,7 +36,7 @@ Logout active strategy. Usage varies by current scheme.
 await this.$auth.logout()
 ```
 
-## `fetchUser`
+## `fetchUser()`
 
 - Returns: `Promise`
 
@@ -33,7 +46,7 @@ Force re-fetch user using active strategy.
 await this.$auth.fetchUser()
 ```
 
-## `hasScope`
+## `hasScope(scopeName)`
 Check if user has a specific scope:
 
 ```js
@@ -41,7 +54,7 @@ Check if user has a specific scope:
 this.$auth.hasScope('admin')
 ```
 
-### `setToken`
+### `setToken(token)`
 
 Set token in all neccessary places including Vuex, local state, localStorage and Axios headers.
 
@@ -50,7 +63,7 @@ Set token in all neccessary places including Vuex, local state, localStorage and
 this.$auth.setToken('123')
 ```
 
-### `onError`
+### `onError(handler)`
 
 Listen for auth errors: (`plugins/auth.js`)
 

@@ -40,7 +40,7 @@ describe('auth', () => {
     await page.waitForFunction('!!window.$nuxt')
 
     const { token, user } = await page.evaluate(async () => {
-      await window.$nuxt.$auth.login({
+      await window.$nuxt.$auth.loginWith('local', {
         data: { username: 'test_username', password: '123' }
       })
 

@@ -42,7 +42,7 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 To do a password based login by sending credentials in request body as a JSON object:
 
 ```js
-this.$auth.local.login({
+this.$auth.local.loginWith('local', {
   data: {
     username: 'your_username',
     password: 'your_password'
