@@ -2,6 +2,7 @@
 
 > Authentication module for Nuxt.js
 
+
 <p align="center">
 <a href="https://david-dm.org/nuxt-community/auth-module">
     <img alt="" src="https://david-dm.org/nuxt-community/auth-module/status.svg?style=flat-square">
