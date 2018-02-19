@@ -1,6 +1,6 @@
-<h1 align="center">Auth</h1>
+# Auth Module
 
-<p align="center">Authentication module for Nuxt.js</p>
+> Authentication module for Nuxt.js
 
 <p align="center">
 <a href="https://david-dm.org/nuxt-community/auth-module">
@@ -24,10 +24,7 @@
 </a>
 </p>
 
-<p align="center">
-📖 <a href="https://nuxt-community.gitbooks.io/auth" target="_blank">Read Documentation</a>
-</p>
-
+📖 [**Read Documentation**](https://auth.nuxtjs.org)
 
 **Running demo for development:**
 
