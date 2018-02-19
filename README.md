@@ -24,7 +24,7 @@
 </a>
 </p>
 
-## 📖 [**Read Documentation**](https://auth.nuxtjs.org)
+📖 [**Read Documentation**](https://auth.nuxtjs.org)
 
 **Running demo for development:**
 
