@@ -1,4 +1,4 @@
-# Auth Module
+# 🔑 Auth Module
 
 > Authentication module for Nuxt.js
 
@@ -24,7 +24,7 @@
 </a>
 </p>
 
-📖 [**Read Documentation**](https://auth.nuxtjs.org)
+## 📖 [**Read Documentation**](https://auth.nuxtjs.org)
 
 **Running demo for development:**
 
@@ -33,6 +33,6 @@ $ yarn install
 $ yarn dev
 ```
 
-## License
+## 📑 License
 
 [MIT License](./LICENSE) - Copyright (c) Nuxt Community
