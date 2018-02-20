@@ -9,7 +9,7 @@ You can access it using either `$auth` or Vuex.
 
 ```js
 // Access using $auth
-this.$auth.state.user
+this.$auth.user // OR this.$auth.state.user
 
 // Access using $store
 this.$store.state.auth.user
@@ -24,17 +24,8 @@ This boolean flag indicates that user is authenticated and available at the mome
 
 ```js
 // Access using $auth
-this.$auth.state.loggedIn
+this.$auth.loggedIn // OR this.$auth.state.loggedIn
 
 // Access using $store
 this.$store.state.auth.loggedIn
-```
-
-## `token`
-
-Keeps the token. For security reasons, token is kept outside of Vuex store.
-
-```js
-// Access token
-this.$auth.token
 ```

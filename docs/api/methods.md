@@ -54,9 +54,9 @@ Check if user has a specific scope:
 this.$auth.hasScope('admin')
 ```
 
-### `setToken(token)`
+### `setToken(token[,name])`
 
-Set token in all neccessary places including Vuex, local state, localStorage and Axios headers.
+Universally set token. The `name` parameter is optional and defaults to `options.token.name`.
 
 ```js
 // Update token
@@ -77,6 +77,13 @@ export default function({ $auth }) {
 
 ## State utilities
 
+### Universal Storage
+
+```js
+this.$auth.setUniversal(key, val, options)
+this.$auth.getUniversal(key)
+this.$auth.syncUniversal(key)
+```
 
 ### Local State
 

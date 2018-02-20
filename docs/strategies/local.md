@@ -16,7 +16,9 @@ auth: {
         login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
         logout: { url: '/api/auth/logout', method: 'post' },
         user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
-      }
+      },
+      // tokenRequired: true,
+      // tokenType: 'bearer',
     }
   }
 }
@@ -28,13 +30,19 @@ Each endpoint is used to make requests using axios. They are basically extending
 
 > To disable each endpoint, simply set it's value to `false`.
 
-### `propertyName` \(endpoints\)
+#### `propertyName`
 
 `propertyName` can be used to specify which field of the response JSON to be used for value. It can be `undefined` to directly use API response or being more complicated like `auth.user`.
 
 ### `tokenRequired`
 
 This option can be used to disable all token handling. Useful for Cookie only flows. \(Enabled by default\)
+
+### `tokenType`
+
+- Default: `Bearer`
+
+ Authotization header type to be used in axios requests.
 
 ## Usage
 

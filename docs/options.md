@@ -27,13 +27,11 @@ Default:
 
 ```js
 token: {
-  type: 'Bearer',
-  name: 'token'.
+  name: 'token'
 }
 ```
 
-* **type** - Authotization header type to be used in axios requests.
-* **name** - Token name to be stored in Browser localStorage. It can be disabled by setting to `false`.
+* **name** - Default token name to be stored in Browser localStorage. It can be disabled by setting to `false`.
 
 ### `cookie`
 
@@ -68,7 +66,7 @@ If enabled, user will be automatically logged out if any error happens. (For exa
 
 If enabled, user will redirect back to the original guarded route instead of `redirect.home`.
 
-### `namespace`
+### `vuex.namespace`
 
 * Default: `auth`
 
