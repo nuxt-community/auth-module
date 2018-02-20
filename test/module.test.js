@@ -45,7 +45,7 @@ describe('auth', () => {
       })
 
       return {
-        token: window.$nuxt.$auth.token,
+        token: window.$nuxt.$auth.getToken(),
         user: window.$nuxt.$auth.state.user
       }
     })
