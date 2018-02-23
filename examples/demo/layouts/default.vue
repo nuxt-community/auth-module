@@ -30,17 +30,14 @@
 </template>
 
 <script>
+import dotProp from 'dotprop'
+
 export default  {
   computed: {
     picture() {
-      let p = this.$auth.user.picture
-
-      // Facebook
-      if (p.data && p.data.url) {
-        p = p.data.url
-      }
-
-      return p
+      return  dotProp(this.$auth.user, 'picture') ||  // OpenID
+              dotProp(this.$auth.user, 'picture.data.url') || // Facebook graph API
+              dotProp(this.$auth.user, 'avatar_url') // Github
     }
   }
 
