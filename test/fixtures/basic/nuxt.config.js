@@ -14,9 +14,6 @@ module.exports = {
   auth: {
     endpoints: {
       login: { propertyName: 'token.accessToken' }
-    },
-    strategies: {
-      invalid: {}
     }
   },
   modules: ['@nuxtjs/axios', '@@'],
