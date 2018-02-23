@@ -39,7 +39,8 @@ module.exports = {
           '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
       },
       github: {
-        client_id: '56ab0511106a13cbb12c'
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET
       },
       twitter: {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
