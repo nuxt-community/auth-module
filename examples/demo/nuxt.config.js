@@ -26,8 +26,12 @@ module.exports = {
         }
       },
       auth0: {
-        clientID: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv',
-        domain: 'nuxt-auth.auth0.com'
+        _scheme: 'oauth2',
+        clientId: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv',
+        authorizationUri: 'https://nuxt-auth.auth0.com/authorize',
+        userinfoUri: 'https://nuxt-auth.auth0.com/userinfo',
+        redirectUri: 'http://localhost:3000/login',
+        scopes: ['openid', 'profile', 'email']
       },
       facebook: {
         _scheme: 'oauth2',
