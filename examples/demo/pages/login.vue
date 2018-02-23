@@ -2,20 +2,21 @@
 <div>
   <h2 class="text-center">Login</h2>
   <hr>
-  <b-alert v-model="hasError" dismissible variant="danger">Please check credentials.</b-alert>
+  <b-alert v-if="error" show variant="danger">{{ error + '' }}</b-alert>
   <b-alert show v-if="redirect">
     You have to login before accessing to <strong>{{ redirect }}</strong>
   </b-alert>
   <b-row align-h="center" align-v="center">
     <b-col md="4">
       <b-card bg-variant="light">
+        <busy-overlay />
         <form @keydown.enter="login">
         <b-form-group label="Username">
-          <b-input v-model="username" placeholder="any username" ref="username" />
+          <b-input v-model="username" placeholder="anything" ref="username" />
         </b-form-group>
 
         <b-form-group label="Password">
-          <b-input type="password" v-model="password" placeholder="Use '123'" />
+          <b-input type="password" v-model="password" placeholder="123" />
         </b-form-group>
 
         <div class="text-center">
@@ -29,6 +30,7 @@
     </b-col>
     <b-col md="4" class="text-center pt-4">
         <b-card title="Social Login" bg-variant="light">
+          <busy-overlay />
           <div v-for="s in strategies" :key="s.key" class="mb-2">
           <b-btn @click="$auth.loginWith(s.key)" block :style="{background: s.color}" class="login-button">Login with {{ s.name }}</b-btn>
           </div>
@@ -45,13 +47,16 @@
 </style>
 
 <script>
+import busyOverlay from '~/components/busy-overlay'
+
 export default {
   middleware: ['auth'],
+  components: { busyOverlay },
   data() {
     return {
       username: '',
       password: '123',
-      hasError: false
+      error: null
     }
   },
   computed: {
@@ -72,6 +77,8 @@ export default {
   },
   methods: {
     async login() {
+      this.error = null
+
       return this.$auth
         .loginWith('local', {
           data: {
@@ -80,7 +87,7 @@ export default {
           }
         })
         .catch(e => {
-          this.hasError = true
+          this.error = e + ''
         })
     }
   }
