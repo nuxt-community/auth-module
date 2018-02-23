@@ -19,6 +19,9 @@ module.exports = {
     '/api': 'http://localhost:3000'
   },
   auth: {
+    redirect: {
+      callback: '/callback'
+    },
     strategies: {
       local: {
         endpoints: {
@@ -26,25 +29,20 @@ module.exports = {
         }
       },
       auth0: {
-        client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv',
-        redirect_uri: 'http://localhost:3000/login'
+        client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
       },
       facebook: {
-        client_id: '1671464192946675',
-        redirect_uri: 'http://localhost:3000/login'
+        client_id: '1671464192946675'
       },
       google: {
         client_id:
-          '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com',
-        redirect_uri: 'http://localhost:3000/login'
+          '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
       },
       github: {
-        client_id: '56ab0511106a13cbb12c',
-        redirect_uri: 'http://localhost:3000/login'
+        client_id: '56ab0511106a13cbb12c'
       },
       twitter: {
-        client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D',
-        redirect_uri: 'http://localhost:3000/login'
+        client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }
     }
   }

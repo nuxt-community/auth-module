@@ -30,7 +30,6 @@
     </b-col>
     <b-col md="4" class="text-center pt-4">
         <b-card title="Social Login" bg-variant="light">
-          <busy-overlay />
           <div v-for="s in strategies" :key="s.key" class="mb-2">
           <b-btn @click="$auth.loginWith(s.key)" block :style="{background: s.color}" class="login-button">Login with {{ s.name }}</b-btn>
           </div>
@@ -70,10 +69,10 @@ export default {
         this.$route.query.redirect &&
         decodeURIComponent(this.$route.query.redirect)
       )
+    },
+    isCallback() {
+      return Boolean(this.$route.query.callback)
     }
-  },
-  mounted() {
-    this.$refs.username.focus()
   },
   methods: {
     async login() {
