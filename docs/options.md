@@ -52,7 +52,7 @@ It can be disabled by setting `cookie` to `false`.
 
 * **name** - Cookie name.
 * **options** - Cookie options.
-  * `options.expires` can be used to speficy cookie lifetime in days. Default is session only.
+  * `options.expires` can be used to specify cookie lifetime in days. Default is session only.
 
 ### `resetOnError`
 
