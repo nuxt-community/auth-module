@@ -33,7 +33,9 @@ module.exports = {
         client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
       },
       facebook: {
-        client_id: '1671464192946675'
+        client_id: '1671464192946675',
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email', 'user_birthday']
       },
       google: {
         client_id:
