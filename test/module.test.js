@@ -39,18 +39,55 @@ describe('auth', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
-    const { token, user } = await page.evaluate(async () => {
+    const { token, user, axiosBearer } = await page.evaluate(async () => {
       await window.$nuxt.$auth.loginWith('local', {
         data: { username: 'test_username', password: '123' }
       })
 
       return {
+        axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
         token: window.$nuxt.$auth.getToken(),
         user: window.$nuxt.$auth.state.user
       }
     })
 
+    expect(axiosBearer).toBeDefined()
     expect(token).toBeDefined()
     expect(user.username).toBe('test_username')
+  })
+
+  test('logout', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+    await page.waitForFunction('!!window.$nuxt')
+
+    const { loginAxiosBearer, loginToken } = await page.evaluate(async () => {
+      await window.$nuxt.$auth.loginWith('local', {
+        data: { username: 'test_username', password: '123' }
+      })
+
+      return {
+        loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        loginToken: window.$nuxt.$auth.getToken()
+      }
+    })
+
+    expect(loginAxiosBearer).toBeDefined()
+    expect(loginToken).toBeDefined()
+
+    const { logoutToken, logoutAxiosBearer } = await page.evaluate(async () => {
+      await window.$nuxt.$auth.logout()
+
+      // eslint-disable-next-line no-console
+      console.log('nuxt: ' + window.$nuxt)
+
+      return {
+        logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        logoutToken: window.$nuxt.$auth.getToken()
+      }
+    })
+
+    expect(logoutToken).toBeNull()
+    expect(logoutAxiosBearer).toBeUndefined()
   })
 })
