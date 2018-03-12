@@ -76,5 +76,5 @@ Vuex store namespace for keeping state.
 
 * Default: `scope`
 
-`user` object property used for scope checkings (`hasScope`). Can be either an array or a object.
+`user` object property used for scope checking (`hasScope`). Can be either an array or a object.
 
