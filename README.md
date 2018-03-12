@@ -218,7 +218,7 @@ token: {
 }
 ```
 
-* **type** - Authotization header type to be used in axios requests.
+* **type** - Authorization header type to be used in axios requests.
 * **name** - Token name to be stored in Browser localStorage. It can be disabled by setting to `false`.
 
 ### `cookie`
