@@ -83,7 +83,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* rc11 backward compability ([c0222e9](https://github.com/nuxt-community/auth-module/commit/c0222e9))
+* rc11 backward compatibility ([c0222e9](https://github.com/nuxt-community/auth-module/commit/c0222e9))
 
 
 
@@ -98,7 +98,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* improve compability for nuxt 1.0.0 ([7740dec](https://github.com/nuxt-community/auth-module/commit/7740dec))
+* improve compatibility for nuxt 1.0.0 ([7740dec](https://github.com/nuxt-community/auth-module/commit/7740dec))
 
 
 
@@ -110,7 +110,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * add fetchUser option ([#27](https://github.com/nuxt-community/auth-module/issues/27)) ([1b8856c](https://github.com/nuxt-community/auth-module/commit/1b8856c))
 * allow customizing http method for user endpoint ([#28](https://github.com/nuxt-community/auth-module/issues/28)) ([994152b](https://github.com/nuxt-community/auth-module/commit/994152b))
-* more compability for nuxt@next ([d50be11](https://github.com/nuxt-community/auth-module/commit/d50be11))
+* more compatibility for nuxt@next ([d50be11](https://github.com/nuxt-community/auth-module/commit/d50be11))
 
 
 
