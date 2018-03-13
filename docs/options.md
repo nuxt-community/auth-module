@@ -66,6 +66,12 @@ If enabled, user will be automatically logged out if any error happens. (For exa
 
 If enabled, user will redirect back to the original guarded route instead of `redirect.home`.
 
+### `fullPathRedirect`
+
+Default: `false`
+
+If true, use the full route path with query parameters for redirect
+
 ### `vuex.namespace`
 
 * Default: `auth`
