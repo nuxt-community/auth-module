@@ -11,7 +11,8 @@ describe('auth', () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
     })
 
     nuxt = new Nuxt(config)
