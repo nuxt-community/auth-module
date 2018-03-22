@@ -89,7 +89,7 @@ this.$auth.syncUniversal(key)
 
 ```js
 this.$auth.setState(key, val)
-this.$auth.getState(key)
+this.$auth.$storage.getState(key)
 
 // Watch state changes
 this.$auth.watchState('loggedIn', newValue => { })

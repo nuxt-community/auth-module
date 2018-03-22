@@ -1,5 +1,5 @@
 <template>
   <div>
-    {{ $auth.state.loggedIn ? 'Logged In' : 'Guest' }}
+    {{ $auth.$state.loggedIn ? 'Logged In' : 'Guest' }}
   </div>
 </template>

@@ -11,8 +11,8 @@
           <b-nav-item to="/secure">Secure</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <template v-if="$auth.state.loggedIn">
-            <b-nav-item-dropdown :text="$auth.state.user.username" right>
+          <template v-if="$auth.$state.loggedIn">
+            <b-nav-item-dropdown :text="$auth.$state.user.username" right>
               <b-dropdown-item @click="this.logout">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>

@@ -3,8 +3,8 @@
   <h2 class="text-center">Login</h2>
   <hr>
   <b-alert v-if="error" show variant="danger">{{ error + '' }}</b-alert>
-  <b-alert show v-if="$auth.getState('redirect')">
-    You have to login before accessing to <strong>{{ $auth.getState('redirect') }}</strong>
+  <b-alert show v-if="$auth.$state.redirect">
+    You have to login before accessing to <strong>{{ $auth.$state.redirect }}</strong>
   </b-alert>
   <b-row align-h="center" align-v="center">
     <b-col md="4">

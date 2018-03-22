@@ -1,4 +1,4 @@
-const { Nuxt, Builder } = require('nuxt')
+const { Nuxt, Builder } = require('nuxt-edge')
 const puppeteer = require('puppeteer')
 
 const config = require('./fixtures/basic/nuxt.config')
@@ -47,13 +47,14 @@ describe('auth', () => {
 
       return {
         axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        token: window.$nuxt.$auth.getToken(),
-        user: window.$nuxt.$auth.state.user
+        token: window.$nuxt.$auth.getToken('local'),
+        user: window.$nuxt.$auth.user
       }
     })
 
     expect(axiosBearer).toBeDefined()
     expect(token).toBeDefined()
+    expect(user).toBeDefined()
     expect(user.username).toBe('test_username')
   })
 

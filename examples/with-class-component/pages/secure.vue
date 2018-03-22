@@ -37,7 +37,7 @@ import AuthMixin from '~/mixins/auth'
 })
 export default class Secure extends Vue {
   get state() {
-    return JSON.stringify(this.$auth.state, undefined, 2)
+    return JSON.stringify(this.$auth.$state, undefined, 2)
   }
 }
 </script>
