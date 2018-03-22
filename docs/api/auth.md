@@ -1,6 +1,43 @@
-# Auth Methods
+# $auth
 
-> You can all auth methods anywhere that `this` or `context.app` is available using `$auth`.
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/auth/auth.js)
+
+This module globally injects `$auth` instance, meaning that you can access it anywhere using `this.$auth`.
+For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it from `context.app.$auth`.
+
+## properties
+
+All properties are reactive. Meaning that you can safely use them in Vue template `v-if` conditions.
+
+## `user`
+
+This object contains details about authenticated user such as name. 
+You can access it using either `$auth` or Vuex.
+
+```js
+// Access using $auth
+this.$auth.user
+
+// Access using vuex
+this.$store.state.auth.user
+```
+
+## `loggedIn`
+
+This boolean flag indicates that user is authenticated and available at the moment or not.
+
+```js
+// Access using $auth
+this.$auth.loggedIn
+
+// Access using vuex
+this.$store.state.auth.loggedIn
+```
+
+Under the hood, auth uses attached [`$storage`](./storage.md) insrance to provide this states.
+
+
+## methods
 
 ### `loginWith(strategyName, ...args)`
 
@@ -19,7 +56,7 @@ this.$auth.loginWith('local', /* .... */)
 
 Login using active strategy. Usage varies by current strategy.
 
-> Using `loginWith` is recommended instead of this function!
+> **TIP:** Using `loginWith` is recommended instead of this function!
 
 ```js
 this.$auth.login(/* .... */)
@@ -73,39 +110,4 @@ export default function({ $auth }) {
     console.error(name, error)
   })
 }
-```
-
-## State utilities
-
-### Universal Storage
-
-```js
-this.$auth.setUniversal(key, val, options)
-this.$auth.getUniversal(key)
-this.$auth.syncUniversal(key)
-```
-
-### Local State
-
-```js
-this.$auth.setState(key, val)
-this.$auth.$storage.getState(key)
-
-// Watch state changes
-this.$auth.watchState('loggedIn', newValue => { })
-
-```
-
-### Cookies
-
-```js
-this.$auth.setCookie(key, val, options)
-this.$auth.getCookie(key)
-```
-
-### Local Storage
-
-```js
-this.$auth.setLocalstorage(key, val, options)
-this.$auth.getLocalstorage(key)
 ```

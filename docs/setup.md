@@ -26,4 +26,4 @@ Edit `nuxt.config.js`:
  }
 ```
 
-> 👉 You can now optionally configure [Auth Middleware](middleware.md) and some [Strategies](strategies/README.md).
+👉 You can now optionally configure [Auth Middleware](middleware.md) and some [Strategies](strategies/README.md).

@@ -1,12 +1,14 @@
 # Local Scheme
 
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/auth/schemes/local.js)
+
 `local` is the default, general purpose authentication scheme, supporting `Cookie` and `JWT` login flows.
 
 By default `local` scheme is enabled and preconfigured.
 
-> You can set `strategies.local` to `false` to disable it.
+> **TIP:** You can set `strategies.local` to `false` to disable it.
 
-## Options
+## Usage
 
 ```js
 auth: {
@@ -28,7 +30,7 @@ auth: {
 
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
 
-> To disable each endpoint, simply set it's value to `false`.
+> **TIP:** To disable each endpoint, simply set it's value to `false`.
 
 #### `propertyName`
 
@@ -56,8 +58,3 @@ this.$auth.loginWith('local', {
   }
 })
 ```
-
-> 👉 There are more [common options](../options.md) available too.
-
-
-

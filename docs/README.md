@@ -1,6 +1,6 @@
 # Auth Module
 
-> Authentication module for Nuxt.js.
+Authentication module for Nuxt.js.
 
 ## Links
 
@@ -10,4 +10,4 @@
 * [Examples](https://github.com/nuxt-community/auth-module/tree/master/examples)
 * [Demo](https://nuxt-auth.herokuapp.com)
 
-> 👉 To get started head to [Setup](setup.md) section.
+👉 To get started head to [Setup](setup.md) section.
