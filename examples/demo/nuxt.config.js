@@ -24,6 +24,11 @@ module.exports = {
           login: { propertyName: 'token.accessToken' }
         }
       },
+      keycloak: {
+        client_id: 'nuxt-frontend',
+        server: 'http://localhost:8080',
+        realm: 'HOUSE'
+      },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
         client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'

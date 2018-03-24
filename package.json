@@ -46,6 +46,7 @@
     "cookie": "^0.3.1",
     "dotprop": "^1.0.2",
     "js-cookie": "^2.2.0",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
@@ -68,8 +69,8 @@
     "express-jwt": "^5.3.1",
     "jest": "^22.4.3",
     "jsdom": "latest",
-    "nuxt-edge": "^2.0.0-25360571.b2e7fb6",
     "nuxt-class-component": "^1.2.0",
+    "nuxt-edge": "^2.0.0-25360571.b2e7fb6",
     "puppeteer": "^1.2.0",
     "standard-version": "latest"
   }
