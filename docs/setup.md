@@ -15,15 +15,14 @@ npm install @nuxtjs/auth @nuxtjs/axios
 Edit `nuxt.config.js`:
 
 ```js
-{
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth'
- ],
+modules: [
+  '@nuxtjs/axios',
+  '@nuxtjs/auth'
+],
 
- auth: {
-   // Options
- }
+auth: {
+  // Options
+}
 ```
 
 👉 You can now optionally configure [Auth Middleware](middleware.md) and some [Strategies](strategies/README.md).
