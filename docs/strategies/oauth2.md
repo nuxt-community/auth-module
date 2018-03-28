@@ -20,6 +20,7 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
+      auto_refresh_token: true
     }
   }
 }
@@ -56,6 +57,10 @@ Should be same as login page or relative path to welcome screen. ([example](http
 ### `client_id`
 
 **REQUIRED** - oauth2 client id.
+
+### `auto_refresh_token`
+
+By default is `undefined`. Set it to `true` for handling automatically token expiration and refreshing if strategy provides a `access_token` and `refresh_token` in [JWT](https://jwt.io/introduction/) pattern. 
 
 ## Usage
 
