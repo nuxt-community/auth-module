@@ -41,7 +41,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.1.1",
+    "@nuxtjs/axios": "^5.3.1",
     "boom": "^7.2.0",
     "cookie": "^0.3.1",
     "dotprop": "^1.0.2",
@@ -53,12 +53,12 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "body-parser": "^1.18.2",
-    "bootstrap-vue": "^2.0.0-rc.2",
+    "bootstrap-vue": "^2.0.0-rc.4",
     "codecov": "latest",
     "cookie-parser": "^1.4.3",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
@@ -68,8 +68,8 @@
     "express-jwt": "^5.3.1",
     "jest": "^22.4.3",
     "jsdom": "latest",
-    "nuxt-edge": "^2.0.0-25360571.b2e7fb6",
     "nuxt-class-component": "^1.2.0",
+    "nuxt-edge": "^2.0.0-25375479.ba18127",
     "puppeteer": "^1.2.0",
     "standard-version": "latest"
   }
