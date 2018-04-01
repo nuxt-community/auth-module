@@ -56,6 +56,8 @@ describe('auth', () => {
     expect(token).toBeDefined()
     expect(user).toBeDefined()
     expect(user.username).toBe('test_username')
+
+    await page.close()
   })
 
   test('logout', async () => {
@@ -80,9 +82,6 @@ describe('auth', () => {
     const { logoutToken, logoutAxiosBearer } = await page.evaluate(async () => {
       await window.$nuxt.$auth.logout()
 
-      // eslint-disable-next-line no-console
-      console.log('nuxt: ' + window.$nuxt)
-
       return {
         logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
         logoutToken: window.$nuxt.$auth.getToken()
@@ -91,5 +90,20 @@ describe('auth', () => {
 
     expect(logoutToken).toBeNull()
     expect(logoutAxiosBearer).toBeUndefined()
+
+    await page.close()
+  })
+
+  test('auth plugin', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+
+    const flag = await page.evaluate(async () => {
+      return window.$nuxt.$auth._custom_plugin
+    })
+
+    expect(flag).toBe(true)
+
+    await page.close()
   })
 })

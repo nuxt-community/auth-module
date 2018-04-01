@@ -5,6 +5,9 @@ module.exports = {
   srcDir: __dirname,
   serverMiddleware: ['@@/examples/api/auth'],
   auth: {
+    plugins: [
+      '~/plugins/auth.js'
+    ],
     strategies: {
       local: {
         endpoints: {
