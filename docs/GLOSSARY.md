@@ -2,13 +2,13 @@
 
 Schemes define authentication logic.
 
-Read more in [Strategies & Schemes](./strategies/README.md) section.
+Read more in [Strategies & Schemes](./schemes/README.md) section.
 
 ## Strategy
 
 Strategy is a configurated instance of Scheme.
 
-Read more in [Schemes & Schemes](./strategies/README.md) section.
+Read more in [Schemes & Schemes](./schemes/README.md) section.
 
 ## Provider
 

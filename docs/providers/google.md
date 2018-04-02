@@ -20,7 +20,7 @@ Anywhere in your application logic:
 this.$auth.loginWith('google')
 ```
 
-💁 This provider is based on [oauth2 scheme](../strategies/oauth2.md) and supports all scheme options.
+💁 This provider is based on [oauth2 scheme](../schemes/oauth2.md) and supports all scheme options.
 
 ### Obtaining `client_id`
 

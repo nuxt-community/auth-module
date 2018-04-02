@@ -2,9 +2,7 @@
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
 
-`oauth2` supports various oauth2 login flows.
-
-It is recommended to use a [Provider](../providers/README.md) instead if possible.
+`oauth2` supports various oauth2 login flows. There are many pre-configured [providers](../providers/README.md)  that you may use instead of directly using this scheme.
 
 ## Usage
 

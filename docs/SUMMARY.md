@@ -1,11 +1,13 @@
 # Summary
 
+* Getting Starterd
 * [Introduction](README.md)
 * [Setup](setup.md)
 * [Middleware](middleware.md)
-* [Schemes and Strategies](strategies/README.md)
-  * [Local](strategies/local.md)
-  * [Oauth2](strategies/oauth2.md)
+* Rerefence
+* [Schemes](schemes/README.md)
+  * [Local](schemes/local.md)
+  * [Oauth2](schemes/oauth2.md)
 * [Providers](providers/README.md)
   * [Auth0](providers/auth0.md)
   * [Facebook](providers/facebook.md)
@@ -14,6 +16,7 @@
 * API
   * [Auth](api/auth.md)
   * [Storage](api/storage.md)
-* [Options](options.md)
+  * [Options](options.md)
+* Meta
 * [Migration Guide](migration.md)
 * [Changelog](CHANGELOG.md)

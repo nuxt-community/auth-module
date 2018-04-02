@@ -28,7 +28,7 @@ User will be redirected to a page like this:
 <img align="center" src="https://cdn2.auth0.com/docs/media/articles/web/hosted-login.png">
 
 
-💁 This provider is based on [oauth2 scheme](../strategies/oauth2.md) and supports all scheme options.
+💁 This provider is based on [oauth2 scheme](../schemes/oauth2.md) and supports all scheme options.
 
 ### Obtaining `client_id` and **`domain`**
 
