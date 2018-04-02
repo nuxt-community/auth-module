@@ -32,7 +32,7 @@ auth: {
 
 ### Plugins depending on $auth
 
-If you have any plugin that needs extening `$auth` you have to pass it into `auth.plugins[]` option instead of top level `plugins[]` inside `nuxt.config.js`.
+If you have any plugin that needs extending `$auth` you have to pass it into `auth.plugins[]` option instead of top level `plugins[]` inside `nuxt.config.js`.
 
 ### Option changes
 
