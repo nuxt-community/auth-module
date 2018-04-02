@@ -1,5 +1,43 @@
 # Migration Guide
 
+> The best reference to upgrade or getting started are [Docs](https://auth.nuxtjs.org/) and [Demo example](https://github.com/nuxt-community/auth-module/).
+
+## From 4.0.0-rc.3 to 4.0.0
+
+### Multi strategy
+
+- You have to move `auth.endpoints` into `auth.strategies.local.endpoints`:
+
+```diff
+auth: {
++ strategies: {
+    local: {
+      endpoints: {
+        // ...
+      }
+    }
++ }
+}
+```
+
+- For choosing login strategy a new method `$auth.loginWith(provider[,options])` is available. 
+
+### State access
+
+- The `$auth.user` and `$auth.loggedIn` reactive properties are the recommanded way to access user info.
+
+- For low-level state you can use `$auth.$storage`.
+
+- Token can be retrieved using `$auth.getToken(provider)`.
+
+### Plugins depending on $auth
+
+If you have any plugin that needs extening `$auth` you have to pass it into `auth.plugins[]` option instead of top level `plugins[]` inside `nuxt.config.js`.
+
+### Option changes
+
+Please refer to the new docs.
+
 ## From 3.x to 4.x
 4.x is a new rewrite of Auth module. This release introduces some new features but also includes breaking changes with both usage and options, this guide will allow you to easily upgrade from 3.x to 4.x
 
