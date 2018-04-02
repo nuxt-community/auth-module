@@ -1,6 +1,7 @@
+<h1 align="center" >🔑 Auth Module</h1>
+<p align="center">Authentication module for Nuxt.js</p>
+
 <p align="center">
-<h1>🔑 Auth Module</h1>
-<span>Authentication module for Nuxt.js</span>
 <a href="https://david-dm.org/nuxt-community/auth-module">
     <img alt="" src="https://david-dm.org/nuxt-community/auth-module/status.svg?style=flat-square">
 </a>
@@ -20,7 +21,9 @@
 <a href="https://npmjs.com/package/@nuxtjs/auth">
     <img alt="" src="https://img.shields.io/npm/dt/@nuxtjs/auth.svg?style=flat-square">
 </a>
-<br>
+</p>
+
+<p align="center">
 <a href="https://auth.nuxtjs.org">Read Documentation</a>
 </p>
 
