@@ -1,6 +1,6 @@
 # Google Provider
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/auth/providers/google.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/google.js)
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Github
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/auth/providers/github.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/github.js)
 
 ## Usage
 
