@@ -43,7 +43,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.1",
     "boom": "^7.2.0",
-    "consola": "^1.1.4",
+    "consola": "^1.2.0",
     "cookie": "^0.3.1",
     "dotprop": "^1.0.2",
     "js-cookie": "^2.2.0",
@@ -70,7 +70,7 @@
     "jest": "^22.4.3",
     "jsdom": "^11.7.0",
     "nuxt-class-component": "^1.2.0",
-    "nuxt-edge": "^2.0.0-25376904.0ca9942",
+    "nuxt-edge": "^2.0.0-25377783.857da68",
     "puppeteer": "^1.2.0",
     "standard-version": "latest"
   }

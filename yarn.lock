@@ -1126,8 +1126,8 @@ boom@^7.2.0:
     hoek "5.x.x"
 
 bootstrap-vue@^2.0.0-rc.4:
-  version "2.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.4.tgz#8c3eff3fc8241c7162b8f462dab06ca3cb44dd4e"
+  version "2.0.0-rc.6"
+  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.6.tgz#12d0a241414f1efd647e8b14a88c51707c920c86"
   dependencies:
     bootstrap "^4.0.0"
     lodash.get "^4.4.2"
@@ -1716,9 +1716,9 @@ connect@^3.6.5:
     parseurl "~1.3.2"
     utils-merge "1.0.1"
 
-consola@^1.1.3, consola@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/consola/-/consola-1.1.4.tgz#278035fb0c7b10c93528a57c2685ede476e00c9b"
+consola@^1.1.3, consola@^1.1.4, consola@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-1.2.0.tgz#90fd1fed8c8aa2b239e953db5847dec15bb44405"
   dependencies:
     chalk "^2.3.2"
     figures "^2.0.0"
@@ -2671,9 +2671,9 @@ eslint@^4.19.1:
     table "4.0.2"
     text-table "~0.2.0"
 
-esm@^3.0.14:
-  version "3.0.14"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.14.tgz#a9a79b7348c8708050ff42499b5ecbec019d08dc"
+esm@^3.0.15:
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.15.tgz#d58be76de3ebdeff6f0b95e8bba3c78bd0942547"
 
 espree@^3.5.2, espree@^3.5.4:
   version "3.5.4"
@@ -5199,9 +5199,9 @@ nuxt-class-component@^1.2.0:
     vue-class-component "^6.1.2"
     vuex-class "^0.3.0"
 
-nuxt-edge@^2.0.0-25376904.0ca9942:
-  version "2.0.0-25376904.0ca9942"
-  resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.0.0-25376904.0ca9942.tgz#fff949aec40ff9ff05288d634d526841c8eb3074"
+nuxt-edge@^2.0.0-25377783.857da68:
+  version "2.0.0-25377783.857da68"
+  resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.0.0-25377783.857da68.tgz#d46492e24baa7438bbeebc6d76ca751c21dfc989"
   dependencies:
     "@nuxtjs/friendly-errors-webpack-plugin" "^2.0.2"
     "@nuxtjs/youch" "^4.2.3"
@@ -5215,10 +5215,10 @@ nuxt-edge@^2.0.0-25376904.0ca9942:
     chokidar "^2.0.3"
     compression "^1.7.1"
     connect "^3.6.5"
-    consola "^1.1.4"
+    consola "^1.2.0"
     css-loader "^0.28.11"
     es6-promise "^4.2.4"
-    esm "^3.0.14"
+    esm "^3.0.15"
     etag "^1.8.1"
     file-loader "^1.1.11"
     fresh "^0.5.2"
@@ -5262,7 +5262,7 @@ nuxt-edge@^2.0.0-25376904.0ca9942:
     webpack-bundle-analyzer "^2.11.1"
     webpack-dev-middleware "^3.1.0"
     webpack-hot-middleware "^2.21.2"
-    webpack-node-externals "^1.6.0"
+    webpack-node-externals "^1.7.2"
     webpackbar "^2.4.0"
 
 nwmatcher@^1.4.3:
@@ -7512,8 +7512,8 @@ uglify-es@^3.3.4:
     source-map "~0.6.1"
 
 uglify-js@3.3.x:
-  version "3.3.17"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.17.tgz#f32a66b191fe18a5b6b4b66b75c0a195f7811f9e"
+  version "3.3.18"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.18.tgz#e16df66d71638df3c9bc61cce827e46f24bdac02"
   dependencies:
     commander "~2.15.0"
     source-map "~0.6.1"
@@ -7892,9 +7892,9 @@ webpack-log@^1.0.1:
     loglevelnext "^1.0.1"
     uuid "^3.1.0"
 
-webpack-node-externals@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-1.6.0.tgz#232c62ec6092b100635a3d29d83c1747128df9bd"
+webpack-node-externals@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-1.7.2.tgz#6e1ee79ac67c070402ba700ef033a9b8d52ac4e3"
 
 webpack-sources@^1.0.1, webpack-sources@^1.1.0:
   version "1.1.0"
