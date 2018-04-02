@@ -10,7 +10,7 @@ Strategy is a configurated instance of Scheme.
 
 Read more in [Schemes & Schemes](./strategies/README.md) section.
 
-## Proiver
+## Provider
 
 Provider auto-configures schemes.
 
