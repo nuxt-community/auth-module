@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/nuxt-community/auth-module/compare/v4.0.0-rc.3...v4.0.0) (2018-04-02)
+
+
+### Bug Fixes
+
+* clear axios token after logout ([#84](https://github.com/nuxt-community/auth-module/issues/84)) ([be65f09](https://github.com/nuxt-community/auth-module/commit/be65f09))
+* Typo in README.md ([1ec0882](https://github.com/nuxt-community/auth-module/commit/1ec0882))
+* use getToken ([bec8518](https://github.com/nuxt-community/auth-module/commit/bec8518))
+* wrong axios ordering in windows platform. ([#56](https://github.com/nuxt-community/auth-module/issues/56)) ([44db0d4](https://github.com/nuxt-community/auth-module/commit/44db0d4))
+* **auth:** return promise reject on request error ([f2883c6](https://github.com/nuxt-community/auth-module/commit/f2883c6))
+* **fetchUser:** fetchUser should only be called when enabled ([dd0638e](https://github.com/nuxt-community/auth-module/commit/dd0638e))
+* **fetchUser:** fetchUser should only be called when enabled ([#60](https://github.com/nuxt-community/auth-module/issues/60)) ([beb3121](https://github.com/nuxt-community/auth-module/commit/beb3121))
+* **module:** remove duplicate strategy options ([2e167f8](https://github.com/nuxt-community/auth-module/commit/2e167f8))
+
+
+### Features
+
+* add auth0-js scheme ([c38a1e4](https://github.com/nuxt-community/auth-module/commit/c38a1e4))
+* **package:** add client-oauth2 ([e0efa60](https://github.com/nuxt-community/auth-module/commit/e0efa60))
+* **redirect:** add full path redirect option ([#96](https://github.com/nuxt-community/auth-module/issues/96)) ([ca8785f](https://github.com/nuxt-community/auth-module/commit/ca8785f))
+* allow extending auth with plugins ([#98](https://github.com/nuxt-community/auth-module/issues/98)) ([3712a60](https://github.com/nuxt-community/auth-module/commit/3712a60))
+* allow providers params to be overloaded from nuxt.config.js ([#77](https://github.com/nuxt-community/auth-module/issues/77)) ([8542959](https://github.com/nuxt-community/auth-module/commit/8542959))
+* handle invalid strategy ([f079ae2](https://github.com/nuxt-community/auth-module/commit/f079ae2))
+* loginWith function ([2aed448](https://github.com/nuxt-community/auth-module/commit/2aed448))
+* **test:** add custom _provider and _scheme for basic fixture ([7423e77](https://github.com/nuxt-community/auth-module/commit/7423e77))
+* use consola for cli messages ([1db2b2e](https://github.com/nuxt-community/auth-module/commit/1db2b2e))
+* user and loggedIn shortcuts ([13a5eec](https://github.com/nuxt-community/auth-module/commit/13a5eec))
+
+
+### Performance Improvements
+
+* **module:** optimize plugin ([b7998c6](https://github.com/nuxt-community/auth-module/commit/b7998c6))
+
+
+
 <a name="4.0.0-rc.3"></a>
 # [4.0.0-rc.3](https://github.com/nuxt-community/auth-module/compare/v4.0.0-rc.2...v4.0.0-rc.3) (2018-02-04)
 
