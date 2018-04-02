@@ -54,6 +54,10 @@ It can be disabled by setting `cookie` to `false`.
 * **options** - Cookie options.
   * `options.expires` can be used to specify cookie lifetime in days. Default is session only.
 
+### `plugins`
+
+If you have any nuxt plugin that depends on `$auth` you have to specifiy it here instead of top-level `plugins` option in `nuxt.config.js`.
+
 ### `resetOnError`
 
 * Default: `false`
@@ -83,4 +87,3 @@ Vuex store namespace for keeping state.
 * Default: `scope`
 
 `user` object property used for scope checking (`hasScope`). Can be either an array or a object.
-
