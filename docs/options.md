@@ -58,6 +58,8 @@ It can be disabled by setting `cookie` to `false`.
 
 If you have any nuxt plugin that depends on `$auth` you have to specifiy it here instead of top-level `plugins` option in `nuxt.config.js`.
 
+See [Extending Auth Plugin][../recipes/extend.md]
+
 ### `resetOnError`
 
 * Default: `false`
