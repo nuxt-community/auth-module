@@ -13,6 +13,10 @@ module.exports = {
         endpoints: {
           login: { propertyName: 'token.accessToken' }
         }
+      },
+      test: {
+        _provider: '~/auth/test-provider.js',
+        _scheme: '~/auth/test-scheme.js'
       }
     }
   },
