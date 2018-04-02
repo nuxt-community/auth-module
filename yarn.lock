@@ -5199,9 +5199,9 @@ nuxt-class-component@^1.2.0:
     vue-class-component "^6.1.2"
     vuex-class "^0.3.0"
 
-nuxt-edge@^2.0.0-25377783.857da68:
-  version "2.0.0-25377783.857da68"
-  resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.0.0-25377783.857da68.tgz#d46492e24baa7438bbeebc6d76ca751c21dfc989"
+nuxt-edge@^2.0.0-25377845.e2e124b:
+  version "2.0.0-25377845.e2e124b"
+  resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.0.0-25377845.e2e124b.tgz#94d348beae2bed5a47b08a1d95e2c0a21ceeec1a"
   dependencies:
     "@nuxtjs/friendly-errors-webpack-plugin" "^2.0.2"
     "@nuxtjs/youch" "^4.2.3"
