@@ -91,13 +91,13 @@ Check if user has a specific scope:
 this.$auth.hasScope('admin')
 ```
 
-### `setToken(token[,name])`
+### `setToken(strategy, token)`
 
 Universally set token. The `name` parameter is optional and defaults to `options.token.name`.
 
 ```js
 // Update token
-this.$auth.setToken('123')
+this.$auth.setToken('local', '.....')
 ```
 
 ### `onError(handler)`
