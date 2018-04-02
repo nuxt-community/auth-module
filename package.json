@@ -43,6 +43,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.1",
     "boom": "^7.2.0",
+    "consola": "^1.1.4",
     "cookie": "^0.3.1",
     "dotprop": "^1.0.2",
     "js-cookie": "^2.2.0",
