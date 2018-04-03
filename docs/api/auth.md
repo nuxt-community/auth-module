@@ -1,6 +1,6 @@
 # $auth
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/auth/auth.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/auth.js)
 
 This module globally injects `$auth` instance, meaning that you can access it anywhere using `this.$auth`.
 For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it from `context.app.$auth`.
