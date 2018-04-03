@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/nuxt-community/auth-module/compare/v4.0.0...v4.0.1) (2018-04-03)
+
+
+### Bug Fixes
+
+* **local-scheme-token:** avoid token type duplicata on Axios requests ([3908563](https://github.com/nuxt-community/auth-module/commit/3908563))
+* **local-scheme-token:** removed token type from axios setToken ([c64e7f1](https://github.com/nuxt-community/auth-module/commit/c64e7f1)), closes [#113](https://github.com/nuxt-community/auth-module/issues/113)
+* **scheme-resolution:** fix problem with backslashes in path to schemes on windows ([77161b8](https://github.com/nuxt-community/auth-module/commit/77161b8))
+* no token exception when tokenRequired is set to false ([#118](https://github.com/nuxt-community/auth-module/issues/118)) ([56265a7](https://github.com/nuxt-community/auth-module/commit/56265a7))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/nuxt-community/auth-module/compare/v4.0.0-rc.3...v4.0.0) (2018-04-02)
 
