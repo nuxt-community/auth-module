@@ -18,6 +18,7 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
+      token_key:  'access_token'
     }
   }
 }
@@ -54,6 +55,10 @@ Should be same as login page or relative path to welcome screen. ([example](http
 ### `client_id`
 
 **REQUIRED** - oauth2 client id.
+
+### `token_key`
+
+By default is set to `token_key: 'access_token'`. If you need to use the IdToken instead of the AccessToken, set this option to `token_key: 'id_token'`.
 
 ## Usage
 
