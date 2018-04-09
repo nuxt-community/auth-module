@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/nuxt-community/auth-module/compare/v4.0.1...v4.1.0) (2018-04-09)
+
+
+### Features
+
+* **scheme/oauth2:** add option to use IdToken instead of AccessToken ([#121](https://github.com/nuxt-community/auth-module/issues/121)) ([554a042](https://github.com/nuxt-community/auth-module/commit/554a042))
+* add support for logging out without an API endpoint ([#124](https://github.com/nuxt-community/auth-module/issues/124)) ([6189c6d](https://github.com/nuxt-community/auth-module/commit/6189c6d))
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/nuxt-community/auth-module/compare/v4.0.0...v4.0.1) (2018-04-03)
 
