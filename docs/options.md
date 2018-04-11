@@ -25,15 +25,37 @@ Also you can disable all redirects by setting `redirect` to `false`
 
 ### `token`
 
+Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy`}. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
+
 Default:
 
 ```js
 token: {
-  name: 'token'
+  prefix: '_token.'
 }
 ```
 
-* **name** - Default token name to be stored in Browser localStorage. It can be disabled by setting to `false`.
+* **prefix** - Default prefix used in building a key for token storage across all storage providers.
+
+### `localStorage`
+
+Default:
+
+```js
+localStorage: {
+  prefix: 'auth.'
+}
+```
+
+* **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
+
+You can disable use of localStorage by setting `localStorage` to `false`, like so:
+
+```js
+localStorage: false
+```
+
+Otherwise the auth token will be stored in localStorage at a default key of: `auth._token.{provider}`.
 
 ### `cookie`
 
@@ -41,20 +63,29 @@ Default:
 
 ```js
 cookie: {
-  name: 'token',
+  prefix: 'auth.',
   options: {
     path: '/'
   }
 }
 ```
 
-Using cookies is **required** for SSR requests to work with JWT tokens.
+* **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
+* **options** - Additional cookie options, passed to [js-cookie](https://github.com/js-cookie/js-cookie) `set` and `get` functions. See full details on options they support and their defaults [here](https://github.com/js-cookie/js-cookie#cookie-attributes), which includes:
+  * `path` - path where the cookie is visible. Default is '/'.
+  * `expires` - can be used to specify cookie lifetime in `Number` of days or specific `Date`. Default is session only.
+  * `domain` - domain (and by extension subdomain/s) where the cookie is visible. Default is domain and all subdomains.
+  * `secure` - sets whether the cookie requires a secure protocol (https). Default is false, **should be set to true if possible**.
 
-It can be disabled by setting `cookie` to `false`.
+Note: Using cookies is **required** for SSR requests to work with JWT tokens.
 
-* **name** - Cookie name.
-* **options** - Cookie options.
-  * `options.expires` can be used to specify cookie lifetime in days. Default is session only.
+You can disable use of cookie storage by setting `cookie` to `false`, like so:
+
+```js
+cookie: false
+```
+
+Otherwise the auth token will be stored in a cookie named by default as: `auth._token.{provider}`.
 
 ### `plugins`
 
