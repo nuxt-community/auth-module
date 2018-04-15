@@ -60,6 +60,10 @@ Should be same as login page or relative path to welcome screen. ([example](http
 
 By default is set to `token_key: 'access_token'`. If you need to use the IdToken instead of the AccessToken, set this option to `token_key: 'id_token'`.
 
+### `refresh_token_key`
+
+By default is set to `refresh_token_key: 'refresh_token'`. It automatically store the refresh_token, if it exists.
+
 ## Usage
 
 ```js
