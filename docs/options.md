@@ -16,7 +16,7 @@ redirect: {
 
 * `login`: User will be redirected to this path if *login is required*.
 * `logout`: User will be redirected to this path if *after logout current route is protected*.
-* `user`: User will be redirect to this path *after login*. (`rewriteRedirects` will rewrite this path)
+* `home`: User will be redirect to this path *after login*. (`rewriteRedirects` will rewrite this path)
 
 Each redirect path can be disabled by setting to `false`.
 Also you can disable all redirects by setting `redirect` to `false`
