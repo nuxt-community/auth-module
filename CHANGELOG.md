@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/nuxt-community/auth-module/compare/v4.1.0...v4.2.0) (2018-04-20)
+
+
+### Bug Fixes
+
+* add check for req object on getCookie ([#132](https://github.com/nuxt-community/auth-module/issues/132)) ([7d17f75](https://github.com/nuxt-community/auth-module/commit/7d17f75))
+* don't redirect callback to login when using 'auth' globally ([#131](https://github.com/nuxt-community/auth-module/issues/131)) ([08d86cb](https://github.com/nuxt-community/auth-module/commit/08d86cb))
+* **docs:** update redirect in options.md ([#146](https://github.com/nuxt-community/auth-module/issues/146)) ([19de22b](https://github.com/nuxt-community/auth-module/commit/19de22b))
+* fullPathRedirect with query support ([#149](https://github.com/nuxt-community/auth-module/issues/149)) ([a37d599](https://github.com/nuxt-community/auth-module/commit/a37d599))
+* logout locally before logging in. fixes [#136](https://github.com/nuxt-community/auth-module/issues/136). ([#151](https://github.com/nuxt-community/auth-module/issues/151)) ([b6cfad4](https://github.com/nuxt-community/auth-module/commit/b6cfad4))
+
+
+### Features
+
+* **oauth2:** support authorization code grant and refresh token ([#145](https://github.com/nuxt-community/auth-module/issues/145)) ([18ecca5](https://github.com/nuxt-community/auth-module/commit/18ecca5))
+* add support for custom token key in request header ([#152](https://github.com/nuxt-community/auth-module/issues/152)) ([f7576e3](https://github.com/nuxt-community/auth-module/commit/f7576e3))
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/nuxt-community/auth-module/compare/v4.0.1...v4.1.0) (2018-04-09)
 
