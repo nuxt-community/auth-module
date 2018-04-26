@@ -1,4 +1,4 @@
-# Github
+# Laravel Passport
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/passport.js)
 
