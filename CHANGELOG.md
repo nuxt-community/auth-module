@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/nuxt-community/auth-module/compare/v4.2.0...v4.2.1) (2018-04-27)
+
+
+### Bug Fixes
+
+* storage cookie get on client side ([#153](https://github.com/nuxt-community/auth-module/issues/153)) ([8275e60](https://github.com/nuxt-community/auth-module/commit/8275e60))
+* **watch loggedIn:** disable redirect on direct page loads ([#158](https://github.com/nuxt-community/auth-module/issues/158)) ([0386eb9](https://github.com/nuxt-community/auth-module/commit/0386eb9))
+
+
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/nuxt-community/auth-module/compare/v4.1.0...v4.2.0) (2018-04-20)
 
