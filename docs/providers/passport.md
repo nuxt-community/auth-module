@@ -7,7 +7,7 @@
 ```js
 auth: {
   strategies: {
-      passport: {
+      'laravel.passport': {
         url: '...',
         client_id: '...',
         client_secret: '...'
