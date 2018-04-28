@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.3.0"></a>
+# [4.3.0](https://github.com/nuxt-community/auth-module/compare/v4.2.1...v4.3.0) (2018-04-28)
+
+
+### Bug Fixes
+
+* github provider ([#159](https://github.com/nuxt-community/auth-module/issues/159)) ([8b1819f](https://github.com/nuxt-community/auth-module/commit/8b1819f))
+
+
+### Features
+
+* laravel passport provider ([#157](https://github.com/nuxt-community/auth-module/issues/157)) ([9b09459](https://github.com/nuxt-community/auth-module/commit/9b09459))
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/nuxt-community/auth-module/compare/v4.2.0...v4.2.1) (2018-04-27)
 
