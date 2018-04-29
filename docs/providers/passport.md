@@ -1,6 +1,6 @@
 # Laravel Passport
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/passport.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/laravel.passport.js)
 
 ## Usage
 
@@ -21,7 +21,7 @@ auth: {
 Anywhere in your application logic:
 
 ```js
-this.$auth.loginWith('passport')
+this.$auth.loginWith('laravel.passport')
 ```
 
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2.md) and supports all scheme options.
