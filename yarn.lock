@@ -5274,6 +5274,10 @@ oauth-sign@~0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
+oauth@0.9.x:
+  version "0.9.15"
+  resolved "https://registry.yarnpkg.com/oauth/-/oauth-0.9.15.tgz#bd1fefaf686c96b75475aed5196412ff60cfb9c1"
+
 object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -5504,6 +5508,59 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
 
+passport-facebook@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/passport-facebook/-/passport-facebook-2.1.1.tgz#c39d0b52ae4d59163245a4e21a7b9b6321303311"
+  dependencies:
+    passport-oauth2 "1.x.x"
+
+passport-google-oauth1@1.x.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/passport-google-oauth1/-/passport-google-oauth1-1.0.0.tgz#af74a803df51ec646f66a44d82282be6f108e0cc"
+  dependencies:
+    passport-oauth1 "1.x.x"
+
+passport-google-oauth20@1.x.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/passport-google-oauth20/-/passport-google-oauth20-1.0.0.tgz#3b960e8a1d70d1dbe794615c827c68c40392a5d0"
+  dependencies:
+    passport-oauth2 "1.x.x"
+
+passport-google-oauth@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/passport-google-oauth/-/passport-google-oauth-1.0.0.tgz#65f50633192ad0627a18b08960077109d84eb76d"
+  dependencies:
+    passport-google-oauth1 "1.x.x"
+    passport-google-oauth20 "1.x.x"
+
+passport-oauth1@1.x.x:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/passport-oauth1/-/passport-oauth1-1.1.0.tgz#a7de988a211f9cf4687377130ea74df32730c918"
+  dependencies:
+    oauth "0.9.x"
+    passport-strategy "1.x.x"
+    utils-merge "1.x.x"
+
+passport-oauth2@1.x.x:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/passport-oauth2/-/passport-oauth2-1.4.0.tgz#f62f81583cbe12609be7ce6f160b9395a27b86ad"
+  dependencies:
+    oauth "0.9.x"
+    passport-strategy "1.x.x"
+    uid2 "0.0.x"
+    utils-merge "1.x.x"
+
+passport-strategy@1.x.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
+
+passport@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/passport/-/passport-0.4.0.tgz#c5095691347bd5ad3b5e180238c3914d16f05811"
+  dependencies:
+    passport-strategy "1.x.x"
+    pause "0.0.1"
+
 path-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/path-browserify/-/path-browserify-0.0.0.tgz#a0b870729aae214005b7d5032ec2cbbb0fb4451a"
@@ -5561,6 +5618,10 @@ path-type@^3.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-3.0.0.tgz#cef31dc8e0a1a3bb0d105c0cd97cf3bf47f4e36f"
   dependencies:
     pify "^3.0.0"
+
+pause@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
 
 pbkdf2@^3.0.3:
   version "3.0.16"
@@ -7507,6 +7568,10 @@ uglifyjs-webpack-plugin@^1.2.4, uglifyjs-webpack-plugin@^1.2.5:
     webpack-sources "^1.1.0"
     worker-farm "^1.5.2"
 
+uid2@0.0.x:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/uid2/-/uid2-0.0.3.tgz#483126e11774df2f71b8b639dcd799c376162b82"
+
 ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
@@ -7640,7 +7705,7 @@ utila@~0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
 
-utils-merge@1.0.1:
+utils-merge@1.0.1, utils-merge@1.x.x:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
