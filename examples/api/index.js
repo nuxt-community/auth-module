@@ -1,8 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const jwt = require('express-jwt')
-const jsonwebtoken = require('jsonwebtoken')
+const expressJwt = require('express-jwt')
+const passport = require('passport')
+
+const auth = require('./auth')
+const users = require('./model/users').userDB
 
 // Create app
 const app = express()
@@ -11,51 +14,29 @@ const app = express()
 app.use(cookieParser())
 app.use(bodyParser.json())
 
+// Set up passport auth config
+app.use(passport.initialize())
+auth.config.passport(passport)
+
 // JWT middleware
 app.use(
-  jwt({
-    secret: 'dummy'
+  expressJwt({
+    secret: auth.config.jwtSecret
   }).unless({
-    path: '/api/auth/login'
+    path: [
+      /\/api\/auth\/social\/*/,
+      '/api/auth/login',
+      '/api/users' // Testing purpose
+    ]
   })
 )
 
 // -- Routes --
+app.use('/auth', auth.router)
 
-// [POST] /login
-app.post('/login', (req, res, next) => {
-  const { username, password } = req.body
-  const valid = username.length && password === '123'
-
-  if (!valid) {
-    throw new Error('Invalid username or password')
-  }
-
-  const accessToken = jsonwebtoken.sign(
-    {
-      username,
-      picture: 'https://github.com/nuxt.png',
-      name: 'User ' + username,
-      scope: ['test', 'user']
-    },
-    'dummy'
-  )
-
-  res.json({
-    token: {
-      accessToken
-    }
-  })
-})
-
-// [GET] /user
-app.get('/user', (req, res, next) => {
-  res.json({ user: req.user })
-})
-
-// [POST] /logout
-app.post('/logout', (req, res, next) => {
-  res.json({ status: 'OK' })
+// [GET] get all users for testing purpose only
+app.get('/users', (req, res) => {
+  res.send(users)
 })
 
 // Error handler
@@ -66,6 +47,6 @@ app.use((err, req, res, next) => {
 
 // -- export app --
 module.exports = {
-  path: '/api/auth',
+  path: '/api',
   handler: app
 }
