@@ -1,4 +1,4 @@
-# Local Scheme
+# Api Scheme
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/api.js)
 
