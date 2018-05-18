@@ -2,7 +2,9 @@
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
 
-`oauth2` supports various oauth2 login flows. There are many pre-configured [providers](../providers/README.md)  that you may use instead of directly using this scheme.
+The Oauth2 Scheme supports various oauth2 login flows. There are many pre-configured [providers](../providers/README.md)  that you may use instead of directly using this scheme.
+
+This scheme also implements a built-in token refresh, for those providers that has a short token TTL (eg. Keycloak). 
 
 ## Usage
 
