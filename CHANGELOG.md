@@ -10,8 +10,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **auth:** start watching loggedIn state after current strategy is fully mounted ([#80](https://github.com/nuxt-community/auth-module/issues/80)) ([2497cc0](https://github.com/nuxt-community/auth-module/commit/2497cc0))
 * **docs:** add comma following _scheme value ([#189](https://github.com/nuxt-community/auth-module/issues/189)) ([d993e01](https://github.com/nuxt-community/auth-module/commit/d993e01))
-* **docs:** add comma following _scheme value ([#189](https://github.com/nuxt-community/auth-module/issues/189)) ([57a41b6](https://github.com/nuxt-community/auth-module/commit/57a41b6))
-
 
 ### Features
 
