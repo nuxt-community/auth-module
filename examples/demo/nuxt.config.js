@@ -7,7 +7,7 @@ module.exports = {
   build: {
     extractCSS: true
   },
-  serverMiddleware: ['../api/auth'],
+  serverMiddleware: ['../api'],
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@'],
   axios: {
     proxy: true
@@ -30,13 +30,12 @@ module.exports = {
         client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
       },
       facebook: {
-        client_id: '1671464192946675',
+        client_id: process.env.FACEBOOK_CLIENT_ID,
         userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
         scope: ['public_profile', 'email', 'user_birthday']
       },
       google: {
-        client_id:
-          '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
+        client_id: process.env.GOOGLE_CLIENT_ID
       },
       github: {
         client_id: process.env.GITHUB_CLIENT_ID,
@@ -44,6 +43,14 @@ module.exports = {
       },
       twitter: {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      },
+      'api.facebook': {
+        _scheme: 'api',
+        authorization_endpoint: '/api/auth/social/facebook'
+      },
+      'api.google': {
+        _scheme: 'api',
+        authorization_endpoint: '/api/auth/social/google'
       }
     }
   }

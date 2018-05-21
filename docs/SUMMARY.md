@@ -5,10 +5,11 @@
   * [Setup](setup.md)
   * [Middleware](middleware.md)
   * [Options](options.md)
-* Rerefence
+* Reference
   * [Schemes](schemes/README.md)
     * [Local](schemes/local.md)
     * [Oauth2](schemes/oauth2.md)
+    * [Api](schemes/api.md)
   * [Providers](providers/README.md)
     * [Auth0](providers/auth0.md)
     * [Facebook](providers/facebook.md)
