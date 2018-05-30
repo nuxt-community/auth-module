@@ -103,7 +103,9 @@ See [Extending Auth Plugin](recipes/extend.md)
 
 * Default: `false`
 
-If enabled, user will be automatically logged out if any error happens. (For example when token expired)
+Either a boolean or a function is accepted. If a function is passed, it will take the same arguments as `onError` handlers and return `Boolean` to inform whether a reset should be performed.
+
+If enabled, user will be automatically logged out if an error happens. (For example when token expired)
 
 ### `rewriteRedirects`
 
