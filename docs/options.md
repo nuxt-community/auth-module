@@ -1,6 +1,6 @@
 # Options
 
-General options shared with all strategies. See [defaults.js](lib/defaults.js) for defaults.
+General options shared with all strategies. See [defaults.js](https://github.com/nuxt-community/auth-module/blob/master/lib/module/defaults.js) for defaults.
 
 ### `redirect`
 
@@ -11,7 +11,7 @@ redirect: {
   login: '/login',
   logout: '/',
   callback: '/login',
-  user: '/'
+  home: '/'
 }
 ```
 
