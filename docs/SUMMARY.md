@@ -1,6 +1,6 @@
 # Summary
 
-* Getting Starterd
+* Getting Started
   * [Introduction](README.md)
   * [Setup](setup.md)
   * [Middleware](middleware.md)
