@@ -15,6 +15,7 @@
     * [Github](providers/github.md)
     * [Google](providers/google.md)
     * [Laravel Passport](providers/passport.md)
+    * [Keycloak](providers/keycloak.md)
 * API
   * [Auth](api/auth.md)
   * [Storage](api/storage.md)
