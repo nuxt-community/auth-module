@@ -44,7 +44,7 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 
 - Default: `Bearer`
 
- Authotization header type to be used in axios requests.
+ Authorization header type to be used in axios requests.
 
 ## Usage
 
