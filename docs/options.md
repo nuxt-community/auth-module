@@ -1,6 +1,6 @@
 # Options
 
-General options shared with all strategies. See [defaults.js](lib/defaults.js) for defaults.
+General options shared with all strategies.
 
 ### `redirect`
 
