@@ -1,6 +1,6 @@
 # Schemes and Strategies
 
-Schemes define authentication logic. Strategy is a configurated instance of Scheme. You can have multiply schemes and strategies in your project.
+Schemes define authentication logic. Strategy is a configurated instance of Scheme. You can have multiple schemes and strategies in your project.
 
 `auth.strategies` option is an object. Keys are strategy name and values are configuration.
 
@@ -13,7 +13,7 @@ auth: {
 }
 ```
 
-By default, **instance name is same as scheme name**. If you want more flexibility by providing your own scheme or having multi instances of the same scheme you can use `_scheme` property:
+By default, **instance names are the same as scheme names**. If you want more flexibility by providing your own scheme or having multiple instances of the same scheme you can use the `_scheme` property:
 
 ```js
 auth: {
@@ -25,4 +25,4 @@ auth: {
 }
 ```
 
-👉 Now that you have idea what are schemes and strategies, you can configure default [Local Scheme](local.md) or use a [Provider](../providers/README.md).
+👉 Now that you have an idea what schemes and strategies are, you can configure the default [Local Scheme](local.md) or use a [Provider](../providers/README.md).
