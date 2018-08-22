@@ -44,11 +44,11 @@ module.exports = {
       twitter: {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       },
-      'api.facebook': {
+      'facebook_api': {
         _scheme: 'api',
         authorization_endpoint: '/api/auth/social/facebook'
       },
-      'api.google': {
+      'google_api': {
         _scheme: 'api',
         authorization_endpoint: '/api/auth/social/google'
       }

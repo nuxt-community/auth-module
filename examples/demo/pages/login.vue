@@ -64,8 +64,8 @@ export default {
      { key: 'google', name: 'Google', color: '#4284f4' },
      { key: 'facebook', name: 'Facebook', color: '#3c65c4' },
      { key: 'github', name: 'Github', color: '#202326' },
-     { key: 'api.google', name: 'Google API', color: '#4284f4' },
-     { key: 'api.facebook', name: 'Facebook API', color: '#3c65c4' }
+     { key: 'google_api', name: 'Google with Passport (API)', color: '#4284f4' },
+     { key: 'facebook_api', name: 'Facebook with Passport (API)', color: '#3c65c4' }
     ]),
     redirect() {
       return (
