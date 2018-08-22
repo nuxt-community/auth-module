@@ -24,7 +24,7 @@ auth: {
 
 ### State access
 
-- The `$auth.user` and `$auth.loggedIn` reactive properties are the recommanded way to access user info.
+- The `$auth.user` and `$auth.loggedIn` reactive properties are the recommended way to access user info.
 
 - For low-level state you can use `$auth.$storage`.
 

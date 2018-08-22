@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.5.1"></a>
+## [4.5.1](https://github.com/nuxt-community/auth-module/compare/v4.5.0...v4.5.1) (2018-05-21)
+
+
+### Bug Fixes
+
+* **module:** allow watchLoggedIn ([471d59f](https://github.com/nuxt-community/auth-module/commit/471d59f))
+
+
+
+<a name="4.5.0"></a>
+# [4.5.0](https://github.com/nuxt-community/auth-module/compare/v4.4.0...v4.5.0) (2018-05-21)
+
+
+### Bug Fixes
+
+* **auth:** start watching loggedIn state after current strategy is fully mounted ([#80](https://github.com/nuxt-community/auth-module/issues/80)) ([2497cc0](https://github.com/nuxt-community/auth-module/commit/2497cc0))
+* **docs:** add comma following _scheme value ([#189](https://github.com/nuxt-community/auth-module/issues/189)) ([d993e01](https://github.com/nuxt-community/auth-module/commit/d993e01))
+
+### Features
+
+* add watchLoggedIn option to optionally disable it ([#80](https://github.com/nuxt-community/auth-module/issues/80)) ([16a7904](https://github.com/nuxt-community/auth-module/commit/16a7904))
+
+
+
 <a name="4.4.0"></a>
 # [4.4.0](https://github.com/nuxt-community/auth-module/compare/v4.3.0...v4.4.0) (2018-05-18)
 

@@ -34,7 +34,7 @@ this.$auth.loggedIn
 this.$store.state.auth.loggedIn
 ```
 
-Under the hood, auth uses attached [`$storage`](./storage.md) insrance to provide this states.
+Under the hood, auth uses attached [`$storage`](./storage.md) instance to provide this states.
 
 
 ## methods
