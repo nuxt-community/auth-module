@@ -21,7 +21,7 @@ auth: {
       },
       // tokenRequired: true,
       // tokenType: 'bearer',
-      // // userinfo_decode: false,
+      // decodeJWT: false,
     }
   }
 }
@@ -47,7 +47,7 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 
  Authorization header type to be used in axios requests.
 
-### `userinfo_decode`
+### `decodeJWT`
 
 If your oauth2 provider does not provide a userinfo_endpoint (ex. AWS Cognito), setting this property to `true` will prompt the module to decode the token using `jwt-decode`.
 
