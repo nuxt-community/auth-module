@@ -10,8 +10,8 @@ Default:
 redirect: {
   login: '/login',
   logout: '/',
-  callback: '/login',
-  home: '/'
+  home: '/',
+  callback: '/login'
 }
 ```
 
