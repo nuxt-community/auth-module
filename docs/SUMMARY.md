@@ -22,4 +22,4 @@
   * [Extend Auth](recipes/extend.md)
 * Meta
   * [Migration Guide](migration.md)
-  * [Changelog](CHANGELOG.md)
+  * [Changelog](../CHANGELOG.md)
