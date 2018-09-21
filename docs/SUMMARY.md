@@ -1,7 +1,6 @@
 # Summary
 
 * Getting Starterd
-  * [Introduction](README.md)
   * [Setup](setup.md)
   * [Middleware](middleware.md)
   * [Options](options.md)
