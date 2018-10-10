@@ -1,10 +1,10 @@
 # Summary
 
-* Getting Starterd
+* Getting Started
   * [Setup](setup.md)
   * [Middleware](middleware.md)
   * [Options](options.md)
-* Rerefence
+* Reference
   * [Schemes](schemes/README.md)
     * [Local](schemes/local.md)
     * [Oauth2](schemes/oauth2.md)
