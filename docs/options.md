@@ -11,7 +11,7 @@ redirect: {
   login: '/login',
   logout: '/',
   callback: '/login',
-  user: '/'
+  home: '/'
 }
 ```
 
