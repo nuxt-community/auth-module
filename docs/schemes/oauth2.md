@@ -18,7 +18,7 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
-      token_key:  'access_token'
+      token_key: 'access_token'
     }
   }
 }
