@@ -1,26 +1,14 @@
 {
-  "name": "@nuxtjs/auth",
-  "version": "4.6.0",
+  "name": "@blupoint/nuxt-auth-module",
+  "version": "0.0.1",
   "description": "Authentication module for Nuxt.js",
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "Pooya Parsa <pooya@pi0.ir>",
-      "url": "https://github.com/pi0"
-    },
-    {
-      "name": "Herberts Cruz <herbertscruz@gmail.com>"
-    },
-    {
-      "name": "Tony Briet",
-      "url": "https://github.com/breakingrobot"
-    }
-  ],
   "main": "lib/module/index.js",
-  "repository": "https://github.com/nuxt-community/auth-module",
-  "publishConfig": {
-    "access": "public"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hilkbahar/auth-module.git"
   },
+  "author": "@hilkbahar",
   "scripts": {
     "heroku-postbuild": "nuxt build examples/demo",
     "start": "nuxt start examples/demo",
