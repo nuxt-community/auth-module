@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.6.0"></a>
+# [4.6.0](https://github.com/nuxt-community/auth-module/compare/v4.5.1...v4.6.0) (2018-11-28)
+
+
+### Bug Fixes
+
+* **api/auth.md:** typo([#204](https://github.com/nuxt-community/auth-module/issues/204)) ([f0e693a](https://github.com/nuxt-community/auth-module/commit/f0e693a))
+* randomString btoa fallback for SSR ([#230](https://github.com/nuxt-community/auth-module/issues/230)) ([604cc5d](https://github.com/nuxt-community/auth-module/commit/604cc5d))
+* **auth:** handle mounted errors during init ([#234](https://github.com/nuxt-community/auth-module/issues/234)) ([03dba23](https://github.com/nuxt-community/auth-module/commit/03dba23))
+* **docs:** GitHub capitalize ([#246](https://github.com/nuxt-community/auth-module/issues/246)) ([eb7dc9e](https://github.com/nuxt-community/auth-module/commit/eb7dc9e))
+* **docs:** minor proper english revisions ([#200](https://github.com/nuxt-community/auth-module/issues/200)) ([619184b](https://github.com/nuxt-community/auth-module/commit/619184b))
+* **docs:** spelling fix ([#247](https://github.com/nuxt-community/auth-module/issues/247)) ([c2b0d7b](https://github.com/nuxt-community/auth-module/commit/c2b0d7b))
+* **docs:** typo ([#203](https://github.com/nuxt-community/auth-module/issues/203)) ([3a0e080](https://github.com/nuxt-community/auth-module/commit/3a0e080))
+* **docs:** typo [#224](https://github.com/nuxt-community/auth-module/issues/224)  ([752f4ad](https://github.com/nuxt-community/auth-module/commit/752f4ad))
+* remove default auth0 audience ([#239](https://github.com/nuxt-community/auth-module/issues/239)) ([abfa084](https://github.com/nuxt-community/auth-module/commit/abfa084))
+* set extended for body-parser urlencoded to prevent the deprecation warning ([#199](https://github.com/nuxt-community/auth-module/issues/199)) ([0226836](https://github.com/nuxt-community/auth-module/commit/0226836))
+* **docs:** update glassory read more title ([a53c38c](https://github.com/nuxt-community/auth-module/commit/a53c38c))
+* **middleware:** remove trailing slash from redirect paths ([#235](https://github.com/nuxt-community/auth-module/issues/235)) ([398a515](https://github.com/nuxt-community/auth-module/commit/398a515))
+* **oauth2, auth0:** add audience to requests ([#222](https://github.com/nuxt-community/auth-module/issues/222)) ([174e135](https://github.com/nuxt-community/auth-module/commit/174e135))
+* **storage.md:** fix typo ([a8fbda8](https://github.com/nuxt-community/auth-module/commit/a8fbda8))
+
+
+### Features
+
+* add resetOnError ([#197](https://github.com/nuxt-community/auth-module/issues/197)) ([469f2f8](https://github.com/nuxt-community/auth-module/commit/469f2f8))
+
+
+
 <a name="4.5.1"></a>
 ## [4.5.1](https://github.com/nuxt-community/auth-module/compare/v4.5.0...v4.5.1) (2018-05-21)
 
