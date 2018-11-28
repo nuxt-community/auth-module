@@ -61,5 +61,20 @@
     "nuxt-edge": "^2.0.0-25582697.225",
     "puppeteer": "^1.7.0",
     "standard-version": "^4.4.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/hilkbahar/auth-module/issues"
+  },
+  "homepage": "https://github.com/hilkbahar/auth-module#readme",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
+  "keywords": [
+    "nuxtjs",
+    "auth-module",
+    "nuxt-auth"
+  ]
 }
