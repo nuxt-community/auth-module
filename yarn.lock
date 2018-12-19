@@ -3451,6 +3451,11 @@ har-validator@~5.0.3:
     ajv "^5.1.0"
     har-schema "^2.0.0"
 
+hardtack@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/hardtack/-/hardtack-2.1.0.tgz#621c92ae7ad4dc342e55ad274ddf703469e8dcba"
+  integrity sha512-J7RkzZnxPyTJSmlknFHISXAgwL0MgJMEFHrRGsdw8bIGbNsJ6FCKHg+ho4BVH7YUd9KGguI5XYFADkutN4W+MQ==
+
 has-ansi@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"
@@ -4448,10 +4453,6 @@ jest@^22.4.4:
 js-base64@^2.1.9:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
-
-js-cookie@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"

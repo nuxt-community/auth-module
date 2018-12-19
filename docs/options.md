@@ -18,7 +18,7 @@ redirect: {
 * `login`: User will be redirected to this path if *login is required*.
 * `logout`: User will be redirected to this path if *after logout, current route is protected*.
 * `home`: User will be redirect to this path *after login*. (`rewriteRedirects` will rewrite this path)
-* `callback`: User will be redirect to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider) 
+* `callback`: User will be redirect to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider)
 
 Each redirect path can be disabled by setting to `false`.
 Also you can disable all redirects by setting `redirect` to `false`
@@ -77,9 +77,9 @@ cookie: {
 ```
 
 * **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
-* **options** - Additional cookie options, passed to [js-cookie](https://github.com/js-cookie/js-cookie) `set` and `get` functions. See full details on options they support and their defaults [here](https://github.com/js-cookie/js-cookie#cookie-attributes), which includes:
+* **options** - Additional cookie options, passed to [hardtack](https://github.com/alik0211/hardtack) `set` and `get` functions. See full details on options they support and their defaults [here](https://github.com/alik0211/hardtack#setname-string-value-string-options), which includes:
   * `path` - path where the cookie is visible. Default is '/'.
-  * `expires` - can be used to specify cookie lifetime in `Number` of days or specific `Date`. Default is session only.
+  * `expires` - Date in GMT format. See [Date.toUTCString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toUTCString) for help formatting this value.
   * `domain` - domain (and by extension subdomain/s) where the cookie is visible. Default is domain and all subdomains.
   * `secure` - sets whether the cookie requires a secure protocol (https). Default is false, **should be set to true if possible**.
 
