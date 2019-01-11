@@ -7,11 +7,13 @@ General options shared with all strategies.
 Default:
 
 ```js
-redirect: {
-  login: '/login',
-  logout: '/',
-  callback: '/login',
-  home: '/'
+auth: {
+  redirect: {
+    login: '/login',
+    logout: '/',
+    callback: '/login',
+    home: '/'
+  }
 }
 ```
 
@@ -36,8 +38,10 @@ Auth tokens are stored in various storage providers (cookie, localStorage, vuex)
 Default:
 
 ```js
-token: {
-  prefix: '_token.'
+auth: {
+  token: {
+    prefix: '_token.'
+  }
 }
 ```
 
@@ -48,8 +52,10 @@ token: {
 Default:
 
 ```js
-localStorage: {
-  prefix: 'auth.'
+auth: {
+  localStorage: {
+    prefix: 'auth.'
+  }
 }
 ```
 
@@ -58,7 +64,9 @@ localStorage: {
 You can disable use of localStorage by setting `localStorage` to `false`, like so:
 
 ```js
-localStorage: false
+auth {
+  localStorage: false
+}
 ```
 
 Otherwise the auth token will be stored in localStorage at a default key of: `auth._token.{provider}`.
@@ -68,10 +76,12 @@ Otherwise the auth token will be stored in localStorage at a default key of: `au
 Default:
 
 ```js
-cookie: {
-  prefix: 'auth.',
-  options: {
-    path: '/'
+auth: {
+  cookie: {
+    prefix: 'auth.',
+    options: {
+      path: '/'
+    }
   }
 }
 ```
@@ -88,7 +98,9 @@ Note: Using cookies is **required** for SSR requests to work with JWT tokens.
 You can disable use of cookie storage by setting `cookie` to `false`, like so:
 
 ```js
-cookie: false
+auth: {
+  cookie: false
+}
 ```
 
 Otherwise the auth token will be stored in a cookie named by default as: `auth._token.{provider}`.
