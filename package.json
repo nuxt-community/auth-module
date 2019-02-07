@@ -25,8 +25,8 @@
     "heroku-postbuild": "nuxt build examples/demo",
     "start": "nuxt start examples/demo",
     "dev": "nuxt examples/demo",
-    "lint": "eslint lib src test",
-    "lint-fix": "eslint --fix lib src test",
+    "lint": "eslint lib test",
+    "lint-fix": "eslint --fix lib test",
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
