@@ -15,12 +15,22 @@ auth: {
   strategies: {
     local: {
       endpoints: {
+        // JWT Login flow (default)
         login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
         logout: { url: '/api/auth/logout', method: 'post' },
         user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+
+        // Cookie Login flow
+        // login: { url: '/api/auth/login', method: 'post' },
       },
+      
+      // JWT Login flow (default)
       // tokenRequired: true,
-      // tokenType: 'bearer',
+      // tokenType: 'bearer'
+      
+      // Cookie Login flow
+      // tokenRequired: false,
+      // tokenType: false
     }
   }
 }
