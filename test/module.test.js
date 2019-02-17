@@ -5,19 +5,27 @@ const config = require('./fixtures/basic/nuxt.config')
 
 const url = path => `http://localhost:3000${path}`
 
+const initNuxt = async (config) => {
+  const instance = new Nuxt(config)
+  await new Builder(instance).build()
+  await instance.listen(process.env.PORT)
+  return instance
+}
+
+const initBrowser = async () => {
+  return puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
+  })
+}
+
 describe('auth', () => {
   let nuxt
   let browser
 
   beforeAll(async () => {
-    browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
-    })
-
-    nuxt = new Nuxt(config)
-    await new Builder(nuxt).build()
-    await nuxt.listen(process.env.PORT)
+    browser = await initBrowser()
+    nuxt = await initNuxt(config)
   }, 60000)
 
   afterAll(async () => {
