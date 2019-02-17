@@ -117,3 +117,52 @@ describe('auth', () => {
     await page.close()
   })
 })
+
+describe('redirect when unauthorized', () => {
+  let browser
+
+  beforeAll(async () => { browser = await initBrowser() }, 60000)
+  afterAll(async () => { await browser.close() })
+
+  describe('redirection setting by string', () => {
+    test('should redirect to login page', async () => {
+      const redirect = { login: '/login?param=test1' }
+      const nuxt = await initNuxt({
+        ...config,
+        ...{
+          auth: { ...config.auth, ...{ redirect } }
+        }
+      })
+      const page = await browser.newPage()
+      await page.goto(url('/secure'))
+
+      const currentUri = await page.evaluate(() => window.location.href)
+
+      await page.close()
+      await nuxt.close()
+
+      expect(currentUri).toBe(url('/login?param=test1'))
+    }, 60000)
+  })
+
+  describe('redirection setting by a function', () => {
+    test('should redirect to login page', async () => {
+      const redirect = { login: (ctx) => '/login?param=test2' }
+      const nuxt = await initNuxt({
+        ...config,
+        ...{
+          auth: { ...config.auth, ...{ redirect } }
+        }
+      })
+      const page = await browser.newPage()
+      await page.goto(url('/secure'))
+
+      const currentUri = await page.evaluate(() => window.location.href)
+
+      await page.close()
+      await nuxt.close()
+
+      expect(currentUri).toBe(url('/login?param=test2'))
+    }, 60000)
+  })
+})
