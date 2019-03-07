@@ -10,41 +10,55 @@ module.exports = {
   serverMiddleware: ['../api/auth'],
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@'],
   axios: {
-    proxy: true
+    baseURL: 'http://localhost:3002/api',
+    errorHandler: (error, ctx) => {
+      let response = error.response
+      console.log(response)
+      return errorHandler (error, ctx)
+    }
+    // proxy: true
   },
-  proxy: {
-    '/api': 'http://localhost:3000'
-  },
+  // proxy: {
+  //   '/api': 'http://localhost:3000'
+  // },
   auth: {
-    redirect: {
-      callback: '/callback'
-    },
+    // redirect: {
+    //   callback: '/callback'
+    // },
     strategies: {
       local: {
         endpoints: {
-          login: { propertyName: 'token.accessToken' }
+          login: { url: '/login', method: 'post', propertyName: 'id' },
+          logout: { url: '/logout', method: 'post' },
+          user: { url: '/usuario/me', method: 'get' }
         }
-      },
-      auth0: {
-        domain: 'nuxt-auth.auth0.com',
-        client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
-      },
-      facebook: {
-        client_id: '1671464192946675',
-        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
-        scope: ['public_profile', 'email', 'user_birthday']
-      },
-      google: {
-        client_id:
-          '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
-      },
-      github: {
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET
-      },
-      twitter: {
-        client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
-      }
+      }// ,
+      // auth0: {
+      //   domain: 'nuxt-auth.auth0.com',
+      //   client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
+      // },
+      // facebook: {
+      //   client_id: '1671464192946675',
+      //   userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+      //   scope: ['public_profile', 'email', 'user_birthday']
+      // },
+      // google: {
+      //   client_id:
+      //     '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
+      // },
+      // github: {
+      //   client_id: process.env.GITHUB_CLIENT_ID,
+      //   client_secret: process.env.GITHUB_CLIENT_SECRET
+      // },
+      // twitter: {
+      //   client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      // }
     }
+  },
+
+  router: {
+    middleware: [
+      'auto-authentication'
+    ]
   }
 }
