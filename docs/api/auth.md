@@ -9,7 +9,7 @@ For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it 
 
 All properties are reactive. Meaning that you can safely use them in Vue template `v-if` conditions.
 
-## `user`
+### `user`
 
 This object contains details about authenticated user such as name. 
 You can access it using either `$auth` or Vuex.
@@ -22,7 +22,7 @@ this.$auth.user
 this.$store.state.auth.user
 ```
 
-## `loggedIn`
+### `loggedIn`
 
 This boolean flag indicates that user is authenticated and available at the moment or not.
 
@@ -63,7 +63,7 @@ this.$auth.login(/* .... */)
   .then(() => this.$toast.success('Logged In!'))
 ```
 
-## `logout()`
+### `logout()`
 
 - Returns: `Promise`
 
@@ -73,7 +73,7 @@ Logout active strategy. Usage varies by current scheme.
 await this.$auth.logout()
 ```
 
-## `fetchUser()`
+### `fetchUser()`
 
 - Returns: `Promise`
 
@@ -83,7 +83,7 @@ Force re-fetch user using active strategy.
 await this.$auth.fetchUser()
 ```
 
-## `hasScope(scopeName)`
+### `hasScope(scopeName)`
 Check if user has a specific scope:
 
 ```js
