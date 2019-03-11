@@ -6,7 +6,7 @@ Auth module has a built-in powerful and universal storage to keep tokens and pro
 
 ### Universal Storage
 
-Universally keep state in vuex, localStorage and Cookies:
+Universally keep state in vuex, localStorage, sessionStorage and Cookies:
 
 ```js
 this.$auth.$storage.setUniversal(key, val, isJson)
@@ -39,9 +39,11 @@ this.$auth.$storage.setCookie(key, val, isJson)
 this.$auth.$storage.getCookie(key)
 ```
 
-### Local Storage
+### Local/Session Storage
+
+Access to local/session storage based on config options.
 
 ```js
-this.$auth.$storage.setLocalStorage(key, val, isJson)
-this.$auth.$storage.getLocalStorage(key)
+this.$auth.$storage.setStorage(key, val, isJson)
+this.$auth.$storage.getStorage(key)
 ```

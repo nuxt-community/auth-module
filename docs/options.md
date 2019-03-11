@@ -31,7 +31,7 @@ When enabled (default) user will be redirected on login/logouts.
 
 ### `token`
 
-Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy`}. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
+Auth tokens are stored in various storage providers (cookie, localStorage, sessionStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy`}. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
 
 Default:
 
@@ -62,6 +62,19 @@ localStorage: false
 ```
 
 Otherwise the auth token will be stored in localStorage at a default key of: `auth._token.{provider}`.
+
+### `sessionStorage`
+
+To use sessionStorage instead of localStorage, make sure to set localStorage to false otherwise both will be used.
+
+```js
+localStorage: false,
+sessionStorage: {
+  prefix: 'auth.'
+}
+```
+
+* **prefix** - Default token prefix used in building a key for token storage in the browser's sessionStorage.
 
 ### `cookie`
 
