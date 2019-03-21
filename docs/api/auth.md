@@ -105,8 +105,8 @@ this.$auth.setToken('local', '.....')
 Listen for auth errors: (`plugins/auth.js`)
 
 ```js
-export default function({ $auth }) {
-  $auth.onError((error, name, endpoint) => {
+export default function({ app }) {
+  app.$auth.onError((error, name, endpoint) => {
     console.error(name, error)
   })
 }
