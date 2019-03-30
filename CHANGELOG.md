@@ -2,33 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<<<<<<< develop
-<a name="4.5.3"></a>
-## [4.5.3](https://github.com/nuxt-community/auth-module/compare/v4.5.2...v4.5.3) (2018-11-01)
-
-
-### Bug Fixes
-
-* remove extra boom dependency ([6589dd8](https://github.com/nuxt-community/auth-module/commit/6589dd8))
-
-
-
-<a name="4.5.2"></a>
-## [4.5.2](https://github.com/nuxt-community/auth-module/compare/v4.5.1...v4.5.2) (2018-09-18)
-
-
-### Bug Fixes
-
-* **api/auth.md:** typo([#204](https://github.com/nuxt-community/auth-module/issues/204)) ([f0e693a](https://github.com/nuxt-community/auth-module/commit/f0e693a))
-* **docs:** minor proper english revisions ([#200](https://github.com/nuxt-community/auth-module/issues/200)) ([619184b](https://github.com/nuxt-community/auth-module/commit/619184b))
-* **docs:** typo [#224](https://github.com/nuxt-community/auth-module/issues/224)  ([752f4ad](https://github.com/nuxt-community/auth-module/commit/752f4ad))
-* **docs:** update glassory read more title ([a53c38c](https://github.com/nuxt-community/auth-module/commit/a53c38c))
-* **middleware:** remove trailing slash from redirect paths ([#235](https://github.com/nuxt-community/auth-module/issues/235)) ([c401122](https://github.com/nuxt-community/auth-module/commit/c401122))
-
-
-
-=======
->>>>>>> dev
 <a name="4.5.1"></a>
 ## [4.5.1](https://github.com/nuxt-community/auth-module/compare/v4.5.0...v4.5.1) (2018-05-21)
 
