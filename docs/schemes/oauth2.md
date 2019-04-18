@@ -18,7 +18,8 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
-      token_key:  'access_token'
+      token_key:  'access_token',
+      state: 'UNIQUE_AND_NON_GUESSABLE'
     }
   }
 }
@@ -63,6 +64,11 @@ By default is set to `token_key: 'access_token'`. If you need to use the IdToken
 ### `refresh_token_key`
 
 By default is set to `refresh_token_key: 'refresh_token'`. It automatically store the refresh_token, if it exists.
+
+### `state`
+
+By default is set to random generated string.  
+The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
 
 ## Usage
 
