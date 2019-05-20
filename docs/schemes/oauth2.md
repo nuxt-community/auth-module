@@ -19,7 +19,8 @@ auth: {
       redirect_uri: undefined,
       client_id: 'SET_ME',
       token_key:  'access_token',
-      state: 'UNIQUE_AND_NON_GUESSABLE'
+      state: 'UNIQUE_AND_NON_GUESSABLE',
+      extra_query_params: {}
     }
   }
 }
@@ -67,8 +68,12 @@ By default is set to `refresh_token_key: 'refresh_token'`. It automatically stor
 
 ### `state`
 
-By default is set to random generated string.  
+By default is set to random generated string.
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+
+### `extra_query_params`
+
+An object with key/value pairs or a function that is passed a [Nuxt context](https://nuxtjs.org/api/context) that returns an object with key/value pairs. Returned key/value pairs will be included in query parameters passed to `authorization_endpoint`.
 
 ## Usage
 
