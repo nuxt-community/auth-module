@@ -42,6 +42,6 @@ this.$auth.$storage.getCookie(key)
 ### Local Storage
 
 ```js
-this.$auth.$storage.setLocalstorage(key, val, isJson)
-this.$auth.$storage.getLocalstorage(key)
+this.$auth.$storage.setLocalStorage(key, val, isJson)
+this.$auth.$storage.getLocalStorage(key)
 ```
