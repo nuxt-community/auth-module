@@ -7,11 +7,13 @@ General options shared with all strategies. See [defaults.js](https://github.com
 Default:
 
 ```js
-redirect: {
-  login: '/login',
-  logout: '/',
-  callback: '/login',
-  home: '/'
+auth: {
+  redirect: {
+    login: '/login',
+    logout: '/',
+    callback: '/login',
+    home: '/'
+  }
 }
 ```
 
@@ -31,13 +33,15 @@ When enabled (default) user will be redirected on login/logouts.
 
 ### `token`
 
-Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy`}. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
+Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy}`. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
 
 Default:
 
 ```js
-token: {
-  prefix: '_token.'
+auth: {
+  token: {
+    prefix: '_token.'
+  }
 }
 ```
 
@@ -48,8 +52,10 @@ token: {
 Default:
 
 ```js
-localStorage: {
-  prefix: 'auth.'
+auth: {
+  localStorage: {
+    prefix: 'auth.'
+  }
 }
 ```
 
@@ -58,7 +64,9 @@ localStorage: {
 You can disable use of localStorage by setting `localStorage` to `false`, like so:
 
 ```js
-localStorage: false
+auth {
+  localStorage: false
+}
 ```
 
 Otherwise the auth token will be stored in localStorage at a default key of: `auth._token.{provider}`.
@@ -68,10 +76,12 @@ Otherwise the auth token will be stored in localStorage at a default key of: `au
 Default:
 
 ```js
-cookie: {
-  prefix: 'auth.',
-  options: {
-    path: '/'
+auth: {
+  cookie: {
+    prefix: 'auth.',
+    options: {
+      path: '/'
+    }
   }
 }
 ```
@@ -88,14 +98,16 @@ Note: Using cookies is **required** for SSR requests to work with JWT tokens.
 You can disable use of cookie storage by setting `cookie` to `false`, like so:
 
 ```js
-cookie: false
+auth: {
+  cookie: false
+}
 ```
 
 Otherwise the auth token will be stored in a cookie named by default as: `auth._token.{provider}`.
 
 ### `plugins`
 
-If you have any nuxt plugin that depends on `$auth` you have to specifiy it here instead of top-level `plugins` option in `nuxt.config.js`.
+If you have any nuxt plugin that depends on `$auth` you have to specify it here instead of top-level `plugins` option in `nuxt.config.js`.
 
 See [Extending Auth Plugin](recipes/extend.md)
 
