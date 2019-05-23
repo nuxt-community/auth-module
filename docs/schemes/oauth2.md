@@ -26,8 +26,16 @@ auth: {
 ```
 
 ```js
-this.$auth.loginWith('social')
+this.$auth.loginWith('social', options)
 ```
+
+`options` is an optional object with `params` property defining additional URL parameters to pass to authorization endpoint. For example:
+
+```js
+this.$auth.loginWith('social', { params: { lang: 'en' } })
+```
+
+will add extra query parameter `&lang=en` to a URL.
 
 ### `authorization_endpoint`
 
