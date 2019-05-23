@@ -26,6 +26,10 @@ auth: {
 }
 ```
 
+```js
+this.$auth.loginWith('social')
+```
+
 ### `authorization_endpoint`
 
 **REQUIRED** - Endpoint to start login flow. Depends on oauth service.
@@ -74,9 +78,3 @@ The primary reason for using the state parameter is to mitigate CSRF attacks. ([
 ### `extra_query_params`
 
 An object with key/value pairs or a function that is passed a [Nuxt context](https://nuxtjs.org/api/context) that returns an object with key/value pairs. Returned key/value pairs will be included in query parameters passed to `authorization_endpoint`.
-
-## Usage
-
-```js
-this.$auth.loginWith('social')
-```
