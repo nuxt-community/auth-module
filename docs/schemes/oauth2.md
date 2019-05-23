@@ -49,7 +49,7 @@ By default is `online`. Set to `offline` if using Google code authorization flow
 
 ### `access_token_endpoint`
 
-If using `response_type: 'code'` provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/6420ddca32f3190e1100d1e04502a2bb48339b5c/lib/schemes/oauth2.js#L124)
+If using `response_type: 'code'` provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
 
 ### `token_type`
 
