@@ -65,14 +65,14 @@ this.$auth.login(/* .... */)
 
 ### `setUserToken(token)`
 
- - Returns: `Promise`
+- Returns: `Promise`
 
- Set the auth token and fetch the user using the new token and current strategy.
+Set the auth token and fetch the user using the new token and current strategy.
 
- > **TIP:** This function can properly set the user after registration
- ```js
+> **TIP:** This function can properly set the user after registration
+```js
 this.$auth.setUserToken(token)
-  .then(() => this.$toast.success('User set!'))
+.then(() => this.$toast.success('User set!'))
 ```
 
 ### `logout()`

@@ -33,7 +33,7 @@ User will be redirected to a page like this:
 
 ### Obtaining `client_id`, `domain`, and `audience`
 
-This options are **REQUIRED**. Your application needs some details about this client to communicate with Auth0. You can get these details from the Settings section for your client in the [Auth0 dashboard](https://manage.auth0.com).	`client_id` and `domain` are **REQUIRED**. Your application needs some details about this client to communicate with Auth0.
+`client_id` and `domain` are **REQUIRED**. Your application needs some details about this client to communicate with Auth0.
 
 `audience` is required _unless_ you've explicitly set a default audience [on your Auth0 tenent](https://manage.auth0.com/#/tenant).
 
