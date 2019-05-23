@@ -124,3 +124,16 @@ export default function({ app }) {
   })
 }
 ```
+
+### `onRedirect(handler)`
+
+ Pre-process URLs before redirect: (`plugins/auth.js`)
+
+ ```js
+export default function({ app }) {
+  app.$auth.onRedirect((to, from) => {
+    console.error(to)
+    // you can optionally change `to` by returning a new value
+  })
+}
+```
