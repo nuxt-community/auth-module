@@ -27,4 +27,12 @@ export default {
 }
 ```
 
+You can set `auth` option to `guest` in a specific component. When this middleware is enabled on a route and `loggedIn` is `true` user will be redirected to `redirect.home` route. (`/` by default)
+
+```js
+export default {
+  auth: 'guest'
+}
+```
+
 👉 Now you have to configure some [Strategies](schemes/README.md) for auth.
