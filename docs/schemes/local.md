@@ -44,7 +44,7 @@ Each endpoint is used to make requests using axios. They are basically extending
 
 #### `propertyName`
 
-`propertyName` can be used to specify which field of the response JSON to be used for value. It can be `undefined` to directly use API response or being more complicated like `auth.user`.
+`propertyName` can be used to specify which field of the response JSON to be used for value. **Must be set to `false` to directly use API response** or being more complicated like `auth.user`.
 
 ### `tokenRequired`
 
