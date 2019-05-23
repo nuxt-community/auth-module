@@ -71,13 +71,6 @@ By default is set to `refresh_token_key: 'refresh_token'`. It automatically stor
 
 ### `state`
 
-<<<<<<< HEAD
 By default is set to random generated string.
-The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
 
-## Usage
-=======
- By default is set to random generated string.
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
->>>>>>> master
-
