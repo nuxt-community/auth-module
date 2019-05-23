@@ -1,6 +1,6 @@
 # Options
 
-General options shared with all strategies.
+General options shared with all strategies. See [defaults.js](https://github.com/nuxt-community/auth-module/blob/master/lib/module/defaults.js) for defaults.
 
 ### `redirect`
 
@@ -20,7 +20,7 @@ auth: {
 * `login`: User will be redirected to this path if *login is required*.
 * `logout`: User will be redirected to this path if *after logout, current route is protected*.
 * `home`: User will be redirect to this path *after login*. (`rewriteRedirects` will rewrite this path)
-* `callback`: User will be redirect to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider) 
+* `callback`: User will be redirect to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider)
 
 Each redirect path can be disabled by setting to `false`.
 Also you can disable all redirects by setting `redirect` to `false`
@@ -115,7 +115,9 @@ See [Extending Auth Plugin](recipes/extend.md)
 
 * Default: `false`
 
-If enabled, user will be automatically logged out if any error happens. (For example when token expired)
+Either a boolean or a function is accepted. If a function is passed, it will take the same arguments as `onError` handlers and return `Boolean` to inform whether a reset should be performed.
+
+If enabled, user will be automatically logged out if an error happens. (For example when token expired)
 
 ### `rewriteRedirects`
 

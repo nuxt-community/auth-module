@@ -11,7 +11,7 @@ All properties are reactive. Meaning that you can safely use them in Vue templat
 
 ### `user`
 
-This object contains details about authenticated user such as name. 
+This object contains details about authenticated user such as name.
 You can access it using either `$auth` or Vuex.
 
 ```js
@@ -61,6 +61,18 @@ Login using active strategy. Usage varies by current strategy.
 ```js
 this.$auth.login(/* .... */)
   .then(() => this.$toast.success('Logged In!'))
+```
+
+### `setUserToken(token)`
+
+ - Returns: `Promise`
+
+ Set the auth token and fetch the user using the new token and current strategy.
+
+ > **TIP:** This function can properly set the user after registration
+ ```js
+this.$auth.setUserToken(token)
+  .then(() => this.$toast.success('User set!'))
 ```
 
 ### `logout()`
