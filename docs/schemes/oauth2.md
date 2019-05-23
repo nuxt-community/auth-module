@@ -18,11 +18,15 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
-      token_key:  'access_token',
+      token_key: 'access_token',
       state: 'UNIQUE_AND_NON_GUESSABLE'
     }
   }
 }
+```
+
+```js
+this.$auth.loginWith('social')
 ```
 
 ### `authorization_endpoint`
@@ -67,11 +71,13 @@ By default is set to `refresh_token_key: 'refresh_token'`. It automatically stor
 
 ### `state`
 
+<<<<<<< HEAD
 By default is set to random generated string.
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
 
 ## Usage
+=======
+ By default is set to random generated string.
+The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+>>>>>>> master
 
-```js
-this.$auth.loginWith('social')
-```
