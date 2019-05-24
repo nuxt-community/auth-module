@@ -1,36 +1,56 @@
-# Local Scheme
+# Local
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/local.js)
 
 `local` is the default, general purpose authentication scheme, supporting `Cookie` and `JWT` login flows.
 
-By default `local` scheme is enabled and preconfigured.
-
-> **TIP:** You can set `strategies.local` to `false` to disable it.
+By default `local` scheme is enabled and preconfigured. You can set `strategies.local` to `false` to disable it.
 
 ## Usage
+
+To do a password based login by sending credentials in request body as a JSON object:
+
+```js
+this.$auth.loginWith('local', {
+  data: {
+    username: 'your_username',
+    password: 'your_password'
+  }
+})
+```
+
+
+## Options
+
+Example for a token based flow:
 
 ```js
 auth: {
   strategies: {
     local: {
       endpoints: {
-        // JWT Login flow (default)
         login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
         logout: { url: '/api/auth/logout', method: 'post' },
         user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
-
-        // Cookie Login flow
-        // login: { url: '/api/auth/login', method: 'post' },
       },
-
-      // JWT Login flow (default)
       // tokenRequired: true,
       // tokenType: 'bearer'
+    }
+  }
+}
+```
 
-      // Cookie Login flow
-      // tokenRequired: false,
-      // tokenType: false
+Example for a cookie based flow:
+
+```js
+auth: {
+  strategies: {
+    local: {
+      endpoints: {
+        login: { url: '/api/auth/login', method: 'post' },
+      },
+      tokenRequired: false,
+      tokenType: false
     }
   }
 }
@@ -40,7 +60,9 @@ auth: {
 
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
 
-> **TIP:** To disable each endpoint, simply set it's value to `false`.
+::: tip
+To disable each endpoint, simply set it's value to `false`.
+:::
 
 #### `propertyName`
 
@@ -55,16 +77,3 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 - Default: `Bearer`
 
  Authorization header type to be used in axios requests.
-
-## Usage
-
-To do a password based login by sending credentials in request body as a JSON object:
-
-```js
-this.$auth.loginWith('local', {
-  data: {
-    username: 'your_username',
-    password: 'your_password'
-  }
-})
-```

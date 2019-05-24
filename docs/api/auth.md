@@ -1,4 +1,4 @@
-# $auth
+# auth
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/auth.js)
 
