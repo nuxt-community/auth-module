@@ -1,9 +1,8 @@
 version: 2
 jobs:
   build:
-    working_directory: /usr/src/app
     docker:
-      - image: banian/node-headless-chrome
+      - image: circleci/node:latest-browsers
     steps:
       # Checkout repository
       - checkout
@@ -23,14 +22,17 @@ jobs:
           paths:
             - "node_modules"
 
-      # Build
-      # - run:
-      #     name: Build
-      #     command: |
-      #       mkdir -p dist
-      #       yarn build
+      # Lint
+      - run:
+          name: Lint
+          command: yarn lint
 
       # Test
       - run:
           name: Tests
-          command: yarn test && yarn codecov
+          command: yarn jest
+
+      # Coverage
+      - run:
+          name: Coverage
+          command: yarn codecov

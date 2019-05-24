@@ -16,8 +16,6 @@ auth: {
 }
 ```
 
-## Usage
-
 Anywhere in your application logic:
 
 ```js

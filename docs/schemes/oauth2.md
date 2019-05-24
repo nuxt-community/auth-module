@@ -1,10 +1,16 @@
-# Oauth2 Scheme
+# Oauth2
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
 
 `oauth2` supports various oauth2 login flows. There are many pre-configured [providers](../providers/README.md)  that you may use instead of directly using this scheme.
 
 ## Usage
+
+```js
+this.$auth.loginWith('social')
+```
+
+## Options
 
 ```js
 auth: {
@@ -18,7 +24,7 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
-      token_key:  'access_token',
+      token_key: 'access_token',
       state: 'UNIQUE_AND_NON_GUESSABLE'
     }
   }
@@ -67,11 +73,6 @@ By default is set to `refresh_token_key: 'refresh_token'`. It automatically stor
 
 ### `state`
 
-By default is set to random generated string.  
+By default is set to random generated string.
+
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
-
-## Usage
-
-```js
-this.$auth.loginWith('social')
-```

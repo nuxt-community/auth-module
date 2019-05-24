@@ -1,4 +1,4 @@
-# $auth
+# auth
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/auth.js)
 
@@ -9,9 +9,9 @@ For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it 
 
 All properties are reactive. Meaning that you can safely use them in Vue template `v-if` conditions.
 
-## `user`
+### `user`
 
-This object contains details about authenticated user such as name. 
+This object contains details about authenticated user such as name.
 You can access it using either `$auth` or Vuex.
 
 ```js
@@ -22,7 +22,7 @@ this.$auth.user
 this.$store.state.auth.user
 ```
 
-## `loggedIn`
+### `loggedIn`
 
 This boolean flag indicates that user is authenticated and available at the moment or not.
 
@@ -67,7 +67,7 @@ this.$auth.login(/* .... */)
 
 - Returns: `Promise`
 
-Set the auth token and fetch the user using the new token and current strategy. 
+Set the auth token and fetch the user using the new token and current strategy.
 
 > **TIP:** This function can properly set the user after registration
 
@@ -76,7 +76,7 @@ this.$auth.setUserToken(token)
   .then(() => this.$toast.success('User set!'))
 ```
 
-## `logout()`
+### `logout()`
 
 - Returns: `Promise`
 
@@ -86,7 +86,7 @@ Logout active strategy. Usage varies by current scheme.
 await this.$auth.logout()
 ```
 
-## `fetchUser()`
+### `fetchUser()`
 
 - Returns: `Promise`
 
@@ -96,7 +96,7 @@ Force re-fetch user using active strategy.
 await this.$auth.fetchUser()
 ```
 
-## `hasScope(scopeName)`
+### `hasScope(scopeName)`
 Check if user has a specific scope:
 
 ```js
@@ -118,9 +118,22 @@ this.$auth.setToken('local', '.....')
 Listen for auth errors: (`plugins/auth.js`)
 
 ```js
-export default function({ $auth }) {
-  $auth.onError((error, name, endpoint) => {
+export default function({ app }) {
+  app.$auth.onError((error, name, endpoint) => {
     console.error(name, error)
+  })
+}
+```
+
+### `onRedirect(handler)`
+
+ Pre-process URLs before redirect: (`plugins/auth.js`)
+
+ ```js
+export default function({ app }) {
+  app.$auth.onRedirect((to, from) => {
+    console.error(to)
+    // you can optionally change `to` by returning a new value
   })
 }
 ```

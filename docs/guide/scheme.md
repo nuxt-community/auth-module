@@ -1,4 +1,4 @@
-# Schemes and Strategies
+# Schemes
 
 Schemes define authentication logic. Strategy is a configurated instance of Scheme. You can have multiple schemes and strategies in your project.
 
@@ -24,5 +24,3 @@ auth: {
   }
 }
 ```
-
-👉 Now that you have an idea what schemes and strategies are, you can configure the default [Local Scheme](local.md) or use a [Provider](../providers/README.md).
