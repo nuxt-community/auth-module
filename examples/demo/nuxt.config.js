@@ -21,10 +21,8 @@ module.exports = {
     },
     strategies: {
       local: {
-        _scheme: 'refresh',
         endpoints: {
-          login: { propertyName: 'token.accessToken' },
-          refresh: { token: 'token.refreshToken', expiresIn: 'token.expiresIn' }
+          login: { propertyName: 'token.accessToken' }
         }
       },
       auth0: {
