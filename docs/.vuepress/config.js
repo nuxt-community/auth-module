@@ -20,6 +20,7 @@ module.exports = {
           children: [
             '/',
             '/guide/setup',
+            '/guide/middleware',
             '/guide/scheme',
             '/guide/provider',
           ]

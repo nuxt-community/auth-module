@@ -1,4 +1,4 @@
-# Auth Middleware
+# Middleware
 
 You can enable `auth` middleware either globally or per route.
 When this middleware is enabled on a route and `loggedIn` is `false` user will be redirected to `redirect.login` route. (`/login` by default)
@@ -26,5 +26,3 @@ export default {
   auth: false
 }
 ```
-
-👉 Now you have to configure some [Strategies](schemes/README.md) for auth.
