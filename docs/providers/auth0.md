@@ -1,4 +1,4 @@
-# Auth0 Provider
+# Auth0
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/auth0.js)
 
@@ -31,7 +31,7 @@ User will be redirected to a page like this:
 
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2.md) and supports all scheme options.
 
-### Obtaining `client_id`, `domain`, and `audience`
+## Obtaining `client_id`, `domain`, and `audience`
 
 `client_id` and `domain` are **REQUIRED**. Your application needs some details about this client to communicate with Auth0.
 

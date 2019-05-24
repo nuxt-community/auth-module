@@ -1,8 +1,8 @@
-# Options
+# options
 
 General options shared with all strategies. See [defaults.js](https://github.com/nuxt-community/auth-module/blob/master/lib/module/defaults.js) for defaults.
 
-### `redirect`
+## `redirect`
 
 Default:
 
@@ -25,13 +25,13 @@ auth: {
 Each redirect path can be disabled by setting to `false`.
 Also you can disable all redirects by setting `redirect` to `false`
 
-### `watchLoggedIn`
+## `watchLoggedIn`
 
 - Default: `true`
 
 When enabled (default) user will be redirected on login/logouts.
 
-### `token`
+## `token`
 
 Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy}`. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
 
@@ -47,7 +47,7 @@ auth: {
 
 * **prefix** - Default prefix used in building a key for token storage across all storage providers.
 
-### `localStorage`
+## `localStorage`
 
 Default:
 
@@ -71,7 +71,7 @@ auth {
 
 Otherwise the auth token will be stored in localStorage at a default key of: `auth._token.{provider}`.
 
-### `cookie`
+## `cookie`
 
 Default:
 
@@ -105,13 +105,13 @@ auth: {
 
 Otherwise the auth token will be stored in a cookie named by default as: `auth._token.{provider}`.
 
-### `plugins`
+## `plugins`
 
 If you have any nuxt plugin that depends on `$auth` you have to specify it here instead of top-level `plugins` option in `nuxt.config.js`.
 
 See [Extending Auth Plugin](recipes/extend.md)
 
-### `resetOnError`
+## `resetOnError`
 
 * Default: `false`
 
@@ -119,25 +119,25 @@ Either a boolean or a function is accepted. If a function is passed, it will tak
 
 If enabled, user will be automatically logged out if an error happens. (For example when token expired)
 
-### `rewriteRedirects`
+## `rewriteRedirects`
 
 * Default: `true`
 
 If enabled, user will redirect back to the original guarded route instead of `redirect.home`.
 
-### `fullPathRedirect`
+## `fullPathRedirect`
 
 Default: `false`
 
 If true, use the full route path with query parameters for redirect
 
-### `vuex.namespace`
+## `vuex.namespace`
 
 * Default: `auth`
 
 Vuex store namespace for keeping state.
 
-### `scopeKey`
+## `scopeKey`
 
 * Default: `scope`
 
