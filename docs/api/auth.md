@@ -76,14 +76,14 @@ this.$auth.setUserToken(token)
   .then(() => this.$toast.success('User set!'))
 ```
 
-### `logout()`
+### `logout(...args)`
 
 - Returns: `Promise`
 
 Logout active strategy. Usage varies by current scheme.
 
 ```js
-await this.$auth.logout()
+await this.$auth.logout(/* .... */)
 ```
 
 ### `fetchUser()`
