@@ -44,6 +44,7 @@
     "@nuxtjs/axios": "^5.5.1",
     "consola": "^2.6.2",
     "cookie": "^0.4.0",
+    "defu": "^0.0.3",
     "dotprop": "^1.2.0",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
