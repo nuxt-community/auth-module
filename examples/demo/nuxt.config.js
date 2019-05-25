@@ -31,6 +31,7 @@ module.exports = {
         clientIdProperty: 'token.clientId',
         dataRefreshTokenProperty: 'refreshToken',
         dataClientIdProperty: 'clientId',
+        dataGrantTypeProperty: 'grantType',
         endpoints: {
           login: { propertyName: 'token.accessToken' },
           refresh: { propertyName: 'token.refreshToken' }
