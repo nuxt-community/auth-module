@@ -21,6 +21,7 @@
 
         <div class="text-center">
           <b-btn @click="login" variant="primary" block>Login</b-btn>
+          <b-btn @click="localRefresh" variant="primary" block>Login with Refresh</b-btn>
         </div>
         </form>
       </b-card>
@@ -85,7 +86,22 @@ export default {
             username: this.username,
             password: this.password
           }
+        }, true)
+        .catch(e => {
+          this.error = e + ''
         })
+    },
+
+    async localRefresh() {
+      this.error = null
+
+      return this.$auth
+        .loginWith('localRefresh', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        }, true)
         .catch(e => {
           this.error = e + ''
         })

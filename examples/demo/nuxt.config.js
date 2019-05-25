@@ -25,6 +25,15 @@ module.exports = {
           login: { propertyName: 'token.accessToken' }
         }
       },
+      localRefresh: {
+        _scheme: 'refresh',
+        expiresInProperty: 'token.expiresIn',
+        clientIdProperty: 'token.clientId',
+        endpoints: {
+          login: { propertyName: 'token.accessToken' },
+          refresh: { propertyName: 'token.refreshToken' }
+        }
+      },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
         client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
