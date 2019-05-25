@@ -29,6 +29,8 @@ module.exports = {
         _scheme: 'refresh',
         expiresInProperty: 'token.expiresIn',
         clientIdProperty: 'token.clientId',
+        dataRefreshTokenProperty: 'refreshToken',
+        dataClientIdProperty: 'clientId',
         endpoints: {
           login: { propertyName: 'token.accessToken' },
           refresh: { propertyName: 'token.refreshToken' }
