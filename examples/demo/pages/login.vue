@@ -86,7 +86,7 @@ export default {
             username: this.username,
             password: this.password
           }
-        }, true)
+        })
         .catch(e => {
           this.error = e + ''
         })
@@ -101,7 +101,7 @@ export default {
             username: this.username,
             password: this.password
           }
-        }, true)
+        })
         .catch(e => {
           this.error = e + ''
         })
