@@ -41,8 +41,8 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.5.1",
-    "consola": "^2.6.2",
+    "@nuxtjs/axios": "^5.5.3",
+    "consola": "^2.7.1",
     "cookie": "^0.4.0",
     "dotprop": "^1.2.0",
     "js-cookie": "^2.2.0",
@@ -70,7 +70,7 @@
     "jest": "^24.1.0",
     "jsdom": "^15.1.0",
     "nuxt-class-component": "^1.2.0",
-    "nuxt-edge": "^2.7.2-25976168.59071e4c",
+    "nuxt-edge": "^2.8.0-25986853.f39fe227",
     "puppeteer": "^1.12.2",
     "standard-version": "^6.0.1"
   }
