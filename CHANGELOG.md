@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.2](https://github.com/nuxt-community/auth-module/compare/v4.6.1...v4.6.2) (2019-05-31)
+
+
+### Bug Fixes
+
+* **module:** warn if default strategy is not valid ([#365](https://github.com/nuxt-community/auth-module/issues/365)) ([db6d3d4](https://github.com/nuxt-community/auth-module/commit/db6d3d4))
+
+
+
 ### [4.6.1](https://github.com/nuxt-community/auth-module/compare/v4.6.0...v4.6.1) (2019-05-31)
 
 
