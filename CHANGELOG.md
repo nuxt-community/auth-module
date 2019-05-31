@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.1](https://github.com/nuxt-community/auth-module/compare/v4.6.0...v4.6.1) (2019-05-31)
+
+
+### Bug Fixes
+
+* **storage:** accept expires as a number for cookie ([dd92ec8](https://github.com/nuxt-community/auth-module/commit/dd92ec8))
+
+
+
 ## [4.6.0](https://github.com/nuxt-community/auth-module/compare/v4.5.2...v4.6.0) (2019-05-30)
 
 
