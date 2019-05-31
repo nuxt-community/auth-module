@@ -21,17 +21,17 @@ module.exports = {
     },
     strategies: {
       local: {
-        tokenProperty: 'token.accessToken'
+        token: 'token.accessToken'
       },
       localRefresh: {
         _scheme: 'refresh',
-        tokenProperty: 'token.accessToken',
-        refreshTokenProperty: 'token.refreshToken',
-        expiresInProperty: 'token.expiresIn',
-        clientIdProperty: 'token.clientId',
-        dataRefreshTokenProperty: 'refreshToken',
-        dataClientIdProperty: 'clientId',
-        dataGrantTypeProperty: 'grantType'
+        token: 'token.accessToken',
+        refreshToken: 'token.refreshToken',
+        expiresIn: 'token.expiresIn',
+        clientId: 'token.clientId',
+        dataRefreshToken: 'refreshToken',
+        dataClientId: 'clientId',
+        dataGrantType: 'grantType'
       },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
