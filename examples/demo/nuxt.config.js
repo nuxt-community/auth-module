@@ -21,12 +21,18 @@ module.exports = {
     },
     strategies: {
       local: {
-        token: 'token.accessToken'
+        token: {
+          property: 'token.accessToken'
+        }
       },
       localRefresh: {
         _scheme: 'refresh',
-        token: 'token.accessToken',
-        refreshToken: 'token.refreshToken',
+        token: {
+          property: 'token.accessToken'
+        },
+        refreshToken: {
+          property: 'token.refreshToken'
+        },
         expiresIn: 'token.expiresIn',
         clientId: 'token.clientId',
         dataRefreshToken: 'refreshToken',
