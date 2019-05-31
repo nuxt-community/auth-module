@@ -37,7 +37,8 @@ module.exports = {
         clientId: 'token.clientId',
         dataRefreshToken: 'refreshToken',
         dataClientId: 'clientId',
-        dataGrantType: 'grantType'
+        dataGrantType: 'grantType',
+        enableAutoRefresh: true
       },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
