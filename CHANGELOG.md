@@ -1,6 +1,69 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [4.6.3](https://github.com/nuxt-community/auth-module/compare/v4.6.1...v4.6.3) (2019-05-31)
+
+
+### Bug Fixes
+
+* **module:** warn if default strategy is not valid ([#365](https://github.com/nuxt-community/auth-module/issues/365)) ([db6d3d4](https://github.com/nuxt-community/auth-module/commit/db6d3d4))
+
+
+
+### [4.6.2](https://github.com/nuxt-community/auth-module/compare/v4.6.1...v4.6.2) (2019-05-31)
+
+
+### Bug Fixes
+
+* **module:** warn if default strategy is not valid ([#365](https://github.com/nuxt-community/auth-module/issues/365)) ([db6d3d4](https://github.com/nuxt-community/auth-module/commit/db6d3d4))
+
+
+
+### [4.6.1](https://github.com/nuxt-community/auth-module/compare/v4.6.0...v4.6.1) (2019-05-31)
+
+
+### Bug Fixes
+
+* **storage:** accept expires as a number for cookie ([dd92ec8](https://github.com/nuxt-community/auth-module/commit/dd92ec8))
+
+
+
+## [4.6.0](https://github.com/nuxt-community/auth-module/compare/v4.5.2...v4.6.0) (2019-05-30)
+
+
+### Bug Fixes
+
+* accept state, nonce as `login` args ([e5579e9](https://github.com/nuxt-community/auth-module/commit/e5579e9))
+* preserve query params when redirecting ([#193](https://github.com/nuxt-community/auth-module/issues/193)) ([39fa137](https://github.com/nuxt-community/auth-module/commit/39fa137))
+* **auth:** handle mounted errors during init ([#234](https://github.com/nuxt-community/auth-module/issues/234)) ([03dba23](https://github.com/nuxt-community/auth-module/commit/03dba23))
+* **docs:** GitHub capitalize ([#246](https://github.com/nuxt-community/auth-module/issues/246)) ([725e0c9](https://github.com/nuxt-community/auth-module/commit/725e0c9))
+* **docs:** GitHub capitalize ([#246](https://github.com/nuxt-community/auth-module/issues/246)) ([eb7dc9e](https://github.com/nuxt-community/auth-module/commit/eb7dc9e))
+* **docs:** spelling fix ([#247](https://github.com/nuxt-community/auth-module/issues/247)) ([c2b0d7b](https://github.com/nuxt-community/auth-module/commit/c2b0d7b))
+* **docs:** typo ([#203](https://github.com/nuxt-community/auth-module/issues/203)) ([3a0e080](https://github.com/nuxt-community/auth-module/commit/3a0e080))
+* **local:** prevent `loggedIn` being incorrectly set to true ([#346](https://github.com/nuxt-community/auth-module/issues/346)) ([aa5f29d](https://github.com/nuxt-community/auth-module/commit/aa5f29d))
+* **middleware:** remove trailing slash from redirect paths ([#235](https://github.com/nuxt-community/auth-module/issues/235)) ([398a515](https://github.com/nuxt-community/auth-module/commit/398a515))
+* **oauth2, auth0:** add audience to requests ([#222](https://github.com/nuxt-community/auth-module/issues/222)) ([174e135](https://github.com/nuxt-community/auth-module/commit/174e135))
+* **setUserToken:** Add fallback to unimplemented strategies ([c4691ab](https://github.com/nuxt-community/auth-module/commit/c4691ab))
+* randomString btoa fallback for SSR ([#230](https://github.com/nuxt-community/auth-module/issues/230)) ([604cc5d](https://github.com/nuxt-community/auth-module/commit/604cc5d))
+* remove default auth0 audience ([#239](https://github.com/nuxt-community/auth-module/issues/239)) ([abfa084](https://github.com/nuxt-community/auth-module/commit/abfa084))
+* set extended for body-parser urlencoded to prevent the deprecation warning ([#199](https://github.com/nuxt-community/auth-module/issues/199)) ([0226836](https://github.com/nuxt-community/auth-module/commit/0226836))
+* **storage.md:** fix typo ([a8fbda8](https://github.com/nuxt-community/auth-module/commit/a8fbda8))
+
+
+### Features
+
+* improve storage ([#360](https://github.com/nuxt-community/auth-module/issues/360)) ([d05fcca](https://github.com/nuxt-community/auth-module/commit/d05fcca))
+* support `onRedirect` hook ([#185](https://github.com/nuxt-community/auth-module/issues/185)) ([aacb191](https://github.com/nuxt-community/auth-module/commit/aacb191))
+* **middleware:** add guest option in auth middleware ([#264](https://github.com/nuxt-community/auth-module/issues/264)) ([54b0720](https://github.com/nuxt-community/auth-module/commit/54b0720))
+* generate nounce for `id_token` response type ([#298](https://github.com/nuxt-community/auth-module/issues/298)) ([b730203](https://github.com/nuxt-community/auth-module/commit/b730203))
+* **oauth2:** support passing extra query params ([#358](https://github.com/nuxt-community/auth-module/issues/358)) ([0d60c2d](https://github.com/nuxt-community/auth-module/commit/0d60c2d))
+* use strategy tokenName for `requestWith` ([#301](https://github.com/nuxt-community/auth-module/issues/301)) ([8654a48](https://github.com/nuxt-community/auth-module/commit/8654a48))
+* **oauth2-set-state:** Allow set state in case it exists on oauth2 provider [[#253](https://github.com/nuxt-community/auth-module/issues/253)] ([6420ddc](https://github.com/nuxt-community/auth-module/commit/6420ddc))
+* **setUserToken:** Add functionality to manually set auth token ([9f53a4f](https://github.com/nuxt-community/auth-module/commit/9f53a4f))
+* add resetOnError ([#197](https://github.com/nuxt-community/auth-module/issues/197)) ([469f2f8](https://github.com/nuxt-community/auth-module/commit/469f2f8))
+
+
 
 <a name="4.5.2"></a>
 ## [4.5.2](https://github.com/nuxt-community/auth-module/compare/v4.5.1...v4.5.2) (2018-09-18)

@@ -87,9 +87,10 @@ auth: {
 ```
 
 * **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
-* **options** - Additional cookie options, passed to [js-cookie](https://github.com/js-cookie/js-cookie) `set` and `get` functions. See full details on options they support and their defaults [here](https://github.com/js-cookie/js-cookie#cookie-attributes), which includes:
+* **options** - Additional cookie options, passed to [cookie](https://www.npmjs.com/package/cookie).
   * `path` - path where the cookie is visible. Default is '/'.
   * `expires` - can be used to specify cookie lifetime in `Number` of days or specific `Date`. Default is session only.
+  * `maxAge` - Specifies the number (in seconds) to be the value for the `Max-Age` (preferred over `expires`)
   * `domain` - domain (and by extension subdomain/s) where the cookie is visible. Default is domain and all subdomains.
   * `secure` - sets whether the cookie requires a secure protocol (https). Default is false, **should be set to true if possible**.
 

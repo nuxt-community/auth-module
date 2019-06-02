@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/auth",
-  "version": "4.5.2",
+  "version": "4.6.3",
   "description": "Authentication module for Nuxt.js",
   "license": "MIT",
   "contributors": [
@@ -41,8 +41,8 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.5.1",
-    "consola": "^2.6.2",
+    "@nuxtjs/axios": "^5.5.3",
+    "consola": "^2.7.1",
     "cookie": "^0.4.0",
     "defu": "^0.0.3",
     "dotprop": "^1.2.0",
@@ -55,7 +55,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "body-parser": "^1.18.3",
-    "bootstrap-vue": "^2.0.0-rc.20",
+    "bootstrap-vue": "2.0.0-rc.20",
     "codecov": "^3.1.0",
     "cookie-parser": "^1.4.3",
     "eslint": "^5.13.0",
@@ -71,7 +71,7 @@
     "jest": "^24.1.0",
     "jsdom": "^15.1.0",
     "nuxt-class-component": "^1.2.0",
-    "nuxt-edge": "^2.7.2-25976168.59071e4c",
+    "nuxt-edge": "^2.8.0-25986853.f39fe227",
     "puppeteer": "^1.12.2",
     "standard-version": "^6.0.1"
   }
