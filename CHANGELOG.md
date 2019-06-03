@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.5](https://github.com/nuxt-community/auth-module/compare/v4.6.4...v4.6.5) (2019-06-03)
+
+
+### Bug Fixes
+
+* fix typo in serializedCookie ([648fdc9](https://github.com/nuxt-community/auth-module/commit/648fdc9))
+
+
+
 ### [4.6.4](https://github.com/nuxt-community/auth-module/compare/v4.6.3...v4.6.4) (2019-06-03)
 
 
