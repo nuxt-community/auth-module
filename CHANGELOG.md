@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.4](https://github.com/nuxt-community/auth-module/compare/v4.6.3...v4.6.4) (2019-06-03)
+
+
+### Bug Fixes
+
+* server side Set-Cookie always set an array. ([#367](https://github.com/nuxt-community/auth-module/issues/367)) ([4d3feff](https://github.com/nuxt-community/auth-module/commit/4d3feff))
+
+
+
 ### [4.6.3](https://github.com/nuxt-community/auth-module/compare/v4.6.1...v4.6.3) (2019-05-31)
 
 
