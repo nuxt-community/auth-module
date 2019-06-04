@@ -74,7 +74,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **api/auth.md:** typo([#204](https://github.com/nuxt-community/auth-module/issues/204)) ([f0e693a](https://github.com/nuxt-community/auth-module/commit/f0e693a))
 * **docs:** minor proper english revisions ([#200](https://github.com/nuxt-community/auth-module/issues/200)) ([619184b](https://github.com/nuxt-community/auth-module/commit/619184b))
 * **docs:** typo [#224](https://github.com/nuxt-community/auth-module/issues/224)  ([752f4ad](https://github.com/nuxt-community/auth-module/commit/752f4ad))
-* **docs:** update glassory read more title ([a53c38c](https://github.com/nuxt-community/auth-module/commit/a53c38c))
+* **docs:** update glossary read more title ([a53c38c](https://github.com/nuxt-community/auth-module/commit/a53c38c))
 * **middleware:** remove trailing slash from redirect paths ([#235](https://github.com/nuxt-community/auth-module/issues/235)) ([c401122](https://github.com/nuxt-community/auth-module/commit/c401122))
 
 
