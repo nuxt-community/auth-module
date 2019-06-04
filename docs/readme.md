@@ -14,7 +14,7 @@ If it is first time using this module, reading resources below in order is recom
 
 ## More Resources
 
-* [Glassory](./glassory.md)
+* [Glossary](./glossary.md)
 * [GitHub](https://github.com/nuxt-community/auth-module)
 * [Releases](https://github.com/nuxt-community/auth-module/releases)
 * [Migration Guide](./migration.md)
