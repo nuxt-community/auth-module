@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.6](https://github.com/nuxt-community/auth-module/compare/v4.6.5...v4.6.6) (2019-06-05)
+
+
+### Bug Fixes
+
+* set-cookie header contains `undefined` value ([#372](https://github.com/nuxt-community/auth-module/issues/372)) ([323346e](https://github.com/nuxt-community/auth-module/commit/323346e))
+
+
+
 ### [4.6.5](https://github.com/nuxt-community/auth-module/compare/v4.6.4...v4.6.5) (2019-06-03)
 
 
