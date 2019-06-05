@@ -110,7 +110,7 @@ Otherwise the auth token will be stored in a cookie named by default as: `auth._
 
 If you have any nuxt plugin that depends on `$auth` you have to specify it here instead of top-level `plugins` option in `nuxt.config.js`.
 
-See [Extending Auth Plugin](recipes/extend.md)
+See [Extending Auth Plugin](/recipes/extend.md)
 
 ## `resetOnError`
 
