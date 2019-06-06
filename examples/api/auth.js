@@ -73,6 +73,7 @@ app.post('/refresh', (req, res, next) => {
     const user = refreshTokens[refreshToken].user
     const expiresIn = 15
     const newRefreshToken = Math.floor(Math.random() * (1000000000000000 - 1 + 1)) + 1
+    delete refreshTokens[refreshToken]
     const accessToken = jsonwebtoken.sign(
       {
         user: user.username,
@@ -86,14 +87,14 @@ app.post('/refresh', (req, res, next) => {
 
     refreshTokens[newRefreshToken] = {
       accessToken,
-      user: refreshTokens[refreshToken].user,
+      user: user,
       clientId: '123'
     }
 
     res.json({
       token: {
         accessToken,
-        refreshToken,
+        refreshToken: newRefreshToken,
         expiresIn
       }
     })
