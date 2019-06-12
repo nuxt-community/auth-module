@@ -15,6 +15,7 @@ auth: {
       userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
       scope: ['openid', 'profile', 'email'],
       access_type: undefined,
+      access_token_endpoint: undefined,
       response_type: 'token',
       token_type: 'Bearer',
       redirect_uri: undefined,
@@ -45,11 +46,11 @@ By default is `token`. If you use `code` you may have to implement a server side
 
 ### `access_type`
 
-By default is `online`. Set to `offline` if using Google code authorization flow (`response_type: 'code'`) to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
+If using Google code authorization flow (`response_type: 'code'`) set to `offline` to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
 
 ### `access_token_endpoint`
 
-If using `response_type: 'code'` provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
+If using Google code authorization flow (`response_type: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
 
 ### `token_type`
 
