@@ -14,7 +14,7 @@ auth: {
       authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
       userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
       scope: ['openid', 'profile', 'email'],
-      access_type: 'online',
+      access_type: undefined,
       response_type: 'token',
       token_type: 'Bearer',
       redirect_uri: undefined,
