@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/nuxt-community/auth-module/compare/v4.6.6...v4.7.0) (2019-06-13)
+
+
+### Features
+
+* **oauth2:** support `access_type=offline` to enable refresh tokens from google ([#303](https://github.com/nuxt-community/auth-module/issues/303)) ([9553f5c](https://github.com/nuxt-community/auth-module/commit/9553f5c))
+
+
+
 ### [4.6.6](https://github.com/nuxt-community/auth-module/compare/v4.6.5...v4.6.6) (2019-06-05)
 
 
