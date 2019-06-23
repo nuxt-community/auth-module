@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/nuxt-community/auth-module/compare/v4.7.0...v4.8.0) (2019-06-23)
+
+
+### Bug Fixes
+
+* don't redirect to login page if in guest mode ([#385](https://github.com/nuxt-community/auth-module/issues/385)) ([3ee609d](https://github.com/nuxt-community/auth-module/commit/3ee609d))
+
+
+### Features
+
+* **oauth2:** support server-side callback ([#381](https://github.com/nuxt-community/auth-module/issues/381)) ([af550d4](https://github.com/nuxt-community/auth-module/commit/af550d4))
+
+
+
 ## [4.7.0](https://github.com/nuxt-community/auth-module/compare/v4.6.6...v4.7.0) (2019-06-13)
 
 
