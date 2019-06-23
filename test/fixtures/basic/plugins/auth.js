@@ -1,3 +1,3 @@
-export default function ({ app }) {
-  app.$auth._custom_plugin = true
+export default function ({ $auth }) {
+  $auth._custom_plugin = true
 }
