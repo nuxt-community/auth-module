@@ -3,7 +3,7 @@
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/auth.js)
 
 This module globally injects `$auth` instance, meaning that you can access it anywhere using `this.$auth`.
-For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it from `context.app.$auth`.
+For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it from `context.$auth`.
 
 ## properties
 
@@ -118,8 +118,8 @@ this.$auth.setToken('local', '.....')
 Listen for auth errors: (`plugins/auth.js`)
 
 ```js
-export default function({ app }) {
-  app.$auth.onError((error, name, endpoint) => {
+export default function({ $auth }) {
+  $auth.onError((error, name, endpoint) => {
     console.error(name, error)
   })
 }
@@ -130,8 +130,8 @@ export default function({ app }) {
  Pre-process URLs before redirect: (`plugins/auth.js`)
 
  ```js
-export default function({ app }) {
-  app.$auth.onRedirect((to, from) => {
+export default function({ $auth }) {
+  $auth.onRedirect((to, from) => {
     console.error(to)
     // you can optionally change `to` by returning a new value
   })
