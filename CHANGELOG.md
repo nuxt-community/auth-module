@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.1](https://github.com/nuxt-community/auth-module/compare/v4.8.0...v4.8.1) (2019-06-24)
+
+
+### Bug Fixes
+
+* **utilities:** avoid send `xxx=undefined` in query ([#387](https://github.com/nuxt-community/auth-module/issues/387)) ([7c79fd4](https://github.com/nuxt-community/auth-module/commit/7c79fd4))
+* regression from [#385](https://github.com/nuxt-community/auth-module/issues/385) when callback is set to false ([#391](https://github.com/nuxt-community/auth-module/issues/391)) ([4605681](https://github.com/nuxt-community/auth-module/commit/4605681))
+* **oauth2:** correctly handle callback with hash ([#394](https://github.com/nuxt-community/auth-module/issues/394)) ([9cf304f](https://github.com/nuxt-community/auth-module/commit/9cf304f))
+
+
+
 ## [4.8.0](https://github.com/nuxt-community/auth-module/compare/v4.7.0...v4.8.0) (2019-06-23)
 
 
