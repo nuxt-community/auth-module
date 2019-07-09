@@ -9,3 +9,5 @@ coverage
 dist
 package-lock.json
 _book
+
+.env

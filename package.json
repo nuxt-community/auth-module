@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.5.4",
+    "@nuxtjs/dotenv": "^1.3.0",
     "consola": "^2.9.0",
     "cookie": "^0.4.0",
     "dotprop": "^1.2.0",
