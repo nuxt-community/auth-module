@@ -1,4 +1,4 @@
-## Extending Auth plugin
+# Extending Auth plugin
 
 If you have plugins that need to access `$auth`, you can use `auth.plugins` option.
 
@@ -18,11 +18,11 @@ If you have plugins that need to access `$auth`, you can use `auth.plugins` opti
 `plugins/auth.js`
 
 ```js
-export default function ({ app }) {
-  if (!app.$auth.loggedIn) {
+export default function ({ $auth }) {
+  if (!$auth.loggedIn) {
     return
   }
 
-  const username = app.$auth.user.username
+  const username = $auth.user.username
 }
 ```

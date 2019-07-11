@@ -43,6 +43,12 @@ module.exports = {
             '/providers/google',
             '/providers/laravel-passport'
           ]
+        }, {
+          title: 'Recipes',
+          collapsable: false,
+          children: [
+            '/recipes/extend'
+          ]
         }
       ],
     },
