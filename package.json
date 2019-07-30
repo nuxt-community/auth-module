@@ -73,6 +73,6 @@
     "nuxt-class-component": "^1.3.0",
     "nuxt-edge": "^2.8.1-25996330.2fabea94",
     "puppeteer": "^1.19.0",
-    "standard-version": "^6.0.1"
+    "standard-version": "^7.0.0"
   }
 }
