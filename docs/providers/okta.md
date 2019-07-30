@@ -15,8 +15,26 @@
 ### 1. Install dependencies
 `npm install @nuxtjs/auth @nuxtjs/axios @nuxtjs/dotenv`
 
+<details> 
+  <summary>
+    <strong><em>Note</em></strong>: Here are instructions for using the pull request (PR) version.
+  </summary>
+
+1. add the following to your `package.json` `dependencies`:
+   ```
+   "@nuxtjs/auth": "git+https://github.com/metasean/auth-module.git#okta",
+   "@nuxtjs/axios": "^5.5.4",
+   "@nuxtjs/dotenv": "^1.3.0",
+   ```
+2. run `npm install`
+</details>
+
 ### 2. Create an `.env` file with the following information
 ```bash
+# Base URL construction:
+# https://${OKTA_DOMAIN}.${OKTA_URL}.com/oauth2/${OKTA_SERVER_ID}/v1
+
+
 #######################################
 #
 # MANDATORY nuxt.config.js variables
@@ -41,6 +59,10 @@ OKTA_CLIENT_ID='0abcde1fgHIjk2lMn345'
 # OPTIONAL nuxt.config.js variables
 # values shown below are the default values
 #
+
+# OKTA_URL
+# the base okta url
+OKTA_URL='okta.com'
 
 # OKTA_REDIRECT_CALLBACK_URI
 # is the uri Okta will redirect the user to upon login
@@ -92,9 +114,10 @@ export default {
     redirect: {
       callback: process.env.REDIRECT_CALLBACK_URI, // optional
       logout: process.env.REDIRECT_LOGOUT_URI // optional
-    }
+    },
     strategies: {
       okta: {
+        url: process.env.OKTA_URL, // optional
         domain: process.env.OKTA_DOMAIN,
         client_id: process.env.OKTA_CLIENT_ID,
         server_id: process.env.OKTA_SERVER_ID, // optional
@@ -110,6 +133,8 @@ export default {
 Create an `index.js` file in your `store` directory.  An empty `index.js` is perfectly acceptable for this purpose.
 
 ## 5. Somewhere in your application logic:
+
+Setup your middleware (https://auth.nuxtjs.org/guide/middleware.html) and add your login, logout, etc.
 
 ```js
 this.$auth.loginWith('okta')
@@ -134,6 +159,8 @@ Your application needs some details about this client to communicate with Okta, 
   - Okta and the auth-nuxt okta provider both provide a default callback value of `implicit/callback`.  Therefore there must be a page `implicit/callback.vue` *_OR_* both the Okta and nuxt.config.js settings need to be changed to reflect the desired callback page.
   - Okta does *_NOT_* provide a default logout redirect, therefore it *_MUST_* be set or users will get an error on logout.  This module provides a default logout redirect value of `/`.
 
+- `auth.strategies.okta.url` is optional and defaults to `okta.com`.
+- 
 - `auth.strategies.okta.server_id` is optional and defaults to `default`.
 
 - `auth.strategies.okta.scope` is optional and defaults to `'openid profile email'`.

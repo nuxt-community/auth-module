@@ -53,6 +53,7 @@ module.exports = {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       },
       okta: {
+        url: process.env.OKTA_URL,
         domain: process.env.OKTA_DOMAIN,
         client_id: process.env.OKTA_CLIENT_ID,
         server_id: process.env.OKTA_SERVER_ID,
