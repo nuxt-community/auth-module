@@ -21,7 +21,10 @@ module.exports = {
       }
     }
   },
-  modules: ['@nuxtjs/axios', '@@'],
+  modules: [
+    '@nuxtjs/axios',
+    { handler: require('../../../') }
+  ],
   axios: {
     proxy: true
   },
