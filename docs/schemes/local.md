@@ -72,6 +72,12 @@ To disable each endpoint, simply set it's value to `false`.
 
 This option can be used to disable all token handling. Useful for Cookie only flows. \(Enabled by default\)
 
+### `tokenName`
+
+- Default: `Authorization`
+
+  Authorization header name to be used in axios requests.
+
 ### `tokenType`
 
 - Default: `Bearer`
