@@ -58,7 +58,7 @@
     "bootstrap-vue": "^2.0.0",
     "codecov": "^3.5.0",
     "cookie-parser": "^1.4.4",
-    "eslint": "^5.16.0",
+    "eslint": "^6.3.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.17.0",
