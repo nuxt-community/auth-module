@@ -71,7 +71,7 @@
     "jest": "^24.9.0",
     "jsdom": "^15.1.1",
     "nuxt-class-component": "^1.3.0",
-    "nuxt-edge": "^2.10.0-26134570.8ccca220",
+    "nuxt-edge": "^2.10.0-26134574.e9c4bcfe",
     "puppeteer": "^1.19.0",
     "standard-version": "^7.0.0"
   }
