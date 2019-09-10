@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.2](https://github.com/nuxt-community/auth-module/compare/v4.8.1...v4.8.2) (2019-09-05)
+
+
+
 ### [4.8.1](https://github.com/nuxt-community/auth-module/compare/v4.8.0...v4.8.1) (2019-06-24)
 
 
