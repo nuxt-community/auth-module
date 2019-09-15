@@ -1,10 +1,10 @@
-# $auth.$storage
+# storage
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/storage.js)
 
 Auth module has a built-in powerful and universal storage to keep tokens and profile data.
 
-### Universal Storage
+## Universal Storage
 
 Universally keep state in vuex, localStorage and Cookies:
 
@@ -14,7 +14,7 @@ this.$auth.$storage.getUniversal(key, isJson)
 this.$auth.$storage.syncUniversal(key, defaultValue, isJson)
 ```
 
-### Local State
+## Local State
 
 Access to local state:
 
@@ -32,14 +32,14 @@ this.$auth.$storage.getState(key)
 this.$auth.$storage.watchState('loggedIn', newValue => { })
 ```
 
-### Cookies
+## Cookies
 
 ```js
 this.$auth.$storage.setCookie(key, val, isJson)
 this.$auth.$storage.getCookie(key)
 ```
 
-### Local Storage
+## Local Storage
 
 ```js
 this.$auth.$storage.setLocalStorage(key, val, isJson)
