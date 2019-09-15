@@ -9,8 +9,8 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: 'standard',
-  plugins: ['jest', 'vue'],
+  extends: ['standard', 'prettier'],
+  plugins: ['jest', 'vue', 'prettier'],
   rules: {
     // Allow paren-less arrow functions
     'arrow-parens': 0,
@@ -19,7 +19,10 @@ module.exports = {
     // Allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // Do not allow console.logs etc...
-    'no-console': 2
+    'no-console': 2,
+    'comma-dangle': 0,
+    'semi': 'never',
+    "space-before-function-parentheses": 'always'
   },
   globals: {
     'jest/globals': true,
