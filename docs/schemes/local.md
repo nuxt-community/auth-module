@@ -34,7 +34,7 @@ auth: {
         user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
       },
       // tokenRequired: true,
-      // tokenType: 'bearer'
+      // token_type: 'Bearer'
     }
   }
 }
@@ -50,7 +50,7 @@ auth: {
         login: { url: '/api/auth/login', method: 'post' },
       },
       tokenRequired: false,
-      tokenType: false
+      token_type: false
     }
   }
 }
@@ -78,7 +78,7 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 
   Authorization header name to be used in axios requests.
 
-### `tokenType`
+### `token_type`
 
 - Default: `Bearer`
 
