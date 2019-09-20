@@ -14,6 +14,15 @@ this.$auth.loginWith('social')
 If your provider issues refresh tokens, these will be used to refresh the token before every axios request.
 Note: This feature is only supported for jwt tokens.
 
+### Behavior when the refresh token has expired
+If the refresh token has expired, the token cannot be refreshed. You can find the different behavior for server and client side below.
+
+#### Server side (during page reload or initial navigation)
+The user is logged out and navigated to the **home** page.
+
+#### Client side (Client initiated axios request)
+The user is logged out and navigated to the **logout** page, for explicitly explaining what happened.  
+
 ## Options
 
 ```js
