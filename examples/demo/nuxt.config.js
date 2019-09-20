@@ -17,7 +17,8 @@ module.exports = {
   },
   auth: {
     redirect: {
-      callback: '/callback'
+      callback: '/callback',
+      logout: '/signed-out'
     },
     strategies: {
       local: {
