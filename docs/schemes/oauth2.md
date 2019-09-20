@@ -10,6 +10,10 @@
 this.$auth.loginWith('social')
 ```
 
+## Token refresh
+If your provider issues refresh tokens, these will be used to refresh the token before every axios request.
+Note: This feature is only supported for jwt tokens.
+
 ## Options
 
 ```js
