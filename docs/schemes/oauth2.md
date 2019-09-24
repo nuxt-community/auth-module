@@ -86,3 +86,32 @@ By default is set to `refresh_token_key: 'refresh_token'`. It automatically stor
 By default is set to random generated string.
 
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+
+### `_runtimeOptions`
+
+`NOTE: Only available in univeral mode`
+
+
+By default all options are baked into the bundle during build. 
+If you use the same bundle in multiple environments (e.g. test and prod), but have options that are environment-specific,
+you can supply a function like this:
+
+```js
+auth: {
+  strategies: {
+    yourFavoriteProvider: {
+      _scheme: 'oauth2',
+      scope: ['openid', 'profile', 'email'],
+      _runtimeOptions: () => {
+        return {
+          client_id: process.env.CLIENT_ID,
+          authorization_endpoint: process.env.AUTH_URL + '/auth',
+          access_token_endpoint: process.env.AUTH_URL + '/token',
+          userinfo_endpoint: process.env.AUTH_URL + '/userinfo'
+        }
+      }
+    }
+  }
+}
+```
+The `_runtimeOptions` function  will be evaluated and merged with the other options during the initial request to the server.
