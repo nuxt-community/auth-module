@@ -1,4 +1,5 @@
 const { resolve } = require('path')
+require('dotenv').config()
 
 module.exports = {
   rootDir: resolve(__dirname, '../..'),
@@ -8,7 +9,7 @@ module.exports = {
     extractCSS: true
   },
   serverMiddleware: ['../api/auth'],
-  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@'],
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@', '@nuxtjs/dotenv'],
   axios: {
     proxy: true
   },
@@ -44,6 +45,12 @@ module.exports = {
       },
       twitter: {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      },
+      aad: {
+        client_id: process.env.AAD_CLIENT_ID,
+        client_secret: process.env.AAD_CLIENT_SECRET,
+        tenant_id: process.env.AAD_TENANT_ID,
+        grant_type: 'authorization_code'
       }
     }
   }
