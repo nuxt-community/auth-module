@@ -33,6 +33,7 @@ auth: {
         logout: { url: '/api/auth/logout', method: 'post' },
         user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
       },
+      jwt_decode: false,
       // tokenRequired: true,
       // tokenType: 'bearer'
     }
@@ -63,6 +64,12 @@ Each endpoint is used to make requests using axios. They are basically extending
 ::: tip
 To disable each endpoint, simply set it's value to `false`.
 :::
+
+### `jwt_decode`
+
+If your oauth provider does not provide a user info endpoint (eg. AWS Cognito or Azure B2C), setting this property to `true` will prompt the module to decode the token using jwt-decode.
+
+Defaults to `false`.
 
 #### `propertyName`
 

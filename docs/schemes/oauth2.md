@@ -19,6 +19,7 @@ auth: {
       _scheme: 'oauth2',
       authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
       userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
+      jwt_decode: false,
       scope: ['openid', 'profile', 'email'],
       access_type: undefined,
       access_token_endpoint: undefined,
@@ -42,6 +43,12 @@ auth: {
 While not a part of oauth2 spec, almost all oauth2 providers expose this endpoint to get user profile.
 
 If a `false` value is set, we only do login without fetching user profile.
+
+### `jwt_decode`
+
+If your oauth provider does not provide a user info endpoint (eg. AWS Cognito or Azure B2C), setting this property to `true` will prompt the module to decode the token using jwt-decode.
+
+Defaults to `false`.
 
 ### `scope`
 
