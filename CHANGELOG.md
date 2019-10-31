@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.4](https://github.com/nuxt-community/auth-module/compare/v4.8.3...v4.8.4) (2019-09-12)
+
+
+### Bug Fixes
+
+* **oauth2:** restore callback handling on static sites ([#453](https://github.com/nuxt-community/auth-module/issues/453)) ([06165a0](https://github.com/nuxt-community/auth-module/commit/06165a0))
+
 ### [4.8.3](https://github.com/nuxt-community/auth-module/compare/v4.8.2...v4.8.3) (2019-09-10)
 
 
