@@ -55,6 +55,7 @@ describe('auth', () => {
     expect(axiosBearer).toBeDefined()
     expect(axiosBearer.split(' ')).toHaveLength(2)
     expect(axiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+    expect(axiosBearer.split(' ')[1]).toMatch(/test=/g)
     expect(token).toBeDefined()
     expect(user).toBeDefined()
     expect(user.username).toBe('test_username')
