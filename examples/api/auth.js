@@ -14,7 +14,20 @@ app.use(bodyParser.json())
 // JWT middleware
 app.use(
   jwt({
-    secret: 'dummy'
+    secret: 'dummy',
+    getToken: function fromHeaderOrQuerystring (req) {
+      const auth = req.headers.authorization
+      const query = req.query
+      if (auth && auth.match(/\s+\w+=/g)) {
+        return auth.split(/\s+\w+=/g)[1]
+      } else if (auth && auth.split(' ')[0] === 'Bearer') {
+        return auth.split(' ')[1]
+      } else if (query && query.token) {
+        return query.token
+      }
+
+      return null
+    }
   }).unless({
     path: '/api/auth/login'
   })
