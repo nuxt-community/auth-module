@@ -26,6 +26,8 @@
     "heroku-postbuild": "nuxt build examples/demo",
     "start": "nuxt start examples/demo",
     "dev": "nuxt examples/demo",
+    "postinstall": "cd examples/with-typescript && npm install",
+    "dev:ts": "cd examples/with-typescript && npm run dev",
     "lint": "eslint lib test",
     "lint-fix": "eslint --fix lib test",
     "test": "npm run lint && jest",
@@ -36,7 +38,7 @@
   ],
   "files": [
     "lib",
-    "types/index.d.ts"
+    "types"
   ],
   "jest": {
     "testEnvironment": "node",

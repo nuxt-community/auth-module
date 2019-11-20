@@ -1,0 +1,24 @@
+{
+  "name": "with-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nuxt/types": "^0.3.4",
+    "@nuxt/typescript-build": "^0.3.4",
+    "@nuxt/typescript-runtime": "^0.2.4",
+    "@nuxtjs/auth": "^4.8.4",
+    "@nuxtjs/axios": "^5.8.0",
+    "@nuxtjs/toast": "^3.3.0",
+    "@types/node": "^12.12.11",
+    "bootstrap-vue": "^2.1.0"
+  }
+}
