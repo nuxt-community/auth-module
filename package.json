@@ -17,6 +17,7 @@
     }
   ],
   "main": "lib/module/index.js",
+  "types": "types/index.d.ts",
   "repository": "nuxt-community/auth-module",
   "publishConfig": {
     "access": "public"
@@ -34,7 +35,8 @@
     "lib/module/plugin.js"
   ],
   "files": [
-    "lib"
+    "lib",
+    "types/index.d.ts"
   ],
   "jest": {
     "testEnvironment": "node",
