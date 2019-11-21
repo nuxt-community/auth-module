@@ -6,6 +6,13 @@ module.exports = {
   srcDir: __dirname,
   serverMiddleware: ['@@/examples/api/auth'],
   auth: {
+    initialState () {
+      return {
+        user: null,
+        loggedIn: false,
+        customStateOption: 'test'
+      }
+    },
     plugins: [
       '~/plugins/auth.js'
     ],

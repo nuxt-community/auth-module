@@ -30,7 +30,7 @@ describe('auth', () => {
     await page.goto(url('/'))
 
     const state = await page.evaluate(() => window.__NUXT__.state)
-    expect(state.auth).toEqual({ user: null, loggedIn: false, strategy: 'local' })
+    expect(state.auth).toEqual({ user: null, loggedIn: false, customStateOption: 'test', strategy: 'local' })
 
     await page.close()
   })
