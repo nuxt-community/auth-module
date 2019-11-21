@@ -6,6 +6,7 @@ module.exports = {
   srcDir: __dirname,
   serverMiddleware: ['@@/examples/api/auth'],
   auth: {
+    /* istanbul ignore next */
     initialState () {
       return {
         user: null,
