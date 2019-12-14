@@ -33,6 +33,9 @@
           <div v-for="s in strategies" :key="s.key" class="mb-2">
           <b-btn @click="$auth.loginWith(s.key)" block :style="{background: s.color}" class="login-button">Login with {{ s.name }}</b-btn>
           </div>
+          <div class="mb-2">
+            <b-btn @click="$auth.loginWith('oauth2mock')" block :style="{background: 'purple'}" class="login-button">Login with oauth2</b-btn>
+          </div>
         </b-card>
     </b-col>
   </b-row>

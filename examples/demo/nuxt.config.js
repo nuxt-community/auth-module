@@ -7,7 +7,10 @@ module.exports = {
   build: {
     extractCSS: true
   },
-  serverMiddleware: ['../api/auth'],
+  serverMiddleware: [
+    '../api/auth',
+    '../api/oauth2mockserver'
+  ],
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '@@'],
   axios: {
     proxy: true
@@ -45,6 +48,14 @@ module.exports = {
       },
       twitter: {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      },
+      oauth2mock: {
+        _scheme: 'oauth2',
+        response_type: 'code',
+        grant_type: 'authorization_code',
+        authorization_endpoint: `http://localhost:3000/oauth2mockLogin`,
+        access_token_endpoint: `http://localhost:3000/oauth2mockserver/token`,
+        client_id: 'test-client'
       }
     }
   }
