@@ -28,11 +28,3 @@ auth: {
 ::: warning IMPORTANT
 When adding `auth-module` to a new Nuxt project ensure you have activated the Vuex store. More information on how to do that can be found on the [Nuxt Getting Started Guide](https://nuxtjs.org/guide/vuex-store).
 :::
-
-Finally, if you need IE11 support, you will need to transpile `nanoid`, a dependency of `@nuxtjs/auth`. Add the following to your `nuxt.config.js`:
-
-```js
-  build: {
-    transpile: [/^nanoid/]
-  },
-```
