@@ -26,7 +26,6 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
-      client_secret: 'SET_ME_IF_NEEDED'
       token_key: 'access_token',
       state: 'UNIQUE_AND_NON_GUESSABLE',
       code_challenge: '',
