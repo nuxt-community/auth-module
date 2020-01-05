@@ -26,8 +26,12 @@ auth: {
       token_type: 'Bearer',
       redirect_uri: undefined,
       client_id: 'SET_ME',
+      client_secret: 'SET_ME_IF_NEEDED'
       token_key: 'access_token',
-      state: 'UNIQUE_AND_NON_GUESSABLE'
+      state: 'UNIQUE_AND_NON_GUESSABLE',
+      code_challenge: '',
+      response_mode: '',
+      acr_values: ''
     }
   }
 }
@@ -86,3 +90,11 @@ By default is set to `refresh_token_key: 'refresh_token'`. It automatically stor
 By default is set to random generated string.
 
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+
+### `code_challenge`
+
+By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
+
+### `acr_values`
+
+Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
