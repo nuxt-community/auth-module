@@ -29,6 +29,7 @@ auth: {
       token_key: 'access_token',
       state: 'UNIQUE_AND_NON_GUESSABLE',
       code_challenge: '',
+      grant_type: '',
       response_mode: '',
       acr_values: ''
     }
@@ -97,3 +98,7 @@ By default is 'implicit' which is the current workflow implementation. In order 
 ### `acr_values`
 
 Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
+
+### `grant_types`
+
+Specifically indicate what grants the client requires. ([read more](https://oauth.net/2/grant-types/))
