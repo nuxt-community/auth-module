@@ -28,3 +28,6 @@ this.$auth.loginWith('laravel.passport')
 
 These options are **REQUIRED**. The `url` is the location of your Laravel application. To obtain the `client_id` and `client_secret`, create a new client app in  your [Laravel app](https://laravel.com/docs/6.0/passport#managing-clients).
 
+### Security information
+
+You shouldn't use `client_secret` in projects where the client credentials can't be securely stored.
