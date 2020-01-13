@@ -61,7 +61,7 @@ auth: {
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
 
 ::: tip
-To disable each endpoint, simply set it's value to `false`.
+To disable each endpoint, simply set its value to `false`.
 :::
 
 #### `propertyName`
