@@ -20,11 +20,12 @@ export default class AuthMixin extends Vue {
   async logout () {
 
     this.$toast.show('Logging out...')
-    await this.$auth.logout().then(() => {
+    try {
+      await this.$auth.logout()
       this.$toast.success('Successfully disconnected')
-    }).catch(err => {
+    } catch(err) {
       this.$toast.error('Error while disconnecting: ' + err.message)
-    })
+    }
 
     // If you are not fond of using axios promises on async calls
     // You can still use Javascript try and catch block
@@ -47,16 +48,17 @@ export default class AuthMixin extends Vue {
    */
   async login() {
     this.$toast.show('Log in...')
-    await this.$auth.login({
-      data: {
-        username: this.username,
-        password: this.password
-      }
-    }).then(() => {
+    try {
+      await this.$auth.login({
+        data: {
+          username: this.username,
+          password: this.password
+        }
+      })
       this.$toast.success('Successfully connected')
-    }).catch(err => {
+    } catch(err) {
       this.$toast.error('Error while disconnecting: ' + err.message)
       this.loginHasError = true
-    })
+    }
   }
 }
