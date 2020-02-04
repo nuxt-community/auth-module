@@ -83,31 +83,34 @@ export default {
     async login() {
       this.error = null
 
-      return this.$auth
-        .loginWith('local', {
-          data: {
-            username: this.username,
-            password: this.password
-          }
-        })
-        .catch(e => {
-          this.error = e + ''
-        })
+      try {
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              username: this.username,
+              password: this.password
+            }
+          })
+
+      } catch(e) {
+        this.error = e + ''
+      }
     },
 
     async localRefresh() {
       this.error = null
 
-      return this.$auth
+      try {
+       await this.$auth
         .loginWith('localRefresh', {
           data: {
             username: this.username,
             password: this.password
           }
         })
-        .catch(e => {
+      } catch(e) {
           this.error = e + ''
-        })
+      }
     }
   }
 }
