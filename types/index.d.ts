@@ -45,10 +45,10 @@ export interface Auth<T = any> {
 
 declare module "@nuxt/types" {
   interface Context {
-    $axios: NuxtAxiosInstance;
+    $auth: Auth;
   }
   interface NuxtAppOptions {
-    $axios: NuxtAxiosInstance;
+    $auth: Auth;
   }
 }
 
