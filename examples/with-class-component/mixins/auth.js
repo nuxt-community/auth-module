@@ -26,17 +26,6 @@ export default class AuthMixin extends Vue {
     } catch(err) {
       this.$toast.error('Error while disconnecting: ' + err.message)
     }
-
-    // If you are not fond of using axios promises on async calls
-    // You can still use Javascript try and catch block
-    //
-    // try {
-    //   this.$toast.show('Logging out...')
-    //   await this.$auth.logout()
-    //   this.$toast.success('Successfully disconnected')
-    // } catch (err) {
-    //   this.$toast.error('Error while disconnecting: ' + err.message)
-    // }
   }
 
   /**
@@ -57,7 +46,7 @@ export default class AuthMixin extends Vue {
       })
       this.$toast.success('Successfully connected')
     } catch(err) {
-      this.$toast.error('Error while disconnecting: ' + err.message)
+      this.$toast.error('Error while connecting: ' + err.message)
       this.loginHasError = true
     }
   }
