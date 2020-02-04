@@ -32,7 +32,7 @@ When adding `auth-module` to a new Nuxt project ensure you have activated the Vu
 
 ### Typescript setup
 
-Add the types to your "types" array in tsconfig.json after the `@nuxt/vue-app` entry
+Add the types to your "types" array in tsconfig.json after the `@nuxt/types` entry
 
 **tsconfig.json**
 
@@ -40,7 +40,7 @@ Add the types to your "types" array in tsconfig.json after the `@nuxt/vue-app` e
 {
   "compilerOptions": {
     "types": [
-      "@nuxt/vue-app",
+      "@nuxt/types",
       "@nuxtjs/auth"
     ]
   }
@@ -48,4 +48,4 @@ Add the types to your "types" array in tsconfig.json after the `@nuxt/vue-app` e
 ```
 > **Why?**
 >
-> Because of the way nuxt works the `$axios` property on the context has to be merged into the nuxt `Context` interface via [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html). Adding `@nuxtjs/auth` to your types will import the types from the package and make typescript aware of the additions to the `Context` interface.
+> Because of the way nuxt works the `$auth` property on the context has to be merged into the nuxt `Context` interface via [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html). Adding `@nuxtjs/auth` to your types will import the types from the package and make typescript aware of the additions to the `Context` interface.
