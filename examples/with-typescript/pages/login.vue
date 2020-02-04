@@ -42,12 +42,12 @@ export class Login extends Vue {
   get redirect() {
     return (
       this.$route.query.redirect &&
-      decodeURIComponent(this.$route.query.redirect)
+      decodeURIComponent(this.$route.query.redirect as any)
     );
   }
 
   mounted() {
-    this.$refs.username.focus();
+    (this.$refs.username as any).focus();
   }
 }
 

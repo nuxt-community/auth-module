@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
 
+export default interface AuthMixin {
+  username: string;
+  password: string;
+}
+
 @Component
 export default class AuthMixin extends Vue {
 

@@ -5,7 +5,6 @@ const config: Configuration = {
   server: {
     host: "0.0.0.0"
   },
-  rootDir: resolve(__dirname, "../.."),
   srcDir: __dirname,
   buildDir: resolve(__dirname, ".nuxt"),
   dev: false,
@@ -28,7 +27,6 @@ const config: Configuration = {
     "@nuxtjs/axios",
     "@nuxtjs/auth",
     "@nuxtjs/toast",
-    "@@"
   ],
   axios: {
     proxy: true
