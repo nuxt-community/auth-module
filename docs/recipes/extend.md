@@ -26,3 +26,16 @@ export default function ({ $auth }) {
   const username = $auth.user.username
 }
 ```
+
+For example (with SSR), if you need to make sure all instances of `axios` are configured:
+
+```js
+{
+  modules: [
+    '@nuxtjs/auth'
+  ],
+  auth: {
+     plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
+  }
+}
+```
