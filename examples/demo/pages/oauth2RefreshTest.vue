@@ -82,7 +82,7 @@
         try {
           const requests = []
           for (let i = 1; i < 3; i++) {
-            const request = this.$auth.ctx.$axios.get('http://localhost:3000/oauth2mockserver/cats')
+            const request = this.$auth.ctx.$axios.get('/oauth2mockserver/cats')
             requests.push(request)
           }
           await Promise.all(requests)
