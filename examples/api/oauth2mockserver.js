@@ -1,31 +1,19 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const jsonwebtoken = require('jsonwebtoken')
+
+// Generated at http://jwtbuilder.jamiekurtz.com/
+const TOKEN_NEVER_EXPIRING = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1ODI0OTE3OTcsImV4cCI6MzI0NzIxNDQwMDAsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20ifQ.XMKfOS3xcScObdkZiRUxI5ZEVd-hh7TTq6wkykFMZCA'
 
 // Create app
 const app = express()
 
-// Install middleware
-app.use(cookieParser())
-app.use(bodyParser.json())
-
 // -- Routes --
 
-// [POST] /login
+// [POST] /token
 app.post('/token', (req, res, next) => {
-  const accessToken = jsonwebtoken.sign(
-    {
-      exp: 0 // The token is very expired
-    },
-    'dummy'
-  )
-
   res.json({
     token_type: 'bearer',
-    access_token: accessToken,
-    refresh_token: accessToken,
-    expires_in: 0
+    access_token: TOKEN_NEVER_EXPIRING,
+    refresh_token: TOKEN_NEVER_EXPIRING
   })
 })
 
@@ -36,8 +24,16 @@ app.get('/userinfo', (req, res, next) => {
     "name"       : "Alice Adams",
     "email"      : "alice@example.com",
     "department" : "Engineering",
-    "birthdate"  : "1975-12-31"
+    "birthdate"  : "1975-12-31",
+    "picture"    : "https://github.com/nuxt.png"
   })
+})
+
+// [GET] /cats
+app.get('/cats', (req, res, next) => {
+  res.json([
+    'Tiger', 'Max', 'Smokey'
+  ])
 })
 
 // -- export app --

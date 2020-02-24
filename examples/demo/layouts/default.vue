@@ -9,6 +9,7 @@
           <b-nav-item to="/" exact>Home</b-nav-item>
           <b-nav-item to="/public">Public</b-nav-item>
           <b-nav-item to="/secure">Secure</b-nav-item>
+          <b-nav-item to="/oauth2RefreshTest">Oauth2 token refresh test</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <template v-if="$auth.$state.loggedIn">
@@ -40,6 +41,5 @@ export default  {
               dotProp(this.$auth.user, 'avatar_url') // GitHub
     }
   }
-
 }
 </script>

@@ -53,8 +53,9 @@ module.exports = {
         _scheme: 'oauth2',
         response_type: 'code',
         grant_type: 'authorization_code',
-        authorization_endpoint: `http://localhost:3000/oauth2mockLogin`,
-        access_token_endpoint: `http://localhost:3000/oauth2mockserver/token`,
+        authorization_endpoint: 'http://localhost:3000/oauth2mockLogin',
+        access_token_endpoint: 'http://localhost:3000/oauth2mockserver/token',
+        userinfo_endpoint: 'http://localhost:3000/oauth2mockserver/userinfo',
         client_id: 'test-client'
       }
     }
