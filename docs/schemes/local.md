@@ -11,12 +11,46 @@ By default `local` scheme is enabled and preconfigured. You can set `strategies.
 To do a password based login by sending credentials in request body as a JSON object:
 
 ```js
-this.$auth.loginWith('local', {
-  data: {
-    username: 'your_username',
-    password: 'your_password'
+<template>
+  <div>
+    <form @submit="userLogin">
+      <div>
+        <label>Username</label>
+        <input type="text" v-model="login.username" />
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="text" v-model="login.password" />
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      login: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith('local', { data: this.login })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
-})
+}
+</script>
 ```
 
 
