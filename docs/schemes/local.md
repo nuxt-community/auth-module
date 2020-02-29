@@ -28,10 +28,14 @@ Example for a token based flow:
 auth: {
   strategies: {
     local: {
+      token: {
+        property: 'token'
+      },
+      user: 'user',
       endpoints: {
-        login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+        login: { url: '/api/auth/login', method: 'post' },
         logout: { url: '/api/auth/logout', method: 'post' },
-        user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+        user: { url: '/api/auth/user', method: 'get' }
       },
       // tokenRequired: true,
       // tokenType: 'bearer'
@@ -64,9 +68,18 @@ Each endpoint is used to make requests using axios. They are basically extending
 To disable each endpoint, simply set it's value to `false`.
 :::
 
-#### `propertyName`
+### `token`
 
-`propertyName` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+Here you configure the token options.
+
+#### `property`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
+
+### `user`
+
+`user` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+
 
 ### `tokenRequired`
 
