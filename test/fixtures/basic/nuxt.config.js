@@ -15,6 +15,20 @@ module.exports = {
           property: 'token.accessToken'
         }
       },
+      localRefresh: {
+        _scheme: 'refresh',
+        token: {
+          property: 'token.accessToken'
+        },
+        refreshToken: {
+          property: 'token.refreshToken'
+        },
+        expiresIn: 'token.expiresIn',
+        clientId: 'token.clientId',
+        dataRefreshToken: 'refreshToken',
+        dataClientId: 'clientId',
+        dataGrantType: 'grantType'
+      },
       test: {
         _provider: '~/auth/test-provider.js',
         _scheme: '~/auth/test-scheme.js'
