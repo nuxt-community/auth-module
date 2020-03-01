@@ -113,6 +113,28 @@ Universally set token. The `name` parameter is optional and defaults to `options
 this.$auth.setToken('local', '.....')
 ```
 
+### `setRefreshToken(strategy, token)`
+
+Universally set refresh token.
+
+```js
+// Update refresh token
+this.$auth.setRefreshToken('local', '.....')
+```
+
+### `refreshToken()`
+
+Refreshes the token.
+
+
+
+> **TIP:** Useful to manually refresh the token when [autoRefresh](../schemes/refresh.md#autorefresh) is disabled
+
+```js
+// Refresh the token
+this.$auth.refreshToken()
+```
+
 ### `onError(handler)`
 
 Listen for auth errors: (`plugins/auth.js`)
