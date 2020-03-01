@@ -2,7 +2,13 @@
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/refresh.js)
 
+`refresh` is an extended version of `local` scheme, made for systems that use token refresh.
+
+You can set `_scheme` to `refresh` to enable it.
+
 ## Usage
+
+To do a password based login by sending credentials in request body as a JSON object:
 
 ```js
 this.$auth.loginWith('local', {
@@ -12,6 +18,14 @@ this.$auth.loginWith('local', {
   }
 })
 ```
+
+To manually refresh the token:
+
+```js
+this.$auth.refreshToken()
+```
+
+Or enable [autoRefresh](#autorefresh) option to automatically refresh tokens.
 
 ## Options
 
