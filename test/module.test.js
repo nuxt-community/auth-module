@@ -107,7 +107,7 @@ describe('auth', () => {
       refreshedClientId,
       refreshedUser
     } = await page.evaluate(async () => {
-      await window.$nuxt.$auth.strategy._tokenRefresh()
+      await window.$nuxt.$auth.strategy._refreshToken()
 
       return {
         refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
