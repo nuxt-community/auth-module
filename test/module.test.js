@@ -128,7 +128,7 @@ describe('auth', () => {
     expect(refreshedRefreshToken).toBeDefined()
     expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
     expect(refreshedExpiresAt).toBeDefined()
-    expect(refreshedExpiresAt).toBeGreaterThan(loginExpiresAt)
+    expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
     expect(refreshedClientId).toBe(123)
     expect(refreshedUser).toBeDefined()
     expect(refreshedUser.username).toBe('test_username')
