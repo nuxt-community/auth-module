@@ -116,15 +116,21 @@ By default its value is 30 minutes.
 
 ### `expiresIn`
 
-This is the token expiration date.
+This is the token expiration time, in **milliseconds**. We will use this value to automatically generate the expiration date if we couldn't decode the token.
 
 `expiresIn` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.expires_in`
 
-### `createdAt`
+### `issuedAt`
 
-`createdAt` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.created_at`
+`issuedAt` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.created_at`
 
-This option is for systems that passes the token creation date in the response. By default we automatically generate the creation date if you don't use this.
+By default we try to decode the token, if we couldn't decode the token we will automatically generate the issue date if `issuedAt` is not defined.
+
+### `expiresAt`
+
+`expiresAt` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.created_at`
+
+By default we try to decode the token, if we couldn't decode the token we will automatically generate the expiration date using the [expiresIn](#expiresin) and [issuedAt](#issuedat) values if `expiresAt` is not defined.
 
 ### `refreshToken`
 
