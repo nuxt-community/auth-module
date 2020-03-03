@@ -50,7 +50,6 @@ auth: {
           user: { url: '/api/auth/user', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' }
         },
-        // tokenRequired: true,
         // tokenType: 'bearer'
       }
     }
@@ -82,7 +81,6 @@ auth: {
           enable: true
         },
         autoLogout: true,
-        // tokenRequired: true,
         // tokenType: 'bearer'
       }
     }
@@ -210,10 +208,6 @@ This option will logout the user on load the page, if token has expired.
 ::: tip
 Mostly used with [`autoRefresh`](#autorefresh).
 :::
-
-### `tokenRequired`
-
-This option can be used to disable all token handling. Useful for Cookie only flows. \(Enabled by default\)
 
 ### `tokenName`
 
