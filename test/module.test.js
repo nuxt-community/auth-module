@@ -75,9 +75,10 @@ describe('auth', () => {
       loginExpiresAt,
       loginClientId,
       loginUser,
-      loginAxiosBearer
+      loginAxiosBearer,
+      loginResponse
     } = await page.evaluate(async () => {
-      await window.$nuxt.$auth.loginWith('localRefresh', {
+      const loginResponse = await window.$nuxt.$auth.loginWith('localRefresh', {
         data: { username: 'test_username', password: '123' }
       })
 
@@ -87,7 +88,8 @@ describe('auth', () => {
         loginRefreshToken: window.$nuxt.$auth.getRefreshToken('localRefresh'),
         loginExpiresAt: window.$nuxt.$auth.strategy._getTokenExpiration(),
         loginClientId: window.$nuxt.$auth.strategy._getClientId(),
-        loginUser: window.$nuxt.$auth.user
+        loginUser: window.$nuxt.$auth.user,
+        loginResponse
       }
     })
 
@@ -100,6 +102,7 @@ describe('auth', () => {
     expect(loginClientId).toBe(123)
     expect(loginUser).toBeDefined()
     expect(loginUser.username).toBe('test_username')
+    expect(loginResponse).toBeDefined()
 
     const {
       refreshedToken,
