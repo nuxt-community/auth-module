@@ -51,6 +51,7 @@
     "nanoid": "^2.1.11"
   },
   "devDependencies": {
+    "@nuxt/http": "latest",
     "@nuxtjs/toast": "latest",
     "babel-plugin-transform-class-properties": "latest",
     "babel-plugin-transform-decorators-legacy": "latest",
