@@ -6,7 +6,7 @@
   <b-alert show v-if="$auth.$state.redirect">
     You have to login before accessing to <strong>{{ $auth.$state.redirect }}</strong>
   </b-alert>
-  <b-row align-h="center" align-v="center">
+  <b-row align-h="center pt-4">
     <b-col md="4">
       <b-card bg-variant="light">
         <busy-overlay />
@@ -25,15 +25,15 @@
         </form>
       </b-card>
     </b-col>
-    <b-col md="1">
+    <b-col md="1" align-self="center">
       <div class="text-center"><b-badge pill>OR</b-badge></div>
     </b-col>
-    <b-col md="4" class="text-center pt-4">
-      <b-card title="Social Login" bg-variant="light">
-        <div v-for="s in strategies" :key="s.key" class="mb-2">
-        <b-btn @click="$auth.loginWith(s.key)" block :style="{background: s.color}" class="login-button">Login with {{ s.name }}</b-btn>
-        </div>
-      </b-card>
+    <b-col md="4" class="text-center">
+        <b-card title="Social Login" bg-variant="light">
+          <div v-for="s in strategies" :key="s.key" class="mb-2">
+          <b-btn @click="$auth.loginWith(s.key)" block :style="{background: s.color}" class="login-button">Login with {{ s.name }}</b-btn>
+          </div>
+        </b-card>
     </b-col>
   </b-row>
 </div>

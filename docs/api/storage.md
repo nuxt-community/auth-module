@@ -12,6 +12,7 @@ Universally keep state in vuex, localStorage and Cookies:
 this.$auth.$storage.setUniversal(key, val, isJson)
 this.$auth.$storage.getUniversal(key, isJson)
 this.$auth.$storage.syncUniversal(key, defaultValue, isJson)
+this.$auth.$storage.removeUniversal(key)
 ```
 
 ## Local State
