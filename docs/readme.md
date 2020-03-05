@@ -12,6 +12,10 @@ If it is first time using this module, reading resources below in order is recom
 4. [Customize options](./api/options.md)
 5. [Use `$auth` service](./api/auth.md)
 
+You can also watch a video introduction by VueScreencasts. It covers the same material, but in the context of a working Nuxt app.
+
+[![Nuxt Auth - Authentication and Authorization in NuxtJS](https://img.youtube.com/vi/zzUpO8tXoaw/0.jpg)](https://youtu.be/zzUpO8tXoaw)
+
 ## More Resources
 
 * [Glossary](./glossary.md)

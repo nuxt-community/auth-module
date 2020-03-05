@@ -2,7 +2,7 @@
 
 Schemes define authentication logic.
 
-Read more in [Schemes and Strategies](./schemes/README.md) section.
+Read more in [Schemes and Strategies](./guide/scheme.html) section.
 
 ## Strategy
 
@@ -14,4 +14,4 @@ Read more in [Schemes and Strategies](./schemes/README.md) section.
 
 Provider auto-configures schemes.
 
-Read more in [Providers](./providers/README.md) section.
+Read more in [Providers](./guide/provider.html) section.
