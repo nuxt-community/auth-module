@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.5](https://github.com/nuxt-community/auth-module/compare/v4.8.4...v4.8.5) (2019-12-27)
+
+
+### Bug Fixes
+
+* **core:** always return boolean form hasScope ([a2da3a4](https://github.com/nuxt-community/auth-module/commit/a2da3a4775266aee859c48763b3c3788efe08f02))
+* **core:** support querystring only url for `isRelativeURL` ([#492](https://github.com/nuxt-community/auth-module/issues/492)) ([09d81ea](https://github.com/nuxt-community/auth-module/commit/09d81ead05c11bcd453ad59c3796987872787a12))
+* **module:** always transpile nanoiid ([8ef5a9b](https://github.com/nuxt-community/auth-module/commit/8ef5a9bf6cff886be2dfc49855cf5c7c4cb1c670)), closes [#472](https://github.com/nuxt-community/auth-module/issues/472)
+
 ### [4.8.4](https://github.com/nuxt-community/auth-module/compare/v4.8.3...v4.8.4) (2019-09-12)
 
 
