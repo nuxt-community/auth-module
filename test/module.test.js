@@ -156,7 +156,7 @@ describe('auth', () => {
 
       return {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.getToken()
+        loginToken: window.$nuxt.$auth.getToken('local')
       }
     })
 
@@ -168,11 +168,11 @@ describe('auth', () => {
 
       return {
         logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        logoutToken: window.$nuxt.$auth.getToken()
+        logoutToken: window.$nuxt.$auth.getToken('local')
       }
     })
 
-    expect(logoutToken).toBeNull()
+    expect(logoutToken).toBeFalsy()
     expect(logoutAxiosBearer).toBeUndefined()
 
     await page.close()
