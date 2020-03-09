@@ -86,7 +86,7 @@ describe('auth', () => {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
         loginToken: window.$nuxt.$auth.getToken('localRefresh'),
         loginRefreshToken: window.$nuxt.$auth.getRefreshToken('localRefresh'),
-        loginExpiresAt: window.$nuxt.$auth.strategy._getTokenExpiration(),
+        loginExpiresAt: window.$nuxt.$auth.strategy.tokenStatus.getTokenExpiration(),
         loginClientId: window.$nuxt.$auth.strategy._getClientId(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
@@ -119,7 +119,7 @@ describe('auth', () => {
         refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
         refreshedToken: window.$nuxt.$auth.getToken('localRefresh'),
         refreshedRefreshToken: window.$nuxt.$auth.getRefreshToken('localRefresh'),
-        refreshedExpiresAt: window.$nuxt.$auth.strategy._getTokenExpiration(),
+        refreshedExpiresAt: window.$nuxt.$auth.strategy.tokenStatus.getTokenExpiration(),
         refreshedClientId: window.$nuxt.$auth.strategy._getClientId(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
