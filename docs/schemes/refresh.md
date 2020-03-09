@@ -189,15 +189,9 @@ This option is for systems that uses grant type. If you don't use grant type, yo
 
 ### `autoRefresh`
 
-Here you configure the auto refresh options.
-
-When enabled it will refresh the token before it expires. The auto refresh will happen when the time reach 75% of the expiration time or when the page is reloaded.
-
-#### `enable`
-
 - Default: `false`
 
-This option enables auto refresh.
+When enabled it will refresh the token before it expires. The auto refresh will happen when the time reach 75% of the expiration time or when the page is reloaded.
 
 ### `autoLogout`
 
