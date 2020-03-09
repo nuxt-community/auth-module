@@ -107,14 +107,14 @@ Here you configure the token options.
 
 - Default: `1800`
 
-Different from [expiresIn](#expiresin), here you set the default expiration time of the token, in **milliseconds**.
+Different from [expiresIn](#expiresin), here you set the default expiration time of the token, in **seconds**.
 This time will be used if for some reason we couldn't get the value of [expiresIn](#expiresin).
 
 By default its value is 30 minutes.
 
 ### `expiresIn`
 
-This is the token expiration time, in **milliseconds**. We will use this value to automatically generate the expiration date if we couldn't decode the token.
+This is the token expiration time, in **seconds**. We will use this value to automatically generate the expiration date if we couldn't decode the token.
 
 `expiresIn` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.expires_in`
 
@@ -142,7 +142,7 @@ Here you configure the refresh token options.
 
 - Default: `60 * 60 * 24 * 30`
 
-Here you set the expiration time of the refresh token, in **milliseconds**.
+Here you set the expiration time of the refresh token, in **seconds**.
 You can set it to `false` if your refresh token doesn't expire.
 
 ### `dataRefreshToken`
