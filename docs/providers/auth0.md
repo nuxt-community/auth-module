@@ -4,6 +4,8 @@
 
 [Auth0](https://auth0.com) is a great authentication-as-a-service platform for free!
 
+A [live demo](https://auth0.nuxtjs.org) is available as well as the [source](https://github.com/nuxt/example-auth0).
+
 ## Usage
 
 ```js

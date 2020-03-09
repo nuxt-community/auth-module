@@ -40,6 +40,5 @@ export default  {
               get(this.$auth.user, 'avatar_url') // GitHub
     }
   }
-
 }
 </script>
