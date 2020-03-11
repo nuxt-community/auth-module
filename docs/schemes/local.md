@@ -29,7 +29,9 @@ auth: {
   strategies: {
     local: {
       token: {
-        property: 'token'
+        property: 'token',
+        // required: true,
+        // type: 'Bearer'
       },
       user: 'user',
       endpoints: {
@@ -37,8 +39,6 @@ auth: {
         logout: { url: '/api/auth/logout', method: 'post' },
         user: { url: '/api/auth/user', method: 'get' }
       },
-      // tokenRequired: true,
-      // tokenType: 'bearer'
       // autoFetchUser: true
     }
   }
@@ -51,11 +51,13 @@ Example for a cookie based flow:
 auth: {
   strategies: {
     local: {
+      token: {
+        required: false,
+        type: false
+      },
       endpoints: {
         login: { url: '/api/auth/login', method: 'post' },
-      },
-      tokenRequired: false,
-      tokenType: false
+      }
     }
   }
 }
@@ -77,29 +79,34 @@ Here you configure the token options.
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 
-### `user`
+#### `required`
 
-`user` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+- Default: `true`
 
+This option can be used to disable all token handling. 
 
-### `tokenRequired`
+::: tip
+Useful for Cookie only flows.
+:::
 
-This option can be used to disable all token handling. Useful for Cookie only flows. \(Enabled by default\)
-
-### `tokenName`
+#### `name`
 
 - Default: `Authorization`
 
-  Authorization header name to be used in axios requests.
+Authorization header name to be used in axios requests.
 
-### `tokenType`
+#### `type`
 
 - Default: `Bearer`
 
- Authorization header type to be used in axios requests.
+Authorization header type to be used in axios requests.
+
+### `user`
+
+`user` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
  
- ### `autoFetchUser`
+### `autoFetchUser`
  
- - Default: `true`
+- Default: `true`
  
- This option can be used to disable user fetch after login. It is useful when your login response already have the user.
+This option can be used to disable user fetch after login. It is useful when your login response already have the user.
