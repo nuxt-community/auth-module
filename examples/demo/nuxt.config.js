@@ -21,8 +21,8 @@ module.exports = {
     },
     strategies: {
       local: {
-        endpoints: {
-          login: { propertyName: 'token.accessToken' }
+        token: {
+          property: 'token.accessToken'
         }
       },
       auth0: {
