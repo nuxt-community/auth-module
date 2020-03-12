@@ -33,13 +33,15 @@ auth: {
         // required: true,
         // type: 'Bearer'
       },
-      user: 'user',
+      user: {
+        property: 'user',
+        // autoFetch: true
+      },
       endpoints: {
         login: { url: '/api/auth/login', method: 'post' },
         logout: { url: '/api/auth/logout', method: 'post' },
         user: { url: '/api/auth/user', method: 'get' }
-      },
-      // autoFetchUser: true
+      }
     }
   }
 }
@@ -103,9 +105,13 @@ Authorization header type to be used in axios requests.
 
 ### `user`
 
-`user` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+Here you configure the user options.
+
+#### `property`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
  
-### `autoFetchUser`
+#### `autoFetch`
  
 - Default: `true`
  
