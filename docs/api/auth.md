@@ -104,15 +104,6 @@ Check if user has a specific scope:
 this.$auth.hasScope('admin')
 ```
 
-### `setToken(strategy, token)`
-
-Universally set token. The `name` parameter is optional and defaults to `options.token.name`.
-
-```js
-// Update token
-this.$auth.setToken('local', '.....')
-```
-
 ### `refreshTokens()`
 
 Refreshes tokens if *refresh token* is available and not expired. This only works when logged in.
@@ -146,3 +137,7 @@ export default function({ $auth }) {
   })
 }
 ```
+
+## tokens
+Token and refresh token are available on `$auth.token` and `$auth.refreshToken`.
+Both have getters and setters and other helpers. Documented in tokens.md
