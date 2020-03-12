@@ -113,6 +113,15 @@ Universally set token. The `name` parameter is optional and defaults to `options
 this.$auth.setToken('local', '.....')
 ```
 
+### `refreshTokens()`
+
+Refreshes tokens if *refresh token* is available and not expired. This only works when logged in.
+
+```js
+// Refresh tokens
+this.$auth.refreshTokens()
+```
+
 ### `onError(handler)`
 
 Listen for auth errors: (`plugins/auth.js`)
