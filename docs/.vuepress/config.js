@@ -11,7 +11,8 @@ module.exports = {
       '/api/': [
         '/api/auth',
         '/api/options',
-        '/api/storage'
+        '/api/storage',
+        '/api/tokens'
       ],
       '/': [
         {
