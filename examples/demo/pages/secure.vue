@@ -28,7 +28,7 @@
     <hr>
     <b-btn-group>
       <b-button @click="$auth.fetchUser()">Fetch User</b-button>
-      <b-button @click="refreshToken" v-if="$auth.strategy.name === 'localRefresh'">Refresh Token</b-button>
+      <b-button @click="refreshTokens" v-if="$auth.strategy.name === 'localRefresh'">Refresh Tokens</b-button>
       <b-button @click="$auth.logout()">Logout</b-button>
     </b-btn-group>
   </div>
@@ -43,8 +43,8 @@ export default {
     }
   },
   methods: {
-    refreshToken() {
-      this.$auth.refreshToken().catch(e => {
+    refreshTokens() {
+      this.$auth.refreshTokens().catch(e => {
         this.error = e + ''
       })
     }
