@@ -33,7 +33,6 @@ module.exports = {
         refreshToken: {
           property: 'token.refreshToken'
         },
-        expiresIn: 'token.expiresIn',
         clientId: 'token.clientId',
         dataRefreshToken: 'refreshToken',
         dataClientId: 'clientId',
