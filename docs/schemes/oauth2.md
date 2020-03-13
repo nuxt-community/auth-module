@@ -24,10 +24,12 @@ auth: {
       },
       token: {
           property: 'access_token',
-          type: 'Bearer'
+          type: 'Bearer',
+          maxAge: 1800
       },
       refreshToken: {
-          property: 'refresh_token'
+          property: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
       },
       responseType: 'token',
       accessType: undefined,
@@ -69,11 +71,29 @@ By default is set to `property: 'access_token'`. If you need to use the IdToken 
 
 By default is `Bearer`. It will be used in `Authorization` header of axios requests.
 
+#### `maxAge`
+
+- Default: `1800`
+
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+Default time is 30 minutes.
+
 ### `refreshToken`
 
 #### `property`
 
 By default is set to `property: 'refresh_token'`. It automatically store the refresh_token, if it exists.
+
+#### `maxAge`
+
+- Default: `60 * 60 * 24 * 30`
+
+Here you set the expiration time of the refresh token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+Default time is 30 days.
 
 ### `responseType`
 
