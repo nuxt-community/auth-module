@@ -30,8 +30,7 @@ module.exports = {
         },
         grantType: {
           data: 'grantType'
-        },
-        expiresIn: 'token.expiresIn'
+        }
       },
       test: {
         _provider: '~/auth/test-provider.js',
