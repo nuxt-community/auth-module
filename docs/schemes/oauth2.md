@@ -101,7 +101,7 @@ By default is `token`. If you use `code` you may have to implement a server side
 
 ### `accessType`
 
-If using Google code authorization flow (`response_type: 'code'`) set to `offline` to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
+If using Google code authorization flow (`responseType: 'code'`) set to `offline` to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
 
 ### `redirectUri`
 
