@@ -110,7 +110,7 @@ Authorization header type to be used in axios requests.
 Here you set the expiration time of the token, in **seconds**.
 This time will be used if for some reason we couldn't decode the token to get the expiration date.
 
-Default time is 30 minutes.
+By default is set to 30 minutes.
 
 ### `user`
 

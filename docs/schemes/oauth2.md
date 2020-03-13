@@ -65,11 +65,19 @@ If a `false` value is set, we only do login without fetching user profile.
 
 #### `property`
 
-By default is set to `property: 'access_token'`. If you need to use the IdToken instead of the AccessToken, set this option to `property: 'id_token'`.
+- Default: `access_token`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.access_token`.
+
+::: tip
+If you need to use the IdToken instead of the AccessToken, set this option to `id_token`.
+:::
 
 #### `type`
 
-By default is `Bearer`. It will be used in `Authorization` header of axios requests.
+- Default: `Bearer`
+
+It will be used in `Authorization` header of axios requests.
 
 #### `maxAge`
 
@@ -78,13 +86,15 @@ By default is `Bearer`. It will be used in `Authorization` header of axios reque
 Here you set the expiration time of the token, in **seconds**.
 This time will be used if for some reason we couldn't decode the token to get the expiration date.
 
-Default time is 30 minutes.
+By default is set to 30 minutes.
 
 ### `refreshToken`
 
 #### `property`
 
-By default is set to `property: 'refresh_token'`. It automatically store the refresh_token, if it exists.
+- Default: `refresh_token`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.refresh_token`.
 
 #### `maxAge`
 
@@ -93,11 +103,13 @@ By default is set to `property: 'refresh_token'`. It automatically store the ref
 Here you set the expiration time of the refresh token, in **seconds**.
 This time will be used if for some reason we couldn't decode the token to get the expiration date.
 
-Default time is 30 days.
+By default is set to 30 days.
 
 ### `responseType`
 
-By default is `token`. If you use `code` you may have to implement a server side logic to sign the response code.
+- Default: `token`
+
+If you use `code` you may have to implement a server side logic to sign the response code.
 
 ### `accessType`
 
@@ -105,9 +117,9 @@ If using Google code authorization flow (`responseType: 'code'`) set to `offline
 
 ### `redirectUri`
 
-By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
-
 Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+
+By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
 
 ### `clientId`
 
@@ -119,6 +131,6 @@ Should be same as login page or relative path to welcome screen. ([example](http
 
 ### `state`
 
-By default is set to random generated string.
-
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+
+By default is set to random generated string.
