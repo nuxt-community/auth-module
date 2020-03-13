@@ -103,6 +103,15 @@ Authorization header name to be used in axios requests.
 
 Authorization header type to be used in axios requests.
 
+#### `maxAge`
+
+- Default: `1800`
+
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+Default time is 30 minutes.
+
 ### `user`
 
 Here you configure the user options.
