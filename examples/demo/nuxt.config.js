@@ -27,23 +27,25 @@ module.exports = {
       },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
-        client_id: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
+        clientId: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
       },
       facebook: {
-        client_id: '1671464192946675',
-        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        endpoints: {
+          userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
+        },
+        clientId: '1671464192946675',
         scope: ['public_profile', 'email', 'user_birthday']
       },
       google: {
-        client_id:
+        clientId:
           '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
       },
       github: {
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET
       },
       twitter: {
-        client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+        clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }
     }
   }
