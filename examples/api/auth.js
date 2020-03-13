@@ -60,7 +60,6 @@ app.post('/login', (req, res, next) => {
     token: {
       accessToken,
       refreshToken,
-      expiresIn,
       clientId: '123'
     }
   })
@@ -94,8 +93,7 @@ app.post('/refresh', (req, res, next) => {
     res.json({
       token: {
         accessToken,
-        refreshToken: newRefreshToken,
-        expiresIn
+        refreshToken: newRefreshToken
       }
     })
   } else {
