@@ -13,8 +13,15 @@
           Test: <b-badge>{{ $auth.hasScope('test') }}</b-badge>
           Admin: <b-badge>{{ $auth.hasScope('admin') }}</b-badge>
         </b-card>
-        <b-card title="token">
-          {{ $auth.token || '-' }}
+        <b-card title="token" class="mb-2">
+          <div style="white-space: nowrap; overflow: auto">
+            {{ $auth.token.get() || '-' }}
+          </div>
+        </b-card>
+        <b-card title="refresh token">
+          <div style="white-space: nowrap; overflow: auto">
+            {{ $auth.refreshToken.get() || '-' }}
+          </div>
         </b-card>
       </b-col>
     </b-row>
