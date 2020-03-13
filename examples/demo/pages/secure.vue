@@ -18,7 +18,7 @@
             {{ $auth.token.get() || '-' }}
           </div>
         </b-card>
-        <b-card title="refresh token">
+        <b-card title="refresh token" v-if="$auth.strategy.name === 'localRefresh'">
           <div style="white-space: nowrap; overflow: auto">
             {{ $auth.refreshToken.get() || '-' }}
           </div>
