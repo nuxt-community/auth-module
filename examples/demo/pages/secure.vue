@@ -14,7 +14,9 @@
           Admin: <b-badge>{{ $auth.hasScope('admin') }}</b-badge>
         </b-card>
         <b-card title="token">
-          {{ $auth.token.get() || '-' }}
+          <div style="white-space: nowrap; overflow: auto">
+            {{ $auth.token.get() || '-' }}
+          </div>
         </b-card>
       </b-col>
     </b-row>
