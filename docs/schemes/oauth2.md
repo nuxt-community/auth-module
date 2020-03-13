@@ -30,72 +30,120 @@ auth: {
   strategies: {
     social: {
       _scheme: 'oauth2',
-      authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
-      userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
+      endpoints: {
+          authorization: 'https://accounts.google.com/o/oauth2/auth',
+          token: undefined,
+          userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo'
+      },
+      token: {
+          property: 'access_token',
+          type: 'Bearer',
+          maxAge: 1800
+      },
+      refreshToken: {
+          property: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
+      },
+      responseType: 'token',
+      accessType: undefined,
+      redirectUri: undefined,
+      clientId: 'SET_ME',
       scope: ['openid', 'profile', 'email'],
-      access_type: undefined,
-      access_token_endpoint: undefined,
-      response_type: 'token',
-      token_type: 'Bearer',
-      redirect_uri: undefined,
-      client_id: 'SET_ME',
-      token_key: 'access_token',
       state: 'UNIQUE_AND_NON_GUESSABLE'
     }
   }
 }
 ```
 
-### `authorization_endpoint`
+### `endpoints`
+
+Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
+
+#### `authorization`
 
 **REQUIRED** - Endpoint to start login flow. Depends on oauth service.
 
-### `userinfo_endpoint`
+#### `userInfo`
 
 While not a part of oauth2 spec, almost all oauth2 providers expose this endpoint to get user profile.
 
+#### `token`
+
+If using Google code authorization flow (`responseType: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
+
+
 If a `false` value is set, we only do login without fetching user profile.
+
+### token
+
+#### `property`
+
+- Default: `access_token`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.access_token`.
+
+::: tip
+If you need to use the IdToken instead of the AccessToken, set this option to `id_token`.
+:::
+
+#### `type`
+
+- Default: `Bearer`
+
+It will be used in `Authorization` header of axios requests.
+
+#### `maxAge`
+
+- Default: `1800`
+
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+By default is set to 30 minutes.
+
+### `refreshToken`
+
+#### `property`
+
+- Default: `refresh_token`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.refresh_token`.
+
+#### `maxAge`
+
+- Default: `60 * 60 * 24 * 30`
+
+Here you set the expiration time of the refresh token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+By default is set to 30 days.
+
+### `responseType`
+
+- Default: `token`
+
+If you use `code` you may have to implement a server side logic to sign the response code.
+
+### `accessType`
+
+If using Google code authorization flow (`responseType: 'code'`) set to `offline` to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
+
+### `redirectUri`
+
+Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+
+By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
+
+### `clientId`
+
+**REQUIRED** - oauth2 client id.
 
 ### `scope`
 
 **REQUIRED** -  Oauth2 access scopes.
 
-### `response_type`
-
-By default is `token`. If you use `code` you may have to implement a server side logic to sign the response code.
-
-### `access_type`
-
-If using Google code authorization flow (`response_type: 'code'`) set to `offline` to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
-
-### `access_token_endpoint`
-
-If using Google code authorization flow (`response_type: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
-
-### `token_type`
-
-By default is `Bearer`. It will be used in `Authorization` header of axios requests.
-
-### `redirect_uri`
-
-By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
-
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
-
-### `client_id`
-
-**REQUIRED** - oauth2 client id.
-
-### `token_key`
-
-By default is set to `token_key: 'access_token'`. If you need to use the IdToken instead of the AccessToken, set this option to `token_key: 'id_token'`.
-
-### `refresh_token_key`
-
-By default is set to `refresh_token_key: 'refresh_token'`. It automatically store the refresh_token, if it exists.
-
 ### `state`
 
-By default is set to random generated string.
-
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+
+By default is set to random generated string.

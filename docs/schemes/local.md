@@ -28,14 +28,20 @@ Example for a token based flow:
 auth: {
   strategies: {
     local: {
-      endpoints: {
-        login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-        logout: { url: '/api/auth/logout', method: 'post' },
-        user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+      token: {
+        property: 'token',
+        // required: true,
+        // type: 'Bearer'
       },
-      // tokenRequired: true,
-      // token_type: 'Bearer'
-      // autoFetchUser: true
+      user: {
+        property: 'user',
+        // autoFetch: true
+      },
+      endpoints: {
+        login: { url: '/api/auth/login', method: 'post' },
+        logout: { url: '/api/auth/logout', method: 'post' },
+        user: { url: '/api/auth/user', method: 'get' }
+      }
     }
   }
 }
@@ -47,11 +53,13 @@ Example for a cookie based flow:
 auth: {
   strategies: {
     local: {
+      token: {
+        required: false,
+        type: false
+      },
       endpoints: {
         login: { url: '/api/auth/login', method: 'post' },
-      },
-      tokenRequired: false,
-      token_type: false
+      }
     }
   }
 }
@@ -65,28 +73,55 @@ Each endpoint is used to make requests using axios. They are basically extending
 To disable each endpoint, simply set it's value to `false`.
 :::
 
-#### `propertyName`
+### `token`
 
-`propertyName` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+Here you configure the token options.
 
-### `tokenRequired`
+#### `property`
 
-This option can be used to disable all token handling. Useful for Cookie only flows. \(Enabled by default\)
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 
-### `tokenName`
+#### `required`
+
+- Default: `true`
+
+This option can be used to disable all token handling. 
+
+::: tip
+Useful for Cookie only flows.
+:::
+
+#### `name`
 
 - Default: `Authorization`
 
-  Authorization header name to be used in axios requests.
+Authorization header name to be used in axios requests.
 
-### `token_type`
+#### `type`
 
 - Default: `Bearer`
 
- Authorization header type to be used in axios requests.
+Authorization header type to be used in axios requests.
+
+#### `maxAge`
+
+- Default: `1800`
+
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+By default is set to 30 minutes.
+
+### `user`
+
+Here you configure the user options.
+
+#### `property`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
  
- ### `autoFetchUser`
+#### `autoFetch`
  
- - Default: `true`
+- Default: `true`
  
- This option can be used to disable user fetch after login. It is useful when your login response already have the user.
+This option can be used to disable user fetch after login. It is useful when your login response already have the user.
