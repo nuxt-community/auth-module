@@ -137,6 +137,12 @@ Here you configure the refresh token options.
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.refresh_token`.
 
+#### `data`
+
+- Default: `refresh_token`
+
+`data` can be used to set the name of the property you want to send in the request.
+
 #### `maxAge`
 
 - Default: `60 * 60 * 24 * 30`
@@ -163,37 +169,43 @@ This option can be used to disable user fetch after login. It is useful when you
 
 ### `clientId`
 
+Here you configure the client id options.
+
+#### `property`
+
+- Default `client_id`
+
 `clientId` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.client_id`
 
-This option is for systems that uses client id. If you don't use client id, you can set it to `false`.
+#### `data`
+
+- Default: `client_id`
+
+`data` can be used to set the name of the property you want to send in the request.
+
+::: tip
+To disable clientId, simply set it's value to `false`.
+:::
 
 ### `grantType`
+
+Here you configure the grant type options.
+
+#### `data`
+
+- Default: `grant_type`
+
+`data` can be used to set the name of the property you want to send in the request.
+
+#### `value`
 
 - Default: `refresh_token`
 
 It's the value of the grant type you want.
 
-This option is for systems that uses grant type. If you don't use grant type, you can set it to `false`.
-
-### `dataRefreshToken`
-
-- Default: `refresh_token`
-
-`dataRefreshToken` can be used to set the name of the property you want to send in the request.
-
-If you don't need it, you can set it to `false`.
-
-### `dataClientId`
-
-- Default: `false`
-
-`dataClientId` can be used to set the name of the property you want to send in the request.
-
-### `dataGrantType`
-
-- Default: `false`
-
-`dataGrantType` can be used to set the name of the property you want to send in the request.
+::: tip
+To disable grantType, simply set it's value to `false`.
+:::
 
 ### `autoRefresh`
 
