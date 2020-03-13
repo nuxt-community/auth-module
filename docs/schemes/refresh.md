@@ -22,7 +22,7 @@ this.$auth.loginWith('local', {
 To manually refresh the token:
 
 ```js
-this.$auth.refreshToken()
+this.$auth.refreshTokens()
 ```
 
 Or enable [autoRefresh](#autorefresh) option to automatically refresh tokens.
@@ -37,20 +37,25 @@ auth: {
       local: {
         _scheme: 'refresh',
         token: {
-          property: 'access_token'
+          property: 'access_token',
+          maxAge: 1800,
+          // type: 'Bearer'
         },
         expiresIn: 'expires_in',
         refreshToken: {
-          property: 'refresh_token'
+          property: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
         },
-        user: 'user',
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
           refresh: { url: '/api/auth/refresh', method: 'post' },
           user: { url: '/api/auth/user', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' }
-        },
-        // tokenType: 'bearer'
+        }
       }
     }
   }
@@ -103,32 +108,26 @@ Here you configure the token options.
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 
+#### `name`
+
+- Default: `Authorization`
+
+Authorization header name to be used in axios requests.
+
+#### `type`
+
+- Default: `Bearer`
+
+Authorization header type to be used in axios requests.
+
 #### `maxAge`
 
 - Default: `1800`
 
-Different from [expiresIn](#expiresin), here you set the default expiration time of the token, in **seconds**.
-This time will be used if for some reason we couldn't get the value of [expiresIn](#expiresin).
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
 
-By default its value is 30 minutes.
-
-### `expiresIn`
-
-This is the token expiration time, in **seconds**. We will use this value to automatically generate the expiration date if we couldn't decode the token.
-
-`expiresIn` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.expires_in`
-
-### `issuedAt`
-
-`issuedAt` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.created_at`
-
-By default we try to decode the token, if we couldn't decode the token we will automatically generate the issue date if `issuedAt` is not defined.
-
-### `expiresAt`
-
-`expiresAt` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.created_at`
-
-By default we try to decode the token, if we couldn't decode the token we will automatically generate the expiration date using the [expiresIn](#expiresin) and [issuedAt](#issuedat) values if `expiresAt` is not defined.
+By default is set to 30 minutes.
 
 ### `refreshToken`
 
@@ -142,8 +141,39 @@ Here you configure the refresh token options.
 
 - Default: `60 * 60 * 24 * 30`
 
-Here you set the expiration time of the refresh token, in **seconds**.
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
 You can set it to `false` if your refresh token doesn't expire.
+
+By default is set to 30 minutes.
+
+### `user`
+
+Here you configure the user options.
+
+#### `property`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+ 
+#### `autoFetch`
+ 
+- Default: `true`
+ 
+This option can be used to disable user fetch after login. It is useful when your login response already have the user.
+
+### `clientId`
+
+`clientId` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.client_id`
+
+This option is for systems that uses client id. If you don't use client id, you can set it to `false`.
+
+### `grantType`
+
+- Default: `refresh_token`
+
+It's the value of the grant type you want.
+
+This option is for systems that uses grant type. If you don't use grant type, you can set it to `false`.
 
 ### `dataRefreshToken`
 
@@ -153,29 +183,11 @@ You can set it to `false` if your refresh token doesn't expire.
 
 If you don't need it, you can set it to `false`.
 
-### `user`
-
-`user` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
-
-### `clientId`
-
-`clientId` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.client_id`
-
-This option is for systems that uses client id. If you don't use client id, you can set it to `false`.
-
 ### `dataClientId`
 
 - Default: `false`
 
 `dataClientId` can be used to set the name of the property you want to send in the request.
-
-### `grantType`
-
-- Default: `refresh_token`
-
-It's the value of the grant type you want.
-
-This option is for systems that uses grant type. If you don't use grant type, you can set it to `false`.
 
 ### `dataGrantType`
 
@@ -198,15 +210,3 @@ This option will logout the user on load the page, if token has expired.
 ::: tip
 Mostly used with [`autoRefresh`](#autorefresh).
 :::
-
-### `tokenName`
-
-- Default: `Authorization`
-
-Authorization header name to be used in axios requests.
-
-### `tokenType`
-
-- Default: `Bearer`
-
-Authorization header type to be used in axios requests.
