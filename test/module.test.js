@@ -84,9 +84,9 @@ describe('auth', () => {
 
       return {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.getToken('localRefresh'),
-        loginRefreshToken: window.$nuxt.$auth.getRefreshToken('localRefresh'),
-        loginExpiresAt: window.$nuxt.$auth.strategy.tokenStatus.getTokenExpiration(),
+        loginToken: window.$nuxt.$auth.token.get(),
+        loginRefreshToken: window.$nuxt.$auth.refreshToken.get(),
+        loginExpiresAt: window.$nuxt.$auth.token._getExpiration(),
         loginClientId: window.$nuxt.$auth.strategy._getClientId(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
@@ -113,13 +113,13 @@ describe('auth', () => {
       refreshedUser,
       refreshedResponse
     } = await page.evaluate(async () => {
-      const refreshedResponse = await window.$nuxt.$auth.refreshToken()
+      const refreshedResponse = await window.$nuxt.$auth.refreshTokens()
 
       return {
         refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        refreshedToken: window.$nuxt.$auth.getToken('localRefresh'),
-        refreshedRefreshToken: window.$nuxt.$auth.getRefreshToken('localRefresh'),
-        refreshedExpiresAt: window.$nuxt.$auth.strategy.tokenStatus.getTokenExpiration(),
+        refreshedToken: window.$nuxt.$auth.token.get(),
+        refreshedRefreshToken: window.$nuxt.$auth.refreshToken.get(),
+        refreshedExpiresAt: window.$nuxt.$auth.token._getExpiration(),
         refreshedClientId: window.$nuxt.$auth.strategy._getClientId(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
