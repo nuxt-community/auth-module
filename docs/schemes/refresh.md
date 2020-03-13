@@ -165,11 +165,9 @@ This option is for systems that uses client id. If you don't use client id, you 
 
 ### `dataClientId`
 
-- Default: `client_id`
+- Default: `false`
 
 `dataClientId` can be used to set the name of the property you want to send in the request.
-
-This option is for systems that uses client id. If you don't use client id, you can set it to `false`.
 
 ### `grantType`
 
@@ -181,11 +179,9 @@ This option is for systems that uses grant type. If you don't use grant type, yo
 
 ### `dataGrantType`
 
-- Default: `grant_type`
+- Default: `false`
 
 `dataGrantType` can be used to set the name of the property you want to send in the request.
-
-This option is for systems that uses grant type. If you don't use grant type, you can set it to `false`.
 
 ### `autoRefresh`
 
