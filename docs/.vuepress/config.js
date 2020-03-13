@@ -12,7 +12,8 @@ module.exports = {
         '/api/auth',
         '/api/options',
         '/api/storage',
-        '/api/tokens'
+        '/api/tokens',
+        '/api/refreshController'
       ],
       '/': [
         {
