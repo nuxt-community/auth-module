@@ -31,12 +31,16 @@ module.exports = {
           property: 'token.accessToken'
         },
         refreshToken: {
-          property: 'token.refreshToken'
+          property: 'token.refreshToken',
+          data: 'refreshToken'
         },
-        clientId: 'token.clientId',
-        dataRefreshToken: 'refreshToken',
-        dataClientId: 'clientId',
-        dataGrantType: 'grantType',
+        clientId: {
+          property: 'token.clientId',
+          data: 'clientId'
+        },
+        grantType: {
+          data: 'grantType'
+        },
         autoRefresh: true
       },
       auth0: {
