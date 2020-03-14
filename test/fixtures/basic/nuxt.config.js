@@ -18,11 +18,13 @@ module.exports = {
       localRefresh: {
         _scheme: 'refresh',
         token: {
-          property: 'token.accessToken'
+          property: 'token.accessToken',
+          maxAge: 15
         },
         refreshToken: {
           property: 'token.refreshToken',
-          data: 'refreshToken'
+          data: 'refreshToken',
+          maxAge: false
         },
         clientId: {
           property: 'token.clientId',
