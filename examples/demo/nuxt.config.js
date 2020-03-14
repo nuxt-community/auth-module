@@ -53,11 +53,13 @@ module.exports = {
       },
       oauth2mock: {
         _scheme: 'oauth2',
+        endpoints: {
+          authorization: '/oauth2mockLogin',
+          token: '/oauth2mockserver/token',
+          userInfo: '/oauth2mockserver/userinfo'
+        },
         responseType: 'code',
         grantType: 'authorization_code',
-        authorizationEndpoint: '/oauth2mockLogin',
-        accessTokenEndpoint: '/oauth2mockserver/token',
-        userinfoEndpoint: '/oauth2mockserver/userinfo',
         clientId: 'test-client'
       }
     }
