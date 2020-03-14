@@ -22,6 +22,7 @@
       <br>
       <b-btn-group>
         <b-btn variant="info" @click="sendRequests">Send requests</b-btn>
+        <b-btn class="ml-4" variant="info" @click="refreshTokens">Refresh tokens</b-btn>
         <b-btn class="ml-4" variant="info" @click="invalidateToken">Invalidate token</b-btn>
         <b-btn class="ml-4" variant="info" @click="invalidateBothTokens">Invalidate token and refresh token</b-btn>
       </b-btn-group>
@@ -31,7 +32,7 @@
       <b-col md="12">
         <b-card title="Current token expiration dates">
           Token: {{ tokenExpiresAt }}
-          <br/>
+          <br />
           Refresh token: {{ refreshTokenExpiresAt }}
         </b-card>
       </b-col>
@@ -42,68 +43,75 @@
       <b-button @click="$auth.logout()">Logout</b-button>
     </b-btn-group>
   </div>
-  </template>
+</template>
 
-  <script>
-  import jwtDecode from 'jwt-decode'
+<script>
+import jwtDecode from 'jwt-decode'
 
-  export default {
-    middleware: ['auth'],
-    data() {
-      return {
-        expiredToken: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjAsImV' +
-          '4cCI6MCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSJ9.yTVE73E1wRUdtCEkHXZxc3' +
-          'CJUFIV-_qfoSF0fI9QgmM',
-        tokenExpiresAt: null,
-        refreshTokenExpiresAt: null
-      }
-    },
-    created() {
+export default {
+  middleware: ['auth'],
+  data () {
+    return {
+      expiredToken: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1ODQxND' +
+        'YyMjMsImV4cCI6MTU4NDE0NjIyNCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFt' +
+        'ZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm' +
+        '9qZWN0IEFkbWluaXN0cmF0b3IiXX0.dVuTXohoUOOhJWoinmgmBxVp2G_bm_5C0Yk6GqH4JbU',
+      tokenExpiresAt: null,
+      refreshTokenExpiresAt: null
+    }
+  },
+  created () {
+    this.updateDisplayedTokens()
+  },
+  computed: {
+    isLoggedInWithOauth2 () {
+      return this.$auth.$state.strategy === 'oauth2mock' && this.$auth.$state.loggedIn
+    }
+  },
+  methods: {
+    invalidateToken () {
+      this.$auth.token.set(this.expiredToken)
       this.updateDisplayedTokens()
     },
-    computed: {
-      isLoggedInWithOauth2() {
-        return this.$auth.$state.strategy === 'oauth2mock' && this.$auth.$state.loggedIn
+    invalidateBothTokens () {
+      this.invalidateToken()
+
+      this.$auth.refreshToken.set(this.expiredToken)
+      this.updateDisplayedTokens()
+    },
+    async sendRequests () {
+      try {
+        const requests = []
+        for (let i = 1; i < 3; i++) {
+          const request = this.$auth.ctx.$axios.get('/oauth2mockserver/cats')
+          requests.push(request)
+        }
+        await Promise.all(requests)
+        this.updateDisplayedTokens()
+      } catch (e) {
+        if (e.name === 'ExpiredAuthSessionError') {
+          console.log('Caught ExpiredAuthSessionError. This is ok. Sessions can expire.')
+        } else throw e
       }
     },
-    methods: {
-      invalidateToken() {
-        this.$auth.setToken('oauth2mock', this.expiredToken)
-        this.$auth.ctx.app.$axios.setHeader('Authorization', this.expiredToken)
-        this.updateDisplayedTokens()
-      },
-      invalidateBothTokens() {
-        this.invalidateToken()
-
-        this.$auth.setRefreshToken('oauth2mock', this.expiredToken)
-        this.updateDisplayedTokens()
-      },
-      async sendRequests() {
-        try {
-          const requests = []
-          for (let i = 1; i < 3; i++) {
-            const request = this.$auth.ctx.$axios.get('/oauth2mockserver/cats')
-            requests.push(request)
-          }
-          await Promise.all(requests)
-          this.updateDisplayedTokens()
-        } catch (e) {
-          if (e.name === 'ExpiredAuthSessionError') {
-            console.log('Caught ExpiredAuthSessionError. This is ok. Sessions can expire.')
-          } else throw e
-        }
-      },
-      updateDisplayedTokens() {
-        this.tokenExpiresAt = this.getTokenExpirationDateString(this.$auth.getToken('oauth2mock'))
-        this.refreshTokenExpiresAt = this.getTokenExpirationDateString(this.$auth.getRefreshToken('oauth2mock'))
-      },
-      getTokenExpirationDateString(token) {
-        try {
-          return new Date(jwtDecode(token).exp * 1000).toDateString()
-        } catch (e) {
-          return '-'
-        }
+    refreshTokens() {
+      this.$auth.refreshTokens().catch(e => {
+        if (e.name === 'ExpiredAuthSessionError') {
+          console.log('Caught ExpiredAuthSessionError. This is ok. Sessions can expire.')
+        } else throw e
+      })
+    },
+    updateDisplayedTokens () {
+      this.tokenExpiresAt = this.getTokenExpirationDateString(this.$auth.token._getExpiration())
+      this.refreshTokenExpiresAt = this.getTokenExpirationDateString(this.$auth.refreshToken._getExpiration())
+    },
+    getTokenExpirationDateString (tokenExpiration) {
+      try {
+        return new Date(tokenExpiration).toDateString()
+      } catch (e) {
+        return '-'
       }
     }
   }
-  </script>
+}
+</script>
