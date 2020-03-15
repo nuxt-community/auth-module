@@ -6,7 +6,7 @@
     <b-alert show v-if="$auth.$state.redirect">
       You have to login before accessing to <strong>{{ $auth.$state.redirect }}</strong>
     </b-alert>
-    <b-row align-h="center pt-4">
+    <b-row align-h="center" class="pt-4">
       <b-col md="4">
         <b-card bg-variant="light">
           <busy-overlay />
