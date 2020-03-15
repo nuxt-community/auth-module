@@ -28,6 +28,12 @@
 </p>
 
 
+# 🚧 `v5` Development
+
+`dev` branch is under heavy developmentt to prepare for `v5`.
+
+Meanwhile only important bug fixes are accepted for v4. Please base PRs on [master](https://github.com/nuxt-community/auth-module/tree/master) branch.
+
 ## Development
 
 Running demo for development:
