@@ -15,6 +15,25 @@ module.exports = {
           property: 'token.accessToken'
         }
       },
+      localRefresh: {
+        _scheme: 'refresh',
+        token: {
+          property: 'token.accessToken',
+          maxAge: 15
+        },
+        refreshToken: {
+          property: 'token.refreshToken',
+          data: 'refreshToken',
+          maxAge: false
+        },
+        clientId: {
+          property: 'token.clientId',
+          data: 'clientId'
+        },
+        grantType: {
+          data: 'grantType'
+        }
+      },
       test: {
         _provider: '~/auth/test-provider.js',
         _scheme: '~/auth/test-scheme.js'

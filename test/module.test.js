@@ -64,6 +64,86 @@ describe('auth', () => {
     await page.close()
   })
 
+  test('refresh', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+    await page.waitForFunction('!!window.$nuxt')
+
+    const {
+      loginToken,
+      loginRefreshToken,
+      loginExpiresAt,
+      loginClientId,
+      loginUser,
+      loginAxiosBearer,
+      loginResponse
+    } = await page.evaluate(async () => {
+      const loginResponse = await window.$nuxt.$auth.loginWith('localRefresh', {
+        data: { username: 'test_username', password: '123' }
+      })
+
+      return {
+        loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        loginToken: window.$nuxt.$auth.token.get(),
+        loginRefreshToken: window.$nuxt.$auth.refreshToken.get(),
+        loginExpiresAt: window.$nuxt.$auth.token._getExpiration(),
+        loginClientId: window.$nuxt.$auth.strategy._getClientId(),
+        loginUser: window.$nuxt.$auth.user,
+        loginResponse
+      }
+    })
+
+    expect(loginAxiosBearer).toBeDefined()
+    expect(loginAxiosBearer.split(' ')).toHaveLength(2)
+    expect(loginAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+    expect(loginToken).toBeDefined()
+    expect(loginRefreshToken).toBeDefined()
+    expect(loginExpiresAt).toBeDefined()
+    expect(loginClientId).toBe(123)
+    expect(loginUser).toBeDefined()
+    expect(loginUser.username).toBe('test_username')
+    expect(loginResponse).toBeDefined()
+
+    const {
+      refreshedToken,
+      refreshedRefreshToken,
+      refreshedExpiresAt,
+      refreshedAxiosBearer,
+      refreshedClientId,
+      refreshedUser,
+      refreshedResponse
+    } = await page.evaluate(async () => {
+      const refreshedResponse = await window.$nuxt.$auth.refreshTokens()
+
+      return {
+        refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        refreshedToken: window.$nuxt.$auth.token.get(),
+        refreshedRefreshToken: window.$nuxt.$auth.refreshToken.get(),
+        refreshedExpiresAt: window.$nuxt.$auth.token._getExpiration(),
+        refreshedClientId: window.$nuxt.$auth.strategy._getClientId(),
+        refreshedUser: window.$nuxt.$auth.user,
+        refreshedResponse
+      }
+    })
+
+    expect(refreshedAxiosBearer).toBeDefined()
+    expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
+    expect(refreshedAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+    expect(refreshedAxiosBearer).not.toEqual(loginAxiosBearer)
+    expect(refreshedToken).toBeDefined()
+    expect(refreshedToken).not.toEqual(loginToken)
+    expect(refreshedRefreshToken).toBeDefined()
+    expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
+    expect(refreshedExpiresAt).toBeDefined()
+    expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
+    expect(refreshedClientId).toBe(123)
+    expect(refreshedUser).toBeDefined()
+    expect(refreshedUser.username).toBe('test_username')
+    expect(refreshedResponse).toBeDefined()
+
+    await page.close()
+  })
+
   test('logout', async () => {
     const page = await browser.newPage()
     await page.goto(url('/'))

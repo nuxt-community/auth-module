@@ -18,7 +18,7 @@
             {{ $auth.token.get() || '-' }}
           </div>
         </b-card>
-        <b-card title="refresh token">
+        <b-card title="refresh token" v-if="$auth.strategy.name === 'localRefresh'">
           <div style="white-space: nowrap; overflow: auto">
             {{ $auth.refreshToken.get() || '-' }}
           </div>
@@ -28,6 +28,7 @@
     <hr>
     <b-btn-group>
       <b-button @click="$auth.fetchUser()">Fetch User</b-button>
+      <b-button @click="refreshTokens" v-if="$auth.strategy.name === 'localRefresh'">Refresh Tokens</b-button>
       <b-button @click="$auth.logout()">Logout</b-button>
     </b-btn-group>
   </div>
@@ -39,6 +40,13 @@ export default {
   computed: {
     state() {
       return JSON.stringify(this.$auth.$state, undefined, 2)
+    }
+  },
+  methods: {
+    refreshTokens() {
+      this.$auth.refreshTokens().catch(e => {
+        this.error = e + ''
+      })
     }
   }
 }

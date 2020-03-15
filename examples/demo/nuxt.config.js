@@ -29,6 +29,26 @@ module.exports = {
           property: 'token.accessToken'
         }
       },
+      localRefresh: {
+        _scheme: 'refresh',
+        token: {
+          property: 'token.accessToken',
+          maxAge: 15
+        },
+        refreshToken: {
+          property: 'token.refreshToken',
+          data: 'refreshToken',
+          maxAge: false
+        },
+        clientId: {
+          property: 'token.clientId',
+          data: 'clientId'
+        },
+        grantType: {
+          data: 'grantType'
+        },
+        autoRefresh: true
+      },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
         clientId: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'

@@ -32,6 +32,7 @@ module.exports = {
           collapsable: false,
           children: [
             '/schemes/local',
+            '/schemes/refresh',
             '/schemes/oauth2'
           ]
         },
