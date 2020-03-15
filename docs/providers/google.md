@@ -4,7 +4,7 @@ sidebarDepth: 0
 
 # Google
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/providers/google.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/masterlib/providers/google.js)
 
 ## Usage
 
