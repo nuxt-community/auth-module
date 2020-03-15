@@ -1,6 +1,6 @@
 # Oauth2
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/masterlib/schemes/oauth2.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/oauth2.js)
 
 `oauth2` supports various oauth2 login flows. There are many pre-configured providers like [auth0](../providers/auth0.md) that you may use instead of directly using this scheme.
 
