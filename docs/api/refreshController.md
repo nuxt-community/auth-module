@@ -30,7 +30,7 @@ Then it will be available through the scheme
 mounted () {
   ...
 
-  this.refreshController.initializeRequestInterceptor()
+  this.refreshController.initializeRequestInterceptor(refreshEnpoint)
 
   ...
 }
@@ -56,7 +56,7 @@ Refreshes the token when time reaches 75% of the token expiration. It uses [refr
 Call this function **once** from your mounted hook, **client side** only
 :::
 
-### `initializeRequestInterceptor()`
+### `initializeRequestInterceptor(refreshEndpoint)`
 
 Watch requests for token expiration and refresh tokens if token has expired.
 
