@@ -1,6 +1,6 @@
 # Laravel Passport
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/masterlib/providers/laravel.passport.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/providers/laravel.passport.js)
 
 ## Usage
 

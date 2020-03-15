@@ -1,6 +1,6 @@
 # Local
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/masterlib/schemes/local.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/local.js)
 
 `local` is the default, general purpose authentication scheme, supporting `Cookie` and `JWT` login flows.
 
