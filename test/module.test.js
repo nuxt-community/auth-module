@@ -40,15 +40,16 @@ describe('auth', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
-    const { token, user, axiosBearer } = await page.evaluate(async () => {
-      await window.$nuxt.$auth.loginWith('local', {
+    const { token, user, axiosBearer, response } = await page.evaluate(async () => {
+      const response = await window.$nuxt.$auth.loginWith('local', {
         data: { username: 'test_username', password: '123' }
       })
 
       return {
         axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
         token: window.$nuxt.$auth.getToken('local'),
-        user: window.$nuxt.$auth.user
+        user: window.$nuxt.$auth.user,
+        response
       }
     })
 
@@ -58,6 +59,7 @@ describe('auth', () => {
     expect(token).toBeDefined()
     expect(user).toBeDefined()
     expect(user.username).toBe('test_username')
+    expect(response).toBeDefined()
 
     await page.close()
   })
@@ -74,7 +76,7 @@ describe('auth', () => {
 
       return {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.getToken()
+        loginToken: window.$nuxt.$auth.getToken('local')
       }
     })
 
@@ -86,11 +88,11 @@ describe('auth', () => {
 
       return {
         logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        logoutToken: window.$nuxt.$auth.getToken()
+        logoutToken: window.$nuxt.$auth.getToken('local')
       }
     })
 
-    expect(logoutToken).toBeNull()
+    expect(logoutToken).toBeFalsy()
     expect(logoutAxiosBearer).toBeUndefined()
 
     await page.close()

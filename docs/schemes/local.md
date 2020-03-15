@@ -69,6 +69,7 @@ auth: {
       },
       // tokenRequired: true,
       // tokenType: 'bearer'
+      // autoFetchUser: true
     }
   }
 }
@@ -117,3 +118,9 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 - Default: `Bearer`
 
  Authorization header type to be used in axios requests.
+ 
+ ### `autoFetchUser`
+ 
+ - Default: `true`
+ 
+ This option can be used to disable user fetch after login. It is useful when your login response already have the user.

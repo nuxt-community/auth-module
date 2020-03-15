@@ -30,14 +30,14 @@
 </template>
 
 <script>
-import dotProp from 'dotprop'
+import get from 'lodash.get'
 
 export default  {
   computed: {
     picture() {
-      return  dotProp(this.$auth.user, 'picture') ||  // OpenID
-              dotProp(this.$auth.user, 'picture.data.url') || // Facebook graph API
-              dotProp(this.$auth.user, 'avatar_url') // GitHub
+      return  get(this.$auth.user, 'picture') ||  // OpenID
+              get(this.$auth.user, 'picture.data.url') || // Facebook graph API
+              get(this.$auth.user, 'avatar_url') // GitHub
     }
   }
 
