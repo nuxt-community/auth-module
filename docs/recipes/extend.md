@@ -19,7 +19,7 @@ If you have plugins that need to access `$auth`, you can use `auth.plugins` opti
 
 ```js
 export default function ({ $auth }) {
-  if (!$auth.loggedIn) {
+  if (!$auth.check) {
     return
   }
 

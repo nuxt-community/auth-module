@@ -28,7 +28,7 @@ This boolean flag indicates that user is authenticated and available at the mome
 
 ```js
 // Access using $auth
-this.$auth.loggedIn
+this.$auth.check
 
 // Access using vuex
 this.$store.state.auth.loggedIn
