@@ -12,7 +12,7 @@
           <b-nav-item to="/oauth2RefreshTest">Oauth2 token refresh test</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <template v-if="$auth.$state.loggedIn">
+          <template v-if="$auth.check">
             <b-nav-item-dropdown :text="$auth.user.name" right>
               <b-dropdown-item @click="$auth.logout()">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
