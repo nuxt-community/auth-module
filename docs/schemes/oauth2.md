@@ -136,7 +136,7 @@ The primary reason for using the state parameter is to mitigate CSRF attacks. ([
 
 By default is set to random generated string.
 
-### `code_challenge`
+### `code_challenge_method`
 
 By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
 
