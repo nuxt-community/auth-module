@@ -4,6 +4,7 @@ import defu from 'defu'
 import RefreshController from '../refreshController'
 import RequestHandler from '../requestHandler'
 import ExpiredAuthSessionError from '../includes/ExpiredAuthSessionError'
+
 const isHttps = process.server ? require('is-https') : null
 
 const DEFAULTS = {
@@ -81,7 +82,7 @@ export default class Oauth2Scheme {
     return Promise.resolve()
   }
 
-  login ({ params, state, nonce } = {}) {
+  async login ({ params, state, nonce } = {}) {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -222,8 +223,12 @@ export default class Oauth2Scheme {
           redirect_uri: this._redirectURI,
           response_type: this.options.responseType,
           audience: this.options.audience,
+<<<<<<< HEAD
           grant_type: this.options.grant_type,
           code_verifier: (this.options.code_challenge_method && this.options.code_challenge_method !== 'implicit' ? localStorage.getItem('pkce_code_verifier') : undefined)
+=======
+          grant_type: this.options.grantType
+>>>>>>> b9d05554cc3f11fd5bee06775fe158024f755f39
         })
       })
 

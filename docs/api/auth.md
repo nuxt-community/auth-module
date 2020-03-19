@@ -1,6 +1,6 @@
 # auth
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/auth.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js)
 
 This module globally injects `$auth` instance, meaning that you can access it anywhere using `this.$auth`.
 For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it from `context.$auth`.
@@ -104,14 +104,16 @@ Check if user has a specific scope:
 this.$auth.hasScope('admin')
 ```
 
-### `setToken(strategy, token)`
+### `refreshTokens()`
 
-Universally set token. The `name` parameter is optional and defaults to `options.token.name`.
+Refreshes tokens if *refresh token* is available and not expired. This only works when logged in.
 
 ```js
-// Update token
-this.$auth.setToken('local', '.....')
+// Refresh tokens
+this.$auth.refreshTokens()
 ```
+
+> **TIP:** Useful to manually refresh the token when [autoRefresh](../schemes/refresh.md#autorefresh) is disabled.
 
 ### `onError(handler)`
 
@@ -137,3 +139,7 @@ export default function({ $auth }) {
   })
 }
 ```
+
+## tokens
+**Token** and **Refresh Token** are available on `$auth.token` and `$auth.refreshToken`.
+Both have getters and setters and other helpers. Documented in [tokens.md](tokens.md)

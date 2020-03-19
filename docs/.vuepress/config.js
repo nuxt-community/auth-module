@@ -11,7 +11,9 @@ module.exports = {
       '/api/': [
         '/api/auth',
         '/api/options',
-        '/api/storage'
+        '/api/storage',
+        '/api/tokens',
+        '/api/refreshController'
       ],
       '/': [
         {
@@ -30,6 +32,7 @@ module.exports = {
           collapsable: false,
           children: [
             '/schemes/local',
+            '/schemes/refresh',
             '/schemes/oauth2'
           ]
         },

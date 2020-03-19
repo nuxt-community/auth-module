@@ -11,8 +11,27 @@ module.exports = {
     ],
     strategies: {
       local: {
-        endpoints: {
-          login: { propertyName: 'token.accessToken' }
+        token: {
+          property: 'token.accessToken'
+        }
+      },
+      localRefresh: {
+        _scheme: 'refresh',
+        token: {
+          property: 'token.accessToken',
+          maxAge: 15
+        },
+        refreshToken: {
+          property: 'token.refreshToken',
+          data: 'refreshToken',
+          maxAge: false
+        },
+        clientId: {
+          property: 'token.clientId',
+          data: 'clientId'
+        },
+        grantType: {
+          data: 'grantType'
         }
       },
       test: {

@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/nuxt-community/auth-module/compare/v4.8.5...v4.9.0) (2020-03-15)
+
+
+### Features
+
+* **core:** return response from `loginWith` ([#541](https://github.com/nuxt-community/auth-module/issues/541)) ([7e4f1ed](https://github.com/nuxt-community/auth-module/commit/7e4f1edebde7938428a80154c1fefc2fa24ff9ce)), closes [#144](https://github.com/nuxt-community/auth-module/issues/144) [#411](https://github.com/nuxt-community/auth-module/issues/411) [#249](https://github.com/nuxt-community/auth-module/issues/249)
+* **local scheme:** add `autoFetchUser` option ([#543](https://github.com/nuxt-community/auth-module/issues/543)) ([344920c](https://github.com/nuxt-community/auth-module/commit/344920c0c2d90a6db6265eb286f42f64d1da6ac7))
+
+
+### Bug Fixes
+
+* clear tokens when calling `$auth.reset()` ([#544](https://github.com/nuxt-community/auth-module/issues/544)) ([ab75ebc](https://github.com/nuxt-community/auth-module/commit/ab75ebcd54d45c79d060b810cfd2ba90fd5738ac)), closes [#172](https://github.com/nuxt-community/auth-module/issues/172)
+* fix `setUserToken` issues ([#528](https://github.com/nuxt-community/auth-module/issues/528)) ([02d14ac](https://github.com/nuxt-community/auth-module/commit/02d14ac5695c5797e290ce9494d0c0451fbf5296)), closes [#278](https://github.com/nuxt-community/auth-module/issues/278)
+* remove the trailing slash of paths in `isSameURL` ([#542](https://github.com/nuxt-community/auth-module/issues/542)) ([fb63f6f](https://github.com/nuxt-community/auth-module/commit/fb63f6f6dc17a7afa0b3a51d4b8f447de2ede7de))
+* **module:** don't log fatal error when vuex is disabled ([#518](https://github.com/nuxt-community/auth-module/issues/518)) ([59831fb](https://github.com/nuxt-community/auth-module/commit/59831fbee852ce38598a405f6cc1b971c0430339))
+
+### [4.8.5](https://github.com/nuxt-community/auth-module/compare/v4.8.4...v4.8.5) (2019-12-27)
+
+
+### Bug Fixes
+
+* **core:** always return boolean form hasScope ([a2da3a4](https://github.com/nuxt-community/auth-module/commit/a2da3a4775266aee859c48763b3c3788efe08f02))
+* **core:** support querystring only url for `isRelativeURL` ([#492](https://github.com/nuxt-community/auth-module/issues/492)) ([09d81ea](https://github.com/nuxt-community/auth-module/commit/09d81ead05c11bcd453ad59c3796987872787a12))
+* **module:** always transpile nanoiid ([8ef5a9b](https://github.com/nuxt-community/auth-module/commit/8ef5a9bf6cff886be2dfc49855cf5c7c4cb1c670)), closes [#472](https://github.com/nuxt-community/auth-module/issues/472)
+
 ### [4.8.4](https://github.com/nuxt-community/auth-module/compare/v4.8.3...v4.8.4) (2019-09-12)
 
 

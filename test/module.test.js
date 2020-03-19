@@ -40,15 +40,16 @@ describe('auth', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
-    const { token, user, axiosBearer } = await page.evaluate(async () => {
-      await window.$nuxt.$auth.loginWith('local', {
+    const { token, user, axiosBearer, response } = await page.evaluate(async () => {
+      const response = await window.$nuxt.$auth.loginWith('local', {
         data: { username: 'test_username', password: '123' }
       })
 
       return {
         axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        token: window.$nuxt.$auth.getToken('local'),
-        user: window.$nuxt.$auth.user
+        token: window.$nuxt.$auth.token.get(),
+        user: window.$nuxt.$auth.user,
+        response
       }
     })
 
@@ -58,6 +59,87 @@ describe('auth', () => {
     expect(token).toBeDefined()
     expect(user).toBeDefined()
     expect(user.username).toBe('test_username')
+    expect(response).toBeDefined()
+
+    await page.close()
+  })
+
+  test('refresh', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+    await page.waitForFunction('!!window.$nuxt')
+
+    const {
+      loginToken,
+      loginRefreshToken,
+      loginExpiresAt,
+      loginClientId,
+      loginUser,
+      loginAxiosBearer,
+      loginResponse
+    } = await page.evaluate(async () => {
+      const loginResponse = await window.$nuxt.$auth.loginWith('localRefresh', {
+        data: { username: 'test_username', password: '123' }
+      })
+
+      return {
+        loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        loginToken: window.$nuxt.$auth.token.get(),
+        loginRefreshToken: window.$nuxt.$auth.refreshToken.get(),
+        loginExpiresAt: window.$nuxt.$auth.token._getExpiration(),
+        loginClientId: window.$nuxt.$auth.strategy._getClientId(),
+        loginUser: window.$nuxt.$auth.user,
+        loginResponse
+      }
+    })
+
+    expect(loginAxiosBearer).toBeDefined()
+    expect(loginAxiosBearer.split(' ')).toHaveLength(2)
+    expect(loginAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+    expect(loginToken).toBeDefined()
+    expect(loginRefreshToken).toBeDefined()
+    expect(loginExpiresAt).toBeDefined()
+    expect(loginClientId).toBe(123)
+    expect(loginUser).toBeDefined()
+    expect(loginUser.username).toBe('test_username')
+    expect(loginResponse).toBeDefined()
+
+    const {
+      refreshedToken,
+      refreshedRefreshToken,
+      refreshedExpiresAt,
+      refreshedAxiosBearer,
+      refreshedClientId,
+      refreshedUser,
+      refreshedResponse
+    } = await page.evaluate(async () => {
+      const refreshedResponse = await window.$nuxt.$auth.refreshTokens()
+
+      return {
+        refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        refreshedToken: window.$nuxt.$auth.token.get(),
+        refreshedRefreshToken: window.$nuxt.$auth.refreshToken.get(),
+        refreshedExpiresAt: window.$nuxt.$auth.token._getExpiration(),
+        refreshedClientId: window.$nuxt.$auth.strategy._getClientId(),
+        refreshedUser: window.$nuxt.$auth.user,
+        refreshedResponse
+      }
+    })
+
+    expect(refreshedAxiosBearer).toBeDefined()
+    expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
+    expect(refreshedAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+    expect(refreshedAxiosBearer).not.toEqual(loginAxiosBearer)
+    expect(refreshedToken).toBeDefined()
+    expect(refreshedToken).not.toEqual(loginToken)
+    expect(refreshedRefreshToken).toBeDefined()
+    expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
+    expect(refreshedExpiresAt).toBeDefined()
+    expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
+    expect(refreshedClientId).toBe(123)
+    expect(refreshedUser).toBeDefined()
+    expect(refreshedUser.username).toBe('test_username')
+    expect(refreshedResponse).toBeDefined()
 
     await page.close()
   })
@@ -74,7 +156,7 @@ describe('auth', () => {
 
       return {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.getToken()
+        loginToken: window.$nuxt.$auth.token.get()
       }
     })
 
@@ -86,11 +168,11 @@ describe('auth', () => {
 
       return {
         logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        logoutToken: window.$nuxt.$auth.getToken()
+        logoutToken: window.$nuxt.$auth.token.get()
       }
     })
 
-    expect(logoutToken).toBeNull()
+    expect(logoutToken).toBeFalsy()
     expect(logoutAxiosBearer).toBeUndefined()
 
     await page.close()

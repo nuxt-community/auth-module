@@ -141,8 +141,3 @@ By default is set to random generated string.
 By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
 
 ### `acr_values`
-Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
-
-### `grant_types`
-
-Specifically indicate what grants the client requires. ([read more](https://oauth.net/2/grant-types/))

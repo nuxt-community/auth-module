@@ -1,6 +1,6 @@
 # Local
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/local.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/local.js)
 
 `local` is the default, general purpose authentication scheme, supporting `Cookie` and `JWT` login flows.
 
@@ -11,12 +11,46 @@ By default `local` scheme is enabled and preconfigured. You can set `strategies.
 To do a password based login by sending credentials in request body as a JSON object:
 
 ```js
-this.$auth.loginWith('local', {
-  data: {
-    username: 'your_username',
-    password: 'your_password'
+<template>
+  <div>
+    <form @submit="userLogin">
+      <div>
+        <label>Username</label>
+        <input type="text" v-model="login.username" />
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="text" v-model="login.password" />
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      login: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith('local', { data: this.login })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
-})
+}
+</script>
 ```
 
 
@@ -28,13 +62,20 @@ Example for a token based flow:
 auth: {
   strategies: {
     local: {
-      endpoints: {
-        login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-        logout: { url: '/api/auth/logout', method: 'post' },
-        user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+      token: {
+        property: 'token',
+        // required: true,
+        // type: 'Bearer'
       },
-      // tokenRequired: true,
-      // tokenType: 'bearer'
+      user: {
+        property: 'user',
+        // autoFetch: true
+      },
+      endpoints: {
+        login: { url: '/api/auth/login', method: 'post' },
+        logout: { url: '/api/auth/logout', method: 'post' },
+        user: { url: '/api/auth/user', method: 'get' }
+      }
     }
   }
 }
@@ -46,11 +87,13 @@ Example for a cookie based flow:
 auth: {
   strategies: {
     local: {
+      token: {
+        required: false,
+        type: false
+      },
       endpoints: {
         login: { url: '/api/auth/login', method: 'post' },
-      },
-      tokenRequired: false,
-      tokenType: false
+      }
     }
   }
 }
@@ -61,25 +104,58 @@ auth: {
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
 
 ::: tip
-To disable each endpoint, simply set it's value to `false`.
+To disable each endpoint, simply set its value to `false`.
 :::
 
-#### `propertyName`
+### `token`
 
-`propertyName` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+Here you configure the token options.
 
-### `tokenRequired`
+#### `property`
 
-This option can be used to disable all token handling. Useful for Cookie only flows. \(Enabled by default\)
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 
-### `tokenName`
+#### `required`
+
+- Default: `true`
+
+This option can be used to disable all token handling.
+
+::: tip
+Useful for Cookie only flows.
+:::
+
+#### `name`
 
 - Default: `Authorization`
 
-  Authorization header name to be used in axios requests.
+Authorization header name to be used in axios requests.
 
-### `tokenType`
+#### `type`
 
 - Default: `Bearer`
 
- Authorization header type to be used in axios requests.
+Authorization header type to be used in axios requests.
+
+#### `maxAge`
+
+- Default: `1800`
+
+Here you set the expiration time of the token, in **seconds**.
+This time will be used if for some reason we couldn't decode the token to get the expiration date.
+
+By default is set to 30 minutes.
+
+### `user`
+
+Here you configure the user options.
+
+#### `property`
+
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+
+#### `autoFetch`
+
+- Default: `true`
+
+This option can be used to disable user fetch after login. It is useful when your login response already have the user.
