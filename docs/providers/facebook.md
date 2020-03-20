@@ -9,8 +9,8 @@ auth: {
   strategies: {
     facebook: {
       client_id: '...',
-      userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
-      scope: ['public_profile', 'email', 'user_birthday']
+      userinfo_endpoint: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
+      scope: ['public_profile', 'email']
     },
   }
 }
