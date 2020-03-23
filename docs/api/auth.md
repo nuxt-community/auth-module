@@ -70,7 +70,7 @@ Set user data and update `loggedIn` state.
 > **TIP:** This function can be used to set the user using the login response after a successfully login, when [autoFetchUser](../schemes/local.md#autofetchuser) is disabled.
 
 ```js
-await this.$auth.setUser(user)
+this.$auth.setUser(user)
 ```
 
 ### `setUserToken(token)`
