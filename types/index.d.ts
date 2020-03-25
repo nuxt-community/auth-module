@@ -36,6 +36,7 @@ export interface Auth<T = any> {
   onError(handler: (error: Error, name: string, endpoint: any) => void): any;
   setUser(user?: Partial<T>): any;
   reset(): Promise<never>;
+  onRedirect(listener: () => void): void;
   redirect(name: string): any;
 }
 
