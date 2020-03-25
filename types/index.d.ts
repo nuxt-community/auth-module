@@ -36,8 +36,15 @@ export interface Auth<T = any> {
   onError(handler: (error: Error, name: string, endpoint: any) => void): any;
   setUser(user?: Partial<T>): any;
   reset(): Promise<never>;
-  onRedirect(listener: () => void): void;
   redirect(name: string): any;
+  onRedirect(listener: () => void): void;
+  strategy(): string;
+  registerStrategy(strategyName: string, strategy: object): void;
+  setStrategy(strategyName: string): void;
+  setUserToken(token: string): Promise<void>;
+  getRefreshToken(strategyName: string): string;
+  setRefreshToken(strategyName: string, token?: string): string;
+  syncRefreshToken(strategyName: string): string;
 }
 
 declare module '@nuxt/types' {
