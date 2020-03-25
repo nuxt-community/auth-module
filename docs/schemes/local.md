@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       login: {
-        email: '',
+        username: '',
         password: ''
       }
     }
