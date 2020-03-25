@@ -13,7 +13,7 @@ To do a password based login by sending credentials in request body as a JSON ob
 ```js
 <template>
   <div>
-    <form @submit="userLogin">
+    <form @submit.prevent="userLogin">
       <div>
         <label>Username</label>
         <input type="text" v-model="login.username" />
