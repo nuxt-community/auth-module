@@ -10,13 +10,47 @@ You can set `_scheme` to `refresh` to enable it.
 
 To do a password based login by sending credentials in request body as a JSON object:
 
-```js
-this.$auth.loginWith('local', {
-  data: {
-    username: 'your_username',
-    password: 'your_password'
+```vue
+<template>
+  <div>
+    <form @submit.prevent="userLogin">
+      <div>
+        <label>Username</label>
+        <input type="text" v-model="login.username" />
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="text" v-model="login.password" />
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      login: {
+        username: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith('local', { data: this.login })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
-})
+}
+</script>
 ```
 
 To manually refresh the token:
@@ -29,8 +63,6 @@ Or enable [autoRefresh](#autorefresh) option to automatically refresh tokens.
 
 ## Options
 
-Example for a token based flow:
-
 ```js
 auth: {
     strategies: {
@@ -41,52 +73,25 @@ auth: {
           maxAge: 1800,
           // type: 'Bearer'
         },
-        expiresIn: 'expires_in',
         refreshToken: {
           property: 'refresh_token',
+          data: 'refresh_token',
           maxAge: 60 * 60 * 24 * 30
         },
         user: {
           property: 'user',
           // autoFetch: true
         },
-        endpoints: {
-          login: { url: '/api/auth/login', method: 'post' },
-          refresh: { url: '/api/auth/refresh', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get' },
-          logout: { url: '/api/auth/logout', method: 'post' }
-        }
-      }
-    }
-  }
-```
-
-Example of auto refresh usage:
-
-```js
-auth: {
-    strategies: {
-      local: {
-        _scheme: 'refresh',
-        token: {
-          property: 'access_token'
-        },
-        expiresIn: 'expires_in',
-        refreshToken: {
-          property: 'refresh_token'
-        },
-        user: 'user',
+        clientId: false,
+        grantType: false,
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
           refresh: { url: '/api/auth/refresh', method: 'post' },
           user: { url: '/api/auth/user', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' }
         },
-        autoRefresh: {
-          enable: true
-        },
-        autoLogout: true,
-        // tokenType: 'bearer'
+        // autoRefresh: false,
+        // autoLogout: false
       }
     }
   }
