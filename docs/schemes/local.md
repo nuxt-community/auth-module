@@ -10,7 +10,7 @@ By default `local` scheme is enabled and preconfigured. You can set `strategies.
 
 To do a password based login by sending credentials in request body as a JSON object:
 
-```js
+```vue
 <template>
   <div>
     <form @submit.prevent="userLogin">
