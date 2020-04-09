@@ -1,3 +1,4 @@
+import Token from './token';
 // Type definitions for @nuxtjs/auth 4.8
 // Project: https://auth.nuxtjs.org
 // TypeScript Version: 3.1
@@ -30,9 +31,6 @@ export interface Auth<T = any> {
   fetchUser(): Promise<never>;
   fetchUserOnce(): Promise<never>;
   hasScope(scopeName: string): boolean;
-  setToken(strategyName: string, token?: string): string;
-  getToken(strategyName: string): string;
-  syncToken(strategyName: string): string;
   onError(handler: (error: Error, name: string, endpoint: any) => void): any;
   setUser(user?: Partial<T>): any;
   reset(): Promise<never>;
@@ -42,9 +40,10 @@ export interface Auth<T = any> {
   registerStrategy(strategyName: string, strategy: object): void;
   setStrategy(strategyName: string): void;
   setUserToken(token: string): Promise<void>;
-  getRefreshToken(strategyName: string): string;
-  setRefreshToken(strategyName: string, token?: string): string;
-  syncRefreshToken(strategyName: string): string;
+  refreshTokens(): Promise<any>;
+  token: Token;
+  refreshToken: Token;
+
 }
 
 declare module '@nuxt/types' {
