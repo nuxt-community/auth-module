@@ -94,7 +94,7 @@ auth: {
   * `domain` - domain (and by extension subdomain/s) where the cookie is visible. Default is domain and all subdomains.
   * `secure` - sets whether the cookie requires a secure protocol (https). Default is false, **should be set to true if possible**.
 
-Note: Using cookies is **required** for SSR requests to work with JWT tokens.
+Note: Using cookies is effectively **required** for univeral mode (SSR) apps because authentication on first page load occurs **only** on the server side and local storage is not available on the server.
 
 You can disable use of cookie storage by setting `cookie` to `false`, like so:
 
