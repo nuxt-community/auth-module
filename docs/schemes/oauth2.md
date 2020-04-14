@@ -67,7 +67,7 @@ By default is `Bearer`. It will be used in `Authorization` header of axios reque
 
 By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
 
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/masterexamples/demo/pages/callback.vue))
+Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
 
 ### `client_id`
 
