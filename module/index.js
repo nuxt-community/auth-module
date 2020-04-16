@@ -9,7 +9,7 @@ const libRoot = resolve(__dirname, '..')
 
 const logger = consola.withScope('nuxt:auth')
 
-module.exports = function (moduleOptions) {
+export default function (moduleOptions) {
   // Merge all option sources
   const options = merge({}, defaults, moduleOptions, this.options.auth)
 
