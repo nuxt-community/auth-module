@@ -20,7 +20,7 @@ auth: {
 * `login`: User will be redirected to this path if *login is required*.
 * `logout`: User will be redirected to this path if *after logout, current route is protected*.
 * `home`: User will be redirect to this path *after login*. (`rewriteRedirects` will rewrite this path)
-* `callback`: User will be redirect to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider)
+* `callback`: User will be redirected to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider)
 
 Each redirect path can be disabled by setting to `false`.
 Also you can disable all redirects by setting `redirect` to `false`

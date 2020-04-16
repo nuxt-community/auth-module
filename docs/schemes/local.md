@@ -158,4 +158,7 @@ Here you configure the user options.
 
 - Default: `true`
 
-This option can be used to disable user fetch after login. It is useful when your login response already have the user.
+
+This option can be used to disable user fetch after login.
+
+> TIP: It is useful when your login response already have the user. To manually set the user, use [setUser](../api/auth.md#setuser-user).

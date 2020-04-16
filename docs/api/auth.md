@@ -63,6 +63,16 @@ this.$auth.login(/* .... */)
   .then(() => this.$toast.success('Logged In!'))
 ```
 
+### `setUser(user)`
+
+Set user data and update `loggedIn` state.
+
+> **TIP:** This function can be used to set the user using the login response after a successfully login, when [autoFetchUser](../schemes/local.md#autofetchuser) is disabled.
+
+```js
+this.$auth.setUser(user)
+```
+
 ### `setUserToken(token)`
 
 - Returns: `Promise`
