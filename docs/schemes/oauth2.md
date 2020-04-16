@@ -46,6 +46,7 @@ auth: {
           maxAge: 60 * 60 * 24 * 30
       },
       responseType: 'token',
+      grantType: 'authorization_code',
       accessType: undefined,
       redirectUri: undefined,
       clientId: 'SET_ME',
@@ -127,6 +128,10 @@ By default is set to 30 days.
 - Default: `token`
 
 If you use `code` you may have to implement a server side logic to sign the response code.
+
+### `grantType`
+
+Set to `authorization_code` for authorization code flow.
 
 ### `accessType`
 
