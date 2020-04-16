@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.1](https://github.com/nuxt-community/auth-module/compare/v4.9.0...v4.9.1) (2020-04-16)
+
+
+### Bug Fixes
+
+* **oauth2:** use normalized path for callback route check ([#587](https://github.com/nuxt-community/auth-module/issues/587)) ([ffda6b0](https://github.com/nuxt-community/auth-module/commit/ffda6b08747496a24ed4656d7d48db50e6c4c50f))
+
 ## [4.9.0](https://github.com/nuxt-community/auth-module/compare/v4.8.5...v4.9.0) (2020-03-15)
 
 
