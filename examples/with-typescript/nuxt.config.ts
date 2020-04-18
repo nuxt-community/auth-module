@@ -15,10 +15,10 @@ const config: Configuration = {
   auth: {
     strategies: {
       local: {
-        endpoints: {
-          login: { propertyName: "token.accessToken" }
+        token: {
+          property: "token.accessToken"
         }
-      }
+      },
     }
   },
   buildModules: ["@nuxt/typescript-build"],
