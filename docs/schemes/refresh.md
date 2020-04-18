@@ -104,7 +104,7 @@ auth: {
 ### `endpoints`
 
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
-
+Additional headers and other Axios configuration can be based in the endpoint's child object. 
 ::: tip
 To disable each endpoint, simply set it's value to `false`.
 :::
