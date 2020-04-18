@@ -46,12 +46,11 @@ export default async function authMiddleware (ctx) {
         }
       }
     }
-  } else {
+
     // -- Guest --
     // (Those passing `callback` at runtime need to mark their callback component
     // with `auth: false` to avoid an unnecessary redirect from callback to login)
-    if (!pageIsInGuestMode && (!callback || !insidePage(callback))) {
-      ctx.$auth.redirect('login')
-    }
+  } else if (!pageIsInGuestMode && (!callback || !insidePage(callback))) {
+    ctx.$auth.redirect('login')
   }
 }
