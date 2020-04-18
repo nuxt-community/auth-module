@@ -10,7 +10,7 @@
     "start": "nuxt start demo",
     "dev": "nuxt demo",
     "lint": "eslint .",
-    "lint-fix": "eslint --fix lib test",
+    "lint-fix": "eslint --fix .",
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
