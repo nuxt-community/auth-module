@@ -1,6 +1,6 @@
 import { assignDefaults } from '../utils'
 
-export function auth0 (strategy) {
+export function auth0 (nuxt, strategy) {
   assignDefaults(strategy, {
     _scheme: 'oauth2',
     endpoints: {

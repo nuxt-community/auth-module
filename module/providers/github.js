@@ -1,6 +1,6 @@
 import { assignDefaults, addAuthorize } from '../utils'
 
-export function github (strategy) {
+export function github (nuxt, strategy) {
   assignDefaults(strategy, {
     _scheme: 'oauth2',
     endpoints: {
@@ -11,5 +11,5 @@ export function github (strategy) {
     scope: ['user', 'email']
   })
 
-  addAuthorize.call(this, strategy)
+  addAuthorize(nuxt, strategy)
 }

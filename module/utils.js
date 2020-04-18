@@ -6,7 +6,7 @@ export function assignDefaults (strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
 }
 
-export function addAuthorize (strategy) {
+export function addAuthorize (nuxt, strategy) {
   // Get clientSecret, clientId, endpoints.token and audience
   const clientSecret = strategy.clientSecret
   const clientID = strategy.clientId
@@ -27,7 +27,7 @@ export function addAuthorize (strategy) {
   const formMiddleware = bodyParser.urlencoded({ extended: true })
 
   // Register endpoint
-  this.options.serverMiddleware.unshift({
+  nuxt.options.serverMiddleware.unshift({
     path: endpoint,
     handler: (req, res, next) => {
       if (req.method !== 'POST') {

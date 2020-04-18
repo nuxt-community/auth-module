@@ -1,6 +1,6 @@
 import { assignDefaults } from '../utils'
 
-export function google (strategy) {
+export function google (nuxt, strategy) {
   assignDefaults(strategy, {
     _scheme: 'oauth2',
     endpoints: {
