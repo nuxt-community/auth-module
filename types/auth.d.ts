@@ -25,5 +25,4 @@ export default class Auth<T = any> {
   refreshTokens(): Promise<any>;
   token: Token;
   refreshToken: Token;
-
 }

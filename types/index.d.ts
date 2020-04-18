@@ -1,4 +1,5 @@
 
+import Auth from "./auth"
 export * from "./auth";
 export * from "./refreshController";
 export * from "./requestHandler";

@@ -14,7 +14,7 @@
     "@nuxt/types": "^0.6.1",
     "@nuxt/typescript-build": "^0.5.6",
     "@nuxt/typescript-runtime": "^0.3.8",
-    "@nuxtjs/auth": "^4.8.4",
+    "@nuxtjs/auth": "../../",
     "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/toast": "^3.3.0",
     "@types/node": "^12.12.11",

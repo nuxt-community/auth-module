@@ -1,4 +1,5 @@
-import { Auth } from './index';
+import Auth from './auth';
+
 export default class RefreshController {
     constructor(scheme: any);
     scheme: any;

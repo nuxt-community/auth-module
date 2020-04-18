@@ -1,7 +1,7 @@
 import TokenStatus from "./tokenStatus";
-import { Auth } from './index';
+import Auth from './auth';
 
-export interface TokenBase {
+export abstract class TokenBase {
     constructor(auth: any);
     $auth: Auth;
     get(): any;
