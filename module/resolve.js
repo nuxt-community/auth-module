@@ -1,3 +1,4 @@
+/* eslint-disable import/namespace */
 import { existsSync } from 'fs'
 import * as providers from './providers'
 
@@ -66,10 +67,14 @@ export function resolveScheme (nuxt, scheme) {
     return '~auth/schemes/' + scheme
   }
 
-  const path = nuxt.resolvePath(scheme)
+  try {
+    const path = nuxt.resolvePath(scheme)
 
-  if (existsSync(path)) {
-    return path
+    if (existsSync(path)) {
+      return path
+    }
+  } catch (e) {
+    // Ignore
   }
 }
 
@@ -86,9 +91,13 @@ export function resolveProvider (nuxt, provider) {
     return providers[provider]
   }
 
-  const path = nuxt.resolvePath(provider)
+  try {
+    const path = this.nuxt.resolvePath(provider)
 
-  if (existsSync(path)) {
-    return require(path)
+    if (existsSync(path)) {
+      return require(path)
+    }
+  } catch (e) {
+    // Ignore
   }
 }
