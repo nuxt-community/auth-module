@@ -1,7 +1,7 @@
 export default class LocalScheme {
   constructor (auth, options) {
     this.$auth = auth
-    this.name = options._name
+    this.name = options.name
   }
 
   mounted () {
