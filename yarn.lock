@@ -1227,7 +1227,7 @@
     consola "^2.11.3"
     defu "^1.0.0"
 
-"@nuxtjs/eslint-config@^2.0.2":
+"@nuxtjs/eslint-config@latest":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/eslint-config/-/eslint-config-2.0.2.tgz#ff521ee1c0b875ac340f17ed656db213b6af854e"
   integrity sha512-Vbs8dk73nc7alUoBvYtn6mNcDaK5LgnKZFljFbsGv7zsWFdr9ciear37+y8HBjWafD900cG45D7ae/n4D0BrRQ==
