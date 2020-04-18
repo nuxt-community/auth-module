@@ -182,7 +182,7 @@ describe('auth', () => {
     const page = await browser.newPage()
     await page.goto(url('/'))
 
-    const flag = await page.evaluate(async () => {
+    const flag = await page.evaluate(() => {
       return window.$nuxt.$auth._custom_plugin
     })
 
