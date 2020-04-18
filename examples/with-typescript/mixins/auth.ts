@@ -29,7 +29,7 @@ export default class AuthMixin extends Vue {
       await this.$auth.logout()
       this.$toast.success('Successfully disconnected')
     } catch(err) {
-      this.$toast.error('Error while disconnecting: ' + err.message)
+      this.$toast.error('Error while disconnecting: ' + err.response.data)
     }
 
   }
@@ -52,7 +52,7 @@ export default class AuthMixin extends Vue {
       })
       this.$toast.success('Successfully connected')
     } catch(err) {
-      this.$toast.error('Error while connecting: ' + err.message)
+      this.$toast.error('Error while connecting: ' + err.response.data)
       this.loginHasError = true
     }
   }
