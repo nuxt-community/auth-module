@@ -4,7 +4,7 @@ module.exports = {
   rootDir: resolve(__dirname, '../../..'),
   buildDir: resolve(__dirname, '.nuxt'),
   srcDir: __dirname,
-  serverMiddleware: ['@@/examples/api/auth'],
+  serverMiddleware: ['@@/demo/api/auth'],
   auth: {
     plugins: [
       '~/plugins/auth.js'
@@ -16,7 +16,7 @@ module.exports = {
         }
       },
       localRefresh: {
-        _scheme: 'refresh',
+        scheme: 'refresh',
         token: {
           property: 'token.accessToken',
           maxAge: 15
@@ -35,8 +35,8 @@ module.exports = {
         }
       },
       test: {
-        _provider: '~/auth/test-provider.js',
-        _scheme: '~/auth/test-scheme.js'
+        provider: '~/auth/test-provider.js',
+        scheme: '~/auth/test-scheme.js'
       }
     }
   },
