@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **core:** return response from `loginWith` ([#541](https://github.com/nuxt-community/auth-module/issues/541)) ([7e4f1ed](https://github.com/nuxt-community/auth-module/commit/7e4f1edebde7938428a80154c1fefc2fa24ff9ce)), closes [#144](https://github.com/nuxt-community/auth-module/issues/144) [#411](https://github.com/nuxt-community/auth-module/issues/411) [#249](https://github.com/nuxt-community/auth-module/issues/249)
-* **local scheme:** add `autoFetchUser` option ([#543](https://github.com/nuxt-community/auth-module/issues/543)) ([344920c](https://github.com/nuxt-community/auth-module/commit/344920c0c2d90a6db6265eb286f42f64d1da6ac7))
+* **local scheme:** add `autoFetch` option ([#543](https://github.com/nuxt-community/auth-module/issues/543)) ([344920c](https://github.com/nuxt-community/auth-module/commit/344920c0c2d90a6db6265eb286f42f64d1da6ac7))
 
 
 ### Bug Fixes
