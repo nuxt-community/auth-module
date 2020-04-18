@@ -1,7 +1,7 @@
 import defu from 'defu'
-import { getProp } from '../utilities'
-import RefreshController from '../refreshController'
-import ExpiredAuthSessionError from '../includes/ExpiredAuthSessionError'
+import { getProp } from '../utils'
+import RefreshController from '../inc/refresh-controller'
+import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import LocalScheme from './local'
 
 export default class RefreshScheme extends LocalScheme {

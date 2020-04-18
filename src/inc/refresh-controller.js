@@ -1,4 +1,4 @@
-import ExpiredAuthSessionError from './includes/ExpiredAuthSessionError'
+import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RefreshController {
   constructor (scheme) {

@@ -1,7 +1,7 @@
 import authMiddleware from '~auth/core/middleware'
 import Middleware from './middleware'
 import Auth from '~auth/core/auth'
-import ExpiredAuthSessionError from '~auth/inc/ExpiredAuthSessionError'
+import ExpiredAuthSessionError from '~auth/inc/expired-auth-session-error'
 
 // Active schemes
 <%= options.uniqueSchemes.map(path =>`import ${'scheme_' + hash(path)} from '${path.replace(/\\/g,'/')}'`).join('\n') %>
