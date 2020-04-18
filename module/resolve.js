@@ -11,7 +11,7 @@ export function resolveStrategies (nuxt, options) {
   const strategies = []
   const strategyScheme = new Map()
 
-  for (const name in strategies) {
+  for (const name of Object.keys(options.strategies)) {
     if (!options.strategies[name] || options.strategies[name].enabled === false) {
       continue
     }
