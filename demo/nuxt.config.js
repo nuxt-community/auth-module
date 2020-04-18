@@ -31,7 +31,7 @@ export default {
         }
       },
       localRefresh: {
-        _scheme: 'refresh',
+        scheme: 'refresh',
         token: {
           property: 'token.accessToken',
           maxAge: 15
@@ -69,11 +69,11 @@ export default {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET
       },
-      twitter: {
+      /* twitter: {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
-      },
+      }, */
       oauth2mock: {
-        _scheme: 'oauth2',
+        scheme: 'oauth2',
         endpoints: {
           authorization: '/oauth2mockLogin',
           token: '/oauth2mockserver/token',
