@@ -1,1 +1,4 @@
 *.tmpl
+node_modules
+.nuxt
+module/plugin.tmpl.js
