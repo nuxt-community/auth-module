@@ -2,8 +2,8 @@ import { assignDefaults, addAuthorize } from '../utils'
 
 export function laravelPassport (nuxt, strategy) {
   assignDefaults(strategy, {
-    _scheme: 'oauth2',
-    _name: 'laravel.passport',
+    scheme: 'oauth2',
+    name: 'laravel.passport',
     endpoints: {
       authorization: `${strategy.url}/oauth/authorize`,
       token: `${strategy.url}/oauth/token`

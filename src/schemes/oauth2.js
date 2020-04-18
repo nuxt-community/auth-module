@@ -11,7 +11,7 @@ export default class Oauth2Scheme {
   constructor (auth, options) {
     this.$auth = auth
     this.req = auth.ctx.req
-    this.name = options._name
+    this.name = options.name
     this.refreshController = new RefreshController(this)
     this.requestHandler = new RequestHandler(this.$auth)
 

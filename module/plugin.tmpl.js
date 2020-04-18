@@ -21,7 +21,7 @@ export default function (ctx, inject) {
   options.strategies.map(strategy => {
     const scheme = 'scheme_' + hash(options.strategyScheme.get(strategy))
     const schemeOptions = JSON.stringify(strategy)
-    const name = strategy._name
+    const name = strategy.name
     return `// ${name}\n  $auth.registerStrategy('${name}', new ${scheme}($auth, ${schemeOptions}))`
   }).join('\n\n  ')
   %>

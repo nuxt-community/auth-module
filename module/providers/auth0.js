@@ -2,7 +2,7 @@ import { assignDefaults } from '../utils'
 
 export function auth0 (nuxt, strategy) {
   assignDefaults(strategy, {
-    _scheme: 'oauth2',
+    scheme: 'oauth2',
     endpoints: {
       authorization: `https://${strategy.domain}/authorize`,
       userInfo: `https://${strategy.domain}/userinfo`

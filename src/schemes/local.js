@@ -5,7 +5,7 @@ import RequestHandler from '../inc/request-handler'
 export default class LocalScheme {
   constructor (auth, options) {
     this.$auth = auth
-    this.name = options._name
+    this.name = options.name
 
     this.options = defu(options, DEFAULTS)
 
