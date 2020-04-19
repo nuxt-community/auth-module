@@ -1,6 +1,8 @@
 <template>
-    <div>
-    <b-alert show variant="warning">This is a secure page!</b-alert>
+  <div>
+    <b-alert show variant="warning">
+      This is a secure page!
+    </b-alert>
     <b-row>
       <b-col md="8">
         <b-card title="State">
@@ -27,9 +29,15 @@
     </b-row>
     <hr>
     <b-btn-group>
-      <b-button @click="$auth.fetchUser()">Fetch User</b-button>
-      <b-button @click="refreshTokens">Refresh Tokens</b-button>
-      <b-button @click="$auth.logout()">Logout</b-button>
+      <b-button @click="$auth.fetchUser()">
+        Fetch User
+      </b-button>
+      <b-button @click="refreshTokens">
+        Refresh Tokens
+      </b-button>
+      <b-button @click="$auth.logout()">
+        Logout
+      </b-button>
     </b-btn-group>
   </div>
 </template>
@@ -38,13 +46,13 @@
 export default {
   middleware: ['auth'],
   computed: {
-    state() {
+    state () {
       return JSON.stringify(this.$auth.$state, undefined, 2)
     }
   },
   methods: {
-    refreshTokens() {
-      this.$auth.refreshTokens().catch(e => {
+    refreshTokens () {
+      this.$auth.refreshTokens().catch((e) => {
         this.error = e + ''
       })
     }

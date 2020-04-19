@@ -9,9 +9,9 @@
     "heroku-postbuild": "nuxt build demo",
     "start": "nuxt start demo",
     "dev": "nuxt demo",
-    "lint": "eslint .",
-    "lint-fix": "eslint --fix .",
-    "test": "npm run lint && jest",
+    "lint": "eslint --ext .vue .",
+    "lint-fix": "yarn lint --fix",
+    "test": "yarn lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "files": [

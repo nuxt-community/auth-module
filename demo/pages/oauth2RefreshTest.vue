@@ -1,15 +1,19 @@
 <template>
   <div>
     <div v-if="!isLoggedInWithOauth2">
-      <b-alert show variant="info">You need to login with oauth2 if you want to test this feature.</b-alert>
+      <b-alert show variant="info">
+        You need to login with oauth2 if you want to test this feature.
+      </b-alert>
     </div>
     <div v-else>
       <h3>Oauth2 token refresh tester</h3>
       Here you can test the automatic token refresh handling. You can read more about how it works in the docs.
       <hr>
       <div>
-        <p>Open the network tab and click "Send requests". Notice the two requests that are sent to our mock API
-          "cats".</p>
+        <p>
+          Open the network tab and click "Send requests". Notice the two requests that are sent to our mock API
+          "cats".
+        </p>
         <p>
           Click "Invalidate token", and resend the requests. Notice the token request sent just before the two requests.
           Nuxt auth detected the token was expired, and refreshed it before sending the requests.
@@ -21,10 +25,18 @@
       </div>
       <br>
       <b-btn-group>
-        <b-btn variant="info" @click="sendRequests">Send requests</b-btn>
-        <b-btn class="ml-4" variant="info" @click="refreshTokens">Refresh tokens</b-btn>
-        <b-btn class="ml-4" variant="info" @click="invalidateToken">Invalidate token</b-btn>
-        <b-btn class="ml-4" variant="info" @click="invalidateBothTokens">Invalidate token and refresh token</b-btn>
+        <b-btn variant="info" @click="sendRequests">
+          Send requests
+        </b-btn>
+        <b-btn class="ml-4" variant="info" @click="refreshTokens">
+          Refresh tokens
+        </b-btn>
+        <b-btn class="ml-4" variant="info" @click="invalidateToken">
+          Invalidate token
+        </b-btn>
+        <b-btn class="ml-4" variant="info" @click="invalidateBothTokens">
+          Invalidate token and refresh token
+        </b-btn>
       </b-btn-group>
       <br>
       <br>
@@ -32,7 +44,7 @@
       <b-col md="12">
         <b-card title="Current token expiration dates">
           Token: {{ tokenExpiresAt }}
-          <br />
+          <br>
           Refresh token: {{ refreshTokenExpiresAt }}
         </b-card>
       </b-col>
@@ -40,14 +52,14 @@
       <hr>
     </div>
     <b-btn-group>
-      <b-button @click="$auth.logout()">Logout</b-button>
+      <b-button @click="$auth.logout()">
+        Logout
+      </b-button>
     </b-btn-group>
   </div>
 </template>
 
 <script>
-import jwtDecode from 'jwt-decode'
-
 export default {
   middleware: ['auth'],
   data () {
@@ -60,13 +72,13 @@ export default {
       refreshTokenExpiresAt: null
     }
   },
-  created () {
-    this.updateDisplayedTokens()
-  },
   computed: {
     isLoggedInWithOauth2 () {
       return this.$auth.$state.strategy === 'oauth2mock' && this.$auth.$state.loggedIn
     }
+  },
+  created () {
+    this.updateDisplayedTokens()
   },
   methods: {
     invalidateToken () {
@@ -90,15 +102,17 @@ export default {
         this.updateDisplayedTokens()
       } catch (e) {
         if (e.name === 'ExpiredAuthSessionError') {
+          // eslint-disable-next-line no-console
           console.log('Caught ExpiredAuthSessionError. This is ok. Sessions can expire.')
-        } else throw e
+        } else { throw e }
       }
     },
-    refreshTokens() {
-      this.$auth.refreshTokens().catch(e => {
+    refreshTokens () {
+      this.$auth.refreshTokens().catch((e) => {
         if (e.name === 'ExpiredAuthSessionError') {
+          // eslint-disable-next-line no-console
           console.log('Caught ExpiredAuthSessionError. This is ok. Sessions can expire.')
-        } else throw e
+        } else { throw e }
       })
     },
     updateDisplayedTokens () {

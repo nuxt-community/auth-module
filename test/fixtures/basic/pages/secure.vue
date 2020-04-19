@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     Token: {{ $auth.token }}
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   middleware: ['auth'],
   computed: {
-    state() {
+    state () {
       return JSON.stringify(this.$auth.$state, undefined, 2)
     }
   }
