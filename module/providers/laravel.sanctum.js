@@ -1,6 +1,6 @@
 import { assignDefaults } from '../utils'
 
-export function laravelSanctum (strategy) {
+export function laravelSanctum (nuxt, strategy) {
   const { url } = strategy
 
   if (!url) {
@@ -17,8 +17,8 @@ export function laravelSanctum (strategy) {
   }
 
   assignDefaults(strategy, {
-    _scheme: 'cookie',
-    _name: 'laravel.sanctum',
+    scheme: 'cookie',
+    name: 'laravel.sanctum',
     cookie: {
       name: 'XSRF-TOKEN'
     },
