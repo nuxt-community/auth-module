@@ -1,4 +1,4 @@
-import { assignDefaults } from './_utils'
+import { assignDefaults } from '../utils'
 
 export function laravelSanctum (strategy) {
   const { url } = strategy
