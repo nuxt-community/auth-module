@@ -72,24 +72,24 @@ export default {
       github: {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET
-      }
+      },
       /* twitter: {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }, */
-    },
-    'laravel.sanctum': {
-      url: '/laravel'
-    },
-    oauth2mock: {
-      scheme: 'oauth2',
-      endpoints: {
-        authorization: '/oauth2mockLogin',
-        token: '/oauth2mockserver/token',
-        userInfo: '/oauth2mockserver/userinfo'
+      'laravel.sanctum': {
+        url: '/laravel'
       },
-      responseType: 'code',
-      grantType: 'authorization_code',
-      clientId: 'test-client'
+      oauth2mock: {
+        scheme: 'oauth2',
+        endpoints: {
+          authorization: '/oauth2mockLogin',
+          token: '/oauth2mockserver/token',
+          userInfo: '/oauth2mockserver/userinfo'
+        },
+        responseType: 'code',
+        grantType: 'authorization_code',
+        clientId: 'test-client'
+      }
     }
   }
 }
