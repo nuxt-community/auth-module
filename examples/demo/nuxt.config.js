@@ -16,7 +16,11 @@ module.exports = {
     proxy: true
   },
   proxy: {
-    '/api': 'http://localhost:3000'
+    '/api': 'http://localhost:3000',
+    '/laravel': {
+      target: 'https://laravel-auth.nuxtjs.app',
+      pathRewrite: { '^/laravel': '/' }
+    }
   },
   auth: {
     redirect: {
@@ -70,6 +74,9 @@ module.exports = {
       },
       twitter: {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      },
+      'laravel.sanctum': {
+        url: '/laravel'
       },
       oauth2mock: {
         _scheme: 'oauth2',
