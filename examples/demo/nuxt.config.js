@@ -76,7 +76,7 @@ module.exports = {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       },
       'laravel.sanctum': {
-        laravelBaseURL: '/laravel'
+        url: '/laravel'
       },
       oauth2mock: {
         _scheme: 'oauth2',
