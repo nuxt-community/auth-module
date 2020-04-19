@@ -32,6 +32,7 @@ module.exports = {
           collapsable: false,
           children: [
             '/schemes/local',
+            '/schemes/cookie',
             '/schemes/refresh',
             '/schemes/oauth2'
           ]
@@ -44,7 +45,8 @@ module.exports = {
             '/providers/facebook',
             '/providers/github',
             '/providers/google',
-            '/providers/laravel-passport'
+            '/providers/laravel-passport',
+            '/providers/laravel-sanctum'
           ]
         }, {
           title: 'Recipes',

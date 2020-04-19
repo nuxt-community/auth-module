@@ -17,7 +17,11 @@ export default {
     proxy: true
   },
   proxy: {
-    '/api': 'http://localhost:3000'
+    '/api': 'http://localhost:3000',
+    '/laravel': {
+      target: 'https://laravel-auth.nuxtjs.app',
+      pathRewrite: { '^/laravel': '/' }
+    }
   },
   auth: {
     redirect: {
@@ -68,21 +72,24 @@ export default {
       github: {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET
-      },
+      }
       /* twitter: {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }, */
-      oauth2mock: {
-        scheme: 'oauth2',
-        endpoints: {
-          authorization: '/oauth2mockLogin',
-          token: '/oauth2mockserver/token',
-          userInfo: '/oauth2mockserver/userinfo'
-        },
-        responseType: 'code',
-        grantType: 'authorization_code',
-        clientId: 'test-client'
-      }
+    },
+    'laravel.sanctum': {
+      url: '/laravel'
+    },
+    oauth2mock: {
+      scheme: 'oauth2',
+      endpoints: {
+        authorization: '/oauth2mockLogin',
+        token: '/oauth2mockserver/token',
+        userInfo: '/oauth2mockserver/userinfo'
+      },
+      responseType: 'code',
+      grantType: 'authorization_code',
+      clientId: 'test-client'
     }
   }
 }

@@ -114,6 +114,14 @@ export function getProp (holder, propName) {
   return result
 }
 
+export function getResponseProp (response, prop) {
+  if (prop[0] === '.') {
+    return getProp(response, prop.substring(1))
+  } else {
+    return getProp(response.data, prop)
+  }
+}
+
 // Ie "Bearer " + token
 export function addTokenPrefix (token, tokenType) {
   if (!token || !tokenType || token.startsWith(tokenType)) {

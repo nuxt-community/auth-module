@@ -2,7 +2,9 @@
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/local.js)
 
-`local` is the default, general purpose authentication scheme, supporting `Cookie` and `JWT` login flows.
+`local` is the default, credentials/token based scheme for flows like `JWT`.
+
+**Note:** You can use [cookie scheme](./cookie.md) which is based on local but modified for cookie based APIs.
 
 By default `local` scheme is enabled and preconfigured. You can set `strategies.local` to `false` to disable it.
 

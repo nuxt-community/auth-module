@@ -4,6 +4,7 @@ import * as providers from './providers'
 
 const builtInSchemes = [
   'local',
+  'cookie',
   'oauth2',
   'refresh'
 ]

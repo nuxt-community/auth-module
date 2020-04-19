@@ -1,5 +1,5 @@
 import defu from 'defu'
-import { getProp } from '../utils'
+import { getProp, getResponseProp } from '../utils'
 import RequestHandler from '../inc/request-handler'
 
 export default class LocalScheme {
@@ -12,10 +12,6 @@ export default class LocalScheme {
     // Initialize Request Interceptor
     this.requestHandler = new RequestHandler(this.$auth)
   }
-
-  // ---------------------------------------------------------------
-  // Client ID helpers
-  // ---------------------------------------------------------------
 
   _getClientId () {
     const _key = this.options.clientId.prefix + this.name
@@ -60,6 +56,14 @@ export default class LocalScheme {
     return this.$auth.fetchUserOnce()
   }
 
+  check () {
+    if (this.options.token.required && !this.$auth.token.get()) {
+      return false
+    }
+
+    return true
+  }
+
   async login (endpoint) {
     if (!this.options.endpoints.login) {
       return
@@ -69,19 +73,20 @@ export default class LocalScheme {
     await this.$auth.reset()
 
     // Make login request
-    const { response, data } = await this.$auth.request(
+    const response = await this.$auth.request(
       endpoint,
       this.options.endpoints.login
     )
 
     // Update Token
     if (this.options.token.required) {
-      this.$auth.token.set(getProp(data, this.options.token.property))
+      const token = getResponseProp(response, this.options.token.property)
+      this.$auth.token.set(token)
     }
 
     // Update clientId
     if (this.options.clientId) {
-      this._setClientId(getProp(data, this.options.clientId.property))
+      this._setClientId(getResponseProp(response, this.options.clientId.property))
     }
 
     // Fetch user
@@ -101,7 +106,7 @@ export default class LocalScheme {
 
   async fetchUser (endpoint) {
     // Token is required but not available
-    if (this.options.token.required && !this.$auth.token.get()) {
+    if (!this.check()) {
       return
     }
 
@@ -112,13 +117,13 @@ export default class LocalScheme {
     }
 
     // Try to fetch user and then set
-    const { data } = await this.$auth.requestWith(
+    const response = await this.$auth.requestWith(
       this.name,
       endpoint,
       this.options.endpoints.user
     )
 
-    this.$auth.setUser(getProp(data, this.options.user.property))
+    this.$auth.setUser(getResponseProp(response, this.options.user.property))
   }
 
   async logout (endpoint = {}) {

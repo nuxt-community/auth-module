@@ -1,5 +1,5 @@
 import defu from 'defu'
-import { getProp } from '../utils'
+import { getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import LocalScheme from './local'
@@ -48,6 +48,14 @@ export default class RefreshScheme extends LocalScheme {
     })
   }
 
+  check () {
+    if (!this.$auth.token.get() || !this.$auth.refreshToken.get()) {
+      return false
+    }
+
+    return true
+  }
+
   async login (endpoint) {
     // Login endpoint is disabled
     if (!this.options.endpoints.login) { return }
@@ -56,18 +64,18 @@ export default class RefreshScheme extends LocalScheme {
     await this.$auth.reset()
 
     // Make login request
-    const { response, data } = await this.$auth.request(
+    const response = await this.$auth.request(
       endpoint,
       this.options.endpoints.login
     )
 
     // Update tokens
-    this.$auth.token.set(getProp(data, this.options.token.property))
-    this.$auth.refreshToken.set(getProp(data, this.options.refreshToken.property))
+    this.$auth.token.set(getResponseProp(response, this.options.token.property))
+    this.$auth.refreshToken.set(getResponseProp(response, this.options.refreshToken.property))
 
     // Update client id
     if (this.options.clientId) {
-      this._setClientId(getProp(data, this.options.clientId.property))
+      this._setClientId(getResponseProp(response, this.options.clientId.property))
     }
 
     // Initialize scheduled refresh if `autoRefresh` is enabled
@@ -85,7 +93,7 @@ export default class RefreshScheme extends LocalScheme {
 
   async fetchUser (endpoint) {
     // Token is required but not available
-    if (!this.$auth.token.get()) { return }
+    if (!this.check()) { return }
 
     // User endpoint is disabled.
     if (!this.options.endpoints.user) {
@@ -96,7 +104,7 @@ export default class RefreshScheme extends LocalScheme {
     let requestFailed = false
 
     // Try to fetch user and then set
-    const { data } = await this.$auth.requestWith(
+    const response = await this.$auth.requestWith(
       this.name,
       endpoint,
       this.options.endpoints.user
@@ -107,7 +115,7 @@ export default class RefreshScheme extends LocalScheme {
 
     // If the request has not failed, set user data
     if (!requestFailed) {
-      this.$auth.setUser(getProp(data, this.options.user.property))
+      this.$auth.setUser(getResponseProp(response, this.options.user.property))
     }
   }
 
@@ -115,12 +123,8 @@ export default class RefreshScheme extends LocalScheme {
     // Refresh endpoint is disabled
     if (!this.options.endpoints.refresh) { return }
 
-    // Get token and refresh token
-    const token = this.$auth.token.get()
-    const refreshToken = this.$auth.refreshToken.get()
-
     // Token and refresh token are required but not available
-    if (!token || !refreshToken) { return }
+    if (!this.check()) { return }
 
     // Get refresh token status
     const refreshTokenStatus = this.$auth.refreshToken.status()
@@ -134,7 +138,7 @@ export default class RefreshScheme extends LocalScheme {
 
     const endpoint = {
       data: {
-        [this.options.refreshToken.data]: refreshToken
+        [this.options.refreshToken.data]: this.$auth.refreshToken.get()
       }
     }
 
@@ -153,9 +157,9 @@ export default class RefreshScheme extends LocalScheme {
       endpoint,
       this.options.endpoints.refresh,
       true
-    ).then(({ response, data }) => {
-      const token = getProp(data, this.options.token.property)
-      const refreshToken = getProp(data, this.options.refreshToken.property)
+    ).then((response) => {
+      const token = getResponseProp(response, this.options.token.property)
+      const refreshToken = getResponseProp(response, this.options.refreshToken.property)
 
       // Update tokens
       this.$auth.token.set(token)
@@ -165,7 +169,7 @@ export default class RefreshScheme extends LocalScheme {
       }
 
       // Update client id
-      const clientId = getProp(data, this.options.clientId.property)
+      const clientId = getResponseProp(response, this.options.clientId.property)
       if (this.options.clientId && clientId) {
         this._setClientId(clientId)
       }

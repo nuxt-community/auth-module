@@ -1,5 +1,5 @@
+import { nanoid } from 'nanoid'
 import defu from 'defu'
-import nanoid from 'nanoid'
 import { encodeQuery, parseQuery, normalizePath } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
@@ -76,6 +76,10 @@ export default class Oauth2Scheme {
     }
   }
 
+  check () {
+    return !!this.$auth.token.get()
+  }
+
   async reset () {
     this.$auth.setUser(false)
     this.$auth.token.reset()
@@ -131,7 +135,7 @@ export default class Oauth2Scheme {
   }
 
   async fetchUser () {
-    if (!this.$auth.token.get()) {
+    if (!this.check()) {
       return
     }
 
@@ -234,7 +238,7 @@ export default class Oauth2Scheme {
     // Delete current token from the request header before refreshing
     this.requestHandler.clearHeader()
 
-    const { response, data } = await this.$auth.request(this.name, {
+    const response = await this.$auth.request(this.name, {
       method: 'post',
       url: this.options.endpoints.token,
       data: encodeQuery({
@@ -244,8 +248,8 @@ export default class Oauth2Scheme {
       })
     }, false, true)
 
-    const newToken = data[this.options.token.property]
-    const newRefreshToken = data[this.options.refreshToken.property]
+    const newToken = response.data[this.options.token.property]
+    const newRefreshToken = response.data[this.options.refreshToken.property]
 
     // Update tokens
     this.$auth.token.set(newToken)
