@@ -54,7 +54,7 @@ Route::group([
     Route::post('login', 'AuthController@login')->withoutMiddleware(['api']);
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::get('user', 'AuthController@user');
+    Route::get('user', 'AuthController@me');
 
 });
 
