@@ -46,14 +46,14 @@ Following the official [Laravel JWT docs](https://jwt-auth.readthedocs.io/en/dev
 
 Route::group([
 
-    'middleware' => 'api',
+   'middleware' => ['api','auth:api'],
     'prefix' => 'auth'
 
 ], function ($router) {
 
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh')->withoutMiddleware(['auth:api']);
+    Route::post('refresh', 'AuthController@refresh')->withoutMiddleware(['api','auth:api']);
     Route::get('user', 'AuthController@me');
 
 });
