@@ -44,13 +44,6 @@ module.exports = {
           data: 'refreshToken',
           maxAge: false
         },
-        clientId: {
-          property: 'token.clientId',
-          data: 'clientId'
-        },
-        grantType: {
-          data: 'grantType'
-        },
         autoRefresh: true
       },
       auth0: {

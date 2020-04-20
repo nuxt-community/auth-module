@@ -59,8 +59,7 @@ app.post('/login', (req, res, next) => {
   res.json({
     token: {
       accessToken,
-      refreshToken,
-      clientId: '123'
+      refreshToken
     }
   })
 })
@@ -86,8 +85,7 @@ app.post('/refresh', (req, res, next) => {
 
     refreshTokens[newRefreshToken] = {
       accessToken,
-      user: user,
-      clientId: '123'
+      user: user
     }
 
     res.json({
