@@ -114,6 +114,10 @@ export default class Auth {
       return Promise.resolve()
     }
 
+    if (!this.strategies[name]) {
+      throw new Error(`Strategy ${name} is not defined!`)
+    }
+
     // Set strategy
     this.$storage.setUniversal('strategy', name)
 
