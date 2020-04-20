@@ -168,7 +168,7 @@ export default {
       this.error = null
 
       return this.$auth
-        .loginWith('laravel.sanctum', {
+        .loginWith('laravelSanctum', {
           data: {
             email: 'test@test.com',
             password: '12345678'

@@ -79,7 +79,7 @@ export default {
       /* twitter: {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }, */
-      'laravel.sanctum': {
+      laravelSanctum: {
         url: '/laravel'
       },
       oauth2mock: {
