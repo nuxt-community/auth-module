@@ -73,7 +73,6 @@ describe('auth', () => {
       loginToken,
       loginRefreshToken,
       loginExpiresAt,
-      loginClientId,
       loginUser,
       loginAxiosBearer,
       loginResponse
@@ -87,7 +86,6 @@ describe('auth', () => {
         loginToken: window.$nuxt.$auth.token.get(),
         loginRefreshToken: window.$nuxt.$auth.refreshToken.get(),
         loginExpiresAt: window.$nuxt.$auth.token._getExpiration(),
-        loginClientId: window.$nuxt.$auth.strategy._getClientId(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
       }
@@ -99,7 +97,6 @@ describe('auth', () => {
     expect(loginToken).toBeDefined()
     expect(loginRefreshToken).toBeDefined()
     expect(loginExpiresAt).toBeDefined()
-    expect(loginClientId).toBe(123)
     expect(loginUser).toBeDefined()
     expect(loginUser.username).toBe('test_username')
     expect(loginResponse).toBeDefined()
@@ -109,7 +106,6 @@ describe('auth', () => {
       refreshedRefreshToken,
       refreshedExpiresAt,
       refreshedAxiosBearer,
-      refreshedClientId,
       refreshedUser,
       refreshedResponse
     } = await page.evaluate(async () => {
@@ -120,7 +116,6 @@ describe('auth', () => {
         refreshedToken: window.$nuxt.$auth.token.get(),
         refreshedRefreshToken: window.$nuxt.$auth.refreshToken.get(),
         refreshedExpiresAt: window.$nuxt.$auth.token._getExpiration(),
-        refreshedClientId: window.$nuxt.$auth.strategy._getClientId(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
       }
@@ -136,7 +131,6 @@ describe('auth', () => {
     expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
     expect(refreshedExpiresAt).toBeDefined()
     expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
-    expect(refreshedClientId).toBe(123)
     expect(refreshedUser).toBeDefined()
     expect(refreshedUser.username).toBe('test_username')
     expect(refreshedResponse).toBeDefined()
