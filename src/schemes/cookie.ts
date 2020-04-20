@@ -1,8 +1,8 @@
 import LocalScheme from './local'
 
 export default class CookieScheme extends LocalScheme {
-  constructor($auth, options, ...defaults) {
-    super($auth, options, DEFAULTS, ...defaults)
+  constructor($auth, options) {
+    super($auth, options, DEFAULTS)
   }
 
   check () {

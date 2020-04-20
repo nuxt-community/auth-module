@@ -7,7 +7,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
   requestHandler: RequestHandler
 
   constructor ($auth, options, ...defaults) {
-    super($auth, options, DEFAULTS, ...defaults)
+    super($auth, options, ...defaults, DEFAULTS)
 
     // Initialize Request Interceptor
     this.requestHandler = new RequestHandler(this.$auth)

@@ -7,8 +7,8 @@ import LocalScheme from './local'
 export default class RefreshScheme extends LocalScheme {
   public refreshController: RefreshController
 
-  constructor($auth, options, ...defaults) {
-    super($auth, options, DEFAULTS, ...defaults)
+  constructor($auth, options) {
+    super($auth, options, DEFAULTS)
 
     // Initialize Refresh Controller
     this.refreshController = new RefreshController(this)
