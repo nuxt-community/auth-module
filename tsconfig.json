@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "strict": false,
     "declaration": true,
-    "declarationDir": "types",
+    "outDir": "dist",
     "types": [
       "@types/node",
       "@nuxt/types",
@@ -19,7 +19,8 @@
     ]
   },
   "include": [
-    "./src"
+    "./src",
+    "./module"
   ],
   "exclude": [
     "node_modules"

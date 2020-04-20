@@ -2,23 +2,23 @@
   "name": "@nuxtjs/auth",
   "version": "4.9.0",
   "description": "Authentication module for Nuxt.js",
-  "license": "MIT",
-  "main": "module/index.js",
   "repository": "nuxt-community/auth-module",
+  "license": "MIT",
+  "main": "./dist/module/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "heroku-postbuild": "nuxt-ts build demo",
-    "start": "nuxt-ts start demo",
+    "build": "tsc",
     "dev": "nuxt-ts demo",
+    "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .vue .",
     "lint-fix": "yarn lint --fix",
-    "test": "yarn lint && jest",
-    "release": "standard-version && git push --follow-tags && npm publish"
+    "prepublish": "build",
+    "release": "standard-version && git push --follow-tags && npm publish",
+    "start": "nuxt-ts start demo",
+    "test": "yarn lint && jest"
   },
-  "files": [
-    "src",
-    "module",
-    "templates"
-  ],
   "dependencies": {
     "@nuxtjs/axios": "^5.9.7",
     "body-parser": "^1.19.0",
