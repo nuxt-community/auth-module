@@ -212,7 +212,7 @@ export default class Storage {
     return parseCookie(cookieStr || '') || {}
   }
 
-  setCookie(key, value, options: { prefix?: string } = {}) {
+  setCookie (key, value, options: { prefix?: string } = {}) {
     if (!this.options.cookie || (process.server && !this.ctx.res)) {
       return
     }

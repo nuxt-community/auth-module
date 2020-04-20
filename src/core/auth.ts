@@ -1,8 +1,8 @@
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import RefreshToken from '../inc/refresh-token'
 import Token from '../inc/token'
-import Storage from './storage'
 import { AuthOptions, HTTPRequest, HTTPResponse } from '../types'
+import Storage from './storage'
 
 export default class Auth {
   public ctx: any
@@ -15,8 +15,8 @@ export default class Auth {
 
   private _errorListeners = []
   private _redirectListeners = []
-  private _state_warn_shown: boolean
-  private _get_state_warn_shown: boolean
+  private _stateWarnShown: boolean
+  private _getStateWarnShown: boolean
 
   public $storage: Storage
   public $state
@@ -78,8 +78,8 @@ export default class Auth {
 
   // Backward compatibility
   get state () {
-    if (!this._state_warn_shown) {
-      this._state_warn_shown = true
+    if (!this._stateWarnShown) {
+      this._stateWarnShown = true
       // eslint-disable-next-line no-console
       console.warn('[AUTH] $auth.state is deprecated. Please use $auth.$state or top level props like $auth.loggedIn')
     }
@@ -88,8 +88,8 @@ export default class Auth {
   }
 
   getState (key) {
-    if (!this._get_state_warn_shown) {
-      this._get_state_warn_shown = true
+    if (!this._getStateWarnShown) {
+      this._getStateWarnShown = true
       // eslint-disable-next-line no-console
       console.warn('[AUTH] $auth.getState is deprecated. Please use $auth.$storage.getState() or top level props like $auth.loggedIn')
     }
@@ -255,7 +255,7 @@ export default class Auth {
     return this.$storage.getState('busy')
   }
 
-  request(endpoint: HTTPRequest, defaults = {}): Promise<HTTPResponse> {
+  request (endpoint: HTTPRequest, defaults = {}): Promise<HTTPResponse> {
     const _endpoint =
       typeof defaults === 'object'
         ? Object.assign({}, defaults, endpoint)
@@ -278,7 +278,7 @@ export default class Auth {
       })
   }
 
-  requestWith(strategy: string, endpoint: HTTPRequest, defaults?: HTTPRequest): Promise<HTTPResponse> {
+  requestWith (strategy: string, endpoint: HTTPRequest, defaults?: HTTPRequest): Promise<HTTPResponse> {
     const token = this.token.get()
 
     const _endpoint = Object.assign({}, defaults, endpoint)

@@ -1,4 +1,3 @@
-import defu from 'defu'
 import { getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
@@ -7,7 +6,7 @@ import LocalScheme from './local'
 export default class RefreshScheme extends LocalScheme {
   public refreshController: RefreshController
 
-  constructor($auth, options) {
+  constructor ($auth, options) {
     super($auth, options, DEFAULTS)
 
     // Initialize Refresh Controller

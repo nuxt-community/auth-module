@@ -19,11 +19,11 @@ export function parseQuery (queryString) {
   return query
 }
 
-export function encodeQuery (queryObject: {[key: string]: string} ) {
+export function encodeQuery (queryObject: {[key: string]: string}) {
   return Object.entries(queryObject)
     .filter(([key, value]) => typeof value !== 'undefined')
     .map(([key, value]) =>
-        encodeURIComponent(key) + (value != null ? '=' + encodeURIComponent(value) : '')
+      encodeURIComponent(key) + (value != null ? '=' + encodeURIComponent(value) : '')
     )
     .join('&')
 }

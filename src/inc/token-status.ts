@@ -1,3 +1,9 @@
+export enum TokenStatusEnum {
+  UNKNOWN = 'UNKNOWN',
+  VALID = 'VALID',
+  EXPIRED = 'EXPIRED'
+}
+
 export default class TokenStatus {
   private _status: TokenStatusEnum
 
@@ -39,10 +45,4 @@ export default class TokenStatus {
   expired () {
     return TokenStatusEnum.EXPIRED === this._status
   }
-}
-
-export enum TokenStatusEnum {
-  UNKNOWN = "UNKNOWN",
-  VALID = "VALID",
-  EXPIRED = "EXPIRED"
 }

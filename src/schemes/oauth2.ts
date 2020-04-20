@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid'
-import defu from 'defu'
 import { encodeQuery, parseQuery, normalizePath } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
@@ -8,13 +7,42 @@ import BaseScheme from './_scheme'
 
 const isHttps = process.server ? require('is-https') : null
 
+const DEFAULTS = {
+  name: 'oauth2',
+  accessType: null,
+  redirectUri: null,
+  logoutRedirectUri: null,
+  clientId: null,
+  audience: null,
+  grantType: null,
+  endpoints: {
+    logout: '',
+    authorization: '',
+    token: '',
+    userInfo: ''
+  },
+  scope: [],
+  token: {
+    property: 'access_token',
+    type: 'Bearer',
+    name: 'Authorization',
+    maxAge: 1800,
+    global: true
+  },
+  refreshToken: {
+    property: 'refresh_token',
+    maxAge: 60 * 60 * 24 * 30
+  },
+  responseType: 'token'
+}
+
 export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   public req
   public name
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor($auth, options) {
+  constructor ($auth, options) {
     super($auth, options, DEFAULTS)
 
     this.req = $auth.ctx.req
@@ -93,7 +121,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return Promise.resolve()
   }
 
-  login(_opts: { state?, params?, nonce? } = {}) {
+  login (_opts: { state?, params?, nonce? } = {}) {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -265,33 +293,4 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     return response
   }
-}
-
-const DEFAULTS = {
-  name: 'oauth2',
-  accessType: null,
-  redirectUri: null,
-  logoutRedirectUri: null,
-  clientId: null,
-  audience: null,
-  grantType: null,
-  endpoints: {
-    logout: '',
-    authorization: '',
-    token: '',
-    userInfo: ''
-  },
-  scope: [],
-  token: {
-    property: 'access_token',
-    type: 'Bearer',
-    name: 'Authorization',
-    maxAge: 1800,
-    global: true
-  },
-  refreshToken: {
-    property: 'refresh_token',
-    maxAge: 60 * 60 * 24 * 30
-  },
-  responseType: 'token'
 }

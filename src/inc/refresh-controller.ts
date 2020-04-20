@@ -1,5 +1,5 @@
-import ExpiredAuthSessionError from './expired-auth-session-error'
 import { Scheme, Auth } from '../types'
+import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RefreshController {
   public $auth: Auth

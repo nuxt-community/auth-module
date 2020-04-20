@@ -1,7 +1,42 @@
 import { getProp, getResponseProp } from '../utils'
 import RequestHandler from '../inc/request-handler'
-import BaseScheme from './_scheme'
 import { SchemeOptions, HTTPRequest } from '../types'
+import BaseScheme from './_scheme'
+
+const DEFAULTS: SchemeOptions = {
+  name: 'local',
+  endpoints: {
+    login: {
+      url: '/api/auth/login',
+      method: 'post'
+    },
+    logout: {
+      url: '/api/auth/logout',
+      method: 'post'
+    },
+    user: {
+      url: '/api/auth/user',
+      method: 'get'
+    }
+  },
+  token: {
+    property: 'token',
+    type: 'Bearer',
+    name: 'Authorization',
+    maxAge: 1800,
+    global: true,
+    required: true
+  },
+  user: {
+    property: 'user',
+    autoFetch: true
+  },
+  clientId: {
+    property: 'client_id',
+    data: 'client_id',
+    prefix: '_client_id.'
+  }
+}
 
 export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
   requestHandler: RequestHandler
@@ -155,40 +190,5 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     this.$auth.token.reset()
 
     return Promise.resolve()
-  }
-}
-
-const DEFAULTS: SchemeOptions = {
-  name: 'local',
-  endpoints: {
-    login: {
-      url: '/api/auth/login',
-      method: 'post'
-    },
-    logout: {
-      url: '/api/auth/logout',
-      method: 'post'
-    },
-    user: {
-      url: '/api/auth/user',
-      method: 'get'
-    }
-  },
-  token: {
-    property: 'token',
-    type: 'Bearer',
-    name: 'Authorization',
-    maxAge: 1800,
-    global: true,
-    required: true
-  },
-  user: {
-    property: 'user',
-    autoFetch: true
-  },
-  clientId: {
-    property: 'client_id',
-    data: 'client_id',
-    prefix: '_client_id.'
   }
 }
