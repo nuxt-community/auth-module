@@ -12,7 +12,7 @@
     "build": "tsc",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
-    "lint": "eslint --ext .vue .",
+    "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
     "prepublish": "build",
     "release": "standard-version && git push --follow-tags && npm publish",
