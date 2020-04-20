@@ -51,10 +51,10 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', 'AuthController@login');
+    Route::post('login', 'AuthController@login')->withoutMiddleware(['api']);
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::get('user', 'AuthController@user')->withoutMiddleware(['api']);
+    Route::get('user', 'AuthController@user');
 
 });
 
