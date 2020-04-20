@@ -10,20 +10,19 @@ The source code of the [Laravel JWT](https://github.com/tymondesigns/jwt-auth) p
 ```js
 auth: {
   strategies: {
-      'laravel.jwt': {
-        url: '...insert base url...'
-        endpoints: {
-            ...
-            },
-        token: {
-                property: 'access_token',
-                maxAge: 3600
-            },
-        refreshToken: {
-              
-                required: false
-            },
+    'laravel.jwt': {
+      url: '...insert base url...'
+      endpoints: {
+        ...
       },
+      token: {
+        property: 'access_token',
+        maxAge: 60 * 60 // same as ttl but in seconds
+      },
+      refreshToken: {
+        maxAge: 20160 * 60 // same as refresh_ttl but in seconds
+      },
+    },
   }
 }
 ```
@@ -31,7 +30,10 @@ auth: {
 Anywhere in your application logic:
 
 ```js
-this.$auth.loginWith('laravel.jwt')
+this.$auth.loginWith('laravel.jwt', {
+  email: '__email__',
+  password: '__password__'
+})
 ```
 
 💁 This provider is based on [Refresh Scheme](../schemes/refresh.md).
@@ -52,7 +54,7 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('user', 'AuthController@user');
+    Route::get('user', 'AuthController@user')->withoutMiddleware(['api']);
 
 });
 
@@ -69,8 +71,9 @@ user = /api/auth/user
 
 ```
 
+::: tip
 If you need to change these route urls, please update the endpoint urls with absolute urls e.g. `https://x...../api/auth/me`
-
+:::
 
 ### User endpoint
 
@@ -78,12 +81,26 @@ The docs from Laravel JWT will suggest using `/api/auth/me/` endpoints in your r
 
 ### Token Lifetimes
 
-Laravel JWT does not provide a refresh token, it just expires as per the settings defined in the `expires_in` property as [per the docs](https://jwt-auth.readthedocs.io/en/develop/quick-start/#create-the-authcontroller).
+Laravel JWT does not provide a refresh token; the [`token`](https://github.com/tymondesigns/jwt-auth/blob/develop/config/config.php#L104) and [`refreshToken`](https://github.com/tymondesigns/jwt-auth/blob/develop/config/config.php#L123) expires as define in the [Laravel JWT's config.php](https://github.com/tymondesigns/jwt-auth/blob/develop/config/config.php).
 
-```php
- return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+Our provider will manage the refresh automatically based on the `token` life. 
+
+The default `token` life time is `1 hour` and the `refreshToken` is `2 weeks` based on the config. Make sure that your laravel JWT config.php matches our Auth Nuxt Laravel JWT config as shown below:
+
+
+```js
+auth: {
+  strategies: {
+    'laravel.jwt': {
+      ...
+      token: {
+        maxAge: 60 * 60 // same as ttl but in seconds
+      },
+      refreshToken: {
+        maxAge: 20160 * 60 // same as refresh_ttl but in seconds
+      }
+      ...
+    }
+  }
+}
 ```
