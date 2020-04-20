@@ -1,9 +1,8 @@
-import defu from 'defu'
 import LocalScheme from './local'
 
 export default class CookieScheme extends LocalScheme {
-  constructor (auth, options) {
-    super(auth, defu(options, DEFAULTS))
+  constructor($auth, options, ...defaults) {
+    super($auth, options, DEFAULTS, ...defaults)
   }
 
   check () {
@@ -40,6 +39,7 @@ export default class CookieScheme extends LocalScheme {
 }
 
 const DEFAULTS = {
+  name: 'cookie',
   cookie: {
     name: null
   },

@@ -19,17 +19,20 @@ export function parseQuery (queryString) {
   return query
 }
 
-export function encodeQuery (queryObject) {
+export function encodeQuery (queryObject: {[key: string]: string} ) {
   return Object.entries(queryObject)
     .filter(([key, value]) => typeof value !== 'undefined')
-    .map(
-      ([key, value]) =>
+    .map(([key, value]) =>
         encodeURIComponent(key) + (value != null ? '=' + encodeURIComponent(value) : '')
     )
     .join('&')
 }
 
-export function routeOption (route, key, value) {
+interface VueComponent { options: object, _Ctor: VueComponent }
+type match = { components: VueComponent[] }
+type Route = { matched: match[] }
+
+export function routeOption (route: Route, key, value) {
   return route.matched.some((m) => {
     if (process.client) {
       // Client
@@ -47,10 +50,10 @@ export function routeOption (route, key, value) {
   })
 }
 
-export function getMatchedComponents (route, matches = false) {
+export function getMatchedComponents (route: Route, matches = []) {
   return [].concat.apply([], route.matched.map(function (m, index) {
     return Object.keys(m.components).map(function (key) {
-      matches && matches.push(index)
+      matches.push(index)
       return m.components[key]
     })
   }))

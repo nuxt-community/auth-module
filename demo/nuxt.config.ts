@@ -1,4 +1,4 @@
-import authModule from '..'
+import authModule from '../module'
 
 export default {
   build: {
@@ -7,6 +7,9 @@ export default {
   serverMiddleware: [
     '~/api/auth',
     '~/api/oauth2mockserver'
+  ],
+  buildModules: [
+    '@nuxt/typescript-build'
   ],
   modules: [
     'bootstrap-vue/nuxt',

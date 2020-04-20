@@ -1,11 +1,13 @@
 import ExpiredAuthSessionError from './expired-auth-session-error'
+import { Scheme, Auth } from '../types'
 
 export default class RefreshController {
-  constructor (scheme) {
-    this.scheme = scheme
+  public $auth: Auth
+  private _refreshPromise = null
+  private _refreshInterval = undefined
+
+  constructor (public scheme: Scheme) {
     this.$auth = scheme.$auth
-    this._refreshPromise = null
-    this._refreshInterval = undefined
   }
 
   _getUpdatedRequestConfig (config) {

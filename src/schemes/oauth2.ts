@@ -4,18 +4,23 @@ import { encodeQuery, parseQuery, normalizePath } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
+import BaseScheme from './_scheme'
 
 const isHttps = process.server ? require('is-https') : null
 
-export default class Oauth2Scheme {
-  constructor (auth, options) {
-    this.$auth = auth
-    this.req = auth.ctx.req
-    this.name = options.name
+export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
+  public req
+  public name
+  public refreshController: RefreshController
+  public requestHandler: RequestHandler
+
+  constructor($auth, options, ...defaults) {
+    super($auth, options, DEFAULTS, ...defaults)
+
+    this.req = $auth.ctx.req
+
     this.refreshController = new RefreshController(this)
     this.requestHandler = new RequestHandler(this.$auth)
-
-    this.options = defu(options, DEFAULTS)
   }
 
   get _scope () {
@@ -88,7 +93,7 @@ export default class Oauth2Scheme {
     return Promise.resolve()
   }
 
-  login ({ params, state, nonce } = {}) {
+  login(_opts: { state?, params?, nonce? } = {}) {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -98,8 +103,8 @@ export default class Oauth2Scheme {
       scope: this._scope,
       // Note: The primary reason for using the state parameter is to mitigate CSRF attacks.
       // https://auth0.com/docs/protocols/oauth2/oauth-state
-      state: state || nanoid(),
-      ...params
+      state: _opts.state || nanoid(),
+      ..._opts.params
     }
 
     if (this.options.audience) {
@@ -112,14 +117,14 @@ export default class Oauth2Scheme {
     if (opts.response_type.includes('id_token')) {
       // nanoid auto-generates an URL Friendly, unique Cryptographic string
       // Recommended by Auth0 on https://auth0.com/docs/api-auth/tutorials/nonce
-      opts.nonce = nonce || nanoid()
+      opts.nonce = _opts.nonce || nanoid()
     }
 
     this.$auth.$storage.setUniversal(this.name + '.state', opts.state)
 
     const url = this.options.endpoints.authorization + '?' + encodeQuery(opts)
 
-    window.location = url
+    window.location.replace(url)
   }
 
   logout () {
@@ -129,7 +134,7 @@ export default class Oauth2Scheme {
         logout_uri: this._logoutRedirectURI
       }
       const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
-      window.location = url
+      window.location.replace(url)
     }
     return this.$auth.reset()
   }
@@ -151,7 +156,7 @@ export default class Oauth2Scheme {
     this.$auth.setUser(data)
   }
 
-  async _handleCallback (uri) {
+  async _handleCallback () {
     // Handle callback only for specified route
     if (this.$auth.options.redirect && normalizePath(this.$auth.ctx.route.path) !== normalizePath(this.$auth.options.redirect.callback)) {
       return
@@ -246,7 +251,7 @@ export default class Oauth2Scheme {
         client_id: this.options.clientId,
         grant_type: 'refresh_token'
       })
-    }, false, true)
+    })
 
     const newToken = response.data[this.options.token.property]
     const newRefreshToken = response.data[this.options.refreshToken.property]
@@ -263,7 +268,20 @@ export default class Oauth2Scheme {
 }
 
 const DEFAULTS = {
-  endpoints: {},
+  name: 'oauth2',
+  accessType: null,
+  redirectUri: null,
+  logoutRedirectUri: null,
+  clientId: null,
+  audience: null,
+  grantType: null,
+  endpoints: {
+    logout: '',
+    authorization: '',
+    token: '',
+    userInfo: ''
+  },
+  scope: [],
   token: {
     property: 'access_token',
     type: 'Bearer',

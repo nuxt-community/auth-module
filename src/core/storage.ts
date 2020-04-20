@@ -3,6 +3,12 @@ import { parse as parseCookie, serialize as serializeCookie } from 'cookie'
 import { isUnset, isSet, decodeValue, encodeValue, getProp } from '../utils'
 
 export default class Storage {
+  public ctx: any
+  public options: any
+  public state: any
+  private _state: any
+  private _useVuex: boolean
+
   constructor (ctx, options) {
     this.ctx = ctx
     this.options = options
@@ -58,7 +64,7 @@ export default class Storage {
     return value
   }
 
-  syncUniversal (key, defaultValue) {
+  syncUniversal (key, defaultValue?) {
     let value = this.getUniversal(key)
 
     if (isUnset(value) && isSet(defaultValue)) {
@@ -206,7 +212,7 @@ export default class Storage {
     return parseCookie(cookieStr || '') || {}
   }
 
-  setCookie (key, value, options = {}) {
+  setCookie(key, value, options: { prefix?: string } = {}) {
     if (!this.options.cookie || (process.server && !this.ctx.res)) {
       return
     }
@@ -223,7 +229,7 @@ export default class Storage {
 
     // Accept expires as a number for js-cookie compatiblity
     if (typeof _options.expires === 'number') {
-      _options.expires = new Date(new Date() * 1 + _options.expires * 864e+5)
+      _options.expires = new Date(Date.now() + (_options.expires * 864e+5))
     }
 
     const serializedCookie = serializeCookie(_key, _value, _options)
@@ -254,7 +260,7 @@ export default class Storage {
     return decodeValue(value)
   }
 
-  removeCookie (key, options) {
+  removeCookie (key, options?) {
     this.setCookie(key, undefined, options)
   }
 }

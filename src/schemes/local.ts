@@ -1,13 +1,13 @@
-import defu from 'defu'
 import { getProp, getResponseProp } from '../utils'
 import RequestHandler from '../inc/request-handler'
+import BaseScheme from './_scheme'
+import { SchemeOptions, HTTPRequest } from '../types'
 
-export default class LocalScheme {
-  constructor (auth, options) {
-    this.$auth = auth
-    this.name = options.name
+export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
+  requestHandler: RequestHandler
 
-    this.options = defu(options, DEFAULTS)
+  constructor ($auth, options, ...defaults) {
+    super($auth, options, DEFAULTS, ...defaults)
 
     // Initialize Request Interceptor
     this.requestHandler = new RequestHandler(this.$auth)
@@ -104,7 +104,7 @@ export default class LocalScheme {
     return this.fetchUser()
   }
 
-  async fetchUser (endpoint) {
+  async fetchUser (endpoint?) {
     // Token is required but not available
     if (!this.check()) {
       return
@@ -126,7 +126,7 @@ export default class LocalScheme {
     this.$auth.setUser(getResponseProp(response, this.options.user.property))
   }
 
-  async logout (endpoint = {}) {
+  async logout (endpoint: HTTPRequest = {}) {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
       // Only add client id to payload if enabled
@@ -158,7 +158,8 @@ export default class LocalScheme {
   }
 }
 
-const DEFAULTS = {
+const DEFAULTS: SchemeOptions = {
+  name: 'local',
   endpoints: {
     login: {
       url: '/api/auth/login',

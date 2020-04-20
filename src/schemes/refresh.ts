@@ -5,8 +5,10 @@ import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import LocalScheme from './local'
 
 export default class RefreshScheme extends LocalScheme {
-  constructor (auth, options) {
-    super(auth, defu(options, DEFAULTS))
+  public refreshController: RefreshController
+
+  constructor($auth, options, ...defaults) {
+    super($auth, options, DEFAULTS, ...defaults)
 
     // Initialize Refresh Controller
     this.refreshController = new RefreshController(this)
@@ -91,7 +93,7 @@ export default class RefreshScheme extends LocalScheme {
     return response
   }
 
-  async fetchUser (endpoint) {
+  async fetchUser (endpoint?) {
     // Token is required but not available
     if (!this.check()) { return }
 
@@ -155,8 +157,7 @@ export default class RefreshScheme extends LocalScheme {
     // Make refresh request
     return this.$auth.request(
       endpoint,
-      this.options.endpoints.refresh,
-      true
+      this.options.endpoints.refresh
     ).then((response) => {
       const token = getResponseProp(response, this.options.token.property)
       const refreshToken = getResponseProp(response, this.options.refreshToken.property)
@@ -195,6 +196,7 @@ export default class RefreshScheme extends LocalScheme {
 }
 
 const DEFAULTS = {
+  name: 'refresh',
   endpoints: {
     login: {
       url: '/api/auth/login',

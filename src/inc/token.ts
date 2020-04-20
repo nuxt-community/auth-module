@@ -2,11 +2,13 @@ import jwtDecode, { InvalidTokenError } from 'jwt-decode'
 import { addTokenPrefix } from '../utils'
 import TokenStatus from './token-status'
 import RequestHandler from './request-handler'
+import { Auth } from '../types'
 
 export default class Token {
-  constructor (auth) {
-    this.$auth = auth
-    this.requestHandler = new RequestHandler(auth)
+  public requestHandler: RequestHandler
+
+  constructor (private $auth: Auth) {
+    this.requestHandler = new RequestHandler($auth)
   }
 
   _getExpiration () {

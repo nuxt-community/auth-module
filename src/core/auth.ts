@@ -2,25 +2,32 @@ import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import RefreshToken from '../inc/refresh-token'
 import Token from '../inc/token'
 import Storage from './storage'
+import { AuthOptions, HTTPRequest, HTTPResponse } from '../types'
 
 export default class Auth {
+  public ctx: any
+  public options: AuthOptions
+  public strategies = {}
+  public error: Error
+
+  public token: Token
+  public refreshToken: RefreshToken
+
+  private _errorListeners = []
+  private _redirectListeners = []
+  private _state_warn_shown: boolean
+  private _get_state_warn_shown: boolean
+
+  public $storage: Storage
+  public $state
+
   constructor (ctx, options) {
     this.ctx = ctx
     this.options = options
 
-    // Strategies
-    this.strategies = {}
-
-    // Error listeners
-    this._errorListeners = []
-
-    // Redirect listeners
-    this._redirectListeners = []
-
     // Storage & State
     options.initialState = { user: null, loggedIn: false }
     const storage = new Storage(ctx, options)
-
     this.$storage = storage
     this.$state = storage.state
 
@@ -129,24 +136,24 @@ export default class Auth {
     return this.setStrategy(name).then(() => this.login(...args))
   }
 
-  login () {
+  login (...args) {
     if (!this.strategy.login) {
       return Promise.resolve()
     }
 
-    return this.wrapLogin(this.strategy.login(...arguments))
+    return this.wrapLogin(this.strategy.login(...args))
       .catch((error) => {
         this.callOnError(error, { method: 'login' })
         return Promise.reject(error)
       })
   }
 
-  fetchUser () {
+  fetchUser (...args) {
     if (!this.strategy.fetchUser) {
       return Promise.resolve()
     }
 
-    return Promise.resolve(this.strategy.fetchUser(...arguments)).catch((error) => {
+    return Promise.resolve(this.strategy.fetchUser(...args)).catch((error) => {
       this.callOnError(error, { method: 'fetchUser' })
       return Promise.reject(error)
     })
@@ -224,9 +231,9 @@ export default class Auth {
     return loggedIn
   }
 
-  fetchUserOnce () {
+  fetchUserOnce (...args) {
     if (!this.$state.user) {
-      return this.fetchUser(...arguments)
+      return this.fetchUser(...args)
     }
     return Promise.resolve()
   }
@@ -244,7 +251,7 @@ export default class Auth {
     return this.$storage.getState('busy')
   }
 
-  request (endpoint, defaults) {
+  request(endpoint: HTTPRequest, defaults = {}): Promise<HTTPResponse> {
     const _endpoint =
       typeof defaults === 'object'
         ? Object.assign({}, defaults, endpoint)
@@ -267,7 +274,7 @@ export default class Auth {
       })
   }
 
-  requestWith (strategy, endpoint, defaults) {
+  requestWith(strategy: string, endpoint: HTTPRequest, defaults?: HTTPRequest): Promise<HTTPResponse> {
     const token = this.token.get()
 
     const _endpoint = Object.assign({}, defaults, endpoint)

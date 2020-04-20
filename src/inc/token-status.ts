@@ -1,4 +1,6 @@
 export default class TokenStatus {
+  private _status: TokenStatusEnum
+
   constructor (token, tokenExpiresAt) {
     this._status = this._calculate(token, tokenExpiresAt)
   }
@@ -39,8 +41,8 @@ export default class TokenStatus {
   }
 }
 
-const TokenStatusEnum = Object.freeze({
-  UNKNOWN: 'UNKNOWN',
-  VALID: 'VALID',
-  EXPIRED: 'EXPIRED'
-})
+export enum TokenStatusEnum {
+  UNKNOWN = "UNKNOWN",
+  VALID = "VALID",
+  EXPIRED = "EXPIRED"
+}

@@ -1,11 +1,11 @@
 import ExpiredAuthSessionError from './expired-auth-session-error'
+import { Auth } from '../types'
+import { HTTPRequest } from '../types'
 
 export default class RequestHandler {
-  constructor (auth) {
-    this.$auth = auth
-  }
+  constructor (public $auth: Auth) {}
 
-  _getUpdatedRequestConfig (config) {
+  _getUpdatedRequestConfig(config: HTTPRequest) {
     config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
     return config
   }

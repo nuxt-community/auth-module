@@ -4,10 +4,9 @@ import Auth from '~auth/core/auth'
 import ExpiredAuthSessionError from '~auth/inc/expired-auth-session-error'
 
 // Active schemes
-<%= options.uniqueSchemes.map(path =>`import ${'scheme_' + hash(path)} from '${path.replace(/\\/g,'/')}'`).join('\n') %>
+<%= options.uniqueSchemes.map(path => `import ${'scheme_' + hash(path)} from '${(path || '404').replace(/\\/g,'/')}'`).join('\n') %>
 
-
-  Middleware.auth = authMiddleware
+Middleware.auth = authMiddleware
 
 export default function (ctx, inject) {
   // Options

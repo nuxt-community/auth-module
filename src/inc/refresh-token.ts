@@ -1,9 +1,12 @@
 import jwtDecode, { InvalidTokenError } from 'jwt-decode'
 import { addTokenPrefix } from '../utils'
 import TokenStatus from './token-status'
+import { Auth } from '../types'
 
 export default class RefreshToken {
-  constructor (auth) {
+  public $auth: Auth
+
+  constructor (auth: Auth) {
     this.$auth = auth
   }
 
