@@ -53,8 +53,10 @@ Anywhere in your application logic:
 
 ```js
 this.$auth.loginWith('laravel.jwt', {
-  email: '__email__',
-  password: '__password__'
+  data: {
+    email: '__email__',
+    password: '__password__'  
+  }
 })
 ```
 
