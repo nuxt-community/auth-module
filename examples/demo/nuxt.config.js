@@ -75,6 +75,23 @@ module.exports = {
       twitter: {
         clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       },
+      'laravel.jwt': {
+        url: '/laravel',
+        endpoints: {
+          login: {
+            url: '/api/auth/jwt/login'
+          },
+          refresh: {
+            url: '/api/auth/jwt/refresh'
+          },
+          logout: {
+            url: '/api/auth/jwt/logout'
+          },
+          user: {
+            url: '/api/auth/jwt/user'
+          }
+        }
+      },
       'laravel.sanctum': {
         url: '/laravel'
       },
