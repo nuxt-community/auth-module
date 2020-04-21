@@ -59,8 +59,6 @@ To manually refresh the token:
 this.$auth.refreshTokens()
 ```
 
-Or enable [autoRefresh](#autorefresh) option to automatically refresh tokens.
-
 ## Options
 
 ```js
@@ -90,7 +88,6 @@ auth: {
           user: { url: '/api/auth/user', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' }
         },
-        // autoRefresh: false,
         // autoLogout: false
       }
     }
@@ -212,18 +209,8 @@ It's the value of the grant type you want.
 To disable grantType, simply set it's value to `false`.
 :::
 
-### `autoRefresh`
-
-- Default: `false`
-
-When enabled it will refresh the token before it expires. The auto refresh will happen when the time reach 75% of the expiration time or when the page is reloaded.
-
 ### `autoLogout`
 
 - Default: `false`
 
 This option will logout the user on load the page, if token has expired.
-
-::: tip
-Mostly used with [`autoRefresh`](#autorefresh).
-:::
