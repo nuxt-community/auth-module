@@ -123,7 +123,7 @@ Refreshes tokens if *refresh token* is available and not expired. This only work
 this.$auth.refreshTokens()
 ```
 
-> **TIP:** Useful to manually refresh the token when [autoRefresh](../schemes/refresh.md#autorefresh) is disabled.
+> **TIP:** Useful to manually refresh the token.
 
 ### `onError(handler)`
 
