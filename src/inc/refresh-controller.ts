@@ -4,7 +4,6 @@ import ExpiredAuthSessionError from './expired-auth-session-error'
 export default class RefreshController {
   public $auth: Auth
   private _refreshPromise = null
-  private _refreshInterval = undefined
 
   constructor (public scheme: Scheme) {
     this.$auth = scheme.$auth
@@ -40,26 +39,6 @@ export default class RefreshController {
     }
 
     return this._doRefresh()
-  }
-
-  // ---------------------------------------------------------------
-  // Refreshes token on set intervals
-  // Token is refreshed at 75% of the token expiration
-  // Call this function once from your mounted hook, client side
-  // ---------------------------------------------------------------
-  initializeScheduledRefresh () {
-    // If is server side, bail
-    if (process.server) { return }
-
-    let intervalDurationMillis = this.$auth.token.refreshIn()
-    if (intervalDurationMillis < 1000) {
-      // in case you misconfigured refreshing this will save your auth-server from a self-induced DDoS-Attack
-      intervalDurationMillis = 1000
-    }
-
-    this._refreshInterval = setInterval(() => {
-      this.handleRefresh()
-    }, intervalDurationMillis)
   }
 
   // ---------------------------------------------------------------
@@ -111,6 +90,6 @@ export default class RefreshController {
   }
 
   reset () {
-    clearInterval(this._refreshInterval)
+    //
   }
 }

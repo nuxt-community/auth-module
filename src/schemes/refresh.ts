@@ -39,14 +39,7 @@ export default class RefreshScheme extends LocalScheme {
     this.refreshController.initializeRequestInterceptor(this.options.endpoints.refresh.url)
 
     // Fetch user once
-    return this.$auth.fetchUserOnce().then(() => {
-      // Only refresh token if user is logged in and is client side
-      if (process.client && this.$auth.loggedIn && this.options.autoRefresh) {
-        this.refreshController.handleRefresh()
-          // Initialize scheduled refresh
-          .then(() => this.refreshController.initializeScheduledRefresh())
-      }
-    })
+    return this.$auth.fetchUserOnce()
   }
 
   check () {
@@ -77,11 +70,6 @@ export default class RefreshScheme extends LocalScheme {
     // Update client id
     if (this.options.clientId) {
       this._setClientId(getResponseProp(response, this.options.clientId.property))
-    }
-
-    // Initialize scheduled refresh if `autoRefresh` is enabled
-    if (this.options.autoRefresh) {
-      this.refreshController.initializeScheduledRefresh()
     }
 
     // Fetch user if `autoFetch` is enabled
@@ -240,6 +228,5 @@ const DEFAULTS = {
     data: 'grant_type',
     value: 'refresh_token'
   },
-  autoRefresh: false,
   autoLogout: false
 }

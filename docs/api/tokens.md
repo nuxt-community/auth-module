@@ -74,14 +74,6 @@ this.$auth.token.status().expired()
 Call `this.$auth.token.status()` once and assign it to a variable
 :::
 
-### `refreshIn()`
-
-Get interval time between refreshes, in **milliseconds**. Used for scheduled refresh. See [autoRefresh](../schemes/refresh.md#autorefresh) and [initializeScheduledRefresh](refreshController.md#initializescheduledrefresh)
-
-```js
-this.$auth.token.refreshIn()
-```
-
 ## Refresh Token methods
 
 ### `get()`

@@ -54,8 +54,7 @@ export default {
         },
         grantType: {
           data: 'grantType'
-        },
-        autoRefresh: true
+        }
       },
       auth0: {
         domain: 'nuxt-auth.auth0.com',
