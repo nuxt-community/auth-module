@@ -97,6 +97,7 @@ export default class RefreshScheme extends LocalScheme {
       this.options.endpoints.user
     ).then((response) => {
       this.$auth.setUser(getResponseProp(response, this.options.user.property))
+      return response
     }).catch((error) => {
       this.$auth.callOnError(error, { method: 'fetchUser' })
     })
