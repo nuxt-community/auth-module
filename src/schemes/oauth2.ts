@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { encodeQuery, parseQuery, normalizePath } from '../utils'
+import { encodeQuery, parseQuery, normalizePath, getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
@@ -210,7 +210,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     // -- Authorization Code Grant --
     if (this.options.responseType === 'code' && parsedQuery.code) {
-      const { data } = await this.$auth.request({
+      const response = await this.$auth.request({
         method: 'post',
         url: this.options.endpoints.token,
         baseURL: process.server ? undefined : false,
@@ -224,13 +224,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         })
       })
 
-      if (data[this.options.token.property]) {
-        token = data[this.options.token.property]
-      }
-
-      if (data[this.options.refreshToken.property]) {
-        refreshToken = data[this.options.refreshToken.property]
-      }
+      token = getResponseProp(response, this.options.token.property) || token
+      refreshToken = getResponseProp(response, this.options.refreshToken.property) || refreshToken
     }
 
     if (!token || !token.length) {
@@ -281,8 +276,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       })
     })
 
-    const newToken = response.data[this.options.token.property]
-    const newRefreshToken = response.data[this.options.refreshToken.property]
+    const newToken = getResponseProp(response, this.options.token.property)
+    const newRefreshToken = getResponseProp(response, this.options.refreshToken.property)
 
     // Update tokens
     this.$auth.token.set(newToken)
