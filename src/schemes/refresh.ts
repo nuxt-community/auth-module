@@ -90,22 +90,16 @@ export default class RefreshScheme extends LocalScheme {
       return
     }
 
-    let requestFailed = false
-
     // Try to fetch user and then set
-    const response = await this.$auth.requestWith(
+    return this.$auth.requestWith(
       this.name,
       endpoint,
       this.options.endpoints.user
-    ).catch((error) => {
-      requestFailed = true
+    ).then((response) => {
+      this.$auth.setUser(getResponseProp(response, this.options.user.property))
+    }).catch((error) => {
       this.$auth.callOnError(error, { method: 'fetchUser' })
     })
-
-    // If the request has not failed, set user data
-    if (!requestFailed) {
-      this.$auth.setUser(getResponseProp(response, this.options.user.property))
-    }
   }
 
   async refreshTokens () {
