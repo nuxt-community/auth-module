@@ -1,5 +1,20 @@
 import LocalScheme from './local'
 
+const DEFAULTS = {
+  name: 'cookie',
+  cookie: {
+    name: null
+  },
+  token: {
+    type: '',
+    property: '.status',
+    global: false
+  },
+  endpoints: {
+    csrf: null
+  }
+}
+
 export default class CookieScheme extends LocalScheme {
   constructor ($auth, options) {
     super($auth, options, DEFAULTS)
@@ -35,20 +50,5 @@ export default class CookieScheme extends LocalScheme {
     if (this.options.cookie.name) {
       this.$auth.$storage.setCookie(this.options.cookie.name, null, { prefix: '' })
     }
-  }
-}
-
-const DEFAULTS = {
-  name: 'cookie',
-  cookie: {
-    name: null
-  },
-  token: {
-    type: '',
-    property: '.status',
-    global: false
-  },
-  endpoints: {
-    csrf: null
   }
 }

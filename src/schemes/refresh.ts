@@ -3,6 +3,55 @@ import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import LocalScheme from './local'
 
+const DEFAULTS = {
+  name: 'refresh',
+  endpoints: {
+    login: {
+      url: '/api/auth/login',
+      method: 'post'
+    },
+    refresh: {
+      url: '/api/auth/refresh',
+      method: 'post'
+    },
+    logout: {
+      url: '/api/auth/logout',
+      method: 'post'
+    },
+    user: {
+      url: '/api/auth/user',
+      method: 'get'
+    }
+  },
+  token: {
+    property: 'token',
+    type: 'Bearer',
+    name: 'Authorization',
+    maxAge: 1800,
+    global: true,
+    required: true
+  },
+  refreshToken: {
+    property: 'refresh_token',
+    data: 'refresh_token',
+    maxAge: 60 * 60 * 24 * 30
+  },
+  user: {
+    property: 'user',
+    autoFetch: true
+  },
+  clientId: {
+    property: 'client_id',
+    data: 'client_id',
+    prefix: '_client_id.'
+  },
+  grantType: {
+    data: 'grant_type',
+    value: 'refresh_token'
+  },
+  autoLogout: false
+}
+
 export default class RefreshScheme extends LocalScheme {
   public refreshController: RefreshController
 
@@ -175,53 +224,4 @@ export default class RefreshScheme extends LocalScheme {
 
     return Promise.resolve()
   }
-}
-
-const DEFAULTS = {
-  name: 'refresh',
-  endpoints: {
-    login: {
-      url: '/api/auth/login',
-      method: 'post'
-    },
-    refresh: {
-      url: '/api/auth/refresh',
-      method: 'post'
-    },
-    logout: {
-      url: '/api/auth/logout',
-      method: 'post'
-    },
-    user: {
-      url: '/api/auth/user',
-      method: 'get'
-    }
-  },
-  token: {
-    property: 'token',
-    type: 'Bearer',
-    name: 'Authorization',
-    maxAge: 1800,
-    global: true,
-    required: true
-  },
-  refreshToken: {
-    property: 'refresh_token',
-    data: 'refresh_token',
-    maxAge: 60 * 60 * 24 * 30
-  },
-  user: {
-    property: 'user',
-    autoFetch: true
-  },
-  clientId: {
-    property: 'client_id',
-    data: 'client_id',
-    prefix: '_client_id.'
-  },
-  grantType: {
-    data: 'grant_type',
-    value: 'refresh_token'
-  },
-  autoLogout: false
 }
