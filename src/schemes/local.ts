@@ -152,13 +152,16 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     }
 
     // Try to fetch user and then set
-    const response = await this.$auth.requestWith(
+    return this.$auth.requestWith(
       this.name,
       endpoint,
       this.options.endpoints.user
-    )
-
-    this.$auth.setUser(getResponseProp(response, this.options.user.property))
+    ).then((response) => {
+      this.$auth.setUser(getResponseProp(response, this.options.user.property))
+      return response
+    }).catch((error) => {
+      this.$auth.callOnError(error, { method: 'fetchUser' })
+    })
   }
 
   async logout (endpoint: HTTPRequest = {}) {
