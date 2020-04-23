@@ -43,8 +43,10 @@ To login user:
 
 ```js
 this.$auth.loginWith('laravel.sanctum', {
-  email: '',
-  password: ''
+  data: {
+    email: '',
+    password: ''
+  }
 })
 ```
 
