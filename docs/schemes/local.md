@@ -60,19 +60,24 @@ Example for a token based flow:
 
 ```js
 auth: {
-  strategies: {
-    local: {
-      endpoints: {
-        login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-        logout: { url: '/api/auth/logout', method: 'post' },
-        user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
-      },
-      // tokenRequired: true,
-      // tokenType: 'bearer'
-      // autoFetchUser: true
+    strategies: {
+      local: {
+        token: {
+          property: 'access_token'
+        },
+        refreshToken: {
+          property: 'refresh_token'
+        },
+        user: 'user',
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post' },
+          refresh: { url: '/api/auth/refresh', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get' },
+          logout: { url: '/api/auth/logout', method: 'post' }
+        }
+      }
     }
   }
-}
 ```
 
 Example for a cookie based flow:
