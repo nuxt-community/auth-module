@@ -53,10 +53,10 @@ For example if the user endpoint provides additional information like so, you ca
 You could now create a new middleware file such as `is_superadmin.js` with the following content:
 
 ```js
-export default function({$auth,redirect}){
-    if($auth.user.is_superadmin === false){
-        redirect('/')
-    }
+export default function ({ $auth, redirect }) {
+  if ($auth.user.is_superadmin === false) {
+    redirect('/')
+  }
 }
 ```
 
@@ -66,19 +66,19 @@ With Nuxt Auth we provide you additional redirects to some of the key pages defi
 
 use `login` redirect:
 ```js
-export default function({$auth}){
-    if($auth.user.is_superadmin === false){
-        $auth.redirect('login')
-    }
+export default function({ $auth }) {
+  if ($auth.user.is_superadmin === false) {
+    $auth.redirect('login')
+  }
 }
 ```
 or use the `home` redirect:
 
 ```js
-export default function({$auth}){
-    if($auth.user.is_superadmin === false){
-        $auth.redirect('home')
-    }
+export default function({ $auth }) {
+  if ($auth.user.is_superadmin === false) {
+    $auth.redirect('home')
+  }
 }
 ```
 

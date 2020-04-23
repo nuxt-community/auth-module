@@ -65,13 +65,9 @@ this.$auth.refreshTokens()
 auth: {
     strategies: {
       local: {
-        //assigning `refresh` will override `local` scheme
         _scheme: 'refresh',
         token: {
-          // Use `property` key to define the key from the JSON response. 
-          // Use the `.` anotation to access sub-object keys `parent.childKey`  
           property: 'access_token',
-          // Use `maxAge` key to define the token's life in milliseconds
           maxAge: 1800,
           // type: 'Bearer'
         },
