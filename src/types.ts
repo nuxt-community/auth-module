@@ -4,6 +4,7 @@ import _Scheme from './schemes/_scheme'
 export type Auth = _Auth
 export type Scheme = _Scheme<SchemeOptions | any> & {
   refreshTokens: Function
+  check: () => boolean
 }
 
 export type HTTPRequest = {

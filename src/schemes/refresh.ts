@@ -178,7 +178,7 @@ export default class RefreshScheme extends LocalScheme {
       throw new ExpiredAuthSessionError()
     }
 
-    const endpoint = {}
+    const endpoint = { data: null }
     const data = {}
 
     // Only add refresh token to payload if required
