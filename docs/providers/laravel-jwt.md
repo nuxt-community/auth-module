@@ -1,6 +1,6 @@
 # Laravel JWT
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/providers/laravel.jwt.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/providers/laravelJWT.js)
 
 This provider is for the [Laravel JWT](https://github.com/tymondesigns/jwt-auth). Please make sure to follow our guide on the route configuration on this page to avoid issues on the authentication.
 
@@ -9,7 +9,7 @@ This provider is for the [Laravel JWT](https://github.com/tymondesigns/jwt-auth)
 ```js
 auth: {
   strategies: {
-    'laravel.jwt': {
+    'laravelJWT': {
       url: '<laravel url>'
       endpoints: {
         ...
@@ -41,7 +41,7 @@ auth: {
   },
   auth: {
     strategies: {
-      'laravel.jwt': {
+      'laravelJWT': {
         url: '<laravel url>'
       }
     }
@@ -52,10 +52,10 @@ auth: {
 Anywhere in your application logic:
 
 ```js
-this.$auth.loginWith('laravel.jwt', {
+this.$auth.loginWith('laravelJWT', {
   data: {
     email: '__email__',
-    password: '__password__'  
+    password: '__password__'
   }
 })
 ```
@@ -103,7 +103,7 @@ The docs from Laravel JWT will suggest using `/api/auth/me/` endpoints in your r
 
 Laravel JWT does not provide a refresh token; the [`token`](https://github.com/tymondesigns/jwt-auth/blob/develop/config/config.php#L104) and [`refreshToken`](https://github.com/tymondesigns/jwt-auth/blob/develop/config/config.php#L123) expires as define in the [Laravel JWT's config](https://github.com/tymondesigns/jwt-auth/blob/develop/config/config.php).
 
-Our provider will manage the refresh automatically based on the `token` life. 
+Our provider will manage the refresh automatically based on the `token` life.
 
 The default `token` lifetime is `1 hour` and the `refreshToken` is `2 weeks` based on the config. Make sure that your Laravel JWT config matches our Auth Nuxt Laravel JWT config as shown below:
 
@@ -111,7 +111,7 @@ The default `token` lifetime is `1 hour` and the `refreshToken` is `2 weeks` bas
 ```js
 auth: {
   strategies: {
-    'laravel.jwt': {
+    'laravelJWT': {
       ...
       token: {
         maxAge: 60 * 60 // same as ttl but in seconds

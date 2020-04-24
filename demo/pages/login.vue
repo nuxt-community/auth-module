@@ -178,7 +178,7 @@ export default {
       this.error = null
 
       return this.$auth
-        .loginWith('laravel.jwt', {
+        .loginWith('laravelJWT', {
           data: {
             email: 'test@test.com',
             password: '12345678'
