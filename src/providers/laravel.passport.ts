@@ -44,6 +44,7 @@ module.exports = function laravelPassport (nuxt, strategy) {
       grantType: 'password'
     })
 
+    assignAbsoluteEndpoints(strategy)
     initializePasswordGrantFlow(nuxt, strategy)
   } else {
     assignDefaults(strategy, {
@@ -60,8 +61,7 @@ module.exports = function laravelPassport (nuxt, strategy) {
       scope: '*'
     })
 
+    assignAbsoluteEndpoints(strategy)
     addAuthorize(nuxt, strategy)
   }
-
-  assignAbsoluteEndpoints(strategy)
 }
