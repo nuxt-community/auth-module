@@ -106,7 +106,7 @@ export default {
         clientSecret: 'k0NAhYGKXbG6NjENFz4VIe5YSbccZWW9V3gGeSOa'
       },
       laravelPassportPasswordGrant: {
-        name: 'laravel.passport.password',
+        name: 'laravelPassportPassword',
         provider: 'laravelPassport',
         url: '/laravel',
         endpoints: {

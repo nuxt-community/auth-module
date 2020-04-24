@@ -223,7 +223,7 @@ export default {
       this.error = null
 
       return this.$auth
-        .loginWith('laravel.passport.password', {
+        .loginWith('laravelPassportPassword', {
           data: {
             username: 'test@test.com',
             password: '12345678'
