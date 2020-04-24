@@ -9,7 +9,7 @@ export function laravelPassport (nuxt, strategy) {
   }
 
   const defaults = {
-    name: 'laravel.passport',
+    name: 'laravelPassport',
     token: {
       property: 'access_token',
       type: 'Bearer',
