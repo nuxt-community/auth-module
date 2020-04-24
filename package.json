@@ -9,15 +9,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf ./dist && tsc",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
-    "prepublish": "yarn build",
-    "release": "standard-version && git push --follow-tags && npm publish",
+    "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
-    "test": "yarn lint && jest"
+    "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.7",
@@ -32,29 +31,25 @@
     "nanoid": "^3.1.3"
   },
   "devDependencies": {
-    "@nuxt/types": "^0.7.4",
-    "@nuxt/typescript-build": "^0.6.5",
-    "@nuxt/typescript-runtime": "^0.4.5",
-    "@nuxtjs/eslint-config": "latest",
-    "@nuxtjs/eslint-config-typescript": "^1.0.2",
-    "@nuxtjs/toast": "latest",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.13.0",
-    "babel-plugin-transform-class-properties": "latest",
-    "babel-plugin-transform-decorators-legacy": "latest",
+    "@nuxt/types": "latest",
+    "@nuxt/typescript-build": "latest",
+    "@nuxt/typescript-runtime": "latest",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/jest": "latest",
+    "@types/node": "latest",
     "bootstrap-vue": "latest",
-    "codecov": "latest",
     "cookie-parser": "latest",
     "eslint": "latest",
     "express": "latest",
     "express-jwt": "latest",
+    "get-port": "latest",
     "jest": "latest",
     "jsdom": "latest",
     "lodash.get": "latest",
-    "nuxt-class-component": "latest",
     "nuxt-edge": "latest",
     "puppeteer": "latest",
+    "rimraf": "latest",
     "standard-version": "latest",
-    "typescript": "^3.8.3"
+    "typescript": "latest"
   }
 }

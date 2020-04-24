@@ -1,4 +1,4 @@
-import { assignDefaults } from '../utils'
+import { assignDefaults } from './_utils'
 
 export function laravelSanctum (_nuxt, strategy) {
   const { url } = strategy

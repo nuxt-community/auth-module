@@ -1,4 +1,3 @@
-import './global'
 import _Auth from './core/auth'
 import _Scheme from './schemes/_scheme'
 

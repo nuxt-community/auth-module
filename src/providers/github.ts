@@ -1,4 +1,4 @@
-import { assignDefaults, addAuthorize } from '../utils'
+import { assignDefaults, addAuthorize } from './_utils'
 
 export function github (nuxt, strategy) {
   assignDefaults(strategy, {

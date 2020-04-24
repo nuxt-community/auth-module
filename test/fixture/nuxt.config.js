@@ -1,10 +1,20 @@
-const { resolve } = require('path')
+import authAPI from '../../demo/api/auth'
+import authModuleDist from '../..'
 
-module.exports = {
-  rootDir: resolve(__dirname, '../../..'),
-  buildDir: resolve(__dirname, '.nuxt'),
-  srcDir: __dirname,
-  serverMiddleware: ['@@/demo/api/auth'],
+export default {
+  serverMiddleware: [
+    authAPI
+  ],
+  modules: [
+    '@nuxtjs/axios',
+    authModuleDist
+  ],
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': 'http://localhost:3000'
+  },
   auth: {
     plugins: [
       '~/plugins/auth.js'
@@ -39,12 +49,5 @@ module.exports = {
         scheme: '~/auth/test-scheme.js'
       }
     }
-  },
-  modules: ['@nuxtjs/axios', '@@'],
-  axios: {
-    proxy: true
-  },
-  proxy: {
-    '/api': 'http://localhost:3000'
   }
 }

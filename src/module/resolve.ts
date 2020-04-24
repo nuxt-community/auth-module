@@ -1,6 +1,6 @@
 /* eslint-disable import/namespace */
 import { existsSync } from 'fs'
-import * as providers from './providers'
+import * as providers from '../providers'
 
 const builtInSchemes = [
   'local',

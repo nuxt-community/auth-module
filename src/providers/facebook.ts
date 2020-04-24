@@ -1,4 +1,4 @@
-import { assignDefaults } from '../utils'
+import { assignDefaults } from './_utils'
 
 export function facebook (_nuxt, strategy) {
   assignDefaults(strategy, {

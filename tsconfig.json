@@ -14,13 +14,11 @@
     "outDir": "dist",
     "types": [
       "@types/node",
-      "@nuxt/types",
       "@nuxt/types"
     ]
   },
   "include": [
     "./src",
-    "./module"
   ],
   "exclude": [
     "node_modules"

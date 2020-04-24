@@ -1,13 +1,10 @@
-const { Nuxt, Builder } = require('nuxt-edge')
+const path = require('path')
+const { loadNuxt } = require('nuxt-edge')
 const puppeteer = require('puppeteer')
+const getPort = require('get-port')
 
-const config = require('./fixtures/basic/nuxt.config')
-
-const url = path => `http://localhost:3000${path}`
-
-describe('auth', () => {
-  let nuxt
-  let browser
+describe('e2e', () => {
+  let url, nuxt, browser
 
   beforeAll(async () => {
     browser = await puppeteer.launch({
@@ -15,10 +12,15 @@ describe('auth', () => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
     })
 
-    nuxt = new Nuxt(config)
-    await new Builder(nuxt).build()
-    await nuxt.listen(process.env.PORT)
-  }, 60000)
+    nuxt = await loadNuxt({
+      for: 'start',
+      rootDir: path.resolve(__dirname, 'fixture')
+    })
+
+    const port = await getPort()
+    url = p => 'http://localhost:' + port + p
+    await nuxt.listen(port)
+  })
 
   afterAll(async () => {
     await browser.close()

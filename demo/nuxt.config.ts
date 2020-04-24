@@ -1,4 +1,4 @@
-import authModule from '../module'
+import authModule from '../src/module'
 
 export default {
   build: {

@@ -17,7 +17,7 @@ export default function (moduleOptions) {
 
   // Add plugin
   const { dst } = this.addTemplate({
-    src: resolve(__dirname, 'plugin.tmpl.js'),
+    src: resolve(__dirname, '../../templates/plugin.js'),
     fileName: join('auth.js'),
     options: {
       options,
@@ -36,7 +36,7 @@ export default function (moduleOptions) {
   }
 
   // Transpile and alias auth src
-  const srcDir = resolve(__dirname, '../src')
+  const srcDir = resolve(__dirname, '..')
   this.options.alias['~auth'] = srcDir
   this.options.build.transpile.push(srcDir)
 

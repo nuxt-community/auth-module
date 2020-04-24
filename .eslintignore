@@ -1,6 +1,5 @@
-*.tmpl
+templates/
 node_modules
 .nuxt
-module/plugin.tmpl.js
 dist
 types

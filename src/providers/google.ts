@@ -1,4 +1,4 @@
-import { assignDefaults } from '../utils'
+import { assignDefaults } from './_utils'
 
 export function google (_nuxt, strategy) {
   assignDefaults(strategy, {
