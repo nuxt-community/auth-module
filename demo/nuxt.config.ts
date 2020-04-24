@@ -95,8 +95,6 @@ export default {
           }
         }
       },
-      'laravel.sanctum': {
-      },
       laravelSanctum: {
         url: '/laravel'
       },
