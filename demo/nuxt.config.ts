@@ -75,9 +75,26 @@ export default {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET
       },
-      /* twitter: {
-        clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
-      }, */
+      // twitter: {
+      //   clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      // },
+      laravelJWT: {
+        url: '/laravel',
+        endpoints: {
+          login: {
+            url: '/api/auth/jwt/login'
+          },
+          refresh: {
+            url: '/api/auth/jwt/refresh'
+          },
+          logout: {
+            url: '/api/auth/jwt/logout'
+          },
+          user: {
+            url: '/api/auth/jwt/user'
+          }
+        }
+      },
       laravelSanctum: {
         url: '/laravel'
       },
