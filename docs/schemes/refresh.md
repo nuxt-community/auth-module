@@ -97,18 +97,32 @@ auth: {
 ### `endpoints`
 
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
-
+Additional headers and other Axios configuration can be based in the endpoint's child object. 
 ::: tip
 To disable each endpoint, simply set it's value to `false`.
 :::
 
 ### `token`
 
-Here you configure the token options.
+Here you configure the token options. These are required to help configure your Nuxt App with your backend authentication system.
 
 #### `property`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
+`property` can be used to specify which field of the response JSON data contains the token. It can be assigned as `false` to directly use API response body.
+
+The `property` can also access child-object key's value like `auth.token`.
+
+e.g.
+
+```Json
+{
+ "auth":{
+   ...
+   "token":"xxxxxxxx"
+   ...
+ }
+}
+```
 
 #### `name`
 
@@ -116,20 +130,25 @@ Here you configure the token options.
 
 Authorization header name to be used in axios requests.
 
+`${name}: Bearer XXXXXX`
+
 #### `type`
 
 - Default: `Bearer`
 
-Authorization header type to be used in axios requests.
+Authorization header type to be used in axios requests. 
+
+e.g.
+`Authorization: ${type} XXXXXX`
 
 #### `maxAge`
 
 - Default: `1800`
 
 Here you set the expiration time of the token, in **seconds**.
-This time will be used if for some reason we couldn't decode the token to get the expiration date.
+The time period will be used you are not using a JWT token which includes an encoded expiry time period.
 
-By default is set to 30 minutes.
+By default this is set to 30 minutes.
 
 ### `refreshToken`
 
@@ -150,10 +169,10 @@ Here you configure the refresh token options.
 - Default: `60 * 60 * 24 * 30`
 
 Here you set the expiration time of the token, in **seconds**.
-This time will be used if for some reason we couldn't decode the token to get the expiration date.
+The time period will be used you are not using a JWT token which includes an encoded expiry time period.
 You can set it to `false` if your refresh token doesn't expire.
 
-By default is set to 30 minutes.
+By default this is set to 30 minutes.
 
 ### `user`
 
