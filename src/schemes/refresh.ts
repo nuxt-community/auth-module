@@ -1,4 +1,4 @@
-import { getResponseProp } from '../utils'
+import { cleanObj, getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import LocalScheme from './local'
@@ -41,15 +41,8 @@ const DEFAULTS = {
     property: 'user',
     autoFetch: true
   },
-  clientId: {
-    property: 'client_id',
-    data: 'client_id',
-    prefix: '_client_id.'
-  },
-  grantType: {
-    data: 'grant_type',
-    value: 'refresh_token'
-  },
+  clientId: false,
+  grantType: false,
   autoLogout: false
 }
 
@@ -67,11 +60,6 @@ export default class RefreshScheme extends LocalScheme {
     // Sync tokens
     this.$auth.token.sync()
     this.$auth.refreshToken.sync()
-
-    // Sync client id
-    if (this.options.clientId) {
-      this._syncClientId()
-    }
 
     // Get token and refresh token status
     const tokenStatus = this.$auth.token.status()
@@ -113,6 +101,16 @@ export default class RefreshScheme extends LocalScheme {
     // Ditch any leftover local tokens before attempting to log in
     await this.$auth.reset()
 
+    // Add client id to payload if enabled
+    if (this.options.clientId) {
+      endpoint.data.client_id = this.options.clientId
+    }
+
+    // Add grant type to payload if defined
+    if (this.options.grantType) {
+      endpoint.data.grant_type = this.options.grantType
+    }
+
     // Make login request
     const response = await this.$auth.request(
       endpoint,
@@ -125,11 +123,6 @@ export default class RefreshScheme extends LocalScheme {
 
     this.$auth.token.set(token)
     this.$auth.refreshToken.set(refreshToken)
-
-    // Update client id
-    if (this.options.clientId) {
-      this._setClientId(getResponseProp(response, this.options.clientId.property))
-    }
 
     // Fetch user if `autoFetch` is enabled
     if (this.options.user.autoFetch) {
@@ -179,28 +172,29 @@ export default class RefreshScheme extends LocalScheme {
       throw new ExpiredAuthSessionError()
     }
 
-    const endpoint = { data: null }
-    const data = {}
+    const endpoint = {
+      data: {
+        client_id: undefined,
+        grant_type: undefined
+      }
+    }
 
-    // Only add refresh token to payload if required
+    // Add refresh token to payload if required
     if (this.options.refreshToken.required) {
-      data[this.options.refreshToken.data] = this.$auth.refreshToken.get()
+      endpoint.data[this.options.refreshToken.data] = this.$auth.refreshToken.get()
     }
 
-    // Only add client id to payload if enabled
+    // Add client id to payload if defined
     if (this.options.clientId) {
-      data[this.options.clientId.data] = this._getClientId()
+      endpoint.data.client_id = this.options.clientId
     }
 
-    // Only add grant type to payload if enabled
+    // Add grant type to payload if defined
     if (this.options.grantType) {
-      data[this.options.grantType.data] = this.options.grantType.value
+      endpoint.data.grant_type = 'refresh_token'
     }
 
-    // Add data to endpoint
-    if (Object.keys(data).length) {
-      endpoint.data = data
-    }
+    cleanObj(endpoint.data)
 
     // Make refresh request
     return this.$auth.request(
@@ -217,12 +211,6 @@ export default class RefreshScheme extends LocalScheme {
         this.$auth.refreshToken.set(refreshToken)
       }
 
-      // Update client id
-      const clientId = getResponseProp(response, this.options.clientId.property)
-      if (this.options.clientId && clientId) {
-        this._setClientId(clientId)
-      }
-
       return response
     }).catch((error) => {
       this.$auth.callOnError(error, { method: 'refreshToken' })
@@ -230,10 +218,6 @@ export default class RefreshScheme extends LocalScheme {
   }
 
   async reset () {
-    if (this.options.clientId) {
-      this._setClientId(false)
-    }
-
     this.$auth.setUser(false)
     this.$auth.token.reset()
     this.$auth.refreshToken.reset()

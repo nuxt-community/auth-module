@@ -35,13 +35,6 @@ export default {
           property: 'token.refreshToken',
           data: 'refreshToken',
           maxAge: false
-        },
-        clientId: {
-          property: 'token.clientId',
-          data: 'clientId'
-        },
-        grantType: {
-          data: 'grantType'
         }
       },
       test: {

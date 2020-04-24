@@ -83,7 +83,8 @@ export function decodeValue (val) {
   if (typeof val === 'string') {
     try {
       return JSON.parse(val)
-    } catch (_) { }
+    } catch (_) {
+    }
   }
 
   // Return as is
@@ -132,4 +133,24 @@ export function addTokenPrefix (token, tokenType) {
   }
 
   return tokenType + ' ' + token
+}
+
+export function urlJoin (...args) {
+  return args.join('/')
+    .replace(/[/]+/g, '/')
+    .replace(/^(.+):\//, '$1://')
+    .replace(/^file:/, 'file:/')
+    .replace(/\/(\?|&|#[^!])/g, '$1')
+    .replace(/\?/g, '&')
+    .replace('&', '?')
+}
+
+export function cleanObj (obj) {
+  for (const key in obj) {
+    if (obj[key] === undefined) {
+      delete obj[key]
+    }
+  }
+
+  return obj
 }

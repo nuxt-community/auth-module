@@ -47,13 +47,6 @@ export default {
           property: 'token.refreshToken',
           data: 'refreshToken',
           maxAge: false
-        },
-        clientId: {
-          property: 'token.clientId',
-          data: 'clientId'
-        },
-        grantType: {
-          data: 'grantType'
         }
       },
       auth0: {
@@ -97,6 +90,39 @@ export default {
       },
       laravelSanctum: {
         url: '/laravel'
+      },
+      laravelPassport: {
+        url: 'https://laravel-auth.nuxtjs.app',
+        endpoints: {
+          userInfo: '/api/auth/passport/user'
+        },
+        token: {
+          maxAge: 1800
+        },
+        refreshToken: {
+          maxAge: 60 * 60 * 24 * 30
+        },
+        clientId: '3',
+        clientSecret: 'k0NAhYGKXbG6NjENFz4VIe5YSbccZWW9V3gGeSOa'
+      },
+      laravelPassportPasswordGrant: {
+        name: 'laravel.passport.password',
+        provider: 'laravelPassport',
+        url: '/laravel',
+        endpoints: {
+          user: {
+            url: '/api/auth/passport/user'
+          }
+        },
+        token: {
+          maxAge: 1800
+        },
+        refreshToken: {
+          maxAge: 60 * 60 * 24 * 30
+        },
+        clientId: '2',
+        clientSecret: 'eKm1ei8muaql7TfcBxhN6Nq48oSflw6QJKCZF8gl',
+        grantType: 'password'
       },
       oauth2mock: {
         scheme: 'oauth2',

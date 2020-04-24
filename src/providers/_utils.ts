@@ -1,6 +1,7 @@
 import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
+import requrl from 'requrl'
 
 export function assignDefaults (strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
@@ -17,7 +18,7 @@ export function addAuthorize (nuxt, strategy) {
   delete strategy.clientSecret
 
   // Endpoint
-  const endpoint = `/_auth/oauth/${strategy._name}/authorize`
+  const endpoint = `/_auth/oauth/${strategy.name}/authorize`
   strategy.endpoints.token = endpoint
 
   // Set response_type to code
@@ -80,6 +81,75 @@ export function addAuthorize (nuxt, strategy) {
   })
 }
 
+export function initializePasswordGrantFlow (nuxt, strategy) {
+  // Get clientSecret, clientId, endpoints.login.url
+  const clientSecret = strategy.clientSecret
+  const clientId = strategy.clientId
+  const tokenEndpoint = strategy.endpoints.token
+
+  // IMPORTANT: remove clientSecret from generated bundle
+  delete strategy.clientSecret
+
+  // Endpoint
+  const endpoint = `/_auth/${strategy.name}/token`
+  strategy.endpoints.login.url = endpoint
+  strategy.endpoints.refresh.url = endpoint
+
+  // Form data parser
+  const formMiddleware = bodyParser.json()
+
+  // Register endpoint
+  nuxt.options.serverMiddleware.unshift({
+    path: endpoint,
+    handler: (req, res, next) => {
+      if (req.method !== 'POST') {
+        return next()
+      }
+
+      formMiddleware(req, res, () => {
+        const {
+          username,
+          password,
+          grant_type: grantType = strategy.grantType,
+          refresh_token: refreshToken
+        } = req.body
+
+        // Grant type is password, but username or password is not available
+        if (grantType === 'password' && (!username || !password)) {
+          return next(new Error('Invalid username or password'))
+        }
+
+        // Grant type is refresh token, but refresh token is not available
+        if (grantType === 'refresh_token' && !refreshToken) {
+          return next(new Error('Refresh token not provided'))
+        }
+
+        axios
+          .request({
+            method: 'post',
+            url: tokenEndpoint,
+            baseURL: requrl(req),
+            data: {
+              client_id: clientId,
+              client_secret: clientSecret,
+              refresh_token: refreshToken,
+              grant_type: grantType,
+              username,
+              password
+            },
+            headers: {
+              Accept: 'application/json'
+            }
+          })
+          .then((response) => {
+            res.end(JSON.stringify(response.data))
+          })
+          .catch(error => next(error))
+      })
+    }
+  })
+}
+
 export function assignAbsoluteEndpoints (strategy) {
   const { url, endpoints } = strategy
 
@@ -87,16 +157,18 @@ export function assignAbsoluteEndpoints (strategy) {
     for (const key of Object.keys(endpoints)) {
       const endpoint = endpoints[key]
 
-      if (typeof endpoint === 'object') {
-        if (endpoint.url.startsWith(url)) {
-          continue
+      if (endpoint) {
+        if (typeof endpoint === 'object') {
+          if (!endpoint.url || endpoint.url.startsWith(url)) {
+            continue
+          }
+          endpoints[key].url = url + endpoint.url
+        } else {
+          if (endpoint.startsWith(url)) {
+            continue
+          }
+          endpoints[key] = url + endpoint
         }
-        endpoints[key].url = url + endpoint.url
-      } else {
-        if (endpoint.startsWith(url)) {
-          continue
-        }
-        endpoints[key] = url + endpoint
       }
     }
   }

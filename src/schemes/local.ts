@@ -31,11 +31,8 @@ const DEFAULTS: SchemeOptions = {
     property: 'user',
     autoFetch: true
   },
-  clientId: {
-    property: 'client_id',
-    data: 'client_id',
-    prefix: '_client_id.'
-  }
+  clientId: false,
+  grantType: false
 }
 
 export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
@@ -46,24 +43,6 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
     // Initialize Request Interceptor
     this.requestHandler = new RequestHandler(this.$auth)
-  }
-
-  _getClientId () {
-    const _key = this.options.clientId.prefix + this.name
-
-    return this.$auth.$storage.getUniversal(_key)
-  }
-
-  _setClientId (clientId) {
-    const _key = this.options.clientId.prefix + this.name
-
-    return this.$auth.$storage.setUniversal(_key, clientId)
-  }
-
-  _syncClientId () {
-    const _key = this.options.clientId.prefix + this.name
-
-    return this.$auth.$storage.syncUniversal(_key)
   }
 
   mounted () {
@@ -78,10 +57,6 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
       if (tokenStatus.expired()) {
         this.$auth.reset()
       }
-    }
-
-    if (this.options.clientId) {
-      this._syncClientId()
     }
 
     // Initialize request interceptor
@@ -107,6 +82,16 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     // Ditch any leftover local tokens before attempting to log in
     await this.$auth.reset()
 
+    // Add client id to payload if defined
+    if (this.options.clientId) {
+      endpoint.data.client_id = this.options.clientId
+    }
+
+    // Add grant type to payload if defined
+    if (this.options.grantType) {
+      endpoint.data.grant_type = this.options.grantType
+    }
+
     // Make login request
     const response = await this.$auth.request(
       endpoint,
@@ -117,11 +102,6 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     if (this.options.token.required) {
       const token = getResponseProp(response, this.options.token.property)
       this.$auth.token.set(token)
-    }
-
-    // Update clientId
-    if (this.options.clientId) {
-      this._setClientId(getResponseProp(response, this.options.clientId.property))
     }
 
     // Fetch user
@@ -167,14 +147,6 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
   async logout (endpoint: HTTPRequest = {}) {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
-      // Only add client id to payload if enabled
-      if (this.options.clientId) {
-        if (!endpoint.data) {
-          endpoint.data = {}
-        }
-        endpoint.data[this.options.clientId.data] = this._getClientId()
-      }
-
       await this.$auth
         .requestWith(this.name, endpoint, this.options.endpoints.logout)
         .catch(() => { })
@@ -185,10 +157,6 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
   }
 
   async reset () {
-    if (this.options.clientId) {
-      this._setClientId(false)
-    }
-
     this.$auth.setUser(false)
     this.$auth.token.reset()
 

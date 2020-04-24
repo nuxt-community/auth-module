@@ -1,11 +1,10 @@
 import { nanoid } from 'nanoid'
-import { encodeQuery, parseQuery, normalizePath, getResponseProp } from '../utils'
+import requrl from 'requrl'
+import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import BaseScheme from './_scheme'
-
-const isHttps = process.server ? require('is-https') : null
 
 const DEFAULTS = {
   name: 'oauth2',
@@ -58,39 +57,11 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   }
 
   get _redirectURI () {
-    const url = this.options.redirectUri
-
-    if (url) {
-      return url
-    }
-
-    if (process.server && this.req) {
-      const protocol = 'http' + (isHttps(this.req) ? 's' : '') + '://'
-
-      return protocol + this.req.headers.host + this.$auth.options.redirect.callback
-    }
-
-    if (process.client) {
-      return window.location.origin + this.$auth.options.redirect.callback
-    }
+    return this.options.redirectUri || urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
   }
 
   get _logoutRedirectURI () {
-    const url = this.options.logoutRedirectUri
-
-    if (url) {
-      return url
-    }
-
-    if (process.server && this.req) {
-      const protocol = 'http' + (isHttps(this.req) ? 's' : '') + '://'
-
-      return protocol + this.req.headers.host + this.$auth.options.redirect.logout
-    }
-
-    if (process.client) {
-      return window.location.origin + this.$auth.options.redirect.logout
-    }
+    return this.options.logoutRedirectUri || urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
   }
 
   async mounted () {
