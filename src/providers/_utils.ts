@@ -79,3 +79,25 @@ export function addAuthorize (nuxt, strategy) {
     }
   })
 }
+
+export function assignAbsoluteEndpoints (strategy) {
+  const { url, endpoints } = strategy
+
+  if (endpoints) {
+    for (const key of Object.keys(endpoints)) {
+      const endpoint = endpoints[key]
+
+      if (typeof endpoint === 'object') {
+        if (endpoint.url.startsWith(url)) {
+          continue
+        }
+        endpoints[key].url = url + endpoint.url
+      } else {
+        if (endpoint.startsWith(url)) {
+          continue
+        }
+        endpoints[key] = url + endpoint
+      }
+    }
+  }
+}

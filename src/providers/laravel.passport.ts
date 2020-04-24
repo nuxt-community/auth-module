@@ -1,12 +1,17 @@
-import { assignDefaults, addAuthorize } from './_utils'
+import { assignDefaults, addAuthorize, assignAbsoluteEndpoints } from './_utils'
 
 export function laravelPassport (nuxt, strategy) {
+  const { url } = strategy
+
+  if (!url) {
+    throw new Error('url is required is laravel passport!')
+  }
+
   assignDefaults(strategy, {
     scheme: 'oauth2',
-    name: 'laravel.passport',
     endpoints: {
-      authorization: `${strategy.url}/oauth/authorize`,
-      token: `${strategy.url}/oauth/token`
+      authorization: url + '/oauth/authorize',
+      token: url + '/oauth/token'
     },
     token: {
       property: 'access_token',
@@ -23,5 +28,6 @@ export function laravelPassport (nuxt, strategy) {
     scope: '*'
   })
 
+  assignAbsoluteEndpoints(strategy)
   addAuthorize(nuxt, strategy)
 }
