@@ -1,4 +1,4 @@
-import { assignDefaults, addAuthorize, initializePasswordGrantFlow } from './_utils'
+import { assignDefaults, addAuthorize, initializePasswordGrantFlow, assignAbsoluteEndpoints } from './_utils'
 
 module.exports = function laravelPassport (nuxt, strategy) {
   const { url, grantType } = strategy
@@ -62,4 +62,6 @@ module.exports = function laravelPassport (nuxt, strategy) {
 
     addAuthorize(nuxt, strategy)
   }
+
+  assignAbsoluteEndpoints(strategy)
 }
