@@ -157,16 +157,18 @@ export function assignAbsoluteEndpoints (strategy) {
     for (const key of Object.keys(endpoints)) {
       const endpoint = endpoints[key]
 
-      if (typeof endpoint === 'object') {
-        if (endpoint.url.startsWith(url)) {
-          continue
+      if (endpoint) {
+        if (typeof endpoint === 'object') {
+          if (endpoint.url.startsWith(url)) {
+            continue
+          }
+          endpoints[key].url = url + endpoint.url
+        } else {
+          if (endpoint.startsWith(url)) {
+            continue
+          }
+          endpoints[key] = url + endpoint
         }
-        endpoints[key].url = url + endpoint.url
-      } else {
-        if (endpoint.startsWith(url)) {
-          continue
-        }
-        endpoints[key] = url + endpoint
       }
     }
   }
