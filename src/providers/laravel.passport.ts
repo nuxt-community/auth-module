@@ -35,7 +35,7 @@ export function laravelPassport (nuxt, strategy) {
         login: {},
         refresh: {},
         logout: {
-          url: url + '/api/auth/logout'
+          url: false
         },
         user: {
           url: url + '/api/auth/user'
@@ -54,7 +54,7 @@ export function laravelPassport (nuxt, strategy) {
         authorization: url + '/oauth/authorize',
         token: url + '/oauth/token',
         userInfo: url + '/api/auth/user',
-        logout: url + '/api/auth/logout'
+        logout: false
       },
       responseType: 'code',
       grantType: 'authorization_code',
