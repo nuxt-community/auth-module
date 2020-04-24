@@ -34,8 +34,8 @@ export function laravelJWT (_nuxt, strategy) {
   }
 
   assignDefaults(strategy, {
-    _scheme: 'refresh',
-    _name: 'laravel.jwt',
+    scheme: 'refresh',
+    name: 'laravel.jwt',
     endpoints,
     token: {
       property: 'access_token',
