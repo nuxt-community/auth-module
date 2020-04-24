@@ -34,7 +34,8 @@ const DEFAULTS = {
   refreshToken: {
     property: 'refresh_token',
     data: 'refresh_token',
-    maxAge: 60 * 60 * 24 * 30
+    maxAge: 60 * 60 * 24 * 30,
+    required: true
   },
   user: {
     property: 'user',
