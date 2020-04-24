@@ -1,6 +1,6 @@
 import { assignDefaults, assignAbsoluteEndpoints } from './_utils'
 
-export function laravelSanctum (nuxt, strategy) {
+export function laravelSanctum (_nuxt, strategy) {
   const { url } = strategy
 
   if (!url) {
@@ -45,5 +45,5 @@ export function laravelSanctum (nuxt, strategy) {
     }
   })
 
-  assignAbsoluteEndpoints(nuxt, strategy)
+  assignAbsoluteEndpoints(strategy)
 }

@@ -28,6 +28,6 @@ export function laravelPassport (nuxt, strategy) {
     scope: '*'
   })
 
-  assignAbsoluteEndpoints(nuxt, strategy)
+  assignAbsoluteEndpoints(strategy)
   addAuthorize(nuxt, strategy)
 }

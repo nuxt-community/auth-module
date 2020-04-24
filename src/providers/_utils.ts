@@ -80,7 +80,7 @@ export function addAuthorize (nuxt, strategy) {
   })
 }
 
-export function assignAbsoluteEndpoints (_nuxt, strategy) {
+export function assignAbsoluteEndpoints (strategy) {
   const { url, endpoints } = strategy
 
   if (endpoints) {
