@@ -75,10 +75,10 @@ export default {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET
       },
-      twitter: {
-        clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
-      },
-      'laravel.jwt': {
+      // twitter: {
+      //   clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
+      // },
+      laravelJWT: {
         url: '/laravel',
         endpoints: {
           login: {
