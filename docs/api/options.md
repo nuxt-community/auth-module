@@ -1,6 +1,6 @@
 # options
 
-General options shared with all strategies. See [defaults.js](https://github.com/nuxt-community/auth-module/blob/master/lib/module/defaults.js) for defaults.
+General options shared with all strategies. See [defaults.ts](https://github.com/nuxt-community/auth-module/blob/dev/src/module/defaults.ts) for defaults.
 
 ## `redirect`
 
@@ -33,7 +33,7 @@ When enabled (default) user will be redirected on login/logouts.
 
 ## `token`
 
-Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy}`. See [auth.js - Token helpers](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js#L160) and [storage.js](https://github.com/nuxt-community/auth-module/blob/master/lib/core/storage.js) for more details.
+Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy}`. See [auth.ts - Token helpers](https://github.com/nuxt-community/auth-module/blob/dev/src/core/auth.ts#L160) and [storage.ts](https://github.com/nuxt-community/auth-module/blob/dev/src/core/storage.ts) for more details.
 
 Default:
 

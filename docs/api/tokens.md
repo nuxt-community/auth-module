@@ -1,6 +1,6 @@
 # tokens
 
-[Token Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/token.js) and [Refresh Token Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/refreshToken.js)
+[Token Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/inc/token.ts) and [Refresh Token Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/inc/refresh-token.ts)
 
 **Token** and **Refresh Token** are available on `$auth.token` and `$auth.refreshToken`. Both have getters and setters and other helpers.
 

@@ -1,6 +1,6 @@
 # refresh controller
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/refreshController.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/inc/refresh-controller.ts)
 
 **Refresh Controller** can be initialized in a scheme to add refresh support.
 

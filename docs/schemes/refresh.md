@@ -1,6 +1,6 @@
 # Refresh
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/refresh.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/refresh.ts)
 
 `refresh` is an extended version of `local` scheme, made for systems that use token refresh.
 

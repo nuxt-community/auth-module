@@ -1,6 +1,6 @@
 # Laravel JWT
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/providers/laravelJWT.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravelJWT.ts)
 
 This provider is for the [Laravel JWT](https://github.com/tymondesigns/jwt-auth). Please make sure to follow our guide on the route configuration on this page to avoid issues on the authentication.
 

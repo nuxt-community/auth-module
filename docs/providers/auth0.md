@@ -1,6 +1,6 @@
 # Auth0
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/providers/auth0.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/auth0.ts)
 
 [Auth0](https://auth0.com) is a great authentication-as-a-service platform for free!
 
