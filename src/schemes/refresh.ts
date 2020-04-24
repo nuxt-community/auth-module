@@ -1,4 +1,4 @@
-import { getResponseProp } from '../utils'
+import { cleanObj, getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import LocalScheme from './local'
@@ -172,12 +172,16 @@ export default class RefreshScheme extends LocalScheme {
       throw new ExpiredAuthSessionError()
     }
 
-    const endpoint = { data: null }
-    const data = {}
+    const endpoint = {
+      data: {
+        client_id: undefined,
+        grant_type: undefined
+      }
+    }
 
-    // Only add refresh token to payload if required
+    // Add refresh token to payload if required
     if (this.options.refreshToken.required) {
-      data[this.options.refreshToken.data] = this.$auth.refreshToken.get()
+      endpoint.data[this.options.refreshToken.data] = this.$auth.refreshToken.get()
     }
 
     // Add client id to payload if defined
@@ -190,10 +194,7 @@ export default class RefreshScheme extends LocalScheme {
       endpoint.data.grant_type = 'refresh_token'
     }
 
-    // Add data to endpoint
-    if (Object.keys(data).length) {
-      endpoint.data = data
-    }
+    cleanObj(endpoint.data)
 
     // Make refresh request
     return this.$auth.request(
