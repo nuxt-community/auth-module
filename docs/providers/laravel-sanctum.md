@@ -16,7 +16,7 @@ auth: {
 }
 ```
 
-**NOTE:** It is highly recommanded to use proxy to avoid CORS and same-site policy issues:
+**NOTE:** It is highly recommended to use proxy to avoid CORS and same-site policy issues:
 
 ```js
 {
