@@ -18,7 +18,7 @@ export function addAuthorize (nuxt, strategy) {
   delete strategy.clientSecret
 
   // Endpoint
-  const endpoint = `/_auth/oauth/${strategy._name}/authorize`
+  const endpoint = `/_auth/oauth/${strategy.name}/authorize`
   strategy.endpoints.token = endpoint
 
   // Set response_type to code
@@ -91,7 +91,7 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
   delete strategy.clientSecret
 
   // Endpoint
-  const endpoint = `/_auth/${strategy._name}/token`
+  const endpoint = `/_auth/${strategy.name}/token`
   strategy.endpoints.login.url = endpoint
   strategy.endpoints.refresh.url = endpoint
 
