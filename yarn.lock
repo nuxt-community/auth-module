@@ -9303,10 +9303,10 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-requrl@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/requrl/-/requrl-2.0.0.tgz#4cd94d293b19e219bc7a2ae41715d2326741601d"
-  integrity sha512-NoWgnsqjUNFdQKOZ1YCzNIP4kWbh1crNBhRfwUPeNZVSQ1cpR2Z6X5//fvLsXQ4se899ee4s1TPugSk0LrIXpg==
+requrl@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/requrl/-/requrl-2.0.1.tgz#7028de9f00bf87b35585c675e94d75987f6973e9"
+  integrity sha512-l6iZwt1x7CN4TCyZqIbYS1o3tN5FRGnsvSSBOrtsmgS87f48J81AvRv6HGri79RHW4Ssim07fr+Fw08cYMWmsw==
 
 reserved-words@^0.1.2:
   version "0.1.2"
