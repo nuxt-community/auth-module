@@ -1,6 +1,7 @@
 import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
+import requrl from 'requrl'
 
 export function assignDefaults (strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
