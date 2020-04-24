@@ -84,6 +84,26 @@
               Login with Laravel JWT (Test User)
             </b-btn>
           </div>
+          <div class="mb-2">
+            <b-btn
+              block
+              :style="{background: '#c61952'}"
+              class="login-button"
+              @click="loginPassport"
+            >
+              Login with Laravel Passport (Test User)
+            </b-btn>
+          </div>
+          <div class="mb-2">
+            <b-btn
+              block
+              :style="{background: '#8c0d32'}"
+              class="login-button"
+              @click="loginPassportGrantFlow"
+            >
+              Login with Laravel Passport Password Grant (Test User)
+            </b-btn>
+          </div>
         </b-card>
       </b-col>
     </b-row>
@@ -181,6 +201,31 @@ export default {
         .loginWith('laravelJWT', {
           data: {
             email: 'test@test.com',
+            password: '12345678'
+          }
+        })
+        .catch((e) => {
+          this.error = e.response ? e.response.data : e.toString()
+        })
+    },
+
+    async loginPassport () {
+      this.error = null
+
+      return this.$auth
+        .loginWith('laravelPassport')
+        .catch((e) => {
+          this.error = e.response ? e.response.data : e.toString()
+        })
+    },
+
+    async loginPassportGrantFlow () {
+      this.error = null
+
+      return this.$auth
+        .loginWith('laravel.passport.password', {
+          data: {
+            username: 'test@test.com',
             password: '12345678'
           }
         })
