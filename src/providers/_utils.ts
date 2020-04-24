@@ -159,7 +159,7 @@ export function assignAbsoluteEndpoints (strategy) {
 
       if (endpoint) {
         if (typeof endpoint === 'object') {
-          if (endpoint.url.startsWith(url)) {
+          if (!endpoint.url || endpoint.url.startsWith(url)) {
             continue
           }
           endpoints[key].url = url + endpoint.url
