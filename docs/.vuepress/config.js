@@ -46,7 +46,8 @@ module.exports = {
             '/providers/github',
             '/providers/google',
             '/providers/laravel-passport',
-            '/providers/laravel-sanctum'
+            '/providers/laravel-sanctum',
+            '/providers/laravel-jwt',
           ]
         }, {
           title: 'Recipes',

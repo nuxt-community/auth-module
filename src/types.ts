@@ -4,6 +4,7 @@ import _Scheme from './schemes/_scheme'
 export type Auth = _Auth
 export type Scheme = _Scheme<SchemeOptions | any> & {
   refreshTokens: Function
+  check: () => boolean
 }
 
 export type HTTPRequest = {
@@ -37,4 +38,31 @@ export type AuthOptions = {
   tokenExpiration: { prefix: string }
   refreshToken: { prefix: string }
   refreshTokenExpiration: { prefix: string }
+}
+
+declare module '@nuxt/types' {
+  interface Context {
+    $auth: Auth;
+  }
+  interface NuxtAppOptions {
+    $auth: Auth;
+  }
+}
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $auth: Auth;
+  }
+}
+
+declare module 'vue/types/options' {
+  interface ComponentOptions<V extends Vue> {
+    auth?: true | false | 'guest';
+  }
+}
+
+declare module 'vuex/types/index' {
+  interface Store<S> {
+    $auth: any;
+  }
 }

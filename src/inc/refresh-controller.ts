@@ -54,12 +54,12 @@ export default class RefreshController {
 
       // Sync tokens
       const token = this.$auth.token.sync()
-      const refreshToken = this.$auth.refreshToken.sync()
+      this.$auth.refreshToken.sync()
       const tokenStatus = this.$auth.token.status()
       const refreshTokenStatus = this.$auth.refreshToken.status()
 
       // If no token or no refresh token, bail
-      if (!token || !refreshToken) {
+      if (!this.scheme.check()) {
         // The authorization header in the current request is expired.
         // Token was deleted right before this request
         if (!token && this._requestHasAuthorizationHeader(config)) {
