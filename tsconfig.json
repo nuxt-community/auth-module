@@ -15,7 +15,7 @@
     "types": [
       "@types/node",
       "@nuxt/types",
-      "./global"
+      "@nuxt/types"
     ]
   },
   "include": [
