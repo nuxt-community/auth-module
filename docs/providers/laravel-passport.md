@@ -7,7 +7,7 @@
 ```js
 auth: {
   strategies: {
-      'laravel.passport': {
+      'laravelPassport': {
         endpoints: {
           userInfo: '...'
         },
@@ -22,7 +22,7 @@ auth: {
 Anywhere in your application logic:
 
 ```js
-this.$auth.loginWith('laravel.passport')
+this.$auth.loginWith('laravelPassport')
 ```
 
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2.md) and supports all scheme options.
