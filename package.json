@@ -9,12 +9,13 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf ./dist && tsc",
+    "build": "tsc",
+    "clean": "rm -rf dist || true",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
-    "release": "yarn build && standard-version && git push --follow-tags && npm publish",
+    "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
     "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
   },
@@ -48,7 +49,6 @@
     "lodash.get": "latest",
     "nuxt-edge": "latest",
     "puppeteer": "latest",
-    "rimraf": "latest",
     "standard-version": "latest",
     "typescript": "latest"
   }
