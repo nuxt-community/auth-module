@@ -9,7 +9,7 @@ const app = express()
 // -- Routes --
 
 // [POST] /token
-app.post('/token', (req, res, next) => {
+app.post('/token', (_req, res) => {
   res.json({
     token_type: 'bearer',
     access_token: TOKEN_NEVER_EXPIRING,
@@ -18,7 +18,7 @@ app.post('/token', (req, res, next) => {
 })
 
 // [GET] /user
-app.get('/userinfo', (req, res, next) => {
+app.get('/userinfo', (_req, res) => {
   res.json({
     sub: '83692',
     name: 'Alice Adams',
@@ -30,7 +30,7 @@ app.get('/userinfo', (req, res, next) => {
 })
 
 // [GET] /cats
-app.get('/cats', (req, res, next) => {
+app.get('/cats', (_req, res) => {
   res.json([
     'Tiger', 'Max', 'Smokey'
   ])

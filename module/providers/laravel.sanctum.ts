@@ -1,6 +1,6 @@
 import { assignDefaults } from '../utils'
 
-export function laravelSanctum (nuxt, strategy) {
+export function laravelSanctum (_nuxt, strategy) {
   const { url } = strategy
 
   if (!url) {

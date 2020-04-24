@@ -1,6 +1,6 @@
 import { assignDefaults } from '../utils'
 
-export function facebook (nuxt, strategy) {
+export function facebook (_nuxt, strategy) {
   assignDefaults(strategy, {
     scheme: 'oauth2',
     endpoints: {

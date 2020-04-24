@@ -21,7 +21,7 @@ export function parseQuery (queryString) {
 
 export function encodeQuery (queryObject: {[key: string]: string}) {
   return Object.entries(queryObject)
-    .filter(([key, value]) => typeof value !== 'undefined')
+    .filter(([_key, value]) => typeof value !== 'undefined')
     .map(([key, value]) =>
       encodeURIComponent(key) + (value != null ? '=' + encodeURIComponent(value) : '')
     )

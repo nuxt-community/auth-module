@@ -26,7 +26,7 @@ const refreshTokens = {}
 // -- Routes --
 
 // [POST] /login
-app.post('/login', (req, res, next) => {
+app.post('/login', (req, res) => {
   const { username, password } = req.body
   const valid = username.length && password === '123'
   const expiresIn = 15
@@ -65,7 +65,7 @@ app.post('/login', (req, res, next) => {
   })
 })
 
-app.post('/refresh', (req, res, next) => {
+app.post('/refresh', (req, res) => {
   const { refreshToken } = req.body
 
   if ((refreshToken in refreshTokens)) {
@@ -102,17 +102,17 @@ app.post('/refresh', (req, res, next) => {
 })
 
 // [GET] /user
-app.get('/user', (req, res, next) => {
+app.get('/user', (req, res) => {
   res.json({ user: req.user })
 })
 
 // [POST] /logout
-app.post('/logout', (req, res, next) => {
+app.post('/logout', (_req, res) => {
   res.json({ status: 'OK' })
 })
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use((err, _req, res) => {
   console.error(err) // eslint-disable-line no-console
   res.status(401).send(err + '')
 })

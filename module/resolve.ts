@@ -79,7 +79,7 @@ export function resolveScheme (nuxt, scheme) {
   }
 }
 
-export function resolveProvider (nuxt, provider) {
+export function resolveProvider (_nuxt, provider) {
   if (typeof provider === 'function') {
     return provider
   }
