@@ -18,7 +18,7 @@ export function laravelSanctum (_nuxt, strategy) {
 
   assignDefaults(strategy, {
     scheme: 'cookie',
-    name: 'laravel.sanctum',
+    name: 'laravelSanctum',
     cookie: {
       name: 'XSRF-TOKEN'
     },
