@@ -20,10 +20,10 @@
     "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.9.7",
+    "@nuxtjs/axios": "^5.10.1",
     "body-parser": "^1.19.0",
     "consola": "^2.11.3",
-    "cookie": "^0.4.0",
+    "cookie": "^0.4.1",
     "defu": "^2.0.2",
     "is-https": "^1.0.0",
     "js-cookie": "^2.2.1",
