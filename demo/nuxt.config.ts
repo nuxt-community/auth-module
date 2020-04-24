@@ -94,8 +94,7 @@ export default {
       laravelPassport: {
         url: 'https://laravel-auth.nuxtjs.app',
         endpoints: {
-          userInfo: '/api/auth/passport/user',
-          logout: false
+          userInfo: '/api/auth/passport/user'
         },
         token: {
           maxAge: 1800
@@ -111,7 +110,6 @@ export default {
         provider: 'laravelPassport',
         url: '/laravel',
         endpoints: {
-          logout: false,
           user: {
             url: '/api/auth/passport/user'
           }
