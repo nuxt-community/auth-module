@@ -1,4 +1,4 @@
-const { assignDefaults } = require('./_utils')
+const { assignDefaults, assignAbsoluteEndpoints } = require('./_utils')
 
 export function laravelJWT (_nuxt, strategy) {
   const { url } = strategy
@@ -7,36 +7,23 @@ export function laravelJWT (_nuxt, strategy) {
     throw new Error('url is required for laravel jwt!')
   }
 
-  const endpoints = {
-    login: {
-      url: url + '/api/auth/login'
-    },
-    refresh: {
-      url: url + '/api/auth/refresh'
-    },
-    logout: {
-      url: url + '/api/auth/logout'
-    },
-    user: {
-      url: url + '/api/auth/user'
-    }
-  }
-
-  if (strategy.endpoints) {
-    for (const key of Object.keys(strategy.endpoints)) {
-      const endpointUrl = strategy.endpoints[key].url
-
-      if (endpointUrl) {
-        endpoints[key].url = url + endpointUrl
-        delete strategy.endpoints[key].url
-      }
-    }
-  }
-
   assignDefaults(strategy, {
     scheme: 'refresh',
     name: 'laravelJWT',
-    endpoints,
+    endpoints: {
+      login: {
+        url: url + '/api/auth/login'
+      },
+      refresh: {
+        url: url + '/api/auth/refresh'
+      },
+      logout: {
+        url: url + '/api/auth/logout'
+      },
+      user: {
+        url: url + '/api/auth/user'
+      }
+    },
     token: {
       property: 'access_token',
       maxAge: 3600
@@ -53,4 +40,6 @@ export function laravelJWT (_nuxt, strategy) {
     clientId: false,
     grantType: false
   })
+
+  assignAbsoluteEndpoints(strategy)
 }
