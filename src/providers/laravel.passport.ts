@@ -9,7 +9,7 @@ module.exports = function laravelPassport (nuxt, strategy) {
   }
 
   const defaults = {
-    _name: 'laravel.passport',
+    name: 'laravel.passport',
     token: {
       property: 'access_token',
       type: 'Bearer',
@@ -29,7 +29,7 @@ module.exports = function laravelPassport (nuxt, strategy) {
   if (isPasswordGrant) {
     assignDefaults(strategy, {
       ...defaults,
-      _scheme: 'refresh',
+      scheme: 'refresh',
       endpoints: {
         token: url + '/oauth/token',
         login: {},
@@ -48,7 +48,7 @@ module.exports = function laravelPassport (nuxt, strategy) {
   } else {
     assignDefaults(strategy, {
       ...defaults,
-      _scheme: 'oauth2',
+      scheme: 'oauth2',
       endpoints: {
         authorization: url + '/oauth/authorize',
         token: url + '/oauth/token',
