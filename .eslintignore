@@ -1,0 +1,5 @@
+templates/
+node_modules
+.nuxt
+dist
+types
