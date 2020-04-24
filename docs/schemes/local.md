@@ -1,6 +1,6 @@
 # Local
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/local.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/local.ts)
 
 `local` is the default, credentials/token based scheme for flows like `JWT`.
 

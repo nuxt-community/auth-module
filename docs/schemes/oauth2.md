@@ -1,6 +1,6 @@
 # Oauth2
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/oauth2.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/oauth2.ts)
 
 `oauth2` supports various oauth2 login flows. There are many pre-configured providers like [auth0](../providers/auth0.md) that you may use instead of directly using this scheme.
 
@@ -71,7 +71,7 @@ While not a part of oauth2 spec, almost all oauth2 providers expose this endpoin
 
 #### `token`
 
-If using Google code authorization flow (`responseType: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
+If using Google code authorization flow (`responseType: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/oauth2.ts)
 
 If a `false` value is set, we only do login without fetching user profile.
 

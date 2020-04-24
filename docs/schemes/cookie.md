@@ -1,6 +1,6 @@
 # Cookie
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/cookie.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/cookie.ts)
 
 `cookie` is an extended version of [local scheme](./local.md), which instead of using a token, depends on cookie set by auth provider.
 
