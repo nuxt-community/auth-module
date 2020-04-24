@@ -1,5 +1,4 @@
 import defu from 'defu'
-import requrl from 'requrl'
 import axios from 'axios'
 import bodyParser from 'body-parser'
 
