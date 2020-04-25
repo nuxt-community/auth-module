@@ -1,7 +1,7 @@
 # Middleware
 
 You can enable `auth` middleware either globally or per route.
-When this middleware is enabled on a route and `loggedIn` is `false` user will be redirected to `redirect.login` route (`/login` by default) or be redirected to `home` when user visit `redirect.login` route and `loggedIn` is `true`. 
+When this middleware is enabled on a route and `loggedIn` is `false` user will be redirected to `redirect.login` route (`/login` by default). If the user visits `redirect.login` route and `loggedIn` is `true`, the user is redirected to `redirect.home`.. 
 
 Setting per route:
 
