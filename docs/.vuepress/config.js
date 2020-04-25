@@ -2,6 +2,10 @@ module.exports = {
   title: 'Auth Module',
   description: 'Authentication module for Nuxt',
   themeConfig: {
+    algolia: {
+      apiKey: '40443e7f7f59ee3f7927b6b9176100a6',
+      indexName: 'nuxtjs_auth'
+    },
     repo: 'nuxt-community/auth-module',
     docsDir: 'docs',
     editLinks: true,
