@@ -30,7 +30,7 @@
 
 # 🚧 `v5` Development
 
-`dev` branch is under heavy developmentt to prepare for `v5`. Dev docs (WIP) are deployed on https://dev.auth.nuxtjs.org
+`dev` branch is under heavy development to prepare for `v5`. Dev docs (WIP) are deployed on https://dev.auth.nuxtjs.org
 
 Meanwhile only important bug fixes are accepted for v4. Please base PRs on [master](https://github.com/nuxt-community/auth-module/tree/master) branch.
 
