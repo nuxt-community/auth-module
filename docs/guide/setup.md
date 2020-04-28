@@ -1,15 +1,17 @@
 # Setup
 
+**IMPORTANT:** This docs are for next version of nuxt-auth module which is unstable. Use with caution!
+
 Install with yarn:
 
 ```bash
-yarn add @nuxtjs/auth @nuxtjs/axios
+yarn add @nuxtjs/auth-next @nuxtjs/axios
 ```
 
 Install with npm:
 
 ```bash
-npm install @nuxtjs/auth @nuxtjs/axios
+npm install @nuxtjs/auth-next @nuxtjs/axios
 ```
 
 Edit `nuxt.config.js`:
@@ -17,7 +19,7 @@ Edit `nuxt.config.js`:
 ```js
 modules: [
   '@nuxtjs/axios',
-  '@nuxtjs/auth'
+  '@nuxtjs/auth-next'
 ],
 
 auth: {

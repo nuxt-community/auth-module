@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist || true",
+    "clean": "rm -rf dist",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",

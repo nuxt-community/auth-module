@@ -11,7 +11,7 @@ on:
       - dev
 
 jobs:
-  ci:
+  test:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -58,3 +58,12 @@ jobs:
 
       # - name: Coverage
       #   uses: codecov/codecov-action@v1
+
+      - name: Publish Next
+        run: |
+          if [ "$ref" = "refs/heads/dev" ] ; then
+            node ./scripts/release-next
+          fi
+        env:
+          ref: ${{ github.ref }}
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
