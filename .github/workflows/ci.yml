@@ -66,6 +66,7 @@ jobs:
             node ./scripts/bump-next
             yarn clean
             yarn build
+            echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
             npm publish
           fi
         env:
