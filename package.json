@@ -6,7 +6,8 @@
   "license": "MIT",
   "main": "./dist/module/index.js",
   "files": [
-    "dist"
+    "dist",
+    "templates"
   ],
   "scripts": {
     "build": "tsc",
