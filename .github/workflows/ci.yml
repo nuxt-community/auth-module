@@ -70,4 +70,4 @@ jobs:
           fi
         env:
           GIT_REF: ${{ github.ref }}
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
