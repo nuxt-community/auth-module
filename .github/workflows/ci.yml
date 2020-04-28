@@ -18,6 +18,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [10]
+      fail-fast: true
 
     steps:
       - name: Setup Node.js
@@ -61,9 +62,12 @@ jobs:
 
       - name: Publish Next
         run: |
-          if [ "$ref" = "refs/heads/dev" ] ; then
-            node ./scripts/release-next
+          if [ "$GIT_REF" = "refs/heads/dev" ] ; then
+            node ./scripts/bump-next
+            yarn clean
+            yarn build
+            npm publish
           fi
         env:
-          ref: ${{ github.ref }}
+          GIT_REF: ${{ github.ref }}
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
