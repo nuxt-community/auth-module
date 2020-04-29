@@ -8,6 +8,7 @@ const DEFAULTS = {
   token: {
     type: '',
     property: '.status',
+    maxAge: false,
     global: false
   },
   endpoints: {
