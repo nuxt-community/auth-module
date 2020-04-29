@@ -80,8 +80,6 @@ auth: {
           property: 'user',
           // autoFetch: true
         },
-        clientId: false,
-        grantType: false,
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
           refresh: { url: '/api/auth/refresh', method: 'post' },
@@ -175,43 +173,15 @@ This option can be used to disable user fetch after login. It is useful when you
 
 ### `clientId`
 
-Here you configure the client id options.
+- Default: `false`
 
-#### `property`
-
-- Default `client_id`
-
-`clientId` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.client_id`
-
-#### `data`
-
-- Default: `client_id`
-
-`data` can be used to set the name of the property you want to send in the request.
-
-::: tip
-To disable clientId, simply set it's value to `false`.
-:::
+If your backend requires client id, it can be set here.
 
 ### `grantType`
 
-Here you configure the grant type options.
+- Default: `false`
 
-#### `data`
-
-- Default: `grant_type`
-
-`data` can be used to set the name of the property you want to send in the request.
-
-#### `value`
-
-- Default: `refresh_token`
-
-It's the value of the grant type you want.
-
-::: tip
-To disable grantType, simply set it's value to `false`.
-:::
+If your backend requires grant type, it can be set here.
 
 ### `autoLogout`
 
