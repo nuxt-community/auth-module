@@ -1,7 +1,9 @@
 /* eslint-disable import/namespace */
 import { existsSync } from 'fs'
+import consola from 'consola'
 import * as providers from '../providers'
 
+const logger = consola.withScope('nuxt:auth')
 const builtInSchemes = [
   'local',
   'cookie',
@@ -75,7 +77,7 @@ export function resolveScheme (nuxt, scheme) {
       return path
     }
   } catch (e) {
-    // Ignore
+    logger.fatal(`Scheme ${scheme} is not defined!`)
   }
 }
 
