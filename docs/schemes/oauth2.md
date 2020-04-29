@@ -29,7 +29,7 @@ The user is logged out and navigated to the **logout** page, for explicitly expl
 auth: {
   strategies: {
     social: {
-      _scheme: 'oauth2',
+      scheme: 'oauth2',
       endpoints: {
           authorization: 'https://accounts.google.com/o/oauth2/auth',
           token: undefined,

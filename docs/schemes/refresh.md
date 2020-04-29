@@ -4,7 +4,7 @@
 
 `refresh` is an extended version of `local` scheme, made for systems that use token refresh.
 
-You can set `_scheme` to `refresh` to enable it.
+You can set `scheme` to `refresh` to enable it.
 
 ## Usage
 
@@ -65,7 +65,7 @@ this.$auth.refreshTokens()
 auth: {
     strategies: {
       local: {
-        _scheme: 'refresh',
+        scheme: 'refresh',
         token: {
           property: 'access_token',
           maxAge: 1800,
