@@ -77,7 +77,7 @@ export function resolveScheme (nuxt, scheme) {
       return path
     }
   } catch (e) {
-    logger.fatal(`Scheme ${scheme} is not defined!`)
+    logger.fatal(`Scheme ${scheme} wasn't found!`)
   }
 }
 
