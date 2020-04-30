@@ -1,3 +1,4 @@
+import requrl from 'requrl'
 import LocalScheme from './local'
 
 const DEFAULTS = {
@@ -17,8 +18,20 @@ const DEFAULTS = {
 }
 
 export default class CookieScheme extends LocalScheme {
+  public req
+
   constructor ($auth, options) {
     super($auth, options, DEFAULTS)
+
+    this.req = $auth.ctx.req
+  }
+
+  mounted () {
+    if (process.server) {
+      this.$auth.ctx.$axios.setHeader('referer', requrl(this.req))
+    }
+
+    return super.mounted()
   }
 
   check () {
