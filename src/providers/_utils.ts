@@ -75,7 +75,10 @@ export function addAuthorize (nuxt, strategy) {
           .then((response) => {
             res.end(JSON.stringify(response.data))
           })
-          .catch(error => next(error))
+          .catch((error) => {
+            res.statusCode = error.response.status
+            res.end(JSON.stringify(error.response.data))
+          })
       })
     }
   })
