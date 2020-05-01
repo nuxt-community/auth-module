@@ -14,6 +14,7 @@ const DEFAULTS = {
   clientId: null,
   audience: null,
   grantType: null,
+  autoLogout: false,
   endpoints: {
     logout: '',
     authorization: '',
@@ -68,6 +69,18 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     // Sync tokens
     this.$auth.token.sync()
     this.$auth.refreshToken.sync()
+
+    // Get token and refresh token status
+    const tokenStatus = this.$auth.token.status()
+    const refreshTokenStatus = this.$auth.refreshToken.status()
+
+    // Force reset if refresh token has expired
+    // Or if `autoLogout` is enabled and token has expired
+    if (refreshTokenStatus.expired()) {
+      await this.$auth.reset()
+    } else if (this.options.autoLogout && tokenStatus.expired()) {
+      await this.$auth.reset()
+    }
 
     // Initialize request interceptor
     this.refreshController.initializeRequestInterceptor(this.options.endpoints.token)

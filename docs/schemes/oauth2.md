@@ -51,7 +51,8 @@ auth: {
       redirectUri: undefined,
       clientId: 'SET_ME',
       scope: ['openid', 'profile', 'email'],
-      state: 'UNIQUE_AND_NON_GUESSABLE'
+      state: 'UNIQUE_AND_NON_GUESSABLE',
+      // autoLogout: false
     }
   }
 }
@@ -160,3 +161,9 @@ By default it will be inferred from `redirect.callback` option. (Defaults to `/l
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
 
 By default is set to random generated string.
+
+### `autoLogout`
+
+- Default: `false`
+
+This option will logout the user on load the page, if token has expired.
