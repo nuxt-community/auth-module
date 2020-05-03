@@ -230,7 +230,7 @@ export default {
           }
         })
         .catch((e) => {
-          this.error = e.response ? e.response.data : e.toString()
+          this.error = e.response ? e.response.data.message : e.toString()
         })
     },
 
