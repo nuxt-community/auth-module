@@ -8,6 +8,7 @@ const DEFAULTS = {
   token: {
     type: '',
     property: '.status',
+    maxAge: false,
     global: false
   },
   endpoints: {
@@ -18,6 +19,14 @@ const DEFAULTS = {
 export default class CookieScheme extends LocalScheme {
   constructor ($auth, options) {
     super($auth, options, DEFAULTS)
+  }
+
+  mounted () {
+    if (process.server) {
+      this.$auth.ctx.$axios.setHeader('referer', this.$auth.ctx.req)
+    }
+
+    return super.mounted()
   }
 
   check () {
