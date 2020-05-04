@@ -1,6 +1,6 @@
-import { assignDefaults, addAuthorize, initializePasswordGrantFlow, assignAbsoluteEndpoints } from './_utils'
+import { assignDefaults, addAuthorize, initializePasswordGrantFlow, assignAbsoluteEndpoints } from '../../utils/provider'
 
-export function laravelPassport (nuxt, strategy) {
+export default function laravelPassport (nuxt, strategy) {
   const { url, grantType } = strategy
   const isPasswordGrant = grantType === 'password'
 

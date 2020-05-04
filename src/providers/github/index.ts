@@ -1,6 +1,6 @@
-import { assignDefaults, addAuthorize } from './_utils'
+import { assignDefaults, addAuthorize } from '../../utils/provider'
 
-export function github (nuxt, strategy) {
+export default function github (nuxt, strategy) {
   assignDefaults(strategy, {
     scheme: 'oauth2',
     endpoints: {

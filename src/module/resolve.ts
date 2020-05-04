@@ -1,7 +1,6 @@
-/* eslint-disable import/namespace */
 import { existsSync } from 'fs'
+import { resolve } from 'path'
 import consola from 'consola'
-import * as providers from '../providers'
 
 const logger = consola.withScope('nuxt:auth')
 const builtInSchemes = [
@@ -90,17 +89,15 @@ export function resolveProvider (_nuxt, provider) {
     return
   }
 
-  if (providers[provider]) {
-    return providers[provider]
-  }
+  const builtInProvider = resolve(__dirname, '../providers', provider)
 
-  try {
-    const path = this.nuxt.resolvePath(provider)
-
-    if (existsSync(path)) {
-      return require(path)
+  for (const _path of [provider, builtInProvider]) {
+    try {
+      const m = _nuxt.resolver.requireModule(_path)
+      return m.default || m
+    } catch (e) {
+      // TODO: Check if e.code is not file not found, throw an error (can be parse error)
+      // Ignore
     }
-  } catch (e) {
-    // Ignore
   }
 }

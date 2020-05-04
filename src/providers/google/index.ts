@@ -1,6 +1,6 @@
-import { assignDefaults } from './_utils'
+import { assignDefaults } from '../../utils/provider'
 
-export function google (_nuxt, strategy) {
+export default function google (_nuxt, strategy) {
   assignDefaults(strategy, {
     scheme: 'oauth2',
     endpoints: {

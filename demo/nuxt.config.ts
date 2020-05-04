@@ -72,6 +72,7 @@ export default {
       //   clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       // },
       laravelJWT: {
+        provider: 'laravel/jwt',
         url: '/laravel',
         endpoints: {
           login: {
@@ -89,9 +90,11 @@ export default {
         }
       },
       laravelSanctum: {
+        provider: 'laravel/sanctum',
         url: '/laravel'
       },
       laravelPassport: {
+        provider: 'laravel/passport',
         url: 'https://laravel-auth.nuxtjs.app',
         endpoints: {
           userInfo: '/api/auth/passport/user'
@@ -107,7 +110,7 @@ export default {
       },
       laravelPassportPasswordGrant: {
         name: 'laravelPassportPassword',
-        provider: 'laravelPassport',
+        provider: 'laravel/passport',
         url: '/laravel',
         endpoints: {
           user: {

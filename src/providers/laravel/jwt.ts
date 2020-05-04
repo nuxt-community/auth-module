@@ -1,6 +1,6 @@
-const { assignDefaults, assignAbsoluteEndpoints } = require('./_utils')
+import { assignDefaults, assignAbsoluteEndpoints } from '../../utils/provider'
 
-export function laravelJWT (_nuxt, strategy) {
+export default function laravelJWT (_nuxt, strategy) {
   const { url } = strategy
 
   if (!url) {
