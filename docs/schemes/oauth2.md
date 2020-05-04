@@ -143,6 +143,6 @@ By default is 'implicit' which is the current workflow implementation. In order 
 ### `acrValues`
 Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
 
-### `grant_types`
+### `grantTypes`
 
 Specifically indicate what grants the client requires. ([read more](https://oauth.net/2/grant-types/))
