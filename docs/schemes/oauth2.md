@@ -57,10 +57,10 @@ auth: {
       client_id: 'SET_ME',
       token_key: 'access_token',
       state: 'UNIQUE_AND_NON_GUESSABLE',
-      code_challenge: '',
-      grant_type: '',
+      codeChallengeMethod: '',
+      grantType: '',
       response_mode: '',
-      acr_values: ''
+      acrValues: ''
     }
   }
 }
@@ -136,11 +136,11 @@ The primary reason for using the state parameter is to mitigate CSRF attacks. ([
 
 By default is set to random generated string.
 
-### `code_challenge_method`
+### `codeChallengeMethod`
 
 By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
 
-### `acr_values`
+### `acrValues`
 Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
 
 ### `grant_types`
