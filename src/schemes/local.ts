@@ -45,7 +45,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     this.requestHandler = new RequestHandler(this.$auth)
   }
 
-  mounted () {
+  async mounted () {
     if (this.options.token.required) {
       // Sync token
       this.$auth.token.sync()
@@ -55,7 +55,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
       // Token is expired. Force reset.
       if (tokenStatus.expired()) {
-        this.$auth.reset()
+        await this.$auth.reset()
       }
     }
 
