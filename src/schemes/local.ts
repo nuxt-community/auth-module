@@ -45,7 +45,14 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     this.requestHandler = new RequestHandler(this.$auth)
   }
 
-  async mounted () {
+  _updateTokens (response) {
+    if (this.options.token.required) {
+      const token = getResponseProp(response, this.options.token.property)
+      this.$auth.token.set(token)
+    }
+  }
+
+  async _checkStatus () {
     if (this.options.token.required) {
       // Sync token
       this.$auth.token.sync()
@@ -58,9 +65,13 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
         await this.$auth.reset()
       }
     }
+  }
+
+  async mounted ({ refreshEndpoint = undefined } = {}) {
+    await this._checkStatus()
 
     // Initialize request interceptor
-    this.requestHandler.initializeRequestInterceptor()
+    this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
@@ -98,13 +109,10 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
       this.options.endpoints.login
     )
 
-    // Update Token
-    if (this.options.token.required) {
-      const token = getResponseProp(response, this.options.token.property)
-      this.$auth.token.set(token)
-    }
+    // Update tokens
+    this._updateTokens(response)
 
-    // Fetch user
+    // Fetch user if `autoFetch` is enabled
     if (this.options.user.autoFetch) {
       await this.fetchUser()
     }
