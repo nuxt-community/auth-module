@@ -59,15 +59,8 @@ export default class RefreshScheme extends LocalScheme {
     }
   }
 
-  // TODO: Remove `mounted` method after unify `initializeRequestInterceptor` method of RefreshController with RequestHandler
-  async mounted () {
-    await this._checkStatus()
-
-    // Initialize request interceptor
-    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.refresh.url)
-
-    // Fetch user once
-    return this.$auth.fetchUserOnce()
+  mounted () {
+    return super.mounted({ refreshEndpoint: this.options.endpoints.refresh.url })
   }
 
   check () {

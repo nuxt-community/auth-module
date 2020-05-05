@@ -67,11 +67,11 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  async mounted () {
+  async mounted ({ refreshEndpoint = undefined } = {}) {
     await this._checkStatus()
 
     // Initialize request interceptor
-    this.requestHandler.initializeRequestInterceptor()
+    this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
