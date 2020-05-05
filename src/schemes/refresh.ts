@@ -41,7 +41,7 @@ export default class RefreshScheme extends LocalScheme {
     }
   }
 
-  async mounted () {
+  async _checkStatus () {
     // Sync tokens
     this.$auth.token.sync()
     this.$auth.refreshToken.sync()
@@ -57,6 +57,11 @@ export default class RefreshScheme extends LocalScheme {
     } else if (this.options.autoLogout && tokenStatus.expired()) {
       await this.$auth.reset()
     }
+  }
+
+  // TODO: Remove `mounted` method after unify `initializeRequestInterceptor` method of RefreshController with RequestHandler
+  async mounted () {
+    await this._checkStatus()
 
     // Initialize request interceptor
     this.refreshController.initializeRequestInterceptor(this.options.endpoints.refresh.url)

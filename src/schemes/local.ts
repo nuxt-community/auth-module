@@ -52,7 +52,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  async mounted () {
+  async _checkStatus () {
     if (this.options.token.required) {
       // Sync token
       this.$auth.token.sync()
@@ -65,6 +65,10 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
         await this.$auth.reset()
       }
     }
+  }
+
+  async mounted () {
+    await this._checkStatus()
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor()
