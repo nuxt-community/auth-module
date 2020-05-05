@@ -23,7 +23,7 @@ export default class CookieScheme extends LocalScheme {
 
   mounted () {
     if (process.server) {
-      this.$auth.ctx.$axios.setHeader('referer', this.$auth.ctx.req)
+      this.$auth.ctx.$axios.setHeader('referer', this.$auth.ctx.req.headers.host)
     }
 
     return super.mounted()
