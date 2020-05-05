@@ -31,19 +31,19 @@ auth: {
     social: {
       scheme: 'oauth2',
       endpoints: {
-          authorization: 'https://accounts.google.com/o/oauth2/auth',
-          token: undefined,
-          userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
-          logout: 'https://example.com/logout'
+        authorization: 'https://accounts.google.com/o/oauth2/auth',
+        token: undefined,
+        userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
+        logout: 'https://example.com/logout'
       },
       token: {
-          property: 'access_token',
-          type: 'Bearer',
-          maxAge: 1800
+        property: 'access_token',
+        type: 'Bearer',
+        maxAge: 1800
       },
       refreshToken: {
-          property: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30
+        property: 'refresh_token',
+        maxAge: 60 * 60 * 24 * 30
       },
       responseType: 'token',
       grantType: 'authorization_code',

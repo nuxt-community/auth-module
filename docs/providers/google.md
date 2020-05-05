@@ -11,9 +11,9 @@ sidebarDepth: 0
 ```js
 auth: {
   strategies: {
-      google: {
-        clientId: '...'
-      },
+    google: {
+      clientId: '...'
+    },
   }
 }
 ```

@@ -7,15 +7,15 @@
 ```js
 auth: {
   strategies: {
-      'laravelPassport': {
-        provider: 'laravel/passport',
-        endpoints: {
-          userInfo: '...'
-        },
-        url: '...',
-        clientId: '...',
-        clientSecret: '...'
+    'laravelPassport': {
+      provider: 'laravel/passport',
+      endpoints: {
+        userInfo: '...'
       },
+      url: '...',
+      clientId: '...',
+      clientSecret: '...'
+    },
   }
 }
 ```

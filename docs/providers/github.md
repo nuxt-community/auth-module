@@ -7,10 +7,10 @@
 ```js
 auth: {
   strategies: {
-      github: {
-        clientId: '...',
-        clientSecret: '...'
-      },
+    github: {
+      clientId: '...',
+      clientSecret: '...'
+    },
   }
 }
 ```
