@@ -45,6 +45,13 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     this.requestHandler = new RequestHandler(this.$auth)
   }
 
+  _updateTokens (response) {
+    if (this.options.token.required) {
+      const token = getResponseProp(response, this.options.token.property)
+      this.$auth.token.set(token)
+    }
+  }
+
   async mounted () {
     if (this.options.token.required) {
       // Sync token
@@ -98,13 +105,10 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
       this.options.endpoints.login
     )
 
-    // Update Token
-    if (this.options.token.required) {
-      const token = getResponseProp(response, this.options.token.property)
-      this.$auth.token.set(token)
-    }
+    // Update tokens
+    this._updateTokens(response)
 
-    // Fetch user
+    // Fetch user if `autoFetch` is enabled
     if (this.options.user.autoFetch) {
       await this.fetchUser()
     }

@@ -56,6 +56,17 @@ export default class RefreshScheme extends LocalScheme {
     this.refreshController = new RefreshController(this)
   }
 
+  _updateTokens (response) {
+    const token = getResponseProp(response, this.options.token.property)
+    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : false
+
+    this.$auth.token.set(token)
+
+    if (refreshToken) {
+      this.$auth.refreshToken.set(refreshToken)
+    }
+  }
+
   async mounted () {
     // Sync tokens
     this.$auth.token.sync()
@@ -92,67 +103,6 @@ export default class RefreshScheme extends LocalScheme {
     }
 
     return true
-  }
-
-  async login (endpoint) {
-    // Login endpoint is disabled
-    if (!this.options.endpoints.login) { return }
-
-    // Ditch any leftover local tokens before attempting to log in
-    await this.$auth.reset()
-
-    // Add client id to payload if enabled
-    if (this.options.clientId) {
-      endpoint.data.client_id = this.options.clientId
-    }
-
-    // Add grant type to payload if defined
-    if (this.options.grantType) {
-      endpoint.data.grant_type = this.options.grantType
-    }
-
-    // Make login request
-    const response = await this.$auth.request(
-      endpoint,
-      this.options.endpoints.login
-    )
-
-    // Update token
-    const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : false
-
-    this.$auth.token.set(token)
-    this.$auth.refreshToken.set(refreshToken)
-
-    // Fetch user if `autoFetch` is enabled
-    if (this.options.user.autoFetch) {
-      await this.fetchUser()
-    }
-
-    return response
-  }
-
-  async fetchUser (endpoint?) {
-    // Token is required but not available
-    if (!this.check()) { return }
-
-    // User endpoint is disabled.
-    if (!this.options.endpoints.user) {
-      this.$auth.setUser({})
-      return
-    }
-
-    // Try to fetch user and then set
-    return this.$auth.requestWith(
-      this.name,
-      endpoint,
-      this.options.endpoints.user
-    ).then((response) => {
-      this.$auth.setUser(getResponseProp(response, this.options.user.property))
-      return response
-    }).catch((error) => {
-      this.$auth.callOnError(error, { method: 'fetchUser' })
-    })
   }
 
   async refreshTokens () {
@@ -201,16 +151,8 @@ export default class RefreshScheme extends LocalScheme {
       endpoint,
       this.options.endpoints.refresh
     ).then((response) => {
-      const token = getResponseProp(response, this.options.token.property)
-      const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : false
-
       // Update tokens
-      this.$auth.token.set(token)
-
-      if (refreshToken) {
-        this.$auth.refreshToken.set(refreshToken)
-      }
-
+      this._updateTokens(response)
       return response
     }).catch((error) => {
       this.$auth.callOnError(error, { method: 'refreshToken' })
