@@ -80,7 +80,7 @@ export function resolveScheme (nuxt, scheme) {
   }
 }
 
-export function resolveProvider (_nuxt, provider) {
+export function resolveProvider (nuxt, provider) {
   if (typeof provider === 'function') {
     return provider
   }
@@ -93,7 +93,7 @@ export function resolveProvider (_nuxt, provider) {
 
   for (const _path of [provider, builtInProvider]) {
     try {
-      const m = _nuxt.resolver.requireModule(_path)
+      const m = nuxt.resolver.requireModule(_path, { useESM: true })
       return m.default || m
     } catch (e) {
       // TODO: Check if e.code is not file not found, throw an error (can be parse error)

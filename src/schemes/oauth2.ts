@@ -98,7 +98,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     await this._checkStatus()
 
     // Initialize request interceptor
-    this.refreshController.initializeRequestInterceptor(this.options.endpoints.token)
+    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.token)
 
     // Handle callbacks on page load
     const redirected = await this._handleCallback()
@@ -115,7 +115,6 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   async reset () {
     this.$auth.setUser(false)
     this.$auth.token.reset()
-    this.$auth.refreshToken.reset()
 
     return Promise.resolve()
   }
