@@ -74,7 +74,7 @@ export default class RefreshScheme extends LocalScheme {
     }
 
     // Initialize request interceptor
-    this.refreshController.initializeRequestInterceptor(this.options.endpoints.refresh.url)
+    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.refresh.url)
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
@@ -221,7 +221,6 @@ export default class RefreshScheme extends LocalScheme {
     this.$auth.setUser(false)
     this.$auth.token.reset()
     this.$auth.refreshToken.reset()
-    this.refreshController.reset()
 
     return Promise.resolve()
   }
