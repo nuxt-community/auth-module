@@ -30,8 +30,4 @@ export default class RefreshController {
 
     return this._doRefresh()
   }
-
-  reset () {
-    //
-  }
 }

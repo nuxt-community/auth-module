@@ -100,7 +100,6 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   async reset () {
     this.$auth.setUser(false)
     this.$auth.token.reset()
-    this.$auth.refreshToken.reset()
 
     return Promise.resolve()
   }
