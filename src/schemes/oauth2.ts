@@ -83,7 +83,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
 
     // Initialize request interceptor
-    this.refreshController.initializeRequestInterceptor(this.options.endpoints.token)
+    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.token)
 
     // Handle callbacks on page load
     const redirected = await this._handleCallback()

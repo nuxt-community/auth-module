@@ -1,5 +1,4 @@
 import { Scheme, Auth } from '../types'
-import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RefreshController {
   public $auth: Auth
@@ -7,15 +6,6 @@ export default class RefreshController {
 
   constructor (public scheme: Scheme) {
     this.$auth = scheme.$auth
-  }
-
-  _getUpdatedRequestConfig (config) {
-    config.headers[this.scheme.options.token.name] = this.$auth.token.get()
-    return config
-  }
-
-  _requestHasAuthorizationHeader (config) {
-    return !!config.headers.common[this.scheme.options.token.name]
   }
 
   _doRefresh () {
@@ -39,54 +29,6 @@ export default class RefreshController {
     }
 
     return this._doRefresh()
-  }
-
-  // ---------------------------------------------------------------
-  // Watch requests for token expiration
-  // Refresh tokens if token has expired
-  // ---------------------------------------------------------------
-  initializeRequestInterceptor (refreshEndpoint) {
-    this.$auth.ctx.app.$axios.onRequest(async (config) => {
-      // Don't intercept refresh token requests
-      if (config.url === refreshEndpoint) {
-        return config
-      }
-
-      // Sync tokens
-      const token = this.$auth.token.sync()
-      this.$auth.refreshToken.sync()
-      const tokenStatus = this.$auth.token.status()
-      const refreshTokenStatus = this.$auth.refreshToken.status()
-
-      // If no token or no refresh token, bail
-      if (!this.scheme.check()) {
-        // The authorization header in the current request is expired.
-        // Token was deleted right before this request
-        if (!token && this._requestHasAuthorizationHeader(config)) {
-          throw new ExpiredAuthSessionError()
-        }
-
-        return config
-      }
-
-      // Token is still valid, let the request pass
-      if (tokenStatus.valid() || tokenStatus.unknown()) {
-        return this._getUpdatedRequestConfig(config)
-      }
-
-      // Refresh token has also expired. There is no way to refresh. Force reset.
-      if (refreshTokenStatus.expired()) {
-        await this.$auth.reset()
-
-        throw new ExpiredAuthSessionError()
-      }
-
-      // Refresh token before sending current request
-      await this.handleRefresh()
-
-      // Fetch updated token and add to current request
-      return this._getUpdatedRequestConfig(config)
-    })
   }
 
   reset () {
