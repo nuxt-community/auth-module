@@ -68,7 +68,8 @@ auth: {
         user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
       },
       // tokenRequired: true,
-      // tokenType: 'bearer'
+      // tokenType: 'bearer',
+      // globalToken: true,
       // autoFetchUser: true
     }
   }
@@ -111,13 +112,18 @@ This option can be used to disable all token handling. Useful for Cookie only fl
 
 - Default: `Authorization`
 
-  Authorization header name to be used in axios requests.
+Authorization header name to be used in axios requests.
 
 ### `tokenType`
 
 - Default: `Bearer`
 
- Authorization header type to be used in axios requests.
+Authorization header type to be used in axios requests.
+ 
+ ### `globalToken`
+ - Default: `true`
+ 
+ Set Authorization header for all axios requests
 
  ### `autoFetchUser`
 
