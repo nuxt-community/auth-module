@@ -43,6 +43,9 @@ export default class CookieScheme extends LocalScheme {
   }
 
   async login (endpoint) {
+    // Ditch any leftover local tokens before attempting to log in
+    await this.$auth.reset()
+
     // Make CSRF request if required
     if (this.options.endpoints.csrf) {
       await this.$auth.request(this.options.endpoints.csrf, {
@@ -50,14 +53,14 @@ export default class CookieScheme extends LocalScheme {
       })
     }
 
-    return super.login(endpoint)
+    return super.login(endpoint, { reset: false })
   }
 
-  async logout (endpoint) {
-    await super.logout(endpoint)
-
+  async reset () {
     if (this.options.cookie.name) {
       this.$auth.$storage.setCookie(this.options.cookie.name, null, { prefix: '' })
     }
+
+    return super.reset()
   }
 }

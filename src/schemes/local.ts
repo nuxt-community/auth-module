@@ -85,13 +85,15 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return true
   }
 
-  async login (endpoint) {
+  async login (endpoint, { reset = true } = {}) {
     if (!this.options.endpoints.login) {
       return
     }
 
     // Ditch any leftover local tokens before attempting to log in
-    await this.$auth.reset()
+    if (reset) {
+      await this.$auth.reset()
+    }
 
     // Add client id to payload if defined
     if (this.options.clientId) {
