@@ -65,7 +65,18 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return this.options.logoutRedirectUri || urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
   }
 
-  async mounted () {
+  _updateTokens (response) {
+    const token = getResponseProp(response, this.options.token.property)
+    const refreshToken = getResponseProp(response, this.options.refreshToken.property)
+
+    this.$auth.token.set(token)
+
+    if (refreshToken) {
+      this.$auth.refreshToken.set(refreshToken)
+    }
+  }
+
+  async _checkStatus () {
     // Sync tokens
     this.$auth.token.sync()
     this.$auth.refreshToken.sync()
@@ -81,6 +92,10 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     } else if (this.options.autoLogout && tokenStatus.expired()) {
       await this.$auth.reset()
     }
+  }
+
+  async mounted () {
+    await this._checkStatus()
 
     // Initialize request interceptor
     this.refreshController.initializeRequestInterceptor(this.options.endpoints.token)
@@ -260,15 +275,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       })
     })
 
-    const newToken = getResponseProp(response, this.options.token.property)
-    const newRefreshToken = getResponseProp(response, this.options.refreshToken.property)
-
-    // Update tokens
-    this.$auth.token.set(newToken)
-
-    if (newRefreshToken) {
-      this.$auth.refreshToken.set(newRefreshToken)
-    }
+    this._updateTokens(response)
 
     return response
   }
