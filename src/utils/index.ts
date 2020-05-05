@@ -135,6 +135,14 @@ export function addTokenPrefix (token, tokenType) {
   return tokenType + ' ' + token
 }
 
+export function removeTokenPrefix (token, tokenType) {
+  if (!token || !tokenType) {
+    return token
+  }
+
+  return token.replace(tokenType + ' ', '')
+}
+
 export function urlJoin (...args) {
   return args.join('/')
     .replace(/[/]+/g, '/')
