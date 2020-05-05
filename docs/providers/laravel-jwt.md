@@ -10,6 +10,7 @@ This provider is for the [Laravel JWT](https://github.com/tymondesigns/jwt-auth)
 auth: {
   strategies: {
     'laravelJWT': {
+      provider: 'laravel/jwt',
       url: '<laravel url>'
       endpoints: {
         ...

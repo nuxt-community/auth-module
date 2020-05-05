@@ -8,6 +8,7 @@
 auth: {
   strategies: {
       'laravelPassport': {
+        provider: 'laravel/passport',
         endpoints: {
           userInfo: '...'
         },
