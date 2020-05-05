@@ -6,30 +6,10 @@ import LocalScheme from './local'
 const DEFAULTS = {
   name: 'refresh',
   endpoints: {
-    login: {
-      url: '/api/auth/login',
-      method: 'post'
-    },
     refresh: {
       url: '/api/auth/refresh',
       method: 'post'
-    },
-    logout: {
-      url: '/api/auth/logout',
-      method: 'post'
-    },
-    user: {
-      url: '/api/auth/user',
-      method: 'get'
     }
-  },
-  token: {
-    property: 'token',
-    type: 'Bearer',
-    name: 'Authorization',
-    maxAge: 1800,
-    global: true,
-    required: true
   },
   refreshToken: {
     property: 'refresh_token',
@@ -37,12 +17,6 @@ const DEFAULTS = {
     maxAge: 60 * 60 * 24 * 30,
     required: true
   },
-  user: {
-    property: 'user',
-    autoFetch: true
-  },
-  clientId: false,
-  grantType: false,
   autoLogout: false
 }
 
