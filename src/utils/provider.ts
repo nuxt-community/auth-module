@@ -38,6 +38,7 @@ export function addAuthorize (nuxt, strategy) {
       formMiddleware(req, res, () => {
         const {
           code,
+          code_verifier: codeVerifier,
           redirect_uri: redirectUri = strategy.redirectUri,
           response_type: responseType = strategy.responseType,
           grant_type: grantType = strategy.grantType,
@@ -66,6 +67,7 @@ export function addAuthorize (nuxt, strategy) {
               response_type: responseType,
               redirect_uri: redirectUri,
               audience,
+              code_verifier: codeVerifier,
               code
             },
             headers: {

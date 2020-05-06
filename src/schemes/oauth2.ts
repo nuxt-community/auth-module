@@ -14,6 +14,8 @@ const DEFAULTS = {
   clientId: null,
   audience: null,
   grantType: null,
+  responseMode: null,
+  acrValues: null,
   autoLogout: false,
   endpoints: {
     logout: '',
@@ -33,7 +35,8 @@ const DEFAULTS = {
     property: 'refresh_token',
     maxAge: 60 * 60 * 24 * 30
   },
-  responseType: 'token'
+  responseType: 'token',
+  codeChallengeMethod: 'implicit'
 }
 
 export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
@@ -120,7 +123,36 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return Promise.resolve()
   }
 
-  login (_opts: { state?, params?, nonce? } = {}) {
+  _generateRandomString () {
+    const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
+    window.crypto.getRandomValues(array)
+    return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('')
+  }
+
+  _sha256 (plain) {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(plain)
+    return window.crypto.subtle.digest('SHA-256', data)
+  }
+
+  _base64UrlEncode (str) {
+    // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
+    // btoa accepts chars only within ascii 0-255 and base64 encodes them.
+    // Then convert the base64 encoded to base64url encoded
+    //   (replace + with -, replace / with _, trim trailing =)
+    return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  }
+
+  async _pkceChallengeFromVerifier (v, hashValue) {
+    if (hashValue) {
+      const hashed = await this._sha256(v)
+      return this._base64UrlEncode(hashed)
+    }
+    return v // plain is plain - url-encoded by default
+  }
+
+  async login (_opts: { state?, params?, nonce? } = {}) {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -131,6 +163,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       // Note: The primary reason for using the state parameter is to mitigate CSRF attacks.
       // https://auth0.com/docs/protocols/oauth2/oauth-state
       state: _opts.state || nanoid(),
+      code_challenge_method: this.options.codeChallengeMethod,
       ..._opts.params
     }
 
@@ -145,6 +178,32 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       // nanoid auto-generates an URL Friendly, unique Cryptographic string
       // Recommended by Auth0 on https://auth0.com/docs/api-auth/tutorials/nonce
       opts.nonce = _opts.nonce || nanoid()
+    }
+
+    if (opts.code_challenge_method) {
+      switch (opts.code_challenge_method) {
+        case 'plain':
+        case 'S256': {
+          const state = this._generateRandomString()
+          this.$auth.$storage.setUniversal(this.name + '.pkce_state', state)
+          const codeVerifier = this._generateRandomString()
+          this.$auth.$storage.setUniversal(this.name + '.pkce_code_verifier', codeVerifier)
+          const codeChallenge = await this._pkceChallengeFromVerifier(codeVerifier, opts.code_challenge_method === 'S256')
+          opts.code_challenge = window.encodeURIComponent(codeChallenge)
+        }
+          break
+        case 'implicit':
+        default:
+          break
+      }
+    }
+
+    if (this.options.responseMode) {
+      opts.response_mode = this.options.responseMode
+    }
+
+    if (this.options.acrValues) {
+      opts.acr_values = this.options.acrValues
     }
 
     this.$auth.$storage.setUniversal(this.name + '.state', opts.state)
@@ -209,6 +268,14 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     // -- Authorization Code Grant --
     if (this.options.responseType === 'code' && parsedQuery.code) {
+      let codeVerifier
+
+      // Retrieve code verifier and remove it from storage
+      if (this.options.codeChallengeMethod && this.options.codeChallengeMethod !== 'implicit') {
+        codeVerifier = this.$auth.$storage.getUniversal(this.name + '.pkce_code_verifier')
+        this.$auth.$storage.setUniversal(this.name + '.pkce_code_verifier', null)
+      }
+
       const response = await this.$auth.request({
         method: 'post',
         url: this.options.endpoints.token,
@@ -219,7 +286,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
           redirect_uri: this._redirectURI,
           response_type: this.options.responseType,
           audience: this.options.audience,
-          grant_type: this.options.grantType
+          grant_type: this.options.grantType,
+          code_verifier: codeVerifier
         })
       })
 

@@ -52,6 +52,9 @@ auth: {
       clientId: 'SET_ME',
       scope: ['openid', 'profile', 'email'],
       state: 'UNIQUE_AND_NON_GUESSABLE',
+      codeChallengeMethod: '',
+      responseMode: '',
+      acrValues: '',
       // autoLogout: false
     }
   }
@@ -102,12 +105,10 @@ It will be used in `Authorization` header of axios requests.
 
 - Default: `1800`
 
-
 Here you set the expiration time of the token, in **seconds**.
 This time will be used if for some reason we couldn't decode the token to get the expiration date.
 
 Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
-
 
 By default is set to 30 minutes.
 
@@ -161,6 +162,13 @@ By default it will be inferred from `redirect.callback` option. (Defaults to `/l
 The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
 
 By default is set to random generated string.
+
+### `codeChallengeMethod`
+
+By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
+
+### `acrValues`
+Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
 
 ### `autoLogout`
 
