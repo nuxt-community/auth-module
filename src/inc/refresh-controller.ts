@@ -9,10 +9,13 @@ export default class RefreshController {
   }
 
   _doRefresh () {
-    this._refreshPromise = new Promise((resolve) => {
+    this._refreshPromise = new Promise((resolve, reject) => {
       this.scheme.refreshTokens().then((response) => {
         this._refreshPromise = null
         resolve(response)
+      }).catch((error) => {
+        this._refreshPromise = null
+        reject(error)
       })
     })
 
