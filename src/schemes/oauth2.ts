@@ -79,7 +79,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  async _checkStatus () {
+  _checkStatus () {
     // Sync tokens
     this.$auth.token.sync()
     this.$auth.refreshToken.sync()
@@ -91,14 +91,14 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     // Force reset if refresh token has expired
     // Or if `autoLogout` is enabled and token has expired
     if (refreshTokenStatus.expired()) {
-      await this.$auth.reset()
+      this.$auth.reset()
     } else if (this.options.autoLogout && tokenStatus.expired()) {
-      await this.$auth.reset()
+      this.$auth.reset()
     }
   }
 
   async mounted () {
-    await this._checkStatus()
+    this._checkStatus()
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor(this.options.endpoints.token)
@@ -115,12 +115,10 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return !!this.$auth.token.get()
   }
 
-  async reset () {
+  reset () {
     this.$auth.setUser(false)
     this.$auth.token.reset()
     this.$auth.refreshToken.reset()
-
-    return Promise.resolve()
   }
 
   _generateRandomString () {
@@ -325,7 +323,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     // Refresh token is expired. There is no way to refresh. Force reset.
     if (refreshTokenStatus.expired()) {
-      await this.$auth.reset()
+      this.$auth.reset()
 
       throw new ExpiredAuthSessionError()
     }
