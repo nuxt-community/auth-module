@@ -34,9 +34,7 @@ export default function laravelPassport (nuxt, strategy) {
         token: url + '/oauth/token',
         login: {},
         refresh: {},
-        logout: {
-          url: false
-        },
+        logout: false,
         user: {
           url: url + '/api/auth/user'
         }
