@@ -341,6 +341,9 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         client_id: this.options.clientId,
         grant_type: 'refresh_token'
       })
+    }).catch((error) => {
+      this.$auth.callOnError(error, { method: 'refreshToken' })
+      return Promise.reject(error)
     })
 
     this._updateTokens(response)

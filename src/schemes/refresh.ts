@@ -128,6 +128,7 @@ export default class RefreshScheme extends LocalScheme {
       return response
     }).catch((error) => {
       this.$auth.callOnError(error, { method: 'refreshToken' })
+      return Promise.reject(error)
     })
   }
 
