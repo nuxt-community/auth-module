@@ -70,7 +70,11 @@ export default class RequestHandler {
       }
 
       // Refresh token before sending current request
-      await this.$auth.refreshTokens()
+      await this.$auth.refreshTokens().catch(async () => {
+        // Tokens couldn't be refreshed. Force reset.
+        await this.$auth.reset()
+        throw new ExpiredAuthSessionError()
+      })
 
       // Fetch updated token and add to current request
       return this._getUpdatedRequestConfig(config)
