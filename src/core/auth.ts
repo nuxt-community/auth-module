@@ -192,13 +192,9 @@ export default class Auth {
       this.setUser(false)
       this.token.reset()
       this.refreshToken.reset()
-      return Promise.resolve()
     }
 
-    return Promise.resolve(this.strategy.reset(...arguments)).catch((error) => {
-      this.callOnError(error, { method: 'reset' })
-      return Promise.reject(error)
-    })
+    return this.strategy.reset(...arguments)
   }
 
   refreshTokens () {

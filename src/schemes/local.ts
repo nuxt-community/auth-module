@@ -52,7 +52,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  async _checkStatus () {
+  _checkStatus () {
     if (this.options.token.required) {
       // Sync token
       this.$auth.token.sync()
@@ -62,13 +62,13 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
       // Token is expired. Force reset.
       if (tokenStatus.expired()) {
-        await this.$auth.reset()
+        this.$auth.reset()
       }
     }
   }
 
-  async mounted ({ refreshEndpoint = undefined } = {}) {
-    await this._checkStatus()
+  mounted ({ refreshEndpoint = undefined } = {}) {
+    this._checkStatus()
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
@@ -92,7 +92,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
     // Ditch any leftover local tokens before attempting to log in
     if (reset) {
-      await this.$auth.reset()
+      this.$auth.reset()
     }
 
     // Add client id to payload if defined
@@ -166,10 +166,8 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return this.$auth.reset()
   }
 
-  async reset () {
+  reset () {
     this.$auth.setUser(false)
     this.$auth.token.reset()
-
-    return Promise.resolve()
   }
 }

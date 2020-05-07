@@ -64,15 +64,15 @@ export default class RequestHandler {
 
       // Refresh token has also expired. There is no way to refresh. Force reset.
       if (refreshTokenStatus.expired()) {
-        await this.$auth.reset()
+        this.$auth.reset()
 
         throw new ExpiredAuthSessionError()
       }
 
       // Refresh token before sending current request
-      await this.$auth.refreshTokens().catch(async () => {
+      await this.$auth.refreshTokens().catch(() => {
         // Tokens couldn't be refreshed. Force reset.
-        await this.$auth.reset()
+        this.$auth.reset()
         throw new ExpiredAuthSessionError()
       })
 
