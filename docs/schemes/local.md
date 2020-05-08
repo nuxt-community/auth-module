@@ -124,5 +124,8 @@ This option can be used to disable all token handling. Useful for Cookie only fl
  - Default: `true`
 
  This option can be used to disable user fetch after login.
- 
- > TIP: It is useful when your login response already have the user. To manually set the user, use [setUser](../api/auth.md#setuser-user).
+ Useful if the login response already have the user. To manually set the user, use [setUser](../api/auth.md#setuser-user).
+
+ ::: warning IMPORTANT
+ It doesn't disable user fetch at all, only the one after login. If you don't want to fetch user, set `user` endpoint to `false`.
+ :::
