@@ -1,4 +1,4 @@
-import { Scheme, Auth } from '../types'
+import type { Scheme, Auth } from '../'
 
 export default class RefreshController {
   public $auth: Auth

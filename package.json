@@ -5,6 +5,7 @@
   "repository": "nuxt-community/auth-module",
   "license": "MIT",
   "main": "./dist/module/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "templates"

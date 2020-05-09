@@ -1,6 +1,6 @@
 import { getProp, getResponseProp } from '../utils'
 import RequestHandler from '../inc/request-handler'
-import { SchemeOptions, HTTPRequest } from '../types'
+import type { SchemeOptions, HTTPRequest } from '../'
 import BaseScheme from './_scheme'
 
 const DEFAULTS: SchemeOptions = {

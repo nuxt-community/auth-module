@@ -1,7 +1,7 @@
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import RefreshToken from '../inc/refresh-token'
 import Token from '../inc/token'
-import { AuthOptions, HTTPRequest, HTTPResponse } from '../types'
+import type { AuthOptions, HTTPRequest, HTTPResponse } from '../'
 import Storage from './storage'
 
 export default class Auth {

@@ -1,4 +1,4 @@
-import { Auth, HTTPRequest } from '../types'
+import type { Auth, HTTPRequest } from '../'
 import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RequestHandler {
