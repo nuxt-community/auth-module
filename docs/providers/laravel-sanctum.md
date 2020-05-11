@@ -33,6 +33,7 @@ auth: {
   auth: {
     strategies: {
       'laravelSanctum': {
+        provider: 'laravel/sanctum',
         url: '<laravel url>'
       }
     }
