@@ -335,7 +335,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       method: 'post',
       url: this.options.endpoints.token,
       data: encodeQuery({
-        refresh_token: removeTokenPrefix(refreshToken, this.$auth.options.token.type),
+        refresh_token: removeTokenPrefix(refreshToken, this.options.token.type),
         client_id: this.options.clientId,
         grant_type: 'refresh_token'
       })
