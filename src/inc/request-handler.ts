@@ -1,6 +1,8 @@
 import type { Auth, HTTPRequest } from '../'
 import ExpiredAuthSessionError from './expired-auth-session-error'
 
+type AxiosOptions = any;
+
 export default class RequestHandler {
   public $auth: Auth
   public interceptor: any
@@ -16,12 +18,12 @@ export default class RequestHandler {
       .some((endpoint: HTTPRequest | string) => typeof endpoint === 'object' ? endpoint.url === config.url : endpoint === config.url)
   }
 
-  _getUpdatedRequestConfig (config: HTTPRequest) {
-    config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
+  _getUpdatedRequestConfig (config: AxiosOptions) {
+    config.headers.common[this.$auth.strategy.options.token.name] = this.$auth.token.get()
     return config
   }
 
-  _requestHasAuthorizationHeader (config: HTTPRequest) {
+  _requestHasAuthorizationHeader (config: AxiosOptions) {
     return !!config.headers.common[this.$auth.strategy.options.token.name]
   }
 
