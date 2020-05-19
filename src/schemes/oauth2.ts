@@ -119,6 +119,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     this.$auth.setUser(false)
     this.$auth.token.reset()
     this.$auth.refreshToken.reset()
+    this.requestHandler.reset()
   }
 
   _generateRandomString () {

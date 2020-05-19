@@ -132,9 +132,13 @@ export default class RefreshScheme extends LocalScheme {
     })
   }
 
-  reset () {
+  reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
     this.$auth.token.reset()
     this.$auth.refreshToken.reset()
+
+    if (resetInterceptor) {
+      this.requestHandler.reset()
+    }
   }
 }
