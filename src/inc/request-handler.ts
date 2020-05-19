@@ -2,7 +2,13 @@ import type { Auth, HTTPRequest } from '../'
 import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RequestHandler {
-  constructor (public $auth: Auth) {}
+  public $auth: Auth
+  public interceptor: any
+
+  constructor (auth: Auth) {
+    this.$auth = auth
+    this.interceptor = null
+  }
 
   _getUpdatedRequestConfig (config: HTTPRequest) {
     config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
@@ -32,7 +38,7 @@ export default class RequestHandler {
   // Refresh tokens if token has expired
   // ---------------------------------------------------------------
   initializeRequestInterceptor (refreshEndpoint?: string) {
-    this.$auth.ctx.app.$axios.onRequest(async (config) => {
+    this.interceptor = this.$auth.ctx.app.$axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
       if (config.url === refreshEndpoint) {
         return config
@@ -79,5 +85,11 @@ export default class RequestHandler {
       // Fetch updated token and add to current request
       return this._getUpdatedRequestConfig(config)
     })
+  }
+
+  reset () {
+    // Eject request interceptor
+    this.$auth.ctx.app.$axios.interceptors.request.eject(this.interceptor)
+    this.interceptor = null
   }
 }
