@@ -23,29 +23,23 @@ export default async function authMiddleware (ctx) {
       ctx.$auth.redirect('home')
     }
 
-    if (ctx.$auth.strategy &&
-      ctx.$auth.strategy.options.token &&
-      ctx.$auth.strategy.options.token.required) {
-      // Sync tokens
-      ctx.$auth.token.sync()
-      const refreshToken = ctx.$auth.refreshToken.sync()
-      const tokenStatus = ctx.$auth.token.status()
-      const refreshTokenStatus = ctx.$auth.refreshToken.status()
-
-      // Refresh token has expired. There is no way to refresh. Force reset.
-      if (refreshTokenStatus.expired()) {
-        await ctx.$auth.reset()
-      } else if (tokenStatus.expired()) {
-        // Token has expired.
-        if (refreshToken) {
-          // Refresh token is available. Attempt refresh.
-          await ctx.$auth.refreshTokens()
-        } else {
-          // Refresh token is not available. Force reset.
-          await ctx.$auth.reset()
-        }
+    // Perform scheme checks.
+    // If token has expired, attempt `tokenCallback`.
+    // If refresh token has expired, attempt `refreshTokenCallback`.
+    await ctx.$auth.check(true, (isRefreshable) => {
+      // Refresh token is available. Attempt refresh.
+      if (isRefreshable) {
+        return this.$auth.refreshTokens()
+          .then(() => true)
+          .catch(() => false)
       }
-    }
+
+      // Refresh token is not available. Force reset.
+      ctx.$auth.reset()
+    }, () => {
+      // Refresh token has expired. There is no way to refresh. Force reset.
+      ctx.$auth.reset()
+    })
 
     // -- Guest --
     // (Those passing `callback` at runtime need to mark their callback component

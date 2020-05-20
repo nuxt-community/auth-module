@@ -1,35 +1,39 @@
-import type { Auth, HTTPRequest } from '../'
+import type { AxiosRequestConfig } from 'axios'
+import type { NuxtAxiosInstance } from '@nuxtjs/axios'
+import type { Scheme } from '../'
 import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RequestHandler {
-  public $auth: Auth
+  public scheme: Scheme
+  public $axios: NuxtAxiosInstance
   public interceptor: any
 
-  constructor (auth: Auth) {
-    this.$auth = auth
+  constructor (scheme, axios) {
+    this.scheme = scheme
+    this.$axios = axios
     this.interceptor = null
   }
 
-  _getUpdatedRequestConfig (config: HTTPRequest) {
-    config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
+  _getUpdatedRequestConfig (config: AxiosRequestConfig, token) {
+    config.headers[this.scheme.options.token.name] = token
     return config
   }
 
-  _requestHasAuthorizationHeader (config: HTTPRequest) {
-    return !!config.headers.common[this.$auth.strategy.options.token.name]
+  _requestHasAuthorizationHeader (config: AxiosRequestConfig) {
+    return !!config.headers.common[this.scheme.options.token.name]
   }
 
   setHeader (token) {
-    if (this.$auth.strategy.options.token.global) {
+    if (this.scheme.options.token.global) {
       // Set Authorization token for all axios requests
-      this.$auth.ctx.app.$axios.setHeader(this.$auth.strategy.options.token.name, token)
+      this.$axios.setHeader(this.scheme.options.token.name, token)
     }
   }
 
   clearHeader () {
-    if (this.$auth.strategy.options.token.global) {
+    if (this.scheme.options.token.global) {
       // Clear Authorization token for all axios requests
-      this.$auth.ctx.app.$axios.setHeader(this.$auth.strategy.options.token.name, false)
+      this.$axios.setHeader(this.scheme.options.token.name, false)
     }
   }
 
@@ -38,22 +42,38 @@ export default class RequestHandler {
   // Refresh tokens if token has expired
   // ---------------------------------------------------------------
   initializeRequestInterceptor (refreshEndpoint?: string) {
-    this.interceptor = this.$auth.ctx.app.$axios.interceptors.request.use(async (config) => {
+    this.interceptor = this.$axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
       if (config.url === refreshEndpoint) {
         return config
       }
 
-      // Sync tokens
-      const token = this.$auth.token.sync()
-      this.$auth.refreshToken.sync()
+      // Perform scheme checks.
+      // If token has expired, attempt `tokenCallback`.
+      // If refresh token has expired, attempt `refreshTokenCallback`.
+      const isValid = await this.scheme.check(true, (isRefreshable) => {
+        // Refresh token is not available. Force reset.
+        if (!isRefreshable) {
+          this.scheme.reset()
+          throw new ExpiredAuthSessionError()
+        }
 
-      // Get status
-      const tokenStatus = this.$auth.token.status()
-      const refreshTokenStatus = this.$auth.refreshToken.status()
+        // Refresh token is available. Attempt refresh.
+        return this.scheme.refreshTokens().then(() => true).catch(() => {
+          // Tokens couldn't be refreshed. Force reset.
+          this.scheme.reset()
+          throw new ExpiredAuthSessionError()
+        })
+      }, () => {
+        // Refresh token has expired. There is no way to refresh. Force reset.
+        this.scheme.reset()
+        throw new ExpiredAuthSessionError()
+      })
 
-      // If no token or no refresh token, bail
-      if (!this.$auth.strategy.check()) {
+      // Sync token
+      const token = this.scheme.token.get()
+
+      if (!isValid) {
         // The authorization header in the current request is expired.
         // Token was deleted right before this request
         if (!token && this._requestHasAuthorizationHeader(config)) {
@@ -63,33 +83,15 @@ export default class RequestHandler {
         return config
       }
 
-      // Token is still valid, let the request pass
-      if (tokenStatus.valid() || tokenStatus.unknown()) {
-        return this._getUpdatedRequestConfig(config)
-      }
-
-      // Refresh token has also expired. There is no way to refresh. Force reset.
-      if (refreshTokenStatus.expired()) {
-        this.$auth.reset()
-
-        throw new ExpiredAuthSessionError()
-      }
-
-      // Refresh token before sending current request
-      await this.$auth.refreshTokens().catch(() => {
-        // Tokens couldn't be refreshed. Force reset.
-        this.$auth.reset()
-        throw new ExpiredAuthSessionError()
-      })
-
+      // Token is valid, let the request pass
       // Fetch updated token and add to current request
-      return this._getUpdatedRequestConfig(config)
+      return this._getUpdatedRequestConfig(config, token)
     })
   }
 
   reset () {
     // Eject request interceptor
-    this.$auth.ctx.app.$axios.interceptors.request.eject(this.interceptor)
+    this.$axios.interceptors.request.eject(this.interceptor)
     this.interceptor = null
   }
 }

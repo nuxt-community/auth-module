@@ -1,6 +1,8 @@
+import type { AxiosRequestConfig } from 'axios'
 import { getProp, getResponseProp } from '../utils'
+import Token from '../inc/token'
 import RequestHandler from '../inc/request-handler'
-import type { SchemeOptions, HTTPRequest } from '../'
+import type { SchemeOptions } from '../'
 import BaseScheme from './_scheme'
 
 const DEFAULTS: SchemeOptions = {
@@ -25,7 +27,9 @@ const DEFAULTS: SchemeOptions = {
     name: 'Authorization',
     maxAge: 1800,
     global: true,
-    required: true
+    required: true,
+    prefix: '_token.',
+    expirationPrefix: '_token_expiration.'
   },
   user: {
     property: 'user',
@@ -36,53 +40,67 @@ const DEFAULTS: SchemeOptions = {
 }
 
 export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
-  requestHandler: RequestHandler
+  public token: Token
+  public requestHandler: RequestHandler
 
   constructor ($auth, options, ...defaults) {
     super($auth, options, ...defaults, DEFAULTS)
 
+    // Initialize Token instance
+    this.token = new Token(this, this.$auth.$storage)
+
     // Initialize Request Interceptor
-    this.requestHandler = new RequestHandler(this.$auth)
+    this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
   _updateTokens (response) {
     if (this.options.token.required) {
       const token = getResponseProp(response, this.options.token.property)
-      this.$auth.token.set(token)
+      this.token.set(token)
     }
   }
 
-  _checkStatus () {
-    if (this.options.token.required) {
-      // Sync token
-      this.$auth.token.sync()
+  check (checkStatus = false, tokenCallback?, _refreshTokenCallback?) {
+    // Sync token
+    const token = this.token.sync()
 
-      // Get token status
-      const tokenStatus = this.$auth.token.status()
+    // Token is required but not available
+    if (this.options.token.required && !token) {
+      return false
+    }
 
-      // Token is expired. Force reset.
-      if (tokenStatus.expired()) {
-        this.$auth.reset()
+    // Check status wasn't enabled, let it pass
+    if (!checkStatus) {
+      return true
+    }
+
+    // Get status
+    const tokenStatus = this.token.status()
+
+    // Token has expired. Attempt `tokenCallback`
+    if (tokenStatus.expired()) {
+      if (typeof tokenCallback === 'function') {
+        return tokenCallback(false) || false
       }
+
+      return false
     }
+
+    return true
   }
 
-  mounted ({ refreshEndpoint = undefined } = {}) {
-    this._checkStatus()
+  mounted ({
+    refreshEndpoint = undefined,
+    tokenCallback = () => this.$auth.reset(),
+    refreshTokenCallback = undefined
+  } = {}) {
+    this.check(true, tokenCallback, refreshTokenCallback)
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
-  }
-
-  check () {
-    if (this.options.token.required && !this.$auth.token.get()) {
-      return false
-    }
-
-    return true
   }
 
   async login (endpoint, { reset = true, refreshEndpoint = undefined } = {}) {
@@ -128,7 +146,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
   }
 
   async setUserToken (tokenValue) {
-    this.$auth.token.set(getProp(tokenValue, this.options.token.property))
+    this.token.set(getProp(tokenValue, this.options.token.property))
 
     // Fetch user
     return this.fetchUser()
@@ -159,12 +177,13 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     })
   }
 
-  async logout (endpoint: HTTPRequest = {}) {
+  async logout (endpoint: AxiosRequestConfig = {}) {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
       await this.$auth
         .requestWith(this.name, endpoint, this.options.endpoints.logout)
-        .catch(() => { })
+        .catch(() => {
+        })
     }
 
     // But reset regardless
@@ -173,7 +192,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
   reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
-    this.$auth.token.reset()
+    this.token.reset()
 
     if (resetInterceptor) {
       this.requestHandler.reset()

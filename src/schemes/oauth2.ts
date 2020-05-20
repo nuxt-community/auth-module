@@ -4,6 +4,8 @@ import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, remov
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
+import Token from '../inc/token'
+import RefreshToken from '../inc/refresh-token'
 import BaseScheme from './_scheme'
 
 const DEFAULTS = {
@@ -29,11 +31,15 @@ const DEFAULTS = {
     type: 'Bearer',
     name: 'Authorization',
     maxAge: 1800,
-    global: true
+    global: true,
+    prefix: '_token.',
+    expirationPrefix: '_token_expiration.'
   },
   refreshToken: {
     property: 'refresh_token',
-    maxAge: 60 * 60 * 24 * 30
+    maxAge: 60 * 60 * 24 * 30,
+    prefix: '_refresh_token.',
+    expirationPrefix: '_refresh_token_expiration.'
   },
   responseType: 'token',
   codeChallengeMethod: 'implicit'
@@ -42,6 +48,8 @@ const DEFAULTS = {
 export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   public req
   public name
+  public token: Token
+  public refreshToken: RefreshToken
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
@@ -50,8 +58,17 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     this.req = $auth.ctx.req
 
+    // Initialize Token instance
+    this.token = new Token(this, this.$auth.$storage)
+
+    // Initialize Refresh Token instance
+    this.refreshToken = new RefreshToken(this, this.$auth.$storage)
+
+    // Initialize Refresh Controller
     this.refreshController = new RefreshController(this)
-    this.requestHandler = new RequestHandler(this.$auth)
+
+    // Initialize Request Handler
+    this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
   get _scope () {
@@ -72,33 +89,61 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     const token = getResponseProp(response, this.options.token.property)
     const refreshToken = getResponseProp(response, this.options.refreshToken.property)
 
-    this.$auth.token.set(token)
+    this.token.set(token)
 
     if (refreshToken) {
-      this.$auth.refreshToken.set(refreshToken)
+      this.refreshToken.set(refreshToken)
     }
   }
 
-  _checkStatus () {
+  check (checkStatus = false, tokenCallback?, refreshTokenCallback?) {
     // Sync tokens
-    this.$auth.token.sync()
-    this.$auth.refreshToken.sync()
+    const token = this.token.sync()
+    this.refreshToken.sync()
 
-    // Get token and refresh token status
-    const tokenStatus = this.$auth.token.status()
-    const refreshTokenStatus = this.$auth.refreshToken.status()
-
-    // Force reset if refresh token has expired
-    // Or if `autoLogout` is enabled and token has expired
-    if (refreshTokenStatus.expired()) {
-      this.$auth.reset()
-    } else if (this.options.autoLogout && tokenStatus.expired()) {
-      this.$auth.reset()
+    // Token is required but not available
+    if (!token) {
+      return false
     }
+
+    // Check status wasn't enabled, let it pass
+    if (!checkStatus) {
+      return true
+    }
+
+    // Get status
+    const tokenStatus = this.token.status()
+    const refreshTokenStatus = this.refreshToken.status()
+
+    // Refresh token has expired. There is no way to refresh. Force reset.
+    if (refreshTokenStatus.expired()) {
+      if (typeof refreshTokenCallback === 'function') {
+        return refreshTokenCallback() || false
+      }
+
+      return false
+    }
+
+    // Token has expired, Force reset.
+    if (tokenStatus.expired()) {
+      if (typeof tokenCallback === 'function') {
+        return tokenCallback(true) || false
+      }
+
+      return false
+    }
+
+    return true
   }
 
   async mounted () {
-    this._checkStatus()
+    this.check(true, () => {
+      if (this.options.autoLogout) {
+        this.$auth.reset()
+      }
+    }, () => {
+      this.$auth.reset()
+    })
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor(this.options.endpoints.token)
@@ -111,14 +156,14 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  check () {
-    return !!this.$auth.token.get()
-  }
-
-  reset () {
+  reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
-    this.$auth.token.reset()
-    this.$auth.refreshToken.reset()
+    this.token.reset()
+    this.refreshToken.reset()
+
+    if (resetInterceptor) {
+      this.requestHandler.reset()
+    }
     this.requestHandler.reset()
   }
 
@@ -278,7 +323,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       const response = await this.$auth.request({
         method: 'post',
         url: this.options.endpoints.token,
-        baseURL: process.server ? undefined : false,
+        baseURL: '',
         data: encodeQuery({
           code: parsedQuery.code,
           client_id: this.options.clientId,
@@ -299,11 +344,11 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
 
     // Set token
-    this.$auth.token.set(token)
+    this.token.set(token)
 
     // Store refresh token
     if (refreshToken && refreshToken.length) {
-      this.$auth.refreshToken.set(refreshToken)
+      this.refreshToken.set(refreshToken)
     }
 
     // Redirect to home
@@ -314,13 +359,13 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
   async refreshTokens () {
     // Get refresh token
-    const refreshToken = this.$auth.refreshToken.get()
+    const refreshToken = this.refreshToken.get()
 
     // Refresh token is required but not available
     if (!refreshToken) { return }
 
     // Get refresh token status
-    const refreshTokenStatus = this.$auth.refreshToken.status()
+    const refreshTokenStatus = this.refreshToken.status()
 
     // Refresh token is expired. There is no way to refresh. Force reset.
     if (refreshTokenStatus.expired()) {
