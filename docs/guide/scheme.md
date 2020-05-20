@@ -45,7 +45,7 @@ With this set up, you can create your scheme file. We will be using the path bel
 
 `~/schemes/customScheme.js`
 ```js
-import LocalSheme from '@nuxtjs/auth/lib/schemes/local'
+import LocalScheme from '@nuxtjs/auth/lib/schemes/local'
 
 export default class MyCustomScheme extends LocalScheme {
   // Override `fetchUser` method of `local` scheme
