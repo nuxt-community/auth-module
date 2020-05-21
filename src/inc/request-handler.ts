@@ -14,6 +14,12 @@ export default class RequestHandler {
     this.interceptor = null
   }
 
+  _needToken (config: AxiosRequestConfig) {
+    const options = this.scheme.options
+    return options.token.global || Object.values(options.endpoints)
+      .some((endpoint: AxiosRequestConfig | string) => typeof endpoint === 'object' ? endpoint.url === config.url : endpoint === config.url)
+  }
+
   _getUpdatedRequestConfig (config: AxiosRequestConfig, token) {
     config.headers[this.scheme.options.token.name] = token
     return config
@@ -44,7 +50,7 @@ export default class RequestHandler {
   initializeRequestInterceptor (refreshEndpoint?: string) {
     this.interceptor = this.$axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
-      if (config.url === refreshEndpoint) {
+      if (!this._needToken(config) || config.url === refreshEndpoint) {
         return config
       }
 
