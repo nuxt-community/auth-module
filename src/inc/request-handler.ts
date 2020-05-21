@@ -6,7 +6,8 @@ export default class RequestHandler {
 
   _needToken (config: HTTPRequest) {
     const options = this.$auth.strategy.options
-    return options.token.global || Object.values(options.endpoints).includes(config.url)
+    return options.token.global || Object.values(options.endpoints)
+      .some(endpoint => typeof endpoint === 'object' ? endpoint.url === config.url : endpoint === config.url)
   }
 
   _getUpdatedRequestConfig (config: HTTPRequest) {
