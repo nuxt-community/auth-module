@@ -29,7 +29,7 @@ export default async function authMiddleware (ctx) {
     await ctx.$auth.check(true, (isRefreshable) => {
       // Refresh token is available. Attempt refresh.
       if (isRefreshable) {
-        return this.$auth.refreshTokens()
+        return ctx.$auth.refreshTokens()
           .then(() => true)
           .catch(() => false)
       }
