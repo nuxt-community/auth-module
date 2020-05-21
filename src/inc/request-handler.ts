@@ -4,6 +4,11 @@ import ExpiredAuthSessionError from './expired-auth-session-error'
 export default class RequestHandler {
   constructor (public $auth: Auth) {}
 
+  _needToken (config: HTTPRequest) {
+    const options = this.$auth.strategy.options;
+    return options.token.global || Object.values(options.endpoints).includes(config.url)
+  }
+
   _getUpdatedRequestConfig (config: HTTPRequest) {
     config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
     return config
@@ -34,7 +39,7 @@ export default class RequestHandler {
   initializeRequestInterceptor (refreshEndpoint?: string) {
     this.$auth.ctx.app.$axios.onRequest(async (config) => {
       // Don't intercept refresh token requests
-      if (config.url === refreshEndpoint) {
+      if (!this._needToken(config) || config.url === refreshEndpoint ) {
         return config
       }
 
