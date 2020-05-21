@@ -294,7 +294,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
 
     if (!token || !token.length) {
-      return
+      this.$auth.redirect('home', true)
+      return true
     }
 
     // Set token
