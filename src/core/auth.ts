@@ -246,7 +246,7 @@ export default class Auth {
     return this.$storage.getState('busy')
   }
 
-  request (endpoint: AxiosRequestConfig, defaults = {}): Promise<AxiosResponse> {
+  request (endpoint: AxiosRequestConfig, defaults: AxiosRequestConfig = {}): Promise<AxiosResponse> {
     const _endpoint =
       typeof defaults === 'object'
         ? Object.assign({}, defaults, endpoint)
