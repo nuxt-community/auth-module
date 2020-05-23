@@ -132,6 +132,12 @@ Default: `false`
 
 If true, use the full route path with query parameters for redirect
 
+## `noRouter`
+
+Default: `false`
+
+If true, use the router disable for redirect
+
 ## `vuex.namespace`
 
 * Default: `auth`
