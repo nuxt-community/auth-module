@@ -354,7 +354,7 @@ export default class Auth {
     }
 
     if (process.client) {
-      if (noRouter||this.options.noRouter) {
+      if (noRouter || this.options.noRouter) {
         window.location.replace(to)
       } else {
         this.ctx.redirect(to, this.ctx.query)
