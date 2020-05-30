@@ -39,3 +39,4 @@ For example (with SSR), if you need to make sure all instances of `axios` are co
   }
 }
 ```
+In this example, make sure the axios plugin does not appear in the root plugins section as well, otherwise it won't have $auth available
