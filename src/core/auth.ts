@@ -118,7 +118,10 @@ export default class Auth {
       throw new Error(`Strategy ${name} is not defined!`)
     }
 
-    // Set strategy
+    // Reset current strategy
+    this.reset()
+
+    // Set new strategy
     this.$storage.setUniversal('strategy', name)
 
     // Call mounted hook on active strategy
@@ -187,14 +190,14 @@ export default class Auth {
     })
   }
 
-  reset () {
+  reset (...args) {
     if (!this.strategy.reset) {
       this.setUser(false)
       this.token.reset()
       this.refreshToken.reset()
     }
 
-    return this.strategy.reset(...arguments)
+    return this.strategy.reset(...args)
   }
 
   refreshTokens () {

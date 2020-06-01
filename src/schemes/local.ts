@@ -85,14 +85,14 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return true
   }
 
-  async login (endpoint, { reset = true } = {}) {
+  async login (endpoint, { reset = true, refreshEndpoint = undefined } = {}) {
     if (!this.options.endpoints.login) {
       return
     }
 
     // Ditch any leftover local tokens before attempting to log in
     if (reset) {
-      this.$auth.reset()
+      this.$auth.reset({ resetInterceptor: false })
     }
 
     // Add client id to payload if defined
@@ -113,6 +113,11 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
     // Update tokens
     this._updateTokens(response)
+
+    // Initialize request interceptor if not initialized
+    if (!this.requestHandler.interceptor) {
+      this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
+    }
 
     // Fetch user if `autoFetch` is enabled
     if (this.options.user.autoFetch) {
@@ -166,8 +171,12 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return this.$auth.reset()
   }
 
-  reset () {
+  reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
     this.$auth.token.reset()
+
+    if (resetInterceptor) {
+      this.requestHandler.reset()
+    }
   }
 }
