@@ -156,14 +156,10 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  reset ({ resetInterceptor = true } = {}) {
+  reset () {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()
-
-    if (resetInterceptor) {
-      this.requestHandler.reset()
-    }
     this.requestHandler.reset()
   }
 

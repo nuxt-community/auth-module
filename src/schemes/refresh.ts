@@ -170,9 +170,5 @@ export default class RefreshScheme extends LocalScheme {
     if (resetInterceptor) {
       this.requestHandler.reset()
     }
-
-    if (resetInterceptor) {
-      this.requestHandler.reset()
-    }
   }
 }
