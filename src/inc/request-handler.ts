@@ -5,12 +5,12 @@ import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RequestHandler {
   public scheme: Scheme
-  public $axios: NuxtAxiosInstance
+  public axios: NuxtAxiosInstance
   public interceptor: any
 
   constructor (scheme, axios) {
     this.scheme = scheme
-    this.$axios = axios
+    this.axios = axios
     this.interceptor = null
   }
 
@@ -32,14 +32,14 @@ export default class RequestHandler {
   setHeader (token) {
     if (this.scheme.options.token.global) {
       // Set Authorization token for all axios requests
-      this.$axios.setHeader(this.scheme.options.token.name, token)
+      this.axios.setHeader(this.scheme.options.token.name, token)
     }
   }
 
   clearHeader () {
     if (this.scheme.options.token.global) {
       // Clear Authorization token for all axios requests
-      this.$axios.setHeader(this.scheme.options.token.name, false)
+      this.axios.setHeader(this.scheme.options.token.name, false)
     }
   }
 
@@ -48,7 +48,7 @@ export default class RequestHandler {
   // Refresh tokens if token has expired
   // ---------------------------------------------------------------
   initializeRequestInterceptor (refreshEndpoint?: string) {
-    this.interceptor = this.$axios.interceptors.request.use(async (config) => {
+    this.interceptor = this.axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
       if (!this._needToken(config) || config.url === refreshEndpoint) {
         return config
@@ -97,7 +97,7 @@ export default class RequestHandler {
 
   reset () {
     // Eject request interceptor
-    this.$axios.interceptors.request.eject(this.interceptor)
+    this.axios.interceptors.request.eject(this.interceptor)
     this.interceptor = null
   }
 }
