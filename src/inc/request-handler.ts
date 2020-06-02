@@ -55,9 +55,22 @@ export default class RequestHandler {
       }
 
       // Perform scheme checks.
-      // If token has expired, attempt `tokenCallback`.
-      // If refresh token has expired, attempt `refreshTokenCallback`.
-      const isValid = await this.scheme.check(true, (isRefreshable) => {
+      const {
+        valid,
+        tokenExpired,
+        refreshTokenExpired,
+        isRefreshable
+      } = this.scheme.check(true)
+      let isValid = valid
+
+      // Refresh token has expired. There is no way to refresh. Force reset.
+      if (refreshTokenExpired) {
+        this.scheme.reset()
+        throw new ExpiredAuthSessionError()
+      }
+
+      // Token has expired.
+      if (tokenExpired) {
         // Refresh token is not available. Force reset.
         if (!isRefreshable) {
           this.scheme.reset()
@@ -65,20 +78,17 @@ export default class RequestHandler {
         }
 
         // Refresh token is available. Attempt refresh.
-        return this.scheme.refreshTokens().then(() => true).catch(() => {
+        isValid = await this.scheme.refreshTokens().then(() => true).catch(() => {
           // Tokens couldn't be refreshed. Force reset.
           this.scheme.reset()
           throw new ExpiredAuthSessionError()
         })
-      }, () => {
-        // Refresh token has expired. There is no way to refresh. Force reset.
-        this.scheme.reset()
-        throw new ExpiredAuthSessionError()
-      })
+      }
 
       // Sync token
       const token = this.scheme.token.get()
 
+      // Scheme checks were performed, but returned that is not valid.
       if (!isValid) {
         // The authorization header in the current request is expired.
         // Token was deleted right before this request

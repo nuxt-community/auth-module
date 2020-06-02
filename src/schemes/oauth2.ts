@@ -6,6 +6,7 @@ import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import Token from '../inc/token'
 import RefreshToken from '../inc/refresh-token'
+import type { SchemeCheck } from '../index'
 import BaseScheme from './_scheme'
 
 const DEFAULTS = {
@@ -96,19 +97,27 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  check (checkStatus = false, tokenCallback?, refreshTokenCallback?) {
+  check (checkStatus = false): SchemeCheck {
+    const response = {
+      valid: false,
+      tokenExpired: false,
+      refreshTokenExpired: false,
+      isRefreshable: true
+    }
+
     // Sync tokens
     const token = this.token.sync()
     this.refreshToken.sync()
 
     // Token is required but not available
     if (!token) {
-      return false
+      return response
     }
 
     // Check status wasn't enabled, let it pass
     if (!checkStatus) {
-      return true
+      response.valid = true
+      return response
     }
 
     // Get status
@@ -117,33 +126,28 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     // Refresh token has expired. There is no way to refresh. Force reset.
     if (refreshTokenStatus.expired()) {
-      if (typeof refreshTokenCallback === 'function') {
-        return refreshTokenCallback() || false
-      }
-
-      return false
+      response.refreshTokenExpired = true
+      return response
     }
 
     // Token has expired, Force reset.
     if (tokenStatus.expired()) {
-      if (typeof tokenCallback === 'function') {
-        return tokenCallback(true) || false
-      }
-
-      return false
+      response.tokenExpired = true
+      return response
     }
 
-    return true
+    response.valid = true
+    return response
   }
 
   async mounted () {
-    this.check(true, () => {
-      if (this.options.autoLogout) {
-        this.$auth.reset()
-      }
-    }, () => {
+    const { tokenExpired, refreshTokenExpired } = this.check(true)
+
+    // Force reset if refresh token has expired
+    // Or if `autoLogout` is enabled and token has expired
+    if (refreshTokenExpired || (tokenExpired && this.options.autoLogout)) {
       this.$auth.reset()
-    })
+    }
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor(this.options.endpoints.token)
@@ -266,7 +270,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   }
 
   async fetchUser () {
-    if (!this.check()) {
+    if (!this.check().valid) {
       return
     }
 

@@ -216,14 +216,11 @@ export default class Auth {
   }
 
   check (...args) {
-    let loggedIn = Boolean(this.$state.user)
-
-    if (loggedIn && typeof this.strategy.check === 'function') {
-      loggedIn = this.strategy.check(...args)
+    if (!this.strategy.check) {
+      return { valid: true }
     }
 
-    this.$storage.setState('loggedIn', loggedIn)
-    return loggedIn
+    return this.strategy.check(...args)
   }
 
   fetchUserOnce (...args) {
@@ -235,7 +232,16 @@ export default class Auth {
 
   setUser (user) {
     this.$storage.setState('user', user)
-    this.check()
+
+    let check = { valid: Boolean(user) }
+
+    // If user is defined, perform scheme checks.
+    if (check.valid) {
+      check = this.check()
+    }
+
+    // Update `loggedIn` state
+    this.$storage.setState('loggedIn', check.valid)
   }
 
   // ---------------------------------------------------------------

@@ -24,22 +24,21 @@ export default async function authMiddleware (ctx) {
     }
 
     // Perform scheme checks.
-    // If token has expired, attempt `tokenCallback`.
-    // If refresh token has expired, attempt `refreshTokenCallback`.
-    await ctx.$auth.check(true, (isRefreshable) => {
-      // Refresh token is available. Attempt refresh.
-      if (isRefreshable) {
-        return ctx.$auth.refreshTokens()
-          .then(() => true)
-          .catch(() => false)
-      }
+    const { tokenExpired, refreshTokenExpired, isRefreshable } = ctx.$auth.check(true)
 
-      // Refresh token is not available. Force reset.
+    // Refresh token has expired. There is no way to refresh. Force reset.
+    if (refreshTokenExpired) {
       ctx.$auth.reset()
-    }, () => {
-      // Refresh token has expired. There is no way to refresh. Force reset.
-      ctx.$auth.reset()
-    })
+    } else if (tokenExpired) {
+      // Token has expired. Check if refresh token is available.
+      if (isRefreshable) {
+        // Refresh token is available. Attempt refresh.
+        await ctx.$auth.refreshTokens()
+      } else {
+        // Refresh token is not available. Force reset.
+        ctx.$auth.reset()
+      }
+    }
 
     // -- Guest --
     // (Those passing `callback` at runtime need to mark their callback component

@@ -10,13 +10,20 @@ export type Scheme = _Scheme<SchemeOptions | any> & {
   refreshToken?: RefreshToken
   requestHandler?: RequestHandler
   refreshTokens?: Function
-  check?: (checkStatus: boolean, tokenCallback?: (isRefreshable: boolean) => boolean | void, refreshTokenCallback?: () => boolean | void) => boolean | Promise<boolean>
+  check?: (checkStatus: boolean) => SchemeCheck
   reset?: Function
 }
 
 export type SchemeOptions = {
   name: string,
   [key: string]: any
+}
+
+export type SchemeCheck = {
+  valid: boolean
+  tokenExpired?: boolean
+  refreshTokenExpired?: boolean
+  isRefreshable?: boolean
 }
 
 export type AuthOptions = {

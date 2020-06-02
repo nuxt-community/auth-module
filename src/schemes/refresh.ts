@@ -2,6 +2,7 @@ import { cleanObj, getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import RefreshToken from '../inc/refresh-token'
+import type { SchemeCheck } from '../index'
 import LocalScheme from './local'
 
 const DEFAULTS = {
@@ -48,24 +49,32 @@ export default class RefreshScheme extends LocalScheme {
     }
   }
 
-  check (checkStatus = false, tokenCallback?, refreshTokenCallback?) {
+  check (checkStatus = false): SchemeCheck {
+    const response = {
+      valid: false,
+      tokenExpired: false,
+      refreshTokenExpired: false,
+      isRefreshable: true
+    }
+
     // Sync tokens
     const token = this.token.sync()
     const refreshToken = this.refreshToken.sync()
 
     // Token is required but not available
     if (!token) {
-      return false
+      return response
     }
 
     // Refresh token is required but not available
     if (this.options.refreshToken.required && !refreshToken) {
-      return false
+      return response
     }
 
     // Check status wasn't enabled, let it pass
     if (!checkStatus) {
-      return true
+      response.valid = true
+      return response
     }
 
     // Get status
@@ -74,23 +83,18 @@ export default class RefreshScheme extends LocalScheme {
 
     // Refresh token has expired. There is no way to refresh. Force reset.
     if (refreshTokenStatus.expired()) {
-      if (typeof refreshTokenCallback === 'function') {
-        return refreshTokenCallback() || false
-      }
-
-      return false
+      response.refreshTokenExpired = true
+      return response
     }
 
     // Token has expired, Force reset.
     if (tokenStatus.expired()) {
-      if (typeof tokenCallback === 'function') {
-        return tokenCallback(true) || false
-      }
-
-      return false
+      response.tokenExpired = true
+      return response
     }
 
-    return true
+    response.valid = true
+    return response
   }
 
   mounted () {
@@ -112,7 +116,7 @@ export default class RefreshScheme extends LocalScheme {
     if (!this.options.endpoints.refresh) { return }
 
     // Token and refresh token are required but not available
-    if (!this.check()) { return }
+    if (!this.check().valid) { return }
 
     // Get refresh token status
     const refreshTokenStatus = this.refreshToken.status()

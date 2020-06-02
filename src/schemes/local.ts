@@ -2,7 +2,7 @@ import type { AxiosRequestConfig } from 'axios'
 import { getProp, getResponseProp } from '../utils'
 import Token from '../inc/token'
 import RequestHandler from '../inc/request-handler'
-import type { SchemeOptions } from '../'
+import type { SchemeCheck, SchemeOptions } from '../'
 import BaseScheme from './_scheme'
 
 const DEFAULTS: SchemeOptions = {
@@ -60,18 +60,24 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  check (checkStatus = false, tokenCallback?, _refreshTokenCallback?) {
+  check (checkStatus = false): SchemeCheck {
+    const response = {
+      valid: false,
+      tokenExpired: false
+    }
+
     // Sync token
     const token = this.token.sync()
 
     // Token is required but not available
     if (this.options.token.required && !token) {
-      return false
+      return response
     }
 
     // Check status wasn't enabled, let it pass
     if (!checkStatus) {
-      return true
+      response.valid = true
+      return response
     }
 
     // Get status
@@ -79,14 +85,12 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
     // Token has expired. Attempt `tokenCallback`
     if (tokenStatus.expired()) {
-      if (typeof tokenCallback === 'function') {
-        return tokenCallback(false) || false
-      }
-
-      return false
+      response.tokenExpired = true
+      return response
     }
 
-    return true
+    response.valid = true
+    return response
   }
 
   mounted ({
@@ -94,7 +98,13 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     tokenCallback = () => this.$auth.reset(),
     refreshTokenCallback = undefined
   } = {}) {
-    this.check(true, tokenCallback, refreshTokenCallback)
+    const { tokenExpired, refreshTokenExpired } = this.check(true)
+
+    if (refreshTokenExpired && typeof refreshTokenCallback === 'function') {
+      refreshTokenCallback()
+    } else if (tokenExpired && typeof tokenCallback === 'function') {
+      tokenCallback()
+    }
 
     // Initialize request interceptor
     this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
@@ -154,7 +164,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
   async fetchUser (endpoint?) {
     // Token is required but not available
-    if (!this.check()) {
+    if (!this.check().valid) {
       return
     }
 
