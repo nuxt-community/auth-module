@@ -77,6 +77,10 @@ export default class RefreshScheme extends LocalScheme {
     return true
   }
 
+  async login (endpoint, { refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
+    return super.login(endpoint, { refreshEndpoint })
+  }
+
   async refreshTokens () {
     // Refresh endpoint is disabled
     if (!this.options.endpoints.refresh) { return }
