@@ -59,8 +59,8 @@ export default class RefreshScheme extends LocalScheme {
     }
   }
 
-  mounted () {
-    return super.mounted({ refreshEndpoint: this.options.endpoints.refresh.url })
+  mounted ({ refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
+    return super.mounted({ refreshEndpoint })
   }
 
   check () {
