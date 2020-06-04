@@ -77,8 +77,8 @@ export default class RefreshScheme extends LocalScheme {
     return true
   }
 
-  async login (endpoint, { refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
-    return super.login(endpoint, { refreshEndpoint })
+  async login (endpoint, { reset = true, refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
+    return super.login(endpoint, { reset, refreshEndpoint })
   }
 
   async refreshTokens () {
