@@ -183,6 +183,12 @@ If your backend requires client id, it can be set here.
 
 If your backend requires grant type, it can be set here.
 
+### `scope`
+
+- Default: `false`
+
+If your backend requires scope, it can be set here.
+
 ### `autoLogout`
 
 - Default: `false`
