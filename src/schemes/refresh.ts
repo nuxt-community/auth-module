@@ -97,9 +97,9 @@ export default class RefreshScheme extends LocalScheme {
     return response
   }
 
-  mounted () {
+  mounted ({ refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
     return super.mounted({
-      refreshEndpoint: this.options.endpoints.refresh.url,
+      refreshEndpoint,
       tokenCallback: () => {
         if (this.options.autoLogout) {
           this.$auth.reset()
@@ -109,6 +109,10 @@ export default class RefreshScheme extends LocalScheme {
         this.$auth.reset()
       }
     })
+  }
+
+  async login (endpoint, { reset = true, refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
+    return super.login(endpoint, { reset, refreshEndpoint })
   }
 
   async refreshTokens () {
