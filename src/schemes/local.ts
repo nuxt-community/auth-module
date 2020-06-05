@@ -32,7 +32,8 @@ const DEFAULTS: SchemeOptions = {
     autoFetch: true
   },
   clientId: false,
-  grantType: false
+  grantType: false,
+  scope: false
 }
 
 export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
@@ -103,6 +104,11 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     // Add grant type to payload if defined
     if (this.options.grantType) {
       endpoint.data.grant_type = this.options.grantType
+    }
+
+    // Add scope to payload if defined
+    if (this.options.scope) {
+      endpoint.data.scope = this.options.scope
     }
 
     // Make login request
