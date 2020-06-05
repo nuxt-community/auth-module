@@ -1,6 +1,5 @@
-import type { AxiosRequestConfig } from 'axios'
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import type { Scheme } from '../'
+import type { Scheme, HTTPRequest } from '../'
 import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RequestHandler {
@@ -14,18 +13,18 @@ export default class RequestHandler {
     this.interceptor = null
   }
 
-  _needToken (config: AxiosRequestConfig) {
+  _needToken (config: HTTPRequest) {
     const options = this.scheme.options
     return options.token.global || Object.values(options.endpoints)
-      .some((endpoint: AxiosRequestConfig | string) => typeof endpoint === 'object' ? endpoint.url === config.url : endpoint === config.url)
+      .some((endpoint: HTTPRequest | string) => typeof endpoint === 'object' ? endpoint.url === config.url : endpoint === config.url)
   }
 
-  _getUpdatedRequestConfig (config: AxiosRequestConfig, token) {
+  _getUpdatedRequestConfig (config: HTTPRequest, token) {
     config.headers[this.scheme.options.token.name] = token
     return config
   }
 
-  _requestHasAuthorizationHeader (config: AxiosRequestConfig) {
+  _requestHasAuthorizationHeader (config: HTTPRequest) {
     return !!config.headers.common[this.scheme.options.token.name]
   }
 

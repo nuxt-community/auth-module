@@ -1,8 +1,7 @@
-import type { AxiosRequestConfig } from 'axios'
 import { getProp, getResponseProp } from '../utils'
 import Token from '../inc/token'
 import RequestHandler from '../inc/request-handler'
-import type { SchemeCheck, SchemeOptions } from '../'
+import type { SchemeCheck, SchemeOptions, HTTPRequest } from '../'
 import BaseScheme from './_scheme'
 
 const DEFAULTS: SchemeOptions = {
@@ -187,7 +186,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     })
   }
 
-  async logout (endpoint: AxiosRequestConfig = {}) {
+  async logout (endpoint: HTTPRequest = {}) {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
       await this.$auth

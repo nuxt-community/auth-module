@@ -1,6 +1,5 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
-import type { AuthOptions } from '../'
+import type { AuthOptions, HTTPRequest, HTTPResponse } from '../'
 import Storage from './storage'
 
 export default class Auth {
@@ -252,7 +251,7 @@ export default class Auth {
     return this.$storage.getState('busy')
   }
 
-  request (endpoint: AxiosRequestConfig, defaults: AxiosRequestConfig = {}): Promise<AxiosResponse> {
+  request (endpoint: HTTPRequest, defaults: HTTPRequest = {}): Promise<HTTPResponse> {
     const _endpoint =
       typeof defaults === 'object'
         ? Object.assign({}, defaults, endpoint)
@@ -275,7 +274,7 @@ export default class Auth {
       })
   }
 
-  requestWith (strategy: string, endpoint: AxiosRequestConfig, defaults?: AxiosRequestConfig): Promise<AxiosResponse> {
+  requestWith (strategy: string, endpoint: HTTPRequest, defaults?: HTTPRequest): Promise<HTTPResponse> {
     const token = this.strategy.token.get()
 
     const _endpoint = Object.assign({}, defaults, endpoint)
