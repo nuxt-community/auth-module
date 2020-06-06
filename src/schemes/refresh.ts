@@ -136,6 +136,17 @@ export default class RefreshScheme extends LocalScheme {
     })
   }
 
+  async setUserToken (token, refreshToken?) {
+    this.$auth.token.set(token)
+
+    if (refreshToken) {
+      this.$auth.refreshToken.set(refreshToken)
+    }
+
+    // Fetch user
+    return this.fetchUser()
+  }
+
   reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
     this.$auth.token.reset()

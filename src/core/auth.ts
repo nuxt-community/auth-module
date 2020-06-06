@@ -178,13 +178,13 @@ export default class Auth {
     })
   }
 
-  setUserToken (token) {
+  setUserToken (token, refreshToken?) {
     if (!this.strategy.setUserToken) {
       this.token.set(token)
       return Promise.resolve()
     }
 
-    return Promise.resolve(this.strategy.setUserToken(token)).catch((error) => {
+    return Promise.resolve(this.strategy.setUserToken(token, refreshToken)).catch((error) => {
       this.callOnError(error, { method: 'setUserToken' })
       return Promise.reject(error)
     })
