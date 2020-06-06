@@ -59,8 +59,8 @@ export default class RefreshScheme extends LocalScheme {
     }
   }
 
-  mounted ({ refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
-    return super.mounted({ refreshEndpoint })
+  _initializeRequestInterceptor () {
+    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.refresh.url)
   }
 
   check () {
@@ -75,10 +75,6 @@ export default class RefreshScheme extends LocalScheme {
     }
 
     return true
-  }
-
-  async login (endpoint, { reset = true, refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
-    return super.login(endpoint, { reset, refreshEndpoint })
   }
 
   async refreshTokens () {

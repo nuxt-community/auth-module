@@ -67,11 +67,15 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  mounted ({ refreshEndpoint = undefined } = {}) {
+  _initializeRequestInterceptor () {
+    this.requestHandler.initializeRequestInterceptor()
+  }
+
+  mounted () {
     this._checkStatus()
 
     // Initialize request interceptor
-    this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
+    this._initializeRequestInterceptor()
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
@@ -85,7 +89,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return true
   }
 
-  async login (endpoint, { reset = true, refreshEndpoint = undefined } = {}) {
+  async login (endpoint, { reset = true } = {}) {
     if (!this.options.endpoints.login) {
       return
     }
@@ -116,7 +120,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
     // Initialize request interceptor if not initialized
     if (!this.requestHandler.interceptor) {
-      this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
+      this._initializeRequestInterceptor()
     }
 
     // Fetch user if `autoFetch` is enabled
