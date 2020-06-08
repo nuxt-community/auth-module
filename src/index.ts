@@ -63,6 +63,6 @@ declare module 'vue/types/options' {
 
 declare module 'vuex/types/index' {
   interface Store<S> {
-    $auth: any;
+    $auth: Auth;
   }
 }
