@@ -17,7 +17,9 @@ export default class RequestHandler {
   }
 
   _getUpdatedRequestConfig (config: HTTPRequest) {
-    config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
+    if (this.$auth.strategy.options.token.global) {
+      config.headers[this.$auth.strategy.options.token.name] = this.$auth.token.get()
+    }
     return config
   }
 
