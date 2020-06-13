@@ -49,6 +49,7 @@ auth: {
       grantType: 'authorization_code',
       accessType: undefined,
       redirectUri: undefined,
+      logoutRedirectUri: undefined,
       clientId: 'SET_ME',
       scope: ['openid', 'profile', 'email'],
       state: 'UNIQUE_AND_NON_GUESSABLE',
@@ -148,6 +149,10 @@ If using Google code authorization flow (`responseType: 'code'`) set to `offline
 Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
 
 By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
+
+### `logoutRedirectUri`
+
+Should be an absolute path to the welcome screen
 
 ### `clientId`
 
