@@ -49,6 +49,7 @@ auth: {
       grantType: 'authorization_code',
       accessType: undefined,
       redirectUri: undefined,
+      logoutRedirectUri: undefined,
       clientId: 'SET_ME',
       scope: ['openid', 'profile', 'email'],
       state: 'UNIQUE_AND_NON_GUESSABLE',
@@ -149,6 +150,10 @@ Should be same as login page or relative path to welcome screen. ([example](http
 
 By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
 
+### `logoutRedirectUri`
+
+Should be an absolute path to the welcome screen
+
 ### `clientId`
 
 **REQUIRED** - oauth2 client id.
@@ -174,4 +179,4 @@ Provides metadata to supply additional information to the authorization server. 
 
 - Default: `false`
 
-This option will logout the user on load the page, if token has expired.
+If the token has expired, it will prevent the token from being refreshed on load the page and force logout the user.

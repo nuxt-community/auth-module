@@ -1,6 +1,4 @@
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
-import RefreshToken from '../inc/refresh-token'
-import Token from '../inc/token'
 import type { AuthOptions, HTTPRequest, HTTPResponse } from '../'
 import Storage from './storage'
 
@@ -9,9 +7,6 @@ export default class Auth {
   public options: AuthOptions
   public strategies = {}
   public error: Error
-
-  public token: Token
-  public refreshToken: RefreshToken
 
   private _errorListeners = []
   private _redirectListeners = []
@@ -30,10 +25,6 @@ export default class Auth {
     const storage = new Storage(ctx, options)
     this.$storage = storage
     this.$state = storage.state
-
-    // Token & Refresh Token
-    this.token = new Token(this)
-    this.refreshToken = new RefreshToken(this)
   }
 
   async init () {
@@ -180,7 +171,7 @@ export default class Auth {
 
   setUserToken (token, refreshToken?) {
     if (!this.strategy.setUserToken) {
-      this.token.set(token)
+      this.strategy.token.set(token)
       return Promise.resolve()
     }
 
@@ -193,8 +184,8 @@ export default class Auth {
   reset (...args) {
     if (!this.strategy.reset) {
       this.setUser(false)
-      this.token.reset()
-      this.refreshToken.reset()
+      this.strategy.token.reset()
+      this.strategy.refreshToken.reset()
     }
 
     return this.strategy.reset(...args)
@@ -223,15 +214,12 @@ export default class Auth {
     return this.$state.loggedIn
   }
 
-  check () {
-    let loggedIn = Boolean(this.$state.user)
-
-    if (loggedIn && typeof this.strategy.check === 'function') {
-      loggedIn = this.strategy.check()
+  check (...args) {
+    if (!this.strategy.check) {
+      return { valid: true }
     }
 
-    this.$storage.setState('loggedIn', loggedIn)
-    return loggedIn
+    return this.strategy.check(...args)
   }
 
   fetchUserOnce (...args) {
@@ -243,7 +231,16 @@ export default class Auth {
 
   setUser (user) {
     this.$storage.setState('user', user)
-    this.check()
+
+    let check = { valid: Boolean(user) }
+
+    // If user is defined, perform scheme checks.
+    if (check.valid) {
+      check = this.check()
+    }
+
+    // Update `loggedIn` state
+    this.$storage.setState('loggedIn', check.valid)
   }
 
   // ---------------------------------------------------------------
@@ -254,7 +251,7 @@ export default class Auth {
     return this.$storage.getState('busy')
   }
 
-  request (endpoint: HTTPRequest, defaults = {}): Promise<HTTPResponse> {
+  request (endpoint: HTTPRequest, defaults: HTTPRequest = {}): Promise<HTTPResponse> {
     const _endpoint =
       typeof defaults === 'object'
         ? Object.assign({}, defaults, endpoint)
@@ -278,7 +275,7 @@ export default class Auth {
   }
 
   requestWith (strategy: string, endpoint: HTTPRequest, defaults?: HTTPRequest): Promise<HTTPResponse> {
-    const token = this.token.get()
+    const token = this.strategy.token.get()
 
     const _endpoint = Object.assign({}, defaults, endpoint)
 

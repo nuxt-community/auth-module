@@ -187,4 +187,4 @@ If your backend requires grant type, it can be set here.
 
 - Default: `false`
 
-This option will logout the user on load the page, if token has expired.
+If the token has expired, it will prevent the token from being refreshed on load the page and force logout the user.
