@@ -1,6 +1,7 @@
 import { getProp, getResponseProp } from '../utils'
+import Token from '../inc/token'
 import RequestHandler from '../inc/request-handler'
-import type { SchemeOptions, HTTPRequest } from '../'
+import type { SchemeCheck, SchemeOptions, HTTPRequest } from '../'
 import BaseScheme from './_scheme'
 
 const DEFAULTS: SchemeOptions = {
@@ -25,7 +26,9 @@ const DEFAULTS: SchemeOptions = {
     name: 'Authorization',
     maxAge: 1800,
     global: true,
-    required: true
+    required: true,
+    prefix: '_token.',
+    expirationPrefix: '_token_expiration.'
   },
   user: {
     property: 'user',
@@ -36,56 +39,83 @@ const DEFAULTS: SchemeOptions = {
 }
 
 export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
-  requestHandler: RequestHandler
+  public token: Token
+  public requestHandler: RequestHandler
 
   constructor ($auth, options, ...defaults) {
     super($auth, options, ...defaults, DEFAULTS)
 
+    // Initialize Token instance
+    this.token = new Token(this, this.$auth.$storage)
+
     // Initialize Request Interceptor
-    this.requestHandler = new RequestHandler(this.$auth)
+    this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
   _updateTokens (response) {
     if (this.options.token.required) {
       const token = getResponseProp(response, this.options.token.property)
-      this.$auth.token.set(token)
+      this.token.set(token)
     }
   }
 
-  _checkStatus () {
-    if (this.options.token.required) {
-      // Sync token
-      this.$auth.token.sync()
-
-      // Get token status
-      const tokenStatus = this.$auth.token.status()
-
-      // Token is expired. Force reset.
-      if (tokenStatus.expired()) {
-        this.$auth.reset()
-      }
-    }
+  _initializeRequestInterceptor () {
+    this.requestHandler.initializeRequestInterceptor()
   }
 
-  mounted ({ refreshEndpoint = undefined } = {}) {
-    this._checkStatus()
+  check (checkStatus = false): SchemeCheck {
+    const response = {
+      valid: false,
+      tokenExpired: false
+    }
+
+    // Sync token
+    const token = this.token.sync()
+
+    // Token is required but not available
+    if (this.options.token.required && !token) {
+      return response
+    }
+
+    // Check status wasn't enabled, let it pass
+    if (!checkStatus) {
+      response.valid = true
+      return response
+    }
+
+    // Get status
+    const tokenStatus = this.token.status()
+
+    // Token has expired. Attempt `tokenCallback`
+    if (tokenStatus.expired()) {
+      response.tokenExpired = true
+      return response
+    }
+
+    response.valid = true
+    return response
+  }
+
+  mounted ({
+    tokenCallback = () => this.$auth.reset(),
+    refreshTokenCallback = undefined
+  } = {}) {
+    const { tokenExpired, refreshTokenExpired } = this.check(true)
+
+    if (refreshTokenExpired && typeof refreshTokenCallback === 'function') {
+      refreshTokenCallback()
+    } else if (tokenExpired && typeof tokenCallback === 'function') {
+      tokenCallback()
+    }
 
     // Initialize request interceptor
-    this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
+    this._initializeRequestInterceptor()
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
   }
 
-  check () {
-    if (this.options.token.required && !this.$auth.token.get()) {
-      return false
-    }
-
-    return true
-  }
-
-  async login (endpoint, { reset = true, refreshEndpoint = undefined } = {}) {
+  async login (endpoint, { reset = true } = {}) {
     if (!this.options.endpoints.login) {
       return
     }
@@ -116,7 +146,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
     // Initialize request interceptor if not initialized
     if (!this.requestHandler.interceptor) {
-      this.requestHandler.initializeRequestInterceptor(refreshEndpoint)
+      this._initializeRequestInterceptor()
     }
 
     // Fetch user if `autoFetch` is enabled
@@ -128,7 +158,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
   }
 
   async setUserToken (tokenValue) {
-    this.$auth.token.set(getProp(tokenValue, this.options.token.property))
+    this.token.set(getProp(tokenValue, this.options.token.property))
 
     // Fetch user
     return this.fetchUser()
@@ -136,7 +166,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
   async fetchUser (endpoint?) {
     // Token is required but not available
-    if (!this.check()) {
+    if (!this.check().valid) {
       return
     }
 
@@ -164,7 +194,8 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     if (this.options.endpoints.logout) {
       await this.$auth
         .requestWith(this.name, endpoint, this.options.endpoints.logout)
-        .catch(() => { })
+        .catch(() => {
+        })
     }
 
     // But reset regardless
@@ -173,7 +204,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
 
   reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
-    this.$auth.token.reset()
+    this.token.reset()
 
     if (resetInterceptor) {
       this.requestHandler.reset()

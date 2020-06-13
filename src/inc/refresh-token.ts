@@ -1,37 +1,40 @@
 import jwtDecode, { InvalidTokenError } from 'jwt-decode'
 import { addTokenPrefix } from '../utils'
-import type { Auth } from '../'
+import type { Scheme } from '../'
+import Storage from '../core/storage'
 import TokenStatus from './token-status'
 
 export default class RefreshToken {
-  public $auth: Auth
+  public scheme: Scheme
+  public $storage: Storage
 
-  constructor (auth: Auth) {
-    this.$auth = auth
+  constructor (scheme: Scheme, storage: Storage) {
+    this.scheme = scheme
+    this.$storage = storage
   }
 
   _getExpiration () {
-    const _key = this.$auth.options.refreshTokenExpiration.prefix + this.$auth.strategy.name
+    const _key = this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
-    return this.$auth.$storage.getUniversal(_key)
+    return this.$storage.getUniversal(_key)
   }
 
   _setExpiration (expiration) {
-    const _key = this.$auth.options.refreshTokenExpiration.prefix + this.$auth.strategy.name
+    const _key = this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
-    return this.$auth.$storage.setUniversal(_key, expiration)
+    return this.$storage.setUniversal(_key, expiration)
   }
 
   _syncExpiration () {
-    const _key = this.$auth.options.refreshTokenExpiration.prefix + this.$auth.strategy.name
+    const _key = this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
-    return this.$auth.$storage.syncUniversal(_key)
+    return this.$storage.syncUniversal(_key)
   }
 
   _updateExpiration (refreshToken) {
     let refreshTokenExpiration
     const _tokenIssuedAtMillis = Date.now()
-    const _tokenTTLMillis = this.$auth.strategy.options.refreshToken.maxAge * 1000
+    const _tokenTTLMillis = this.scheme.options.refreshToken.maxAge * 1000
     const _tokenExpiresAtMillis = _tokenTTLMillis ? _tokenIssuedAtMillis + _tokenTTLMillis : 0
 
     try {
@@ -50,25 +53,25 @@ export default class RefreshToken {
   }
 
   _setToken (refreshToken) {
-    const _key = this.$auth.options.refreshToken.prefix + this.$auth.strategy.name
+    const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
-    return this.$auth.$storage.setUniversal(_key, refreshToken)
+    return this.$storage.setUniversal(_key, refreshToken)
   }
 
   _syncToken () {
-    const _key = this.$auth.options.refreshToken.prefix + this.$auth.strategy.name
+    const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
-    return this.$auth.$storage.syncUniversal(_key)
+    return this.$storage.syncUniversal(_key)
   }
 
   get () {
-    const _key = this.$auth.options.refreshToken.prefix + this.$auth.strategy.name
+    const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
-    return this.$auth.$storage.getUniversal(_key)
+    return this.$storage.getUniversal(_key)
   }
 
   set (tokenValue) {
-    const refreshToken = addTokenPrefix(tokenValue, this.$auth.strategy.options.refreshToken.type)
+    const refreshToken = addTokenPrefix(tokenValue, this.scheme.options.refreshToken.type)
 
     this._setToken(refreshToken)
     this._updateExpiration(refreshToken)
