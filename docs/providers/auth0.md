@@ -49,12 +49,12 @@ On logout, local `auth` is reset and you will be instantly redirected to `Auth0`
 
 To make sure you are redirected to the right page, you need to setup two things:
 * Go to into the `Tenant Settings` > `Advanced` and enter the allowed URL(s) you can redirect to in `Allowed Logout URLs`, such as `http://localhost:3000`
-* Add `redirectUri` to your config and add the value you just configured:
+* Add `logoutRedirectUri` to your config and add the value you just configured:
 ```js
 auth: {
   strategies: {
     auth0: {
-      redirectUri: 'http://localhost:3000',
+      logoutRedirectUri: 'http://localhost:3000',
     }
   }
 }
