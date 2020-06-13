@@ -49,6 +49,10 @@ export default class RefreshScheme extends LocalScheme {
     }
   }
 
+  _initializeRequestInterceptor () {
+    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.refresh.url)
+  }
+
   check (checkStatus = false): SchemeCheck {
     const response = {
       valid: false,
@@ -97,9 +101,8 @@ export default class RefreshScheme extends LocalScheme {
     return response
   }
 
-  mounted ({ refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
+  mounted () {
     return super.mounted({
-      refreshEndpoint,
       tokenCallback: () => {
         if (this.options.autoLogout) {
           this.$auth.reset()
@@ -109,10 +112,6 @@ export default class RefreshScheme extends LocalScheme {
         this.$auth.reset()
       }
     })
-  }
-
-  async login (endpoint, { reset = true, refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
-    return super.login(endpoint, { reset, refreshEndpoint })
   }
 
   async refreshTokens () {
