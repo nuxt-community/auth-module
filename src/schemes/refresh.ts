@@ -170,10 +170,10 @@ export default class RefreshScheme extends LocalScheme {
   }
 
   async setUserToken (token, refreshToken?) {
-    this.$auth.token.set(token)
+    this.token.set(token)
 
     if (refreshToken) {
-      this.$auth.refreshToken.set(refreshToken)
+      this.refreshToken.set(refreshToken)
     }
 
     // Fetch user
