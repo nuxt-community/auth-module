@@ -1,3 +1,4 @@
+import type { SchemeCheck } from '../index'
 import LocalScheme from './local'
 
 const DEFAULTS = {
@@ -29,17 +30,21 @@ export default class CookieScheme extends LocalScheme {
     return super.mounted()
   }
 
-  check () {
-    if (!super.check()) {
-      return false
+  check (): SchemeCheck {
+    const response = { valid: false }
+
+    if (!super.check().valid) {
+      return response
     }
 
     if (this.options.cookie.name) {
       const cookies = this.$auth.$storage.getCookies()
-      return Boolean(cookies[this.options.cookie.name])
+      response.valid = Boolean(cookies[this.options.cookie.name])
+      return response
     }
 
-    return true
+    response.valid = true
+    return response
   }
 
   async login (endpoint) {

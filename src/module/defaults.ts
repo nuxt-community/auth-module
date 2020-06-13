@@ -43,26 +43,6 @@ export default {
     prefix: 'auth.'
   },
 
-  // -- Tokens --
-
-  token: {
-    prefix: '_token.'
-  },
-
-  tokenExpiration: {
-    prefix: '_token_expiration.'
-  },
-
-  // -- Refresh token --
-
-  refreshToken: {
-    prefix: '_refresh_token.'
-  },
-
-  refreshTokenExpiration: {
-    prefix: '_refresh_token_expiration.'
-  },
-
   // -- Strategies --
 
   defaultStrategy: undefined /* will be auto set at module level */,

@@ -49,7 +49,7 @@ describe('e2e', () => {
 
       return {
         axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        token: window.$nuxt.$auth.token.get(),
+        token: window.$nuxt.$auth.strategy.token.get(),
         user: window.$nuxt.$auth.user,
         response
       }
@@ -85,9 +85,9 @@ describe('e2e', () => {
 
       return {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.token.get(),
-        loginRefreshToken: window.$nuxt.$auth.refreshToken.get(),
-        loginExpiresAt: window.$nuxt.$auth.token._getExpiration(),
+        loginToken: window.$nuxt.$auth.strategy.token.get(),
+        loginRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
+        loginExpiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
       }
@@ -115,9 +115,9 @@ describe('e2e', () => {
 
       return {
         refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        refreshedToken: window.$nuxt.$auth.token.get(),
-        refreshedRefreshToken: window.$nuxt.$auth.refreshToken.get(),
-        refreshedExpiresAt: window.$nuxt.$auth.token._getExpiration(),
+        refreshedToken: window.$nuxt.$auth.strategy.token.get(),
+        refreshedRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
+        refreshedExpiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
       }
@@ -152,7 +152,7 @@ describe('e2e', () => {
 
       return {
         loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.token.get()
+        loginToken: window.$nuxt.$auth.strategy.token.get()
       }
     })
 
@@ -164,7 +164,7 @@ describe('e2e', () => {
 
       return {
         logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        logoutToken: window.$nuxt.$auth.token.get()
+        logoutToken: window.$nuxt.$auth.strategy.token.get()
       }
     })
 
