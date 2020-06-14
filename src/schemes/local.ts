@@ -1,4 +1,4 @@
-import { getProp, getResponseProp } from '../utils'
+import { getResponseProp } from '../utils'
 import Token from '../inc/token'
 import RequestHandler from '../inc/request-handler'
 import type { SchemeCheck, SchemeOptions, HTTPRequest } from '../'
@@ -163,8 +163,8 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return response
   }
 
-  async setUserToken (tokenValue) {
-    this.token.set(getProp(tokenValue, this.options.token.property))
+  async setUserToken (token) {
+    this.token.set(token)
 
     // Fetch user
     return this.fetchUser()
