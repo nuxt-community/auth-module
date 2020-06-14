@@ -38,13 +38,15 @@ export default class RefreshScheme extends LocalScheme {
     this.refreshController = new RefreshController(this)
   }
 
-  _updateTokens (response) {
+  _updateTokens (response, { isRefreshing = false, updateOnRefresh = true } = {}) {
     const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : false
+    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : true
 
     this.token.set(token)
 
-    if (refreshToken) {
+    // Update refresh token if defined and if `isRefreshing` is `false`
+    // If `isRefreshing` is `true`, then only update if `updateOnRefresh` is also `true`
+    if (refreshToken && (!isRefreshing || (isRefreshing && updateOnRefresh))) {
       this.refreshToken.set(refreshToken)
     }
   }
@@ -65,13 +67,8 @@ export default class RefreshScheme extends LocalScheme {
     const token = this.token.sync()
     const refreshToken = this.refreshToken.sync()
 
-    // Token is required but not available
-    if (!token) {
-      return response
-    }
-
-    // Refresh token is required but not available
-    if (this.options.refreshToken.required && !refreshToken) {
+    // Token and refresh token are required but not available
+    if (!token || !refreshToken) {
       return response
     }
 
@@ -161,7 +158,7 @@ export default class RefreshScheme extends LocalScheme {
       this.options.endpoints.refresh
     ).then((response) => {
       // Update tokens
-      this._updateTokens(response)
+      this._updateTokens(response, { isRefreshing: true })
       return response
     }).catch((error) => {
       this.$auth.callOnError(error, { method: 'refreshToken' })
