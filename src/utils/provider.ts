@@ -112,20 +112,25 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
       }
 
       formMiddleware(req, res, () => {
-        const {
-          username,
-          password,
-          grant_type: grantType = strategy.grantType,
-          refresh_token: refreshToken
-        } = req.body
+        const data = req.body
+
+        // If `grant_type` is not defined, set default value
+        if (!data.grant_type) {
+          data.grant_type = strategy.grantType
+        }
+
+        // If `client_id` is not defined, set default value
+        if (!data.client_id) {
+          data.grant_type = clientId
+        }
 
         // Grant type is password, but username or password is not available
-        if (grantType === 'password' && (!username || !password)) {
+        if (data.grant_type === 'password' && (!data.username || !data.password)) {
           return next(new Error('Invalid username or password'))
         }
 
         // Grant type is refresh token, but refresh token is not available
-        if (grantType === 'refresh_token' && !refreshToken) {
+        if (data.grant_type === 'refresh_token' && !data.refresh_token) {
           return next(new Error('Refresh token not provided'))
         }
 
@@ -137,10 +142,7 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
             data: {
               client_id: clientId,
               client_secret: clientSecret,
-              refresh_token: refreshToken,
-              grant_type: grantType,
-              username,
-              password
+              ...data
             },
             headers: {
               Accept: 'application/json'
