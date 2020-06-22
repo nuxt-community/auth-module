@@ -128,6 +128,9 @@ export default class RefreshScheme extends LocalScheme {
       throw new ExpiredAuthSessionError()
     }
 
+    // Delete current token from the request header before refreshing
+    this.requestHandler.clearHeader()
+
     const endpoint = {
       data: {
         client_id: undefined,
