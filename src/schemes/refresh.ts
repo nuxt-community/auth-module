@@ -39,7 +39,7 @@ export default class RefreshScheme extends LocalScheme {
   }
 
   _updateTokens (response, { isRefreshing = false, updateOnRefresh = true } = {}) {
-    const token = getResponseProp(response, this.options.token.property)
+    const token = this.options.token.required ? getResponseProp(response, this.options.token.property) : true
     const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : true
 
     this.token.set(token)
