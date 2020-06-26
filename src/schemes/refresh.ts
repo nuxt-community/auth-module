@@ -20,7 +20,7 @@ const DEFAULTS = {
     required: true,
     tokenRequired: false,
     prefix: '_refresh_token.',
-    expirationPrefix: '_refresh_token_expiration.',
+    expirationPrefix: '_refresh_token_expiration.'
   },
   autoLogout: false
 }
