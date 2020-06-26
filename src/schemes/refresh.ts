@@ -18,6 +18,7 @@ const DEFAULTS = {
     data: 'refresh_token',
     maxAge: 60 * 60 * 24 * 30,
     required: true,
+    tokenRequired: false,
     prefix: '_refresh_token.',
     expirationPrefix: '_refresh_token_expiration.'
   },
@@ -128,8 +129,10 @@ export default class RefreshScheme extends LocalScheme {
       throw new ExpiredAuthSessionError()
     }
 
-    // Delete current token from the request header before refreshing
-    this.requestHandler.clearHeader()
+    // Delete current token from the request header before refreshing, if `tokenRequired` is disabled
+    if (!this.options.refreshToken.tokenRequired) {
+      this.requestHandler.clearHeader()
+    }
 
     const endpoint = {
       data: {
