@@ -133,10 +133,6 @@ By default is set to 30 minutes.
 
 Here you configure the refresh token options.
 
-#### `required`
-
-In instances where you do not need to refresh the token you can assign `false` to the `required` property. This disables the `refreshToken`.
-
 #### `property`
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.refresh_token`.
@@ -156,6 +152,12 @@ This time will be used if for some reason we couldn't decode the token to get th
 You can set it to `false` if your refresh token doesn't expire.
 
 By default is set to 30 minutes.
+
+#### `required`
+
+- Default: `true`
+
+In instances where you do not need the refresh token to perform the refresh, you can assign this option to `false`. This disables the `refreshToken`.
 
 #### `tokenRequired`
 
