@@ -33,7 +33,8 @@ export default function laravelJWT (_nuxt, strategy) {
       property: false,
       data: false,
       maxAge: 1209600,
-      required: false
+      required: false,
+      tokenRequired: true
     },
     user: {
       property: false
