@@ -157,6 +157,12 @@ You can set it to `false` if your refresh token doesn't expire.
 
 By default is set to 30 minutes.
 
+#### `tokenRequired`
+
+- Default: `false`
+
+If enabled, Authorization header won't be cleared before refreshing.
+
 ### `user`
 
 Here you configure the user options.
