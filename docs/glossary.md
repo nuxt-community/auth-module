@@ -8,7 +8,7 @@ Read more in [Schemes and Strategies](./guide/scheme.html) section.
 
 Strategy is a configurated instance of Scheme.
 
-Read more in [Schemes and Strategies](./schemes/README.md) section.
+Read more in [Schemes and Strategies](./guide/scheme.html) section.
 
 ## Provider
 
