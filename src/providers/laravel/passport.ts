@@ -33,10 +33,10 @@ export default function laravelPassport (nuxt, strategy) {
       endpoints: {
         token: url + '/oauth/token',
         login: {
-          baseURL: process.server ? undefined : false
+          baseURL: ''
         },
         refresh: {
-          baseURL: process.server ? undefined : false
+          baseURL: ''
         },
         logout: false,
         user: {

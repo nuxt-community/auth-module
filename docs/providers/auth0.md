@@ -45,20 +45,23 @@ You can get your `clientId` and `domain` the Settings section for your client in
 
 ## Logout with new Auth0 tenants
 
-Auth0 tenants created in 2018 and earlier had an optional tenant setting  `Enable Seamless SSO`. This setting is automatically enabled for new tenants and cannot be disabled.
+On logout, local `auth` is reset and you will be instantly redirected to `Auth0` so your session is destroyed remotely as well. After that, you will be redirected back to your website by `Auth0`.
 
-If enabled and a user logs out and logs back in a short while later, they will not need to re-enter their credentials. They'll be logged in automatically.
+To make sure you are redirected to the right page, you need to setup two things:
+* Go to into the `Tenant Settings` > `Advanced` and enter the allowed URL(s) you can redirect to in `Allowed Logout URLs`, such as `http://localhost:3000`
+* Add `logoutRedirectUri` to your config and add the value you just configured:
+```js
+auth: {
+  strategies: {
+    auth0: {
+      logoutRedirectUri: 'http://localhost:3000',
+    }
+  }
+}
+```
 
-You can force Auth0 to present the login page:
-* Go to into the `Tenant Settings` > `Advanced`
-* In `Allowed Logout URLs` enter the allowed URL(s) you can redirect to, such as `http://localhost:3000`
+Now you can logout calling the `logout` function:
 
-Wherever you have a logout feature do two things:
-  1. run the logout command
 ```js
 this.$auth.logout()
-```
-  2. redirect the user to the Auth0 logout URL along with a `returnTo` parameter
-```
-https://mytenant.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost:3000
 ```

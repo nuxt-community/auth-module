@@ -1,6 +1,8 @@
 import { cleanObj, getResponseProp } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
+import RefreshToken from '../inc/refresh-token'
+import type { SchemeCheck } from '../index'
 import LocalScheme from './local'
 
 const DEFAULTS = {
@@ -15,70 +17,99 @@ const DEFAULTS = {
     property: 'refresh_token',
     data: 'refresh_token',
     maxAge: 60 * 60 * 24 * 30,
-    required: true
+    required: true,
+    tokenRequired: false,
+    prefix: '_refresh_token.',
+    expirationPrefix: '_refresh_token_expiration.'
   },
   autoLogout: false
 }
 
 export default class RefreshScheme extends LocalScheme {
+  public refreshToken: RefreshToken
   public refreshController: RefreshController
 
   constructor ($auth, options) {
     super($auth, options, DEFAULTS)
 
+    // Initialize Refresh Token instance
+    this.refreshToken = new RefreshToken(this, this.$auth.$storage)
+
     // Initialize Refresh Controller
     this.refreshController = new RefreshController(this)
   }
 
-  _updateTokens (response) {
+  _updateTokens (response, { isRefreshing = false, updateOnRefresh = true } = {}) {
     const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : false
+    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : true
 
-    this.$auth.token.set(token)
+    this.token.set(token)
 
-    if (refreshToken) {
-      this.$auth.refreshToken.set(refreshToken)
+    // Update refresh token if defined and if `isRefreshing` is `false`
+    // If `isRefreshing` is `true`, then only update if `updateOnRefresh` is also `true`
+    if (refreshToken && (!isRefreshing || (isRefreshing && updateOnRefresh))) {
+      this.refreshToken.set(refreshToken)
     }
   }
 
-  _checkStatus () {
+  _initializeRequestInterceptor () {
+    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.refresh.url)
+  }
+
+  check (checkStatus = false): SchemeCheck {
+    const response = {
+      valid: false,
+      tokenExpired: false,
+      refreshTokenExpired: false,
+      isRefreshable: true
+    }
+
     // Sync tokens
-    this.$auth.token.sync()
-    this.$auth.refreshToken.sync()
+    const token = this.token.sync()
+    const refreshToken = this.refreshToken.sync()
 
-    // Get token and refresh token status
-    const tokenStatus = this.$auth.token.status()
-    const refreshTokenStatus = this.$auth.refreshToken.status()
+    // Token and refresh token are required but not available
+    if (!token || !refreshToken) {
+      return response
+    }
 
-    // Force reset if refresh token has expired
-    // Or if `autoLogout` is enabled and token has expired
+    // Check status wasn't enabled, let it pass
+    if (!checkStatus) {
+      response.valid = true
+      return response
+    }
+
+    // Get status
+    const tokenStatus = this.token.status()
+    const refreshTokenStatus = this.refreshToken.status()
+
+    // Refresh token has expired. There is no way to refresh. Force reset.
     if (refreshTokenStatus.expired()) {
-      this.$auth.reset()
-    } else if (this.options.autoLogout && tokenStatus.expired()) {
-      this.$auth.reset()
-    }
-  }
-
-  mounted ({ refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
-    return super.mounted({ refreshEndpoint })
-  }
-
-  check () {
-    // Token is required but not available
-    if (!this.$auth.token.get()) {
-      return false
+      response.refreshTokenExpired = true
+      return response
     }
 
-    // Refresh token is required but not available
-    if (this.options.refreshToken.required && !this.$auth.refreshToken.get()) {
-      return false
+    // Token has expired, Force reset.
+    if (tokenStatus.expired()) {
+      response.tokenExpired = true
+      return response
     }
 
-    return true
+    response.valid = true
+    return response
   }
 
-  async login (endpoint, { reset = true, refreshEndpoint = this.options.endpoints.refresh.url } = {}) {
-    return super.login(endpoint, { reset, refreshEndpoint })
+  mounted () {
+    return super.mounted({
+      tokenCallback: () => {
+        if (this.options.autoLogout) {
+          this.$auth.reset()
+        }
+      },
+      refreshTokenCallback: () => {
+        this.$auth.reset()
+      }
+    })
   }
 
   async refreshTokens () {
@@ -86,16 +117,21 @@ export default class RefreshScheme extends LocalScheme {
     if (!this.options.endpoints.refresh) { return }
 
     // Token and refresh token are required but not available
-    if (!this.check()) { return }
+    if (!this.check().valid) { return }
 
     // Get refresh token status
-    const refreshTokenStatus = this.$auth.refreshToken.status()
+    const refreshTokenStatus = this.refreshToken.status()
 
     // Refresh token is expired. There is no way to refresh. Force reset.
     if (refreshTokenStatus.expired()) {
       this.$auth.reset()
 
       throw new ExpiredAuthSessionError()
+    }
+
+    // Delete current token from the request header before refreshing, if `tokenRequired` is disabled
+    if (!this.options.refreshToken.tokenRequired) {
+      this.requestHandler.clearHeader()
     }
 
     const endpoint = {
@@ -107,7 +143,7 @@ export default class RefreshScheme extends LocalScheme {
 
     // Add refresh token to payload if required
     if (this.options.refreshToken.required) {
-      endpoint.data[this.options.refreshToken.data] = this.$auth.refreshToken.get()
+      endpoint.data[this.options.refreshToken.data] = this.refreshToken.get()
     }
 
     // Add client id to payload if defined
@@ -128,7 +164,7 @@ export default class RefreshScheme extends LocalScheme {
       this.options.endpoints.refresh
     ).then((response) => {
       // Update tokens
-      this._updateTokens(response)
+      this._updateTokens(response, { isRefreshing: true })
       return response
     }).catch((error) => {
       this.$auth.callOnError(error, { method: 'refreshToken' })
@@ -136,10 +172,21 @@ export default class RefreshScheme extends LocalScheme {
     })
   }
 
+  async setUserToken (token, refreshToken?) {
+    this.token.set(token)
+
+    if (refreshToken) {
+      this.refreshToken.set(refreshToken)
+    }
+
+    // Fetch user
+    return this.fetchUser()
+  }
+
   reset ({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
-    this.$auth.token.reset()
-    this.$auth.refreshToken.reset()
+    this.token.reset()
+    this.refreshToken.reset()
 
     if (resetInterceptor) {
       this.requestHandler.reset()

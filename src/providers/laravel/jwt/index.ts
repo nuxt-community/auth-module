@@ -1,4 +1,5 @@
-import { assignDefaults, assignAbsoluteEndpoints } from '../../utils/provider'
+import path from 'path'
+import { assignDefaults, assignAbsoluteEndpoints } from '../../../utils/provider'
 
 export default function laravelJWT (_nuxt, strategy) {
   const { url } = strategy
@@ -8,7 +9,7 @@ export default function laravelJWT (_nuxt, strategy) {
   }
 
   assignDefaults(strategy, {
-    scheme: 'refresh',
+    scheme: path.resolve(__dirname, 'scheme'),
     name: 'laravelJWT',
     endpoints: {
       login: {
@@ -32,7 +33,8 @@ export default function laravelJWT (_nuxt, strategy) {
       property: false,
       data: false,
       maxAge: 1209600,
-      required: false
+      required: false,
+      tokenRequired: true
     },
     user: {
       property: false

@@ -82,13 +82,13 @@ export default {
   },
   methods: {
     invalidateToken () {
-      this.$auth.token.set(this.expiredToken)
+      this.$auth.strategy.token.set(this.expiredToken)
       this.updateDisplayedTokens()
     },
     invalidateBothTokens () {
       this.invalidateToken()
 
-      this.$auth.refreshToken.set(this.expiredToken)
+      this.$auth.strategy.refreshToken.set(this.expiredToken)
       this.updateDisplayedTokens()
     },
     async sendRequests () {
@@ -116,8 +116,8 @@ export default {
       })
     },
     updateDisplayedTokens () {
-      this.tokenExpiresAt = this.getTokenExpirationDateString(this.$auth.token._getExpiration())
-      this.refreshTokenExpiresAt = this.getTokenExpirationDateString(this.$auth.refreshToken._getExpiration())
+      this.tokenExpiresAt = this.getTokenExpirationDateString(this.$auth.strategy.token._getExpiration())
+      this.refreshTokenExpiresAt = this.getTokenExpirationDateString(this.$auth.strategy.refreshToken._getExpiration())
     },
     getTokenExpirationDateString (tokenExpiration) {
       try {
