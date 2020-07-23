@@ -73,16 +73,16 @@ Set user data and update `loggedIn` state.
 this.$auth.setUser(user)
 ```
 
-### `setUserToken(token)`
+### `setUserToken(token, refreshToken)`
 
 - Returns: `Promise`
 
-Set the auth token and fetch the user using the new token and current strategy.
+Set the auth token and optionally the refresh token, then it will fetch the user using the new token and current strategy.
 
 > **TIP:** This function can properly set the user after registration
 
 ```js
-this.$auth.setUserToken(token)
+this.$auth.setUserToken(token, refreshToken)
   .then(() => this.$toast.success('User set!'))
 ```
 
