@@ -65,3 +65,30 @@ Now you can logout calling the `logout` function:
 ```js
 this.$auth.logout()
 ```
+
+## PKCE Grant flow 
+From [Auth0](https://auth0.com/docs/flows/concepts/auth-code-pkce)
+> The PKCE-enhanced Authorization Code Flow introduces a secret created by the calling application that can be verified by the authorization server;this secret is called the Code Verifier. Additionally, the calling app creates a transform value of the Code Verifier called the Code Challenge and sends this value over HTTPS to retrieve an Authorization Code. This way, a malicious attacker can only intercept the Authorization Code, and they cannot exchange it for a token without the Code Verifier.
+
+To configure the `PKCE Grant flow` instead of the default `Implicit Grant flow`, additions have to be made to the `Auth0 settings` and to `nuxt.config.js`:
+- Applications > "your app" > Settings > Application Type > choose Native
+- Applications > "your app" > Settings > Show Advanced Settings > Grant Types > enable Refresh Token (and disable Implicit)
+- APIs > "your api" > Allow Offline Access > enable
+- `nuxt.config.js`:
+```js
+auth: {
+  strategies: {
+    auth0: {
+      domain: 'domain.auth0.com',
+      clientId: '....',
+      audience: 'https://my-api-domain.com/',
+      scope: ['openid', 'profile', 'email', 'offline_access'],
+      responseType: 'code',
+      grantType: 'authorization_code',
+      codeChallengeMethod: 'S256',
+    }
+  }
+}
+
+
+```
