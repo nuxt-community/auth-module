@@ -54,8 +54,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor ($auth, options) {
-    super($auth, options, DEFAULTS)
+  constructor ($auth, options, ...defaults) {
+    super($auth, options, ...defaults, DEFAULTS)
 
     this.req = $auth.ctx.req
 
