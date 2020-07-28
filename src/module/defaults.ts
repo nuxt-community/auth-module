@@ -13,6 +13,8 @@ export default {
 
   fullPathRedirect: false,
 
+  noRouter: false,
+
   watchLoggedIn: true,
 
   redirect: {

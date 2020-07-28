@@ -36,6 +36,7 @@ export type AuthOptions = {
   watchLoggedIn?: boolean
   rewriteRedirects: boolean
   fullPathRedirect: boolean
+  noRouter: boolean
   scopeKey: string
   redirect: { [from: string]: string }
 }
