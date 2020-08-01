@@ -4,7 +4,7 @@ export default function laravelSanctum (_nuxt, strategy) {
   const { url } = strategy
 
   if (!url) {
-    throw new Error('url is required is laravel sanctum!')
+    throw new Error('url is required in laravel sanctum!')
   }
 
   const endpointDefaults = {
