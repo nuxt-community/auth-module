@@ -7,7 +7,8 @@ const builtInSchemes = [
   'local',
   'cookie',
   'oauth2',
-  'refresh'
+  'refresh',
+  'oidc'
 ]
 
 export function resolveStrategies (nuxt, options) {

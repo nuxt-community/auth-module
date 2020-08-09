@@ -67,6 +67,16 @@
           <div class="mb-2">
             <b-btn
               block
+              :style="{background: '#e0640b'}"
+              class="login-button"
+              @click="$auth.loginWith('oidcmock')"
+            >
+              Login with OpenIDConnect
+            </b-btn>
+          </div>
+          <div class="mb-2">
+            <b-btn
+              block
               :style="{background: '#ff2d20'}"
               class="login-button"
               @click="loginSanctum"

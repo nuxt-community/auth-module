@@ -27,6 +27,7 @@ export type SchemeCheck = {
   valid: boolean
   tokenExpired?: boolean
   refreshTokenExpired?: boolean
+  idTokenExpired?: boolean
   isRefreshable?: boolean
 }
 
