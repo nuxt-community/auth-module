@@ -49,7 +49,6 @@
     "jest": "latest",
     "jsdom": "latest",
     "lodash.get": "latest",
-    "nuxt-edge": "latest",
     "puppeteer": "latest",
     "standard-version": "latest",
     "typescript": "latest"

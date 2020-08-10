@@ -1,27 +1,27 @@
-# Auth Module
+# docs
 
-Zero-boilerplate authentication support for Nuxt.js!
+## Setup
 
-## Getting Started
+Install dependencies:
 
-If it is first time using this module, reading resources below in order is recommended:
+```bash
+yarn install
+```
 
-1. [Add auth and axios modules](./guide/setup.md)
-2. [Setup auth middleware](./guide/middleware.md)
-3. [Configure local scheme](./schemes/local.md)
-4. [Customize options](./api/options.md)
-5. [Use `$auth` service](./api/auth.md)
+## Development
 
-You can also watch a video introduction by VueScreencasts. It covers the same material, but in the context of a working Nuxt app.
+```bash
+yarn dev
+```
 
-[![Nuxt Auth - Authentication and Authorization in NuxtJS](https://img.youtube.com/vi/zzUpO8tXoaw/0.jpg)](https://youtu.be/zzUpO8tXoaw)
+## Static Generation
 
-## More Resources
+This will create the `dist/` directory for publishing to static hosting:
 
-* [Glossary](./glossary.md)
-* [GitHub](https://github.com/nuxt-community/auth-module)
-* [Releases](https://github.com/nuxt-community/auth-module/releases)
-* [Migration Guide](./migration.md)
-* [Examples](https://github.com/nuxt-community/auth-module/tree/dev/examples)
-* [Demo](https://nuxt-auth.herokuapp.com)
+```bash
+yarn generate
+```
 
+To preview the static generated app, run `yarn start`
+
+For detailed explanation on how things work, checkout [nuxt/content](https://content.nuxtjs.org) and [@nuxt/content theme docs](https://content.nuxtjs.org/themes-docs).
