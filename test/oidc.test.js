@@ -40,8 +40,6 @@ const loginWithOidc = async (page) => {
   // Redirect to home
   await page.waitForFunction('!!window.$nuxt')
   expect(page.url()).toContain('http://localhost:3000')
-
-  return getAuthDataFromWindow(page)
 }
 
 const logoutWithOidc = async (page) => {
@@ -121,7 +119,9 @@ describe('oidc', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
-    const { token, user, axiosBearer, idToken, refreshToken } = await loginWithOidc(page)
+    await loginWithOidc(page)
+
+    const { token, user, axiosBearer, idToken, refreshToken } = await getAuthDataFromWindow(page)
 
     expect(axiosBearer).toBeDefined()
     expect(axiosBearer.split(' ')).toHaveLength(2)
@@ -141,6 +141,8 @@ describe('oidc', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
+    await loginWithOidc(page)
+
     const {
       token: loginToken,
       idToken: loginIdToken,
@@ -148,7 +150,7 @@ describe('oidc', () => {
       expiresAt: loginExpiresAt,
       user: loginUser,
       axiosBearer: loginAxiosBearer
-    } = await loginWithOidc(page)
+    } = await getAuthDataFromWindow(page)
 
     expect(loginAxiosBearer).toBeDefined()
     expect(loginAxiosBearer.split(' ')).toHaveLength(2)
@@ -196,7 +198,9 @@ describe('oidc', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
-    const { token: loginToken, axiosBearer: loginAxiosBearer } = await loginWithOidc(page)
+    await loginWithOidc(page)
+
+    const { token: loginToken, axiosBearer: loginAxiosBearer } = await getAuthDataFromWindow(page)
 
     expect(loginAxiosBearer).toBeDefined()
     expect(loginToken).toBeDefined()
@@ -210,17 +214,4 @@ describe('oidc', () => {
 
     await page.close()
   })
-
-  // test('auth plugin', async () => {
-  //   const page = await browser.newPage()
-  //   await page.goto(url('/'))
-
-  //   const flag = await page.evaluate(() => {
-  //     return window.$nuxt.$auth._custom_plugin
-  //   })
-
-  //   expect(flag).toBe(true)
-
-  //   await page.close()
-  // })
 })
