@@ -97,4 +97,9 @@ export default class IdToken {
   status () {
     return new TokenStatus(this.get(), this._getExpiration())
   }
+
+  userInfo () {
+    const idToken = this.get()
+    return jwtDecode(idToken)
+  }
 }

@@ -7,7 +7,6 @@ import {
   getResponseProp
   // urlJoin
 } from '../utils'
-import Token from '../inc/token'
 import IdToken from '../inc/id-token'
 import DiscoveryDocument from '../inc/discovery-document'
 import type { SchemeCheck } from '../index'
@@ -29,7 +28,7 @@ const DEFAULTS = {
 }
 
 export default class OpenIDConnectScheme extends Oauth2Scheme {
-  public idToken: Token;
+  public idToken: IdToken;
   public discoveryDocument: DiscoveryDocument;
 
   constructor ($auth: any, options: any, ...defaults: any) {
@@ -172,6 +171,29 @@ export default class OpenIDConnectScheme extends Oauth2Scheme {
       window.location.replace(url)
     }
     return this.$auth.reset()
+  }
+
+  async fetchUser () {
+    if (!this.check().valid) {
+      return
+    }
+
+    if (this.idToken.get()) {
+      const data = this.idToken.userInfo()
+      this.$auth.setUser(data)
+      return
+    }
+
+    if (!this.options.endpoints.userInfo) {
+      this.$auth.setUser({})
+      return
+    }
+
+    const { data } = await this.$auth.requestWith(this.name, {
+      url: this.options.endpoints.userInfo
+    })
+
+    this.$auth.setUser(data)
   }
 
   async _handleCallback () {
