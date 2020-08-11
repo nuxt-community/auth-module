@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const { Provider } = require('oidc-provider')
+const defu = require('defu')
 
 // Suppress oidc-provider errors on test run
 if (process.env.NODE_ENV === 'test') {
@@ -7,10 +8,19 @@ if (process.env.NODE_ENV === 'test') {
   console.info = () => { /* Do nothing */ }
 }
 
-const provider = (port = 3000) => {
-  const baseUrl = `http://localhost:${port}/oidc`
+const DEFAULTS = {
+  port: 3000,
+  path: '/oidc',
+  redirect: {
+    callback: '/login'
+  }
+}
+
+const provider = (config) => {
+  const { port, redirect, path } = defu(config, DEFAULTS)
+  const baseUrl = `http://localhost:${port}${path}`
   const appBaseUrl = `http://localhost:${port}`
-  const redirectUri = `${appBaseUrl}/login`
+  const redirectUri = `${appBaseUrl}${redirect.callback}`
 
   return new Provider(baseUrl, {
     routes: {
@@ -43,4 +53,4 @@ const provider = (port = 3000) => {
   })
 }
 
-module.exports = (req, res, port) => provider(port).callback(req, res)
+module.exports = (req, res, config = {}) => provider(config).callback(req, res)

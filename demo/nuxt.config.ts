@@ -1,4 +1,5 @@
 import authModule from '../src/module'
+import oidcMockServer from './api/oidcmockserver'
 
 export default {
   build: {
@@ -7,7 +8,16 @@ export default {
   serverMiddleware: [
     '~/api/auth',
     '~/api/oauth2mockserver',
-    { path: '/oidc', handler: '~/api/oidcmockserver.js' }
+    {
+      path: '/oidc',
+      handler: (req, res) => oidcMockServer(req, res, {
+        port: 3000,
+        path: '/oidc',
+        redirect: {
+          callback: '/callback'
+        }
+      })
+    }
   ],
   buildModules: [
     '@nuxt/typescript-build'
@@ -145,7 +155,7 @@ export default {
         responseType: 'code',
         scope: ['openid', 'profile', 'offline_access'],
         grantType: 'authorization_code',
-        clientId: 'nuxt_auth_oidc_client',
+        clientId: 'oidc_authorization_code_client',
         logoutRedirectUri: 'http://localhost:3000'
       }
     }
