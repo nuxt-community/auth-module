@@ -44,6 +44,20 @@ const loginWithOidc = async (page) => {
   return getAuthDataFromWindow(page)
 }
 
+const logoutWithOidc = async (page) => {
+  await page.evaluate(async () => {
+    await window.$nuxt.$auth.logout()
+  })
+
+  await page.waitForNavigation()
+  expect(page.url()).toContain('/oidc/connect/endsession')
+
+  await page.click('[value="yes"][name="logout"]')
+
+  await page.waitForFunction('!!window.$nuxt')
+  expect(page.url()).toContain('http://localhost:3000')
+}
+
 describe('oidc', () => {
   let url, nuxt, browser
 
@@ -177,39 +191,25 @@ describe('oidc', () => {
     await page.close()
   })
 
-  // test('logout', async () => {
-  //   const page = await browser.newPage()
-  //   await page.goto(url('/'))
-  //   await page.waitForFunction('!!window.$nuxt')
+  test('logout', async () => {
+    const page = await browser.newPage()
+    await page.goto(url('/'))
+    await page.waitForFunction('!!window.$nuxt')
 
-  //   const { loginAxiosBearer, loginToken } = await page.evaluate(async () => {
-  //     await window.$nuxt.$auth.loginWith('oidcmock', {
-  //       data: { username: 'test_username', password: '123' }
-  //     })
+    const { token: loginToken, axiosBearer: loginAxiosBearer } = await loginWithOidc(page)
 
-  //     return {
-  //       loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-  //       loginToken: window.$nuxt.$auth.strategy.token.get()
-  //     }
-  //   })
+    expect(loginAxiosBearer).toBeDefined()
+    expect(loginToken).toBeDefined()
 
-  //   expect(loginAxiosBearer).toBeDefined()
-  //   expect(loginToken).toBeDefined()
+    await logoutWithOidc(page)
 
-  //   const { logoutToken, logoutAxiosBearer } = await page.evaluate(async () => {
-  //     await window.$nuxt.$auth.logout()
+    const { token: logoutToken, axiosBearer: logoutAxiosBearer } = await getAuthDataFromWindow(page)
 
-  //     return {
-  //       logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-  //       logoutToken: window.$nuxt.$auth.strategy.token.get()
-  //     }
-  //   })
+    expect(logoutToken).toBeFalsy()
+    expect(logoutAxiosBearer).toBeUndefined()
 
-  //   expect(logoutToken).toBeFalsy()
-  //   expect(logoutAxiosBearer).toBeUndefined()
-
-  //   await page.close()
-  // })
+    await page.close()
+  })
 
   // test('auth plugin', async () => {
   //   const page = await browser.newPage()
