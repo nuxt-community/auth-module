@@ -21,18 +21,9 @@ const provider = (port = 3000) => {
     },
     features: {
       devInteractions: { enabled: true },
-      clientCredentials: { enabled: false },
-      introspection: { enabled: true },
       revocation: { enabled: true }
     },
-    formats: {
-      AccessToken: 'jwt'
-    },
     scopes: ['openid', 'profile', 'offline_access'],
-    claims: {
-      email: ['email'],
-      profile: ['name', 'profile']
-    },
     clients: [
       {
         client_id: 'oidc_authorization_code_client',
@@ -44,17 +35,9 @@ const provider = (port = 3000) => {
         post_logout_redirect_uris: [appBaseUrl]
       }
     ],
-    findAccount: async (_ctx, id) => ({
-      accountId: id,
-      claims: async () => ({
-        sub: id,
-        auth_time: new Date().getTime(),
-        idp: 'local',
-        amr: 'pwd'
-      })
-    }),
-    issueRefreshToken: async () => {
+
     // Force refresh token issueing
+    issueRefreshToken: async () => {
       return true
     }
   })
