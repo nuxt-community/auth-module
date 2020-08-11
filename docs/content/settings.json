@@ -2,8 +2,8 @@
   "title": "nuxt auth docs",
   "url": "https://auth.nuxtjs.org",
   "logo": {
-    "light": "/icon.png",
-    "dark": "/icon.png"
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg"
   },
   "github": "nuxt-community/auth-module",
   "twitter": "@nuxt_js"
