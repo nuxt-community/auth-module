@@ -1,9 +1,16 @@
+/* eslint-disable no-console */
 const { Provider } = require('oidc-provider')
+
+// Suppress oidc-provider errors on test run
+if (process.env.NODE_ENV === 'test') {
+  console.warn = () => { /* Do nothing */ }
+  console.info = () => { /* Do nothing */ }
+}
 
 const provider = (port = 3000) => {
   const baseUrl = `http://localhost:${port}/oidc`
   const appBaseUrl = `http://localhost:${port}`
-  const redirectUri = `${appBaseUrl}/callback`
+  const redirectUri = `${appBaseUrl}/login`
 
   return new Provider(baseUrl, {
     routes: {
@@ -28,7 +35,7 @@ const provider = (port = 3000) => {
     },
     clients: [
       {
-        client_id: 'nuxt_auth_oidc_client',
+        client_id: 'oidc_authorization_code_client',
         client_secret: 'this_is_a_secret',
         token_endpoint_auth_method: 'none',
         grant_types: ['authorization_code', 'refresh_token'],

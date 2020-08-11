@@ -1,9 +1,11 @@
 import authAPI from '../../demo/api/auth'
 import authModuleDist from '../..'
+import oidcMockServer from '../../demo/api/oidcmockserver'
 
 export default {
   serverMiddleware: [
-    authAPI
+    authAPI,
+    { path: '/oidc', handler: (req, res) => oidcMockServer(req, res, 3000) }
   ],
   modules: [
     '@nuxtjs/axios',
@@ -40,6 +42,15 @@ export default {
       test: {
         provider: '~/auth/test-provider.js',
         scheme: '~/auth/test-scheme.js'
+      },
+      oidcAuthorizationCode: {
+        scheme: 'oidc',
+        baseURL: 'http://localhost:3000/oidc',
+        responseType: 'code',
+        scope: ['openid', 'profile', 'offline_access'],
+        grantType: 'authorization_code',
+        clientId: 'oidc_authorization_code_client',
+        logoutRedirectUri: 'http://localhost:3000'
       }
     }
   }
