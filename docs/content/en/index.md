@@ -7,7 +7,8 @@ category: ''
 ---
 
 <img src="/preview.svg" class="light-img" :alt="description"/>
-<img src="/preview-dark.svg" class="dark-img"  alt="description"/>
+<img src="/preview-dark.svg" class="dark-img"  :alt="description"/>
+
 
 Auth Module for [NuxtJS](https://nuxtjs.org).
 
