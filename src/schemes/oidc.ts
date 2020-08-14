@@ -1,11 +1,9 @@
-// import requrl from 'requrl'
 import { AxiosResponse } from 'axios'
 import {
   encodeQuery,
   parseQuery,
   normalizePath,
   getResponseProp
-  // urlJoin
 } from '../utils'
 import IdToken from '../inc/id-token'
 import DiscoveryDocument from '../inc/discovery-document'
@@ -27,7 +25,7 @@ const DEFAULTS = {
   codeChallengeMethod: 'S256'
 }
 
-export default class OpenIDConnectScheme extends Oauth2Scheme {
+export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
   public idToken: IdToken;
   public discoveryDocument: DiscoveryDocument;
 
@@ -47,7 +45,6 @@ export default class OpenIDConnectScheme extends Oauth2Scheme {
 
     const idToken = getResponseProp(
       response,
-      // @ts-ignore
       this.options.idToken.property
     )
 
@@ -217,7 +214,6 @@ export default class OpenIDConnectScheme extends Oauth2Scheme {
     // refresh token
     let refreshToken = parsedQuery[this.options.refreshToken.property]
     // id token
-    // @ts-ignore
     let idToken = parsedQuery[this.options.idToken.property]
 
     // Validate state
