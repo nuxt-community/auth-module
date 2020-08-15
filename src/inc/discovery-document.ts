@@ -1,6 +1,13 @@
-// import { intersection } from 'lodash'
-import type { Scheme } from '../index'
+import defu from 'defu'
+import type { Scheme, OpenIDConnectDiscoveryDocument } from '../index'
 import Storage from '../core/storage'
+
+class DiscoveryDocumentRequestError extends Error {
+  constructor () {
+    super('Error loading OpenIDConnect discovery document')
+    this.name = 'DiscoveryDocumentRequestError'
+  }
+}
 
 export default class DiscoveryDocument {
   public scheme: Scheme
@@ -13,31 +20,29 @@ export default class DiscoveryDocument {
     this.key = '_discovery_document.' + this.scheme.name
   }
 
-  _set (value: boolean) {
+  _set (value: OpenIDConnectDiscoveryDocument | boolean) {
     return this.$storage.setState(this.key, value)
   }
 
-  get () {
+  get (): OpenIDConnectDiscoveryDocument {
     return this.$storage.getState(this.key)
   }
 
-  set (value: any) {
+  set (value: OpenIDConnectDiscoveryDocument | boolean) {
     this._set(value)
 
     return value
   }
 
-  async load () {
+  async request () {
     // Get Discovery Document from state hydration
-    const serverDoc = this.scheme.$auth.ctx?.nuxtState?.$auth?.oidc?.discoveryDocument
+    const serverDoc: OpenIDConnectDiscoveryDocument = this.scheme.$auth.ctx?.nuxtState?.$auth?.oidc?.discoveryDocument
     if (process.client && serverDoc) {
       this.set(serverDoc)
     }
 
     if (!this.get()) {
-      const discoveryDocument = await this.scheme.requestHandler.axios.$get(
-        this.scheme.options.baseURL + this.scheme.options.endpoints.discovery
-      ).catch(e => Promise.reject(e))
+      const discoveryDocument = await this.scheme.requestHandler.axios.$get(this.scheme.options.endpoints.discovery).catch(e => Promise.reject(e))
 
       // Push Discovery Document to state hydration
       if (process.server) {
@@ -55,17 +60,9 @@ export default class DiscoveryDocument {
   }
 
   async init () {
-    // TODO: test if this error triggers
-    if (!this.scheme.options.baseURL) {
-      throw new Error('Declare OpenIDConnect baseURL')
-    }
-
-    await this.load().catch(() => {
-      // TODO: test if this error triggers
-      throw new Error('Error loading OpenIDConnect discovery document')
+    await this.request().catch(() => {
+      throw new DiscoveryDocumentRequestError()
     })
-
-    // TODO: validate configuration against loaded discovery document
 
     this.setSchemeEndpoints()
   }
@@ -73,13 +70,12 @@ export default class DiscoveryDocument {
   setSchemeEndpoints () {
     const discoveryDocument = this.get()
 
-    this.scheme.options.endpoints = {
-      ...this.scheme.options.endpoints,
+    this.scheme.options.endpoints = defu(this.scheme.options.endpoints, {
       authorization: discoveryDocument.authorization_endpoint,
       token: discoveryDocument.token_endpoint,
       userInfo: discoveryDocument.userinfo_endpoint,
       logout: discoveryDocument.end_session_endpoint
-    }
+    })
   }
 
   reset () {

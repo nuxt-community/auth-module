@@ -12,10 +12,6 @@ import Oauth2Scheme from './oauth2'
 
 const DEFAULTS = {
   name: 'oidc',
-  baseURL: null,
-  endpoints: {
-    discovery: '/.well-known/openid-configuration'
-  },
   idToken: {
     property: 'id_token',
     maxAge: 60 * 60 * 24 * 30,
@@ -115,18 +111,6 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     // Get and validate configuration based upon OpenIDConnect Discovery Document
     // https://openid.net/specs/openid-connect-discovery-1_0.html
     await this.discoveryDocument.init()
-
-    const discoveryDocument = this.discoveryDocument.get()
-
-    // console.log(discoveryDocument)
-
-    this.options.endpoints = {
-      ...this.options.endpoints,
-      authorization: discoveryDocument.authorization_endpoint,
-      token: discoveryDocument.token_endpoint,
-      userInfo: discoveryDocument.userinfo_endpoint,
-      logout: discoveryDocument.end_session_endpoint
-    }
 
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 

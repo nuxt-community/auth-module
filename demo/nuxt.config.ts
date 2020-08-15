@@ -151,12 +151,14 @@ export default {
       },
       oidcmock: {
         scheme: 'oidc',
-        baseURL: 'http://localhost:3000/oidc',
         responseType: 'code',
         scope: ['openid', 'profile', 'offline_access'],
         grantType: 'authorization_code',
         clientId: 'oidc_authorization_code_client',
-        logoutRedirectUri: 'http://localhost:3000'
+        logoutRedirectUri: 'http://localhost:3000',
+        endpoints: {
+          discovery: 'http://localhost:3000/oidc/.well-known/openid-configuration'
+        }
       }
     }
   }
