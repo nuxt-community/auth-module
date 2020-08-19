@@ -163,11 +163,13 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return response
   }
 
-  async setUserToken (token) {
+  async setUserToken (token, fetchUser : boolean = true) {
     this.token.set(token)
 
-    // Fetch user
-    return this.fetchUser()
+    if (fetchUser) {
+      // Fetch user
+      return this.fetchUser()
+    }
   }
 
   async fetchUser (endpoint?) {
