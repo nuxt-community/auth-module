@@ -32,5 +32,5 @@ You can also watch a video introduction by VueScreencasts. It covers the same ma
 * [Glossary](./glossary)
 * [GitHub](https://github.com/nuxt-community/auth-module)
 * [Releases](https://github.com/nuxt-community/auth-module/releases)
-* [Examples](https://github.com/nuxt-community/auth-module/tree/dev/examples)
+* [Examples](https://github.com/nuxt-community/auth-module/tree/dev/demo)
 * [Demo](https://nuxt-auth.herokuapp.com)
