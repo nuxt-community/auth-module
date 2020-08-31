@@ -15,11 +15,11 @@
     <img alt="" src="https://img.shields.io/codecov/c/github/nuxt-community/auth-module.svg?style=flat-square">
 </a>
 <br>
-<a href="https://npmjs.com/package/@nuxtjs/auth">
-    <img alt="" src="https://img.shields.io/npm/v/@nuxtjs/auth/latest.svg?style=flat-square">
+<a href="https://npmjs.com/package/@nuxtjs/auth-next">
+    <img alt="" src="https://img.shields.io/npm/v/@nuxtjs/auth-next/latest.svg?style=flat-square">
 </a>
 <a href="https://npmjs.com/package/@nuxtjs/auth">
-    <img alt="" src="https://img.shields.io/npm/dt/@nuxtjs/auth.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/npm/dt/@nuxtjs/auth-next.svg?style=flat-square">
 </a>
 </p>
 
@@ -30,7 +30,7 @@
 
 # 🚧 `v5` Development
 
-`dev` branch is under heavy developmentt to prepare for `v5`. Dev docs (WIP) are deployed on https://dev.auth.nuxtjs.org
+`dev` branch is under heavy development to prepare for `v5`. Dev docs (WIP) are deployed on https://dev.auth.nuxtjs.org
 
 Meanwhile only important bug fixes are accepted for v4. Please base PRs on [master](https://github.com/nuxt-community/auth-module/tree/master) branch.
 
