@@ -24,7 +24,7 @@ router: {
 }
 ```
 
-In case of global usage, You can set `auth` option to `false` in a specific component and the middleware will ignore that route.
+When using middleware globally you can override the middleware checks per component route. You can set `auth` option to `false` in a specific component and the global middleware will ignore that route.
 
 ```js
 export default {
@@ -32,7 +32,7 @@ export default {
 }
 ```
 
-You can set `auth` option to `guest` in a specific component. When this middleware is enabled on a route and `loggedIn` is `true` user will be redirected to `redirect.home` route. (`/` by default)
+You can set `auth` property to `guest` in your component. When this middleware is enabled on a route and `loggedIn` is `true` user will be redirected to `redirect.home` route. (`/` by default). When using the `redirect.callback` options please make sure you set the component property `auth` to `false` on the callback page component.
 
 ```js
 export default {
