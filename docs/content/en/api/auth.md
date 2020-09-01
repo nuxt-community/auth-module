@@ -29,6 +29,8 @@ this.$store.state.auth.user
 
 ### `loggedIn`
 
+- Returns: `Boolean`
+
 This boolean flag indicates that user is authenticated and available at the moment or not.
 
 ```js
@@ -46,6 +48,10 @@ Under the hood, auth uses attached [`$storage`](./storage.md) instance to provid
 
 ### `loginWith(strategyName, ...args)`
 
+- Args: `strategyName` (string) - The name of the strategy as set in your nuxt.config.js file
+- Args: `...args` (object) - These is an additional object argument, you can read more about them in our [payload page](./api/payload.md).
+
+
 - Returns: `Promise`
 
 Set current strategy to `strategyName` and try to do login. Usage varies by current strategy.
@@ -56,6 +62,9 @@ this.$auth.loginWith('local', /* .... */)
 ```
 
 ### `login(...args)`
+
+- Args: `...args` (object) - These is an additional object argument, you can read more about them in our [payload page](./api/payload.md).
+
 
 - Returns: `Promise`
 
@@ -92,6 +101,9 @@ this.$auth.setUserToken(token, refreshToken)
 ```
 
 ### `logout(...args)`
+
+- Args: `...args` (object) - These is an additional object argument, you can read more about them in our [payload page](./api/payload.md).
+
 
 - Returns: `Promise`
 
