@@ -71,8 +71,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     // Initialize Request Handler
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
 
-    // Initilise the user
-    this._name = super(name)
+    // Initilise the name
+    this._name = this.name
   }
 
   get _scope () {
