@@ -57,4 +57,16 @@ When adding `auth-module` to a new Nuxt project ensure you have [activated the V
 </alert>
 
 ## Typescript
-If you are using Typescript please add `@nuxtjs/auth-next`
+If you are using Typescript please add `@nuxtjs/auth-next` to your `types` in your `tsconfig.json` like so:
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      ...
+      "@nuxtjs/auth-next",
+      ...
+      ]
+  }
+}
+```
