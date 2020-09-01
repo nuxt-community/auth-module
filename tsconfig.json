@@ -4,9 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": [
-      "dom",
-      "es2015.core",
-      "es2015.promise"
+      "dom"
     ],
     "esModuleInterop": true,
     "strict": false,
