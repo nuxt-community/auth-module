@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "preinstall": "tsc",
     "clean": "rm -rf dist",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
