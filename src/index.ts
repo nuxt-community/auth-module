@@ -1,10 +1,10 @@
+import Vue from 'vue'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import _Auth from './core/auth'
 import _Scheme from './schemes/_scheme'
 import Token from './inc/token'
 import RefreshToken from './inc/refresh-token'
 import RequestHandler from './inc/request-handler'
-import Vue from 'vue'
 
 export { AxiosRequestConfig as HTTPRequest }
 export { AxiosResponse as HTTPResponse }
