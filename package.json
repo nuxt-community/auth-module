@@ -27,6 +27,7 @@
     "consola": "^2.14.0",
     "cookie": "^0.4.1",
     "defu": "^2.0.4",
+    "globby": "^11.0.1",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.19",

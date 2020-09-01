@@ -13,7 +13,7 @@ export default async function authMiddleware (ctx) {
     return
   }
 
-  const { login, callbackURL:callback } = ctx.$auth.options.redirect
+  const { login, callback } = ctx.$auth.options.redirect
   const pageIsInGuestMode = routeOption(ctx.route, 'auth', 'guest')
   const insidePage = page => normalizePath(ctx.route.path) === normalizePath(page)
 
@@ -43,7 +43,7 @@ export default async function authMiddleware (ctx) {
     // -- Guest --
     // (Those passing `callback` at runtime need to mark their callback component
     // with `auth: false` to avoid an unnecessary redirect from callback to login)
-  } else if (!pageIsInGuestMode && (!callbackUrl || !insidePage(callbackUrl))) {
+  } else if (!pageIsInGuestMode && (!callback || !insidePage(callback))) {
     ctx.$auth.redirect('login')
   }
 }

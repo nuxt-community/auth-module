@@ -48,7 +48,7 @@ const DEFAULTS = {
 
 export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   public req
-  public name
+  private _name
   public token: Token
   public refreshToken: RefreshToken
   public refreshController: RefreshController
@@ -70,6 +70,9 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
     // Initialize Request Handler
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
+
+    // Initilise the user
+    this._name = super(name)
   }
 
   get _scope () {
@@ -229,9 +232,9 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         case 'plain':
         case 'S256': {
           const state = this._generateRandomString()
-          this.$auth.$storage.setUniversal(this.name + '.pkce_state', state)
+          this.$auth.$storage.setUniversal(this._name + '.pkce_state', state)
           const codeVerifier = this._generateRandomString()
-          this.$auth.$storage.setUniversal(this.name + '.pkce_code_verifier', codeVerifier)
+          this.$auth.$storage.setUniversal(this._name + '.pkce_code_verifier', codeVerifier)
           const codeChallenge = await this._pkceChallengeFromVerifier(codeVerifier, opts.code_challenge_method === 'S256')
           opts.code_challenge = window.encodeURIComponent(codeChallenge)
         }
@@ -250,7 +253,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       opts.acr_values = this.options.acrValues
     }
 
-    this.$auth.$storage.setUniversal(this.name + '.state', opts.state)
+    this.$auth.$storage.setUniversal(this._name + '.state', opts.state)
 
     const url = this.options.endpoints.authorization + '?' + encodeQuery(opts)
 
@@ -279,7 +282,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       return
     }
 
-    const { data } = await this.$auth.requestWith(this.name, {
+    const { data } = await this.$auth.requestWith(this._name, {
       url: this.options.endpoints.userInfo
     })
 
@@ -304,8 +307,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     let refreshToken = parsedQuery[this.options.refreshToken.property]
 
     // Validate state
-    const state = this.$auth.$storage.getUniversal(this.name + '.state')
-    this.$auth.$storage.setUniversal(this.name + '.state', null)
+    const state = this.$auth.$storage.getUniversal(this._name + '.state')
+    this.$auth.$storage.setUniversal(this._name + '.state', null)
     if (state && parsedQuery.state !== state) {
       return
     }
@@ -316,8 +319,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
 
       // Retrieve code verifier and remove it from storage
       if (this.options.codeChallengeMethod && this.options.codeChallengeMethod !== 'implicit') {
-        codeVerifier = this.$auth.$storage.getUniversal(this.name + '.pkce_code_verifier')
-        this.$auth.$storage.setUniversal(this.name + '.pkce_code_verifier', null)
+        codeVerifier = this.$auth.$storage.getUniversal(this._name + '.pkce_code_verifier')
+        this.$auth.$storage.setUniversal(this._name + '.pkce_code_verifier', null)
       }
 
       const response = await this.$auth.request({
@@ -377,7 +380,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     // Delete current token from the request header before refreshing
     this.requestHandler.clearHeader()
 
-    const response = await this.$auth.request(this.name, {
+    const response = await this.$auth.request(this._name, {
       method: 'post',
       url: this.options.endpoints.token,
       data: encodeQuery({
