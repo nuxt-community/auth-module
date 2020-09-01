@@ -42,16 +42,16 @@ export type AuthOptions = {
 
 declare module '@nuxt/types' {
   interface Context {
-    $auth: _Auth;
+    $auth: Auth;
   }
   interface NuxtAppOptions {
-    $auth: _Auth;
+    $auth: Auth;
   }
 }
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $auth: _Auth;
+    $auth: Auth;
   }
 }
 
@@ -63,6 +63,6 @@ declare module 'vue/types/options' {
 
 declare module 'vuex/types/index' {
   interface Store<S> {
-    $auth: _Auth;
+    $auth: Auth;
   }
 }
