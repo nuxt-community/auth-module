@@ -41,8 +41,8 @@ export type AuthOptions = {
   redirect: { [from: string]: string }
 }
 
-/* eslint-disable camelcase */
 export type OpenIDConnectDiscoveryDocument = {
+  /* eslint-disable camelcase */
   issuer?: string;
   authorization_endpoint?: string;
   token_endpoint?: string;
@@ -72,8 +72,8 @@ export type OpenIDConnectDiscoveryDocument = {
   claims_parameter_supported?: boolean;
   service_documentation?: string;
   ui_locales_supported?: string[];
+  /* eslint-enable camelcase */
 }
-/* eslint-enable camelcase */
 
 declare module '@nuxt/types' {
   interface Context {

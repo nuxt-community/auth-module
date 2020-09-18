@@ -1,3 +1,4 @@
+import { IncomingMessage } from 'http'
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
 import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, removeTokenPrefix } from '../utils'
@@ -7,6 +8,7 @@ import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
 import Token from '../inc/token'
 import RefreshToken from '../inc/refresh-token'
 import type { SchemeCheck } from '../index'
+import Auth from '../core/auth'
 import BaseScheme from './_scheme'
 
 const DEFAULTS = {
@@ -47,14 +49,13 @@ const DEFAULTS = {
 }
 
 export default class Oauth2Scheme<T = void> extends BaseScheme<T & typeof DEFAULTS> {
-  public req
-  public name
+  public req: IncomingMessage
   public token: Token
   public refreshToken: RefreshToken
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor ($auth, options, ...defaults) {
+  constructor ($auth: Auth, options, ...defaults) {
     super($auth, options, ...defaults, DEFAULTS as any)
 
     this.req = $auth.ctx.req
@@ -377,9 +378,9 @@ export default class Oauth2Scheme<T = void> extends BaseScheme<T & typeof DEFAUL
     // Delete current token from the request header before refreshing
     this.requestHandler.clearHeader()
 
-    const response = await this.$auth.request(this.name, {
-      method: 'post',
+    const response = await this.$auth.request({
       url: this.options.endpoints.token,
+      method: 'post',
       data: encodeQuery({
         refresh_token: removeTokenPrefix(refreshToken, this.options.token.type),
         client_id: this.options.clientId,

@@ -14,7 +14,8 @@ app.use(bodyParser.json())
 // JWT middleware
 app.use(
   jwt({
-    secret: 'dummy'
+    secret: 'dummy',
+    algorithms: ['HS256']
   }).unless({
     path: ['/api/auth/login', '/api/auth/refresh']
   })

@@ -19,7 +19,7 @@
     "lint-fix": "yarn lint --fix",
     "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
-    "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
+    "test": "yarn lint && yarn build && jest --runInBand"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.0",
@@ -48,6 +48,7 @@
     "express-jwt": "latest",
     "get-port": "latest",
     "jest": "latest",
+    "jest-puppeteer": "^4.4.0",
     "jsdom": "latest",
     "lodash.get": "latest",
     "nuxt-edge": "latest",

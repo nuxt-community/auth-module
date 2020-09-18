@@ -1,3 +1,4 @@
+import { Context } from '@nuxt/types'
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import type { AuthOptions, HTTPRequest, HTTPResponse } from '../'
 import Storage from './storage'
@@ -16,7 +17,7 @@ export default class Auth {
   public $storage: Storage
   public $state
 
-  constructor (ctx, options) {
+  constructor (ctx: Context, options) {
     this.ctx = ctx
     this.options = options
 
