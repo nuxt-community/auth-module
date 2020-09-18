@@ -1,34 +1,36 @@
-const path = require('path')
-const { loadNuxt } = require('nuxt-edge')
-const puppeteer = require('puppeteer')
-const getPort = require('get-port')
+const util = require('util')
+const exec = util.promisify(require('child_process').exec)
+const {
+  setup: setupDevServer,
+  teardown: teardownDevServer
+} = require('jest-dev-server')
+
+const browserTimeout = 20 * 1000
+const port = 3000
+const url = p => 'http://localhost:' + port + p
+const setup = async () => {
+  await exec('yarn nuxt build test/fixture')
+  await setupDevServer({
+    command: 'yarn nuxt start test/fixture',
+    port: 3000,
+    launchTimeout: browserTimeout
+  })
+}
 
 describe('e2e', () => {
-  let url, nuxt, browser
-
   beforeAll(async () => {
-    browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
-    })
+    await setup()
+  }, browserTimeout)
 
-    nuxt = await loadNuxt({
-      for: 'start',
-      rootDir: path.resolve(__dirname, 'fixture')
-    })
-
-    const port = await getPort()
-    url = p => 'http://localhost:' + port + p
-    await nuxt.listen(port)
+  beforeEach(async () => {
+    await jestPuppeteer.resetBrowser()
   })
 
   afterAll(async () => {
-    await browser.close()
-    await nuxt.close()
+    await teardownDevServer()
   })
 
   test('initial state', async () => {
-    const page = await browser.newPage()
     await page.goto(url('/'))
 
     const state = await page.evaluate(() => window.__NUXT__.state)
@@ -38,7 +40,6 @@ describe('e2e', () => {
   })
 
   test('login', async () => {
-    const page = await browser.newPage()
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
@@ -67,7 +68,6 @@ describe('e2e', () => {
   })
 
   test('refresh', async () => {
-    const page = await browser.newPage()
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
@@ -141,7 +141,6 @@ describe('e2e', () => {
   })
 
   test('logout', async () => {
-    const page = await browser.newPage()
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
@@ -175,7 +174,6 @@ describe('e2e', () => {
   })
 
   test('auth plugin', async () => {
-    const page = await browser.newPage()
     await page.goto(url('/'))
 
     const flag = await page.evaluate(() => {
