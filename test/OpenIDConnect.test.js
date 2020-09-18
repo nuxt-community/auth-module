@@ -1,22 +1,31 @@
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
-// const path = require('path')
 const {
   setup: setupDevServer,
   teardown: teardownDevServer
 } = require('jest-dev-server')
 
-const browserTimeout = 20 * 1000
+const browserTimeout = 25 * 1000
 const port = 3000
 const url = p => 'http://localhost:' + port + p
 
-const setup = async () /* ({ configFilePath }) */ => {
-  await exec('yarn nuxt build test/fixture')
+const MODES_TO_TEST = { UNIVERSAL: 'UNIVERSAL', SPA: 'SPA' }
+
+const nuxtCommand = (type, { configFilePath, spa } = { spa: false }) =>
+  [
+    'yarn nuxt',
+    type,
+    'test/fixture',
+    ...(configFilePath ? [`-c ${configFilePath}`] : []),
+    ...(spa ? ['--spa'] : [])
+  ].join(' ')
+
+const setup = async (options) => {
+  await exec(nuxtCommand('build', options))
   await setupDevServer({
-    command: 'yarn nuxt start test/fixture',
+    command: nuxtCommand('start', options),
     port: 3000,
-    launchTimeout: browserTimeout,
-    debug: true
+    launchTimeout: browserTimeout
   })
 }
 
@@ -75,180 +84,166 @@ const logoutWithOidc = async () => {
 }
 
 describe('OpenID Connect', () => {
-  describe('Default fixture', () => {
-    beforeAll(async () => {
-      await setup()
-    }, browserTimeout)
+  describe.each(Object.keys(MODES_TO_TEST))('%s', (mode) => {
+    describe('Default fixture', () => {
+      beforeAll(async () => {
+        await setup({ spa: mode === MODES_TO_TEST.SPA })
+      }, browserTimeout)
 
-    beforeEach(async () => {
-      await jestPuppeteer.resetBrowser()
-    })
-
-    afterAll(async () => {
-      await teardownDevServer()
-    })
-
-    test('initial state', async () => {
-      await page.goto(url('/'))
-      const state = await page.evaluate(() => window.__NUXT__.state)
-
-      expect(async () => await context.isIncognito()).toBeTruthy()
-
-      expect(state.auth).toEqual({
-        user: null,
-        loggedIn: false,
-        strategy: 'local'
-      })
-    })
-
-    describe('Authorization Code Flow', () => {
-      test('login', async () => {
-        await page.goto(url('/'))
-        await loginWithOidc()
-
-        const {
-          token,
-          user,
-          axiosBearer,
-          idToken,
-          refreshToken
-        } = await getAuthDataFromWindow()
-
-        expect(axiosBearer).toBeDefined()
-        expect(axiosBearer.split(' ')).toHaveLength(2)
-        expect(axiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
-        expect(token).toBeDefined()
-        expect(idToken).toBeDefined()
-        expect(refreshToken).toBeDefined()
-        expect(user).toBeDefined()
-        expect(user.sub).toBe('test_username')
+      beforeEach(async () => {
+        await jestPuppeteer.resetBrowser()
       })
 
-      test('refresh', async () => {
+      afterAll(async () => {
+        await teardownDevServer()
+      })
+
+      test('initial state', async () => {
         await page.goto(url('/'))
-        await loginWithOidc()
+        const state = await page.evaluate(() => window.__NUXT__?.state)
 
-        const {
-          token: loginToken,
-          idToken: loginIdToken,
-          refreshToken: loginRefreshToken,
-          expiresAt: loginExpiresAt,
-          user: loginUser,
-          axiosBearer: loginAxiosBearer
-        } = await getAuthDataFromWindow()
+        if (mode === MODES_TO_TEST.SPA) {
+          expect(state).toBeUndefined()
+        } else {
+          expect(state.auth).toEqual({
+            user: null,
+            loggedIn: false,
+            strategy: 'local'
+          })
+        }
+      })
 
-        expect(loginAxiosBearer).toBeDefined()
-        expect(loginAxiosBearer.split(' ')).toHaveLength(2)
-        expect(loginAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
-        expect(loginToken).toBeDefined()
-        expect(loginIdToken).toBeDefined()
-        expect(loginRefreshToken).toBeDefined()
-        expect(loginExpiresAt).toBeDefined()
-        expect(loginUser).toBeDefined()
-        expect(loginUser.sub).toBe('test_username')
+      describe('Authorization Code Flow', () => {
+        test('login', async () => {
+          await page.goto(url('/'))
+          await loginWithOidc()
 
-        await page.evaluate(async () => {
-          await window.$nuxt.$auth.refreshTokens()
+          const {
+            token,
+            user,
+            axiosBearer,
+            idToken,
+            refreshToken
+          } = await getAuthDataFromWindow()
+
+          expect(axiosBearer).toBeDefined()
+          expect(axiosBearer.split(' ')).toHaveLength(2)
+          expect(axiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+          expect(token).toBeDefined()
+          expect(idToken).toBeDefined()
+          expect(refreshToken).toBeDefined()
+          expect(user).toBeDefined()
+          expect(user.sub).toBe('test_username')
         })
 
-        const {
-          token: refreshedToken,
-          idToken: refreshedIdToken,
-          refreshToken: refreshedRefreshToken,
-          expiresAt: refreshedExpiresAt,
-          axiosBearer: refreshedAxiosBearer,
-          user: refreshedUser
-        } = await getAuthDataFromWindow()
+        test('refresh', async () => {
+          await page.goto(url('/'))
+          await loginWithOidc()
 
-        expect(refreshedAxiosBearer).toBeDefined()
-        expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
-        expect(refreshedAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
-        expect(refreshedAxiosBearer).not.toEqual(loginAxiosBearer)
-        expect(refreshedToken).toBeDefined()
-        expect(refreshedToken).not.toEqual(loginToken)
-        expect(refreshedIdToken).toBeDefined()
-        expect(refreshedIdToken).not.toEqual(loginIdToken)
-        expect(refreshedRefreshToken).toBeDefined()
-        expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
-        expect(refreshedExpiresAt).toBeDefined()
-        expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
-        expect(refreshedUser).toBeDefined()
-        expect(refreshedUser.sub).toBe('test_username')
-      })
+          const {
+            token: loginToken,
+            idToken: loginIdToken,
+            refreshToken: loginRefreshToken,
+            expiresAt: loginExpiresAt,
+            user: loginUser,
+            axiosBearer: loginAxiosBearer
+          } = await getAuthDataFromWindow()
 
-      test('logout', async () => {
-        await page.goto(url('/'))
-        await loginWithOidc()
+          expect(loginAxiosBearer).toBeDefined()
+          expect(loginAxiosBearer.split(' ')).toHaveLength(2)
+          expect(loginAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+          expect(loginToken).toBeDefined()
+          expect(loginIdToken).toBeDefined()
+          expect(loginRefreshToken).toBeDefined()
+          expect(loginExpiresAt).toBeDefined()
+          expect(loginUser).toBeDefined()
+          expect(loginUser.sub).toBe('test_username')
 
-        const {
-          token: loginToken,
-          axiosBearer: loginAxiosBearer
-        } = await getAuthDataFromWindow()
+          await page.evaluate(async () => {
+            await window.$nuxt.$auth.refreshTokens()
+          })
 
-        expect(loginAxiosBearer).toBeDefined()
-        expect(loginToken).toBeDefined()
+          const {
+            token: refreshedToken,
+            idToken: refreshedIdToken,
+            refreshToken: refreshedRefreshToken,
+            expiresAt: refreshedExpiresAt,
+            axiosBearer: refreshedAxiosBearer,
+            user: refreshedUser
+          } = await getAuthDataFromWindow()
 
-        await logoutWithOidc()
+          expect(refreshedAxiosBearer).toBeDefined()
+          expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
+          expect(refreshedAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+          expect(refreshedAxiosBearer).not.toEqual(loginAxiosBearer)
+          expect(refreshedToken).toBeDefined()
+          expect(refreshedToken).not.toEqual(loginToken)
+          expect(refreshedIdToken).toBeDefined()
+          expect(refreshedIdToken).not.toEqual(loginIdToken)
+          expect(refreshedRefreshToken).toBeDefined()
+          expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
+          expect(refreshedExpiresAt).toBeDefined()
+          expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
+          expect(refreshedUser).toBeDefined()
+          expect(refreshedUser.sub).toBe('test_username')
+        })
 
-        const {
-          token: logoutToken,
-          axiosBearer: logoutAxiosBearer
-        } = await getAuthDataFromWindow()
+        test('logout', async () => {
+          await page.goto(url('/'))
+          await loginWithOidc()
 
-        expect(logoutToken).toBeFalsy()
-        expect(logoutAxiosBearer).toBeUndefined()
+          const {
+            token: loginToken,
+            axiosBearer: loginAxiosBearer
+          } = await getAuthDataFromWindow()
+
+          expect(loginAxiosBearer).toBeDefined()
+          expect(loginToken).toBeDefined()
+
+          await logoutWithOidc()
+
+          const {
+            token: logoutToken,
+            axiosBearer: logoutAxiosBearer
+          } = await getAuthDataFromWindow()
+
+          expect(logoutToken).toBeFalsy()
+          expect(logoutAxiosBearer).toBeUndefined()
+        })
       })
     })
-  })
 
-  describe('Custom fixture', () => {
-    // const loadFixture = async (config) => {
-    //   const nuxt = await loadNuxt({
-    //     for: 'dev',
-    //     rootDir: path.resolve(__dirname, 'fixture'),
-    //     configOverrides: {
-    //       build: {
-    //         terser: false
-    //       },
-    //       ...config
-    //     }
-    //   })
-    //   await build(nuxt)
-    //   await nuxt.listen(port)
-    //   return nuxt
-    // }
-    // test("Default auth endpoints won't be overwritten by discovery document", async () => {
-    //   const fixture = await loadFixture({
-    //     auth: {
-    //       strategies: {
-    //         oidcAuthorizationCode: {
-    //           logoutRedirectUri: 'http://localhost:4000',
-    //           endpoints: {
-    //             userInfo: '/something/random'
-    //           }
-    //         }
-    //       }
-    //     }
-    //   })
-    //   const context = await browser.createIncognitoBrowserContext()
-    //   const page = await context.newPage()
-    //   await page.goto(url('/'))
-    //   await page.waitForFunction('!!window.$nuxt')
-    //   await page.evaluate(
-    //     async () =>
-    //       await window.$nuxt.$auth.setStrategy('oidcAuthorizationCode')
-    //   )
-    //   await page.waitFor(1000)
-    //   const activeStrategy = await page.evaluate(async () => ({
-    //     name: window.$nuxt.$auth.strategy.name,
-    //     userInfoEndpoint:
-    //       window.$nuxt.$auth.strategy.options.endpoints.userInfo,
-    //     logoutRedirectUri: window.$nuxt.$auth.strategy.options.logoutRedirectUri
-    //   }))
-    //   expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
-    //   expect(activeStrategy.logoutRedirectUri).toEqual('http://localhost:4000')
-    //   expect(activeStrategy.userInfoEndpoint).toEqual('/something/random')
-    //   await fixture.close()
-    // })
+    describe('Custom fixture', () => {
+      beforeAll(async () => {
+        await setup({ spa: mode === MODES_TO_TEST.SPA, configFilePath: 'nuxt.config.custom.js' })
+      }, browserTimeout)
+
+      beforeEach(async () => {
+        await jestPuppeteer.resetBrowser()
+      })
+
+      afterAll(async () => {
+        await teardownDevServer()
+      })
+
+      test("Default auth endpoints won't be overwritten by discovery document", async () => {
+        await page.goto(url('/'))
+        await page.waitForFunction('!!window.$nuxt')
+        await page.evaluate(
+          async () =>
+            await window.$nuxt.$auth.setStrategy('oidcAuthorizationCode')
+        )
+        await page.waitFor(1000)
+        const activeStrategy = await page.evaluate(async () => ({
+          name: window.$nuxt.$auth.strategy.name,
+          userInfoEndpoint:
+              window.$nuxt.$auth.strategy.options.endpoints.userInfo,
+          logoutRedirectUri: window.$nuxt.$auth.strategy.options.logoutRedirectUri
+        }))
+        expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
+        expect(activeStrategy.logoutRedirectUri).toEqual('http://localhost:4000')
+        expect(activeStrategy.userInfoEndpoint).toEqual('/something/random')
+      })
+    })
   })
 })
