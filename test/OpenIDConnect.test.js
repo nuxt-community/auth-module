@@ -226,7 +226,7 @@ describe('OpenID Connect', () => {
         await teardownDevServer()
       })
 
-      test("Default auth endpoints won't be overwritten by discovery document", async () => {
+      test("Default auth endpoints won't be overwritten by configuration document", async () => {
         await page.goto(url('/'))
         await page.waitForFunction('!!window.$nuxt')
         await page.evaluate(

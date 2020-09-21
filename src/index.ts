@@ -41,7 +41,7 @@ export type AuthOptions = {
   redirect: { [from: string]: string }
 }
 
-export type OpenIDConnectDiscoveryDocument = {
+export type OpenIDConnectConfigurationDocument = {
   /* eslint-disable camelcase */
   issuer?: string;
   authorization_endpoint?: string;

@@ -157,7 +157,7 @@ export default {
         clientId: 'oidc_authorization_code_client',
         logoutRedirectUri: 'http://localhost:3000',
         endpoints: {
-          discovery: 'http://localhost:3000/oidc/.well-known/openid-configuration'
+          configuration: 'http://localhost:3000/oidc/.well-known/openid-configuration'
         }
       }
     }

@@ -6,7 +6,7 @@ import {
   getResponseProp
 } from '../utils'
 import IdToken from '../inc/id-token'
-import DiscoveryDocument from '../inc/discovery-document'
+import ConfigurationDocument from '../inc/configuration-document'
 import type { SchemeCheck } from '../index'
 import Oauth2Scheme from './oauth2'
 
@@ -23,13 +23,13 @@ const DEFAULTS = {
 
 export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
   public idToken: IdToken;
-  public discoveryDocument: DiscoveryDocument;
+  public configurationDocument: ConfigurationDocument;
 
   constructor ($auth: any, options: any, ...defaults: any) {
     super($auth, options, ...defaults, DEFAULTS)
 
     this.idToken = new IdToken(this, this.$auth.$storage)
-    this.discoveryDocument = new DiscoveryDocument(this, this.$auth.$storage)
+    this.configurationDocument = new ConfigurationDocument(this, this.$auth.$storage)
   }
 
   _updateTokens (response: AxiosResponse<any>) {
@@ -108,9 +108,9 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
   }
 
   async mounted () {
-    // Get and validate configuration based upon OpenIDConnect Discovery Document
-    // https://openid.net/specs/openid-connect-discovery-1_0.html
-    await this.discoveryDocument.init()
+    // Get and validate configuration based upon OpenIDConnect Configuration document
+    // https://openid.net/specs/openid-connect-configuration-1_0.html
+    await this.configurationDocument.init()
 
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 
@@ -139,7 +139,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     this.idToken.reset()
     this.refreshToken.reset()
     this.requestHandler.reset()
-    this.discoveryDocument.reset()
+    this.configurationDocument.reset()
   }
 
   logout () {
