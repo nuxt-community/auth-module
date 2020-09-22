@@ -9,6 +9,8 @@ class ConfigurationDocumentRequestError extends Error {
   }
 }
 
+const ConfigurationDocumentWarning = (message: string) => console.warn(`[AUTH] [OPENID CONNECT] Invalid configuration. ${message}`)
+
 export default class ConfigurationDocument {
   public scheme: Scheme
   public $storage: Storage
@@ -59,11 +61,33 @@ export default class ConfigurationDocument {
     }
   }
 
+  validate () {
+    const mapping = {
+      responseType: 'response_type_supported',
+      scope: 'scopes_supported',
+      grantType: 'grant_types_supported',
+      acrValues: 'acr_values_supported'
+    }
+
+    Object.keys(mapping).forEach((optionsKey) => {
+      const configDocument = this.get()
+      const configDocumentKey = mapping[optionsKey]
+      const configDocumentValue = configDocument[configDocumentKey]
+      const optionsValue = this.scheme.options[optionsKey]
+
+      if (typeof configDocumentValue !== 'undefined') {
+        if (!configDocumentValue.includes(optionsValue)) {
+          ConfigurationDocumentWarning(`Value of ${optionsKey} is not supported by Authorization Server.`)
+        }
+      }
+    })
+  }
+
   async init () {
     await this.request().catch(() => {
       throw new ConfigurationDocumentRequestError()
     })
-
+    this.validate()
     this.setSchemeEndpoints()
   }
 
