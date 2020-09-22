@@ -44,7 +44,7 @@ export default {
         scheme: '~/auth/test-scheme.js'
       },
       oidcAuthorizationCode: {
-        scheme: 'oidc',
+        scheme: 'openIDConnect',
         responseType: 'code',
         scope: ['openid', 'profile', 'offline_access'],
         grantType: 'authorization_code',

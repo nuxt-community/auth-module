@@ -8,7 +8,7 @@ const builtInSchemes = [
   'cookie',
   'oauth2',
   'refresh',
-  'oidc'
+  'openIDConnect'
 ]
 
 export function resolveStrategies (nuxt, options) {

@@ -150,7 +150,7 @@ export default {
         clientId: 'test-client'
       },
       oidcmock: {
-        scheme: 'oidc',
+        scheme: 'openIDConnect',
         responseType: 'code',
         scope: ['openid', 'profile', 'offline_access'],
         grantType: 'authorization_code',

@@ -11,7 +11,7 @@ import type { SchemeCheck } from '../index'
 import Oauth2Scheme from './oauth2'
 
 const DEFAULTS = {
-  name: 'oidc',
+  name: 'openIDConnect',
   idToken: {
     property: 'id_token',
     maxAge: 60 * 60 * 24 * 30,
