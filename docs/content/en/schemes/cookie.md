@@ -21,13 +21,13 @@ auth: {
         // (optional) If set we check this cookie exsistence for loggedIn check
         name: 'XSRF-TOKEN',
       }
-    },
-    endpoints: {
-      // (optional) If set, we send a get request to this endpoint before login
-      xsrf: {
-        url: ''
+      endpoints: {
+        // (optional) If set, we send a get request to this endpoint before login
+        csrf: {
+          url: ''
+        }
       }
-    }
+    },
   }
 }
 ```
