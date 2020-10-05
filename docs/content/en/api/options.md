@@ -13,7 +13,7 @@ Default:
 
 ```js
 auth: {
-  redirect: {
+  redirects: {
     login: '/login',
     logout: '/',
     callback: '/login',
