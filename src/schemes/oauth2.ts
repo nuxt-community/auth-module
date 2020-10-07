@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
-import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, removeTokenPrefix } from '../utils'
+import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, removeTokenPrefix, getMatchedComponents } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
@@ -380,6 +380,9 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     const response = await this.$auth.request(this.name, {
       method: 'post',
       url: this.options.endpoints.token,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       data: encodeQuery({
         refresh_token: removeTokenPrefix(refreshToken, this.options.token.type),
         client_id: this.options.clientId,
