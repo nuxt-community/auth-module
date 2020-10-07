@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
-import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, removeTokenPrefix, getMatchedComponents } from '../utils'
+import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, removeTokenPrefix } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
