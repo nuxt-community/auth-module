@@ -42,6 +42,9 @@ export default function laravelSanctum (_nuxt, strategy) {
     },
     user: {
       property: false
+    },
+    token: {
+      type: 'Bearer'
     }
   })
 
