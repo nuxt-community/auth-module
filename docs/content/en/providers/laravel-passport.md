@@ -5,7 +5,7 @@ position: 36
 category: Providers
 ---
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravel.passport.ts)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravel/passport.ts)
 
 ## Usage
 
