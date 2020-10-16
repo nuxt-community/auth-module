@@ -1,18 +1,18 @@
 ---
-title: Office 365
+title: Azure AD
 description: This provider is based on oauth2 scheme and supports all scheme options
 position: 38
 category: Providers
 ---
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/o365/index.ts)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/aad/index.ts)
 
 ## Usage
 
 ```js
 auth: {
   strategies: {
-      o365: {
+      aad: {
         clientId: process.env.AAD_CLIENT_ID,
         clientSecret: process.env.AAD_CLIENT_SECRET,
         tenantId: process.env.AAD_TENANT_ID,
@@ -25,7 +25,7 @@ auth: {
 Anywhere in your application logic:
 
 ```js
-this.$auth.loginWith('o365')
+this.$auth.loginWith('aad')
 ```
 
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2.md) and supports all scheme options.
