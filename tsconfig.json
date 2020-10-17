@@ -13,7 +13,8 @@
     "types": [
       "@types/node",
       "@nuxt/types"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "include": [
     "./src"
