@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": [
+      "dom"
+    ],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "types": [
+      "@types/node",
+      "@types/jest",
+      "@types/puppeteer",
+      "@nuxt/types",
+      "@nuxtjs/axios",
+      "../src/index"
+    ],
+    "skipLibCheck": true
+  }
+}
