@@ -5,7 +5,7 @@ position: 33
 category: Providers
 ---
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/github.ts)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/github/index.ts)
 
 ## Usage
 

@@ -5,7 +5,7 @@ position: 31
 category: Providers
 ---
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/auth0.ts)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/auth0/index.ts)
 
 [Auth0](https://auth0.com) is a great authentication-as-a-service platform for free!
 
