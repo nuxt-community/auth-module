@@ -278,11 +278,11 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       return
     }
 
-    const { data } = await this.$auth.requestWith(this.name, {
+    const response = await this.$auth.requestWith(this.name, {
       url: this.options.endpoints.userInfo
     })
 
-    this.$auth.setUser(data)
+    this.$auth.setUser(getResponseProp(response, this.options.user.property))
   }
 
   async _handleCallback () {
