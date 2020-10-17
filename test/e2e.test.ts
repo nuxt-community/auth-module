@@ -20,7 +20,7 @@ describe('e2e', () => {
     const port = await getPort()
     url = p => 'http://localhost:' + port + p
     await nuxt.listen(port)
-  })
+  }, 60000)
 
   afterAll(async () => {
     await browser.close()
