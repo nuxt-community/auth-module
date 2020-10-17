@@ -52,10 +52,10 @@
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "@types/jest": "^26.0.14",
+    "@types/jest": "latest",
     "@types/node": "latest",
-    "@types/puppeteer": "^3.0.2",
-    "babel-jest": "^26.5.2",
+    "@types/puppeteer": "latest",
+    "babel-jest": "latest",
     "bootstrap-vue": "latest",
     "cookie-parser": "latest",
     "eslint": "latest",
@@ -68,7 +68,7 @@
     "nuxt-edge": "latest",
     "puppeteer": "latest",
     "standard-version": "latest",
-    "ts-jest": "^26.4.1",
+    "ts-jest": "latest",
     "typescript": "latest"
   }
 }
