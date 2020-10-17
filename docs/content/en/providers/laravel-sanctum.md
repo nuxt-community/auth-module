@@ -27,7 +27,8 @@ auth: {
 ```js
 {
   axios: {
-    proxy: true
+    proxy: true,
+    credentials: true
   },
   proxy: {
     '/laravel': {
