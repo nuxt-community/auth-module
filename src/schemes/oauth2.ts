@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
-import { encodeQuery, parseQuery, normalizePath, getResponseProp, urlJoin, removeTokenPrefix } from '../utils'
+import { encodeQuery, getResponseProp, normalizePath, parseQuery, removeTokenPrefix, urlJoin } from '../utils'
 import RefreshController from '../inc/refresh-controller'
 import RequestHandler from '../inc/request-handler'
 import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
@@ -41,6 +41,9 @@ const DEFAULTS = {
     maxAge: 60 * 60 * 24 * 30,
     prefix: '_refresh_token.',
     expirationPrefix: '_refresh_token_expiration.'
+  },
+  user: {
+    property: false
   },
   responseType: 'token',
   codeChallengeMethod: 'implicit'
