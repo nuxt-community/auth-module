@@ -10,6 +10,18 @@
     "dist",
     "templates"
   ],
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ]
+    ]
+  },
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
@@ -34,12 +46,16 @@
     "requrl": "^2.0.1"
   },
   "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@types/jest": "latest",
     "@types/node": "latest",
+    "@types/puppeteer": "latest",
+    "babel-jest": "latest",
     "bootstrap-vue": "latest",
     "cookie-parser": "latest",
     "eslint": "latest",
@@ -52,6 +68,7 @@
     "nuxt-edge": "latest",
     "puppeteer": "latest",
     "standard-version": "latest",
+    "ts-jest": "latest",
     "typescript": "latest"
   }
 }
