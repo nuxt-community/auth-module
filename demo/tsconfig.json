@@ -25,7 +25,8 @@
       "@types/node",
       "@nuxt/types",
       "../src/index"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"

@@ -48,7 +48,6 @@ const DEFAULTS = {
 
 export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   public req
-  public name
   public token: Token
   public refreshToken: RefreshToken
   public refreshController: RefreshController
@@ -377,7 +376,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     // Delete current token from the request header before refreshing
     this.requestHandler.clearHeader()
 
-    const response = await this.$auth.request(this.name, {
+    const response = await this.$auth.request({
       method: 'post',
       url: this.options.endpoints.token,
       data: encodeQuery({
