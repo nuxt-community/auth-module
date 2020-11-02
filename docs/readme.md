@@ -22,6 +22,6 @@ You can also watch a video introduction by VueScreencasts. It covers the same ma
 * [GitHub](https://github.com/nuxt-community/auth-module)
 * [Releases](https://github.com/nuxt-community/auth-module/releases)
 * [Migration Guide](./migration.md)
-* [Examples](https://github.com/nuxt-community/auth-module/tree/dev/examples)
+* [Examples](https://github.com/nuxt-community/auth-module/tree/master/examples)
 * [Demo](https://nuxt-auth.herokuapp.com)
 
