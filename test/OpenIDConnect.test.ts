@@ -101,7 +101,7 @@ describe('OpenID Connect', () => {
       test('initial state', async () => {
         await page.goto(url('/'))
         // @ts-ignore
-        const state = await page.evaluate(() => window.__NUXT__?.state)
+        const state = await page.evaluate(() => window.__NUXT__.state)
 
         if (mode === MODES_TO_TEST.SPA) {
           expect(state).toBeUndefined()
