@@ -9338,7 +9338,7 @@ object.values@^1.1.0:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-oidc-provider@^6.28.0:
+oidc-provider@latest:
   version "6.29.5"
   resolved "https://registry.yarnpkg.com/oidc-provider/-/oidc-provider-6.29.5.tgz#e7766deb05d33545c76b232eefc63fba387ac6e4"
   integrity sha512-wBTynXwNx3syLwBObNFB9Si+W7Y5AJZg7jMOSFC54CCgAEjyBKTjvyp2OmgJPQxusLaM+K0oxlGG+JjTb1ipqQ==

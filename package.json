@@ -43,7 +43,6 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.19",
     "nanoid": "^3.1.10",
-    "oidc-provider": "^6.28.0",
     "requrl": "^2.0.1"
   },
   "devDependencies": {
@@ -63,10 +62,11 @@
     "cookie-parser": "latest",
     "eslint": "latest",
     "express": "latest",
+    "oidc-provider": "latest",
     "express-jwt": "latest",
     "get-port": "latest",
     "jest": "latest",
-    "jest-puppeteer": "^4.4.0",
+    "jest-puppeteer": "latest",
     "jsdom": "latest",
     "lodash.get": "latest",
     "nuxt-edge": "latest",
