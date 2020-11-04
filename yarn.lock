@@ -1978,7 +1978,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/expect-puppeteer@^4.4.5":
+"@types/expect-puppeteer@latest":
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/@types/expect-puppeteer/-/expect-puppeteer-4.4.5.tgz#832d0a1e74dbfd1bff9787ed99645d568130d5fb"
   integrity sha512-vxPaumA8Fj6xlm3llKCR9V8L936HX4PyipaNMxDbWQIOWZoCl99jabD/6xuxXnCptOWUdUhXwDuX5cAJgCHsLg==
@@ -2076,7 +2076,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest-environment-puppeteer@^4.4.0":
+"@types/jest-environment-puppeteer@latest":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@types/jest-environment-puppeteer/-/jest-environment-puppeteer-4.4.0.tgz#8d343035934610accdbfd4582e765823b948aa94"
   integrity sha512-BjJWUmaui6CZE449y/xGVPPvOcNwlHZXxWekv38kZqu1Pda+Jn90pKaxWtxM5NAC2HaUEabsCWlTeHiJvno/hg==
@@ -2198,7 +2198,7 @@
   resolved "https://registry.yarnpkg.com/@types/pug/-/pug-2.0.4.tgz#8772fcd0418e3cd2cc171555d73007415051f4b2"
   integrity sha1-h3L80EGOPNLMFxVV1zAHQVBR9LI=
 
-"@types/puppeteer@*", "@types/puppeteer@^5.4.0":
+"@types/puppeteer@*", "@types/puppeteer@latest":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.0.tgz#1ef860bd7a9dcf0c4633aac8c0ec21f75b431868"
   integrity sha512-zTYDLjnHjgzokrwKt7N0rgn7oZPYo1J0m8Ghu+gXqzLCEn8RWbELa2uprE2UFJ0jU/Sk0x9jXXdOH/5QQLFHhQ==
@@ -5961,7 +5961,7 @@ find-process@^1.4.3:
     commander "^5.1.0"
     debug "^4.1.1"
 
-find-up@4.1.0, find-up@^4.1.0:
+find-up@4.1.0, find-up@^4.0.0, find-up@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-4.1.0.tgz#97afe7d6cdc0bc5928584b7c8d7b16e8a9aa5d19"
   integrity sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==
@@ -9774,6 +9774,11 @@ pinkie-promise@^2.0.0:
   integrity sha1-ITXW36ejWMBprJsXh3YogihFD/o=
   dependencies:
     pinkie "^2.0.0"
+
+pinkie@^2.0.0:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
+  integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
 
 pirates@^4.0.1:
   version "4.0.1"

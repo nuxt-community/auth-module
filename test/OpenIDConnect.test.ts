@@ -11,13 +11,13 @@ const url = p => 'http://localhost:' + port + p
 
 const MODES_TO_TEST = { UNIVERSAL: 'UNIVERSAL', SPA: 'SPA' }
 
-const nuxtCommand = (type, { configFilePath, spa } = { spa: false }) =>
+const nuxtCommand = (type, options) =>
   [
     'yarn nuxt',
     type,
     'test/fixture',
-    ...(configFilePath ? [`-c ${configFilePath}`] : []),
-    ...(spa ? ['--spa'] : [])
+    ...(options.configFilePath ? [`-c ${options.configFilePath}`] : []),
+    ...(options.spa ? ['--spa'] : [])
   ].join(' ')
 
 const setup = async (options) => {
@@ -100,6 +100,7 @@ describe('OpenID Connect', () => {
 
       test('initial state', async () => {
         await page.goto(url('/'))
+        // @ts-ignore
         const state = await page.evaluate(() => window.__NUXT__?.state)
 
         if (mode === MODES_TO_TEST.SPA) {

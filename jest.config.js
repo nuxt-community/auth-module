@@ -1,3 +1,5 @@
+const { jsWithBabel: tsjPreset } = require('ts-jest/presets')
+
 module.exports = {
   preset: 'jest-puppeteer',
   globals: {
@@ -5,9 +7,8 @@ module.exports = {
       tsConfig: './test/tsconfig.json'
     }
   },
-  testEnvironment: 'node',
   testMatch: ['**/test/**/*.ts', '**/?(*.)+(spec|test).ts'],
   transform: {
-    '^.+\\.js$': 'babel-jest'
+    ...tsjPreset.transform
   }
 }
