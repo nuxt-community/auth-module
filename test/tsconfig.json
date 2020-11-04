@@ -1,34 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "lib": [
-      "esnext",
-      "esnext.asynciterable",
       "dom"
     ],
     "esModuleInterop": true,
     "allowJs": true,
-    "sourceMap": true,
     "noEmit": true,
     "baseUrl": ".",
-    "paths": {
-      "~/*": [
-        "./*"
-      ],
-      "@/*": [
-        "./*"
-      ]
-    },
     "types": [
       "@types/node",
+      "@types/jest",
+      "@types/puppeteer",
       "@nuxt/types",
+      "@nuxtjs/axios",
       "../src/index"
     ],
     "skipLibCheck": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

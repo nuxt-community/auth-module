@@ -3,9 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": [
-      "dom"
-    ],
+    "lib": ["dom"],
     "esModuleInterop": true,
     "strict": false,
     "declaration": true,
@@ -13,9 +11,8 @@
     "types": [
       "@types/node",
       "@nuxt/types"
-    ]
+    ],
+    "skipLibCheck": true
   },
-  "include": [
-    "./src"
-  ]
+  "include": ["./src"]
 }

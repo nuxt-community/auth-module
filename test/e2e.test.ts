@@ -33,6 +33,7 @@ describe('e2e', () => {
   test('initial state', async () => {
     await page.goto(url('/'))
 
+    // @ts-ignore
     const state = await page.evaluate(() => window.__NUXT__.state)
     expect(state.auth).toEqual({ user: null, loggedIn: false, strategy: 'local' })
 
@@ -177,6 +178,7 @@ describe('e2e', () => {
     await page.goto(url('/'))
 
     const flag = await page.evaluate(() => {
+      // @ts-ignore
       return window.$nuxt.$auth._custom_plugin
     })
 

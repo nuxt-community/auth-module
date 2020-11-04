@@ -6,7 +6,7 @@ category: Providers
 ---
 
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravelJWT.ts)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravel/jwt/index.ts)
 
 This provider is for the [Laravel JWT](https://github.com/tymondesigns/jwt-auth). Please make sure to follow our guide on the route configuration on this page to avoid issues on the authentication.
 
