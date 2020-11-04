@@ -1,10 +1,11 @@
-const util = require('util')
-const exec = util.promisify(require('child_process').exec)
-const {
-  setup: setupDevServer,
-  teardown: teardownDevServer
-} = require('jest-dev-server')
+import util from 'util'
+import { exec as execSync } from 'child_process'
+import {
+  setup as setupDevServer,
+  teardown as teardownDevServer
+} from 'jest-dev-server'
 
+const exec = util.promisify(execSync)
 const browserTimeout = 20 * 1000
 const port = 3000
 const url = p => 'http://localhost:' + port + p
