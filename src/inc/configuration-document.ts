@@ -9,6 +9,7 @@ class ConfigurationDocumentRequestError extends Error {
   }
 }
 
+// eslint-disable-next-line no-console
 const ConfigurationDocumentWarning = (message: string) => console.warn(`[AUTH] [OPENID CONNECT] Invalid configuration. ${message}`)
 
 export default class ConfigurationDocument {
