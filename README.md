@@ -34,6 +34,8 @@
 
 Meanwhile only important bug fixes are accepted for v4. Please base PRs on [master](https://github.com/nuxt-community/auth-module/tree/master) branch.
 
+**Important:** Please see [status notice](https://github.com/nuxt-community/auth-module/issues/893)
+
 ## Development
 
 Running demo for development:
