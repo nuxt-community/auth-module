@@ -69,7 +69,7 @@ auth: {
 Now you can logout calling the `logout` function:
 
 ```js
-this.$auth.logout()
+await this.$auth.logout()
 ```
 
 ## PKCE Grant flow 
