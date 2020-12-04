@@ -28,13 +28,10 @@
 </p>
 
 
-# 🚧 `v5` Development
+# 🚧 Project Status
 
-`dev` branch is under heavy development to prepare for `v5`. Dev docs (WIP) are deployed on https://dev.auth.nuxtjs.org
+**Important:** `@nuxt/auth` is currently in a partially unstable state. `v4` of the project is stable but is missing many key improvements; if you are going to use this project, **we recommend that you use the in-development `v5` version via `@nuxt/auth-next`.** However, v5 is still subject to change ahead of its release, so you should fix your `package.json` to the *exact* version of `auth-next` that you develop with.  Please see [status notice](https://github.com/nuxt-community/auth-module/issues/893). 
 
-Meanwhile only important bug fixes are accepted for v4. Please base PRs on [master](https://github.com/nuxt-community/auth-module/tree/master) branch.
-
-**Important:** Please see [status notice](https://github.com/nuxt-community/auth-module/issues/893)
 
 ## Development
 
