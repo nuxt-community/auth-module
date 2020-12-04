@@ -1,7 +1,7 @@
 {
   "name": "@bitpod/auth",
   "version": "4.11.0",
-  "description": "Authentication module for Nuxt.js",
+  "description": "Authentication module for Nuxt.js - Forked for Bitpod",
   "repository": "bitpodio/auth-module",
   "license": "MIT",
   "main": "./dist/module/index.js",
