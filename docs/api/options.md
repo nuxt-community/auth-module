@@ -64,7 +64,7 @@ auth: {
 You can disable use of localStorage by setting `localStorage` to `false`, like so:
 
 ```js
-auth {
+auth: {
   localStorage: false
 }
 ```
