@@ -1,8 +1,8 @@
 {
-  "name": "@nuxtjs/auth",
-  "version": "4.9.0",
+  "name": "@bitpodjs/auth",
+  "version": "4.11.0",
   "description": "Authentication module for Nuxt.js",
-  "repository": "nuxt-community/auth-module",
+  "repository": "bitpodio/auth-module",
   "license": "MIT",
   "main": "./dist/module/index.js",
   "types": "./dist/index.d.ts",
@@ -23,8 +23,8 @@
     ]
   },
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
+    "build": "nuxt-ts build",
+    "clean": "rimraf dist",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
@@ -67,6 +67,7 @@
     "lodash.get": "latest",
     "nuxt-edge": "latest",
     "puppeteer": "latest",
+    "rimraf": "^3.0.2",
     "standard-version": "latest",
     "ts-jest": "latest",
     "typescript": "latest"
