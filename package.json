@@ -1,5 +1,5 @@
 {
-  "name": "@bitpodjs/auth",
+  "name": "@bitpod/auth",
   "version": "4.11.0",
   "description": "Authentication module for Nuxt.js",
   "repository": "bitpodio/auth-module",
