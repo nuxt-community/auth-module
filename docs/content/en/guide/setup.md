@@ -70,34 +70,13 @@ For more information about using TypeScript in your Nuxt.js project, visit the [
 
 </alert>
 
-In order to use this module in a TypeScript project you will need to install the node package `@types/nuxtjs__auth`, which contains type definitions for the `@nuxtjs/auth` module. These type definitions can be found in the [DefinitelyTyped Github repository](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/nuxtjs__auth).
-
-First, add `@types/nuxtjs__auth` as a dev dependency:
-
-<code-group>
-  <code-block label="Yarn" active>
-
-  ```bash
-  yarn add -D @types/nuxtjs__auth
-  ```
-
-  </code-block>
-  <code-block label="NPM">
-
-  ```bash
-  npm install -D @types/nuxtjs__auth
-  ```
-
-  </code-block>
-</code-group>
-
-Then, add `@types/nuxtjs__auth` to the `compilerOptions.types` section of your project's `tsconfig.json` file:
+Add `@nuxtjs/auth-next` to the `compilerOptions.types` section of your project's `tsconfig.json` file:
 
 ```json{}[tsconfig.json]
 {
   compilerOptions: {
     "types": [
-      "@types/nuxtjs__auth",
+      "@nuxtjs/auth-next",
     ]
   },
 }
