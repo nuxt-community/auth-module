@@ -382,6 +382,9 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     const response = await this.$auth.request({
       method: 'post',
       url: this.options.endpoints.token,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       data: encodeQuery({
         refresh_token: removeTokenPrefix(refreshToken, this.options.token.type),
         client_id: this.options.clientId,
