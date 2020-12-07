@@ -4,6 +4,10 @@
   ],
   "rules": {
     "require-await": 0,
-    "no-useless-constructor": 0
+    "no-useless-constructor": 0,
+    // Correct support for unused var detection in Typescript:
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"]
   }
 }
