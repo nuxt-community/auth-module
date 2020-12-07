@@ -10,38 +10,34 @@ category: Guide
 
 ## Installation
 
-<alert type="info"> 
+<alert type="info">
 
 Check the [Nuxt.js documentation](https://nuxtjs.org/guides/configuration-glossary/configuration-modules) for more information about installing and using modules in Nuxt.js.
-
-</alert>
-
-<alert type="warning">
-
-This documentation is for the _next_ version of the `nuxt-auth` module which is unstable. Use with caution!
 
 </alert>
 
 Add `@nuxtjs/auth-next @nuxtjs/axios` dependencies to your project:
 
 <code-group>
-  <code-block label="Yarn" active>
+  <code-block label="yarn" active>
 
   ```bash
-  yarn add @nuxtjs/auth-next @nuxtjs/axios
+  yarn add --exact @nuxtjs/auth-next
+  yarn add @nuxtjs/axios
   ```
 
   </code-block>
-  <code-block label="NPM">
+  <code-block label="npm">
 
   ```bash
+  npm install --save-exact @nuxtjs/auth-next
   npm install @nuxtjs/auth-next @nuxtjs/axios
   ```
 
   </code-block>
 </code-group>
 
-Then, add `@nuxtjs/xxx` to the `modules` section of `nuxt.config.js`:
+Then, add `@nuxtjs/auth-next` to the `modules` section of `nuxt.config.js`:
 
 ```js{}[nuxt.config.js]
 {
@@ -55,16 +51,15 @@ Then, add `@nuxtjs/xxx` to the `modules` section of `nuxt.config.js`:
 }
 ```
 
-<alert type="warning"> 
+<alert type="warning">
 
-IMPORTANT
 When adding `auth-module` to a new Nuxt project ensure you have [activated the Vuex store](https://nuxtjs.org/guide/vuex-store/#activate-the-store). More information on how to do that can be found on the [Nuxt Getting Started Guide](https://nuxtjs.org/guides/directory-structure/store).
 
 </alert>
 
 ## Using with TypeScript
 
-<alert type="info"> 
+<alert type="info">
 
 For more information about using TypeScript in your Nuxt.js project, visit the [Nuxt Typescript documentation](https://typescript.nuxtjs.org/).
 
@@ -82,9 +77,8 @@ Add `@nuxtjs/auth-next` to the `compilerOptions.types` section of your project's
 }
 ```
 
-<alert type="warning"> 
+<alert type="warning">
 
-IMPORTANT
 If you still receive errors after installing the types package, it may be necessary to restart your code editor so that the new types are recognized.
 
 </alert>

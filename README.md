@@ -27,11 +27,7 @@
 <a href="https://auth.nuxtjs.org">Read Documentation</a>
 </p>
 
-
-# 🚧 Project Status
-
-**Important:** `@nuxt/auth` is currently in an unstable state. `v4` of the project is stable but is missing many key improvements, while `v5` is much more documented and feature complete but its API is still in flux. If you are going to use this project, **we recommend that you use the in-development `v5` version via `@nuxt/auth-next`.** However, you should fix your `package.json` to the *exact* version of `auth-next` that you develop with to avoid updating with breaking changes.  Please see [status notice](https://github.com/nuxt-community/auth-module/issues/893). 
-
+**🚧 please see [status page](http://auth.nuxtjs.org/status) in documentation.**
 
 ## Development
 
