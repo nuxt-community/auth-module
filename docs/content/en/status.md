@@ -10,7 +10,7 @@ Auth module has two major versions to choose from:
 
 ## `@nuxtjs/auth-next` (v5)
 
-This has more documents, features and many fixes landed but it's API is still in flux. (current docs)
+This has more documentation, features and many fixes landed but it's API is still in flux. (current docs)
 
 We recommend that you use v5 via `@nuxt/auth-next`
 
