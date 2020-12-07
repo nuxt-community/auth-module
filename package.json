@@ -34,15 +34,15 @@
     "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.0",
+    "@nuxtjs/axios": "^5.12.3",
     "body-parser": "^1.19.0",
-    "consola": "^2.14.0",
+    "consola": "^2.15.0",
     "cookie": "^0.4.1",
     "defu": "^2.0.4",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.19",
-    "nanoid": "^3.1.10",
+    "lodash": "^4.17.20",
+    "nanoid": "^3.1.20",
     "requrl": "^2.0.1"
   },
   "devDependencies": {
