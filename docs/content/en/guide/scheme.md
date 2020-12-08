@@ -86,8 +86,7 @@ export default class CustomScheme extends LocalScheme {
 
 Then set your new scheme in the auth config.
 
-`nuxt.config.js`
-```js
+```js{}[nuxt.config.js]
 auth: {
   strategies: {
     customStrategy: {
