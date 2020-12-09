@@ -1,6 +1,7 @@
+import { NuxtConfig } from '@nuxt/types'
 import authModule from '../src/module'
 
-export default {
+const config: NuxtConfig = {
   build: {
     extractCSS: true
   },
@@ -141,3 +142,5 @@ export default {
     }
   }
 }
+
+export default config
