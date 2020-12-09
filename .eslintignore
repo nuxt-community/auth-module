@@ -2,5 +2,4 @@ templates/
 node_modules
 .nuxt
 dist
-src/index.ts
 docs/static/sw.js
