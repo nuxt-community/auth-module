@@ -170,7 +170,6 @@ export default class Auth {
   }
 
   setUserToken (token, refreshToken?) {
-    console.log(this.strategy)
     if (!this.strategy.setUserToken) {
       this.strategy.token.set(token)
       return Promise.resolve()
