@@ -110,18 +110,12 @@
   </div>
 </template>
 
-<style scoped>
-.login-button {
-  border: 0;
-}
-</style>
-
 <script>
 import busyOverlay from '~/components/busy-overlay'
 
 export default {
-  middleware: ['auth'],
   components: { busyOverlay },
+  middleware: ['auth'],
   data () {
     return {
       username: '',
@@ -251,3 +245,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.login-button {
+  border: 0;
+}
+</style>
