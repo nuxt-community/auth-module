@@ -2,4 +2,5 @@ templates/
 node_modules
 .nuxt
 dist
-types
+src/index.ts
+docs/static/sw.js
