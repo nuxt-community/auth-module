@@ -1,13 +1,13 @@
 ---
 title: tokens
-description: Token and Refresh Token are available on `$auth.token` and `$auth.refreshToken`. Both have getters and setters and other helpers.
+description: Token and Refresh Token are available on `$auth.strategy.token` and `$auth.strategy.refreshToken`. Both have getters and setters and other helpers.
 position: 55
 category: API
 ---
 
 [Token Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/inc/token.ts) and [Refresh Token Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/inc/refresh-token.ts)
 
-**Token** and **Refresh Token** are available on `$auth.token` and `$auth.refreshToken`. Both have getters and setters and other helpers.
+**Token** and **Refresh Token** are available on `$auth.strategy.token` and `$auth.strategy.refreshToken`. Both have getters and setters and other helpers.
 
 ## Token methods
 
@@ -16,7 +16,7 @@ category: API
 Universally get token.
 
 ```js
-this.$auth.token.get()
+this.$auth.strategy.token.get()
 ```
 
 ### `set(token)`
@@ -24,7 +24,7 @@ this.$auth.token.get()
 Universally set token. It also set request header.
 
 ```js
-this.$auth.token.set('...')
+this.$auth.strategy.token.set('...')
 ```
 
 ### `sync()`
@@ -32,7 +32,7 @@ this.$auth.token.set('...')
 Universally sync token. It also sync request header.
 
 ```js
-this.$auth.token.sync()
+this.$auth.strategy.token.sync()
 ```
 
 ### `reset()`
@@ -40,7 +40,7 @@ this.$auth.token.sync()
 Universally set token to `false`.  It also clear request header.
 
 ```js
-this.$auth.token.reset()
+this.$auth.strategy.token.reset()
 ```
 
 ### `status()`
@@ -48,35 +48,35 @@ this.$auth.token.reset()
 Get token status. 
 
 ```js
-this.$auth.token.status()
+this.$auth.strategy.token.status()
 ```
 
 #### `unknown()`
 
-Check if status in unknown.
+Check if status is unknown.
 
 ```js
-this.$auth.token.status().unknown()
+this.$auth.strategy.token.status().unknown()
 ```
 
 #### `valid()`
 
-Check if status in valid.
+Check if status is valid.
 
 ```js
-this.$auth.token.status().valid()
+this.$auth.strategy.token.status().valid()
 ```
 
 #### `expired()`
 
-Check if status in expired.
+Check if status is expired.
 
 ```js
-this.$auth.token.status().expired()
+this.$auth.strategy.token.status().expired()
 ```
 
 ::: tip
-Call `this.$auth.token.status()` once and assign it to a variable
+Call `this.$auth.strategy.token.status()` once and assign it to a variable
 :::
 
 ## Refresh Token methods
@@ -86,7 +86,7 @@ Call `this.$auth.token.status()` once and assign it to a variable
 Universally get refresh token.
 
 ```js
-this.$auth.refreshToken.get()
+this.$auth.strategy.refreshToken.get()
 ```
 
 ### `set(token)`
@@ -94,7 +94,7 @@ this.$auth.refreshToken.get()
 Universally set refresh token.
 
 ```js
-this.$auth.refreshToken.set('...')
+this.$auth.strategy.refreshToken.set('...')
 ```
 
 ### `sync()`
@@ -102,7 +102,7 @@ this.$auth.refreshToken.set('...')
 Universally sync refresh token.
 
 ```js
-this.$auth.refreshToken.sync()
+this.$auth.strategy.refreshToken.sync()
 ```
 
 ### `reset()`
@@ -110,7 +110,7 @@ this.$auth.refreshToken.sync()
 Universally set refresh token to `false`.
 
 ```js
-this.$auth.refreshToken.reset()
+this.$auth.strategy.refreshToken.reset()
 ```
 
 ### `status()`
@@ -118,33 +118,33 @@ this.$auth.refreshToken.reset()
 Get token status. 
 
 ```js
-this.$auth.refreshToken.status()
+this.$auth.strategy.refreshToken.status()
 ```
 
 #### `unknown()`
 
-Check if status in unknown.
+Check if status is unknown.
 
 ```js
-this.$auth.refreshToken.status().unknown()
+this.$auth.strategy.refreshToken.status().unknown()
 ```
 
 #### `valid()`
 
-Check if status in valid.
+Check if status is valid.
 
 ```js
-this.$auth.refreshToken.status().valid()
+this.$auth.strategy.refreshToken.status().valid()
 ```
 
 #### `expired()`
 
-Check if status in expired.
+Check if status is expired.
 
 ```js
-this.$auth.refreshToken.status().expired()
+this.$auth.strategy.refreshToken.status().expired()
 ```
 
 ::: tip
-Call `this.$auth.refreshToken.status()` once and assign it to a variable
+Call `this.$auth.strategy.refreshToken.status()` once and assign it to a variable
 :::
