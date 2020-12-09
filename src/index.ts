@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import _Auth from './core/auth'
 import _Scheme from './schemes/_scheme'
@@ -9,14 +10,6 @@ export { AxiosRequestConfig as HTTPRequest }
 export { AxiosResponse as HTTPResponse }
 
 export type Auth = _Auth
-export type Scheme = _Scheme<SchemeOptions | any> & {
-  token?: Token,
-  refreshToken?: RefreshToken
-  requestHandler?: RequestHandler
-  refreshTokens?: Function
-  check?: (checkStatus: boolean) => SchemeCheck
-  reset?: Function
-}
 
 export type SchemeOptions = {
   name: string,
@@ -28,6 +21,15 @@ export type SchemeCheck = {
   tokenExpired?: boolean
   refreshTokenExpired?: boolean
   isRefreshable?: boolean
+}
+
+export type Scheme = _Scheme<SchemeOptions | any> & {
+  token?: Token,
+  refreshToken?: RefreshToken
+  requestHandler?: RequestHandler
+  refreshTokens?: Function
+  check?: (checkStatus: boolean) => SchemeCheck
+  reset?: Function
 }
 
 export type AuthOptions = {
