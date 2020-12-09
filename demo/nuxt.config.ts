@@ -53,6 +53,10 @@ export default {
         domain: 'nuxt-auth.auth0.com',
         clientId: 'q8lDHfBLJ-Fsziu7bf351OcYQAIe3UJv'
       },
+      discord: {
+        clientId: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET
+      },
       facebook: {
         endpoints: {
           userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'

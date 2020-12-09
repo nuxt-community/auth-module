@@ -2,12 +2,13 @@ import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
 import requrl from 'requrl'
+import qs from 'qs'
 
 export function assignDefaults (strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
 }
 
-export function addAuthorize (nuxt, strategy) {
+export function addAuthorize (nuxt, strategy, useForms = false) {
   // Get clientSecret, clientId, endpoints.token and audience
   const clientSecret = strategy.clientSecret
   const clientID = strategy.clientId
@@ -55,24 +56,35 @@ export function addAuthorize (nuxt, strategy) {
           return next()
         }
 
+        let data: object|string = {
+          client_id: clientID,
+          client_secret: clientSecret,
+          refresh_token: refreshToken,
+          grant_type: grantType,
+          response_type: responseType,
+          redirect_uri: redirectUri,
+          audience,
+          code_verifier: codeVerifier,
+          code
+        }
+
+        let headers = {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+
+        if (useForms) {
+          delete data['code_verifier']
+          data = qs.stringify(data)
+          headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        }
+
         axios
           .request({
             method: 'post',
             url: tokenEndpoint,
-            data: {
-              client_id: clientID,
-              client_secret: clientSecret,
-              refresh_token: refreshToken,
-              grant_type: grantType,
-              response_type: responseType,
-              redirect_uri: redirectUri,
-              audience,
-              code_verifier: codeVerifier,
-              code
-            },
-            headers: {
-              Accept: 'application/json'
-            }
+            data,
+            headers
           })
           .then((response) => {
             res.end(JSON.stringify(response.data))
