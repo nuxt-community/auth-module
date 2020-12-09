@@ -38,7 +38,7 @@ export default class RefreshToken {
     const _tokenExpiresAtMillis = _tokenTTLMillis ? _tokenIssuedAtMillis + _tokenTTLMillis : 0
 
     try {
-      refreshTokenExpiration = jwtDecode(refreshToken).exp * 1000 || _tokenExpiresAtMillis
+      refreshTokenExpiration = (jwtDecode(refreshToken) as any).exp * 1000 || _tokenExpiresAtMillis
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       refreshTokenExpiration = _tokenExpiresAtMillis
