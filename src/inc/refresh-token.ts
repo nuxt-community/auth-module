@@ -1,4 +1,4 @@
-import jwtDecode, { InvalidTokenError } from 'jwt-decode'
+import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
 import { addTokenPrefix } from '../utils'
 import type { Scheme } from '../'
 import Storage from '../core/storage'
@@ -38,7 +38,7 @@ export default class RefreshToken {
     const _tokenExpiresAtMillis = _tokenTTLMillis ? _tokenIssuedAtMillis + _tokenTTLMillis : 0
 
     try {
-      refreshTokenExpiration = jwtDecode(refreshToken).exp * 1000 || _tokenExpiresAtMillis
+      refreshTokenExpiration = jwtDecode<JwtPayload>(refreshToken).exp * 1000 || _tokenExpiresAtMillis
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       refreshTokenExpiration = _tokenExpiresAtMillis
