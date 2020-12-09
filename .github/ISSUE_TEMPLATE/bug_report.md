@@ -40,10 +40,13 @@ nuxt: <!-- ex: 2.0.0 -->
 
 ## Reproduction
 > :warning: without a minimal reproduction we won't be able to look into your issue
+<!--
+CodeSandbox template to use as a base for minimal repros: https://codesandbox.io/s/nuxt-auth-demo-45icg
 
-**Link:** 
-- [ ] https://codesandbox.io/
-- [ ] https://github.com/nuxt-community/auth-module
+**Helpful Links:** 
+- https://codesandbox.io/
+- https://github.com/nuxt-community/auth-module
+-->
 
 #### What is expected?
 #### What is actually happening?
