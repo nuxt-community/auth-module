@@ -176,7 +176,7 @@ Here you configure the user options.
 
 #### `property`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
+`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to disable this feature, `'.'` to directly use API response, or be more complicated like `auth.user`.
  
 #### `autoFetch`
  
