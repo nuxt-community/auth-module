@@ -1,6 +1,6 @@
 import { assignDefaults, addAuthorize } from '../../utils/provider'
 
-export default function github (nuxt, strategy) {
+export default function discord(nuxt, strategy) {
   assignDefaults(strategy, {
     scheme: 'oauth2',
     endpoints: {

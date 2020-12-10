@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import requrl from 'requrl'
 import qs from 'qs'
 
-export function assignDefaults (strategy, defaults) {
+export function assignDefaults(strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
 }
 
@@ -98,7 +98,7 @@ export function addAuthorize (nuxt, strategy, useForms = false) {
   })
 }
 
-export function initializePasswordGrantFlow (nuxt, strategy) {
+export function initializePasswordGrantFlow(nuxt, strategy) {
   // Get clientSecret, clientId, endpoints.login.url
   const clientSecret = strategy.clientSecret
   const clientId = strategy.clientId
@@ -137,7 +137,10 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
         }
 
         // Grant type is password, but username or password is not available
-        if (data.grant_type === 'password' && (!data.username || !data.password)) {
+        if (
+          data.grant_type === 'password' &&
+          (!data.username || !data.password)
+        ) {
           return next(new Error('Invalid username or password'))
         }
 
@@ -172,7 +175,7 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
   })
 }
 
-export function assignAbsoluteEndpoints (strategy) {
+export function assignAbsoluteEndpoints(strategy) {
   const { url, endpoints } = strategy
 
   if (endpoints) {

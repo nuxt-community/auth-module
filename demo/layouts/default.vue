@@ -2,21 +2,13 @@
   <div>
     <b-navbar toggleable="md" variant="light">
       <b-navbar-toggle target="nav_collapse" />
-      <b-navbar-brand to="/">
-        Nuxt.js
-      </b-navbar-brand>
+      <b-navbar-brand to="/"> Nuxt.js </b-navbar-brand>
 
       <b-collapse id="nav_collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/" exact>
-            Home
-          </b-nav-item>
-          <b-nav-item to="/public">
-            Public
-          </b-nav-item>
-          <b-nav-item to="/secure">
-            Secure
-          </b-nav-item>
+          <b-nav-item to="/" exact> Home </b-nav-item>
+          <b-nav-item to="/public"> Public </b-nav-item>
+          <b-nav-item to="/secure"> Secure </b-nav-item>
           <b-nav-item to="/oauth2RefreshTest">
             Oauth2 token refresh test
           </b-nav-item>
@@ -28,12 +20,16 @@
                 Logout
               </b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-img :src="picture" class="mt-1" rounded="circle" width="30px" height="30px" />
+            <b-img
+              :src="picture"
+              class="mt-1"
+              rounded="circle"
+              width="30px"
+              height="30px"
+            />
           </template>
           <template v-else>
-            <b-dropdown-item to="/login">
-              Login
-            </b-dropdown-item>
+            <b-dropdown-item to="/login"> Login </b-dropdown-item>
           </template>
         </b-navbar-nav>
       </b-collapse>
@@ -49,10 +45,12 @@ import get from 'lodash.get'
 
 export default {
   computed: {
-    picture () {
-      return get(this.$auth.user, 'picture') || // OpenID
-              get(this.$auth.user, 'picture.data.url') || // Facebook graph API
-              get(this.$auth.user, 'avatar_url') // GitHub
+    picture() {
+      return (
+        get(this.$auth.user, 'picture') || // OpenID
+        get(this.$auth.user, 'picture.data.url') || // Facebook graph API
+        get(this.$auth.user, 'avatar_url')
+      ) // GitHub
     }
   }
 }
