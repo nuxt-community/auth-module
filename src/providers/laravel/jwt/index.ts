@@ -3,15 +3,20 @@ import {
   assignDefaults,
   assignAbsoluteEndpoints
 } from '../../../utils/provider'
+import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
+import LaravelJWTProviderOptions from './contracts/LaravelJWTProviderOptions'
 
-export default function laravelJWT(_nuxt, strategy) {
+export default function laravelJWT(
+  _nuxt,
+  strategy: ProviderPartialOptions<LaravelJWTProviderOptions>
+) {
   const { url } = strategy
 
   if (!url) {
     throw new Error('url is required for laravel jwt!')
   }
 
-  assignDefaults(strategy, {
+  const DEFAULTS: typeof strategy = {
     scheme: path.resolve(__dirname, 'scheme'),
     name: 'laravelJWT',
     endpoints: {
@@ -44,7 +49,9 @@ export default function laravelJWT(_nuxt, strategy) {
     },
     clientId: false,
     grantType: false
-  })
+  }
+
+  assignDefaults(strategy, DEFAULTS)
 
   assignAbsoluteEndpoints(strategy)
 }
