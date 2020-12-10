@@ -1,13 +1,16 @@
-import { assignDefaults, assignAbsoluteEndpoints } from '../../utils/provider'
+import { assignDefaults, assignAbsoluteEndpoints } from '../../../utils/provider'
+import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
+import { HTTPRequest } from '../../../index'
+import LaravelSanctumProviderOptions from './contracts/LaravelSanctumProviderOptions'
 
-export default function laravelSanctum (_nuxt, strategy) {
+export default function laravelSanctum (_nuxt, strategy: ProviderPartialOptions<LaravelSanctumProviderOptions>) {
   const { url } = strategy
 
   if (!url) {
     throw new Error('URL is required with Laravel Sanctum!')
   }
 
-  const endpointDefaults = {
+  const endpointDefaults: Partial<HTTPRequest> = {
     withCredentials: true,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
@@ -16,7 +19,7 @@ export default function laravelSanctum (_nuxt, strategy) {
     }
   }
 
-  assignDefaults(strategy, {
+  const DEFAULTS: ProviderPartialOptions<LaravelSanctumProviderOptions> = {
     scheme: 'cookie',
     name: 'laravelSanctum',
     cookie: {
@@ -43,7 +46,9 @@ export default function laravelSanctum (_nuxt, strategy) {
     user: {
       property: false
     }
-  })
+  }
+
+  assignDefaults(strategy, DEFAULTS)
 
   assignAbsoluteEndpoints(strategy)
 }
