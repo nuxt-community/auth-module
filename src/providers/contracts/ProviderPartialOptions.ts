@@ -4,6 +4,6 @@ import ProviderOptions from './ProviderOptions'
 
 export type ProviderPartialOptions<
   Options extends ProviderOptions & SchemeOptions
-> = PartialExcept<Options, keyof ProviderOptions | keyof SchemeOptions>
+> = PartialExcept<Options, keyof ProviderOptions>
 
 export default ProviderPartialOptions
