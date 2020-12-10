@@ -14,7 +14,7 @@ export interface Scheme<OptionsT extends SchemeOptions>
     token: string,
     refreshToken?: string
   ): Promise<HTTPResponse | void>
-  logout?(endpoint?: HTTPRequest): Promise<void>
+  logout?(endpoint?: HTTPRequest): Promise<void> | void
   reset?(options?: { resetInterceptor: boolean }): void
 }
 
