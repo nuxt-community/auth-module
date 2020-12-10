@@ -7,6 +7,7 @@ import LocalScheme from '../local'
 import RefreshableScheme from '../RefreshableScheme'
 import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import Auth from '../../core/auth'
+import { HTTPResponse } from '../../index'
 import RefreshSchemeOptions from './contracts/RefreshSchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {
@@ -51,9 +52,9 @@ export default class RefreshScheme<
   }
 
   _updateTokens(
-    response,
+    response: HTTPResponse,
     { isRefreshing = false, updateOnRefresh = true } = {}
-  ) {
+  ): void {
     const token = getResponseProp(response, this.options.token.property)
     const refreshToken = this.options.refreshToken.required
       ? getResponseProp(response, this.options.refreshToken.property)
@@ -68,7 +69,7 @@ export default class RefreshScheme<
     }
   }
 
-  _initializeRequestInterceptor() {
+  _initializeRequestInterceptor(): void {
     this.requestHandler.initializeRequestInterceptor(
       this.options.endpoints.refresh.url
     )
@@ -117,7 +118,7 @@ export default class RefreshScheme<
     return response
   }
 
-  mounted() {
+  mounted(): Promise<HTTPResponse> {
     return super.mounted({
       tokenCallback: () => {
         if (this.options.autoLogout) {
@@ -130,7 +131,7 @@ export default class RefreshScheme<
     })
   }
 
-  async refreshTokens() {
+  async refreshTokens(): Promise<HTTPResponse> {
     // Refresh endpoint is disabled
     if (!this.options.endpoints.refresh) {
       return
@@ -194,7 +195,10 @@ export default class RefreshScheme<
       })
   }
 
-  async setUserToken(token, refreshToken?) {
+  async setUserToken(
+    token: string,
+    refreshToken?: string
+  ): Promise<HTTPResponse | void> {
     this.token.set(token)
 
     if (refreshToken) {
@@ -205,7 +209,7 @@ export default class RefreshScheme<
     return this.fetchUser()
   }
 
-  reset({ resetInterceptor = true } = {}) {
+  reset({ resetInterceptor = true } = {}): void {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()

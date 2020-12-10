@@ -3,6 +3,7 @@ import SchemeCheck from '../contracts/SchemeCheck'
 import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import TokenableScheme from '../TokenableScheme'
 import Auth from '../../core/auth'
+import { HTTPRequest, HTTPResponse } from '../../index'
 import CookieSchemeOptions from './contracts/CookieSchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
@@ -30,7 +31,7 @@ export default class CookieScheme<
     super($auth, options, DEFAULTS)
   }
 
-  mounted() {
+  mounted(): Promise<HTTPResponse> {
     if (process.server) {
       this.$auth.ctx.$axios.setHeader(
         'referer',
@@ -58,7 +59,7 @@ export default class CookieScheme<
     return response
   }
 
-  async login(endpoint) {
+  async login(endpoint: HTTPRequest): Promise<HTTPResponse> {
     // Ditch any leftover local tokens before attempting to log in
     this.$auth.reset()
 
@@ -72,7 +73,7 @@ export default class CookieScheme<
     return super.login(endpoint, { reset: false })
   }
 
-  reset() {
+  reset(): void {
     if (this.options.cookie.name) {
       this.$auth.$storage.setCookie(this.options.cookie.name, null, {
         prefix: ''

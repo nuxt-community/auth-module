@@ -71,14 +71,14 @@ export default class LocalScheme<
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  _updateTokens(response) {
+  _updateTokens(response: HTTPResponse): void {
     if (this.options.token.required) {
       const token = getResponseProp(response, this.options.token.property)
       this.token.set(token)
     }
   }
 
-  _initializeRequestInterceptor() {
+  _initializeRequestInterceptor(): void {
     this.requestHandler.initializeRequestInterceptor()
   }
 
@@ -118,7 +118,7 @@ export default class LocalScheme<
   mounted({
     tokenCallback = () => this.$auth.reset(),
     refreshTokenCallback = undefined
-  } = {}) {
+  } = {}): Promise<HTTPResponse> {
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 
     if (refreshTokenExpired && typeof refreshTokenCallback === 'function') {
@@ -184,14 +184,14 @@ export default class LocalScheme<
     return response
   }
 
-  async setUserToken(token) {
+  async setUserToken(token: string): Promise<HTTPResponse | void> {
     this.token.set(token)
 
     // Fetch user
     return this.fetchUser()
   }
 
-  async fetchUser(endpoint?) {
+  async fetchUser(endpoint?: HTTPRequest): Promise<HTTPResponse | void> {
     // Token is required but not available
     if (!this.check().valid) {
       return
@@ -217,19 +217,21 @@ export default class LocalScheme<
       })
   }
 
-  async logout(endpoint: HTTPRequest = {}) {
+  async logout(endpoint: HTTPRequest = {}): Promise<void> {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
       await this.$auth
         .requestWith(this.name, endpoint, this.options.endpoints.logout)
-        .catch(() => {})
+        .catch(() => {
+          //
+        })
     }
 
     // But reset regardless
     return this.$auth.reset()
   }
 
-  reset({ resetInterceptor = true } = {}) {
+  reset({ resetInterceptor = true } = {}): void {
     this.$auth.setUser(false)
     this.token.reset()
 

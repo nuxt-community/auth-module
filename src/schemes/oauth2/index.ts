@@ -18,6 +18,7 @@ import SchemeCheck from '../contracts/SchemeCheck'
 import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import RefreshableScheme from '../RefreshableScheme'
 import Auth from '../../core/auth'
+import { HTTPResponse } from '../../index'
 import Oauth2SchemeOptions from './contracts/Oauth2SchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
@@ -98,27 +99,27 @@ export default class Oauth2Scheme<
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  get _scope() {
+  get _scope(): string {
     return Array.isArray(this.options.scope)
       ? this.options.scope.join(' ')
       : this.options.scope
   }
 
-  get _redirectURI() {
+  get _redirectURI(): string {
     return (
       this.options.redirectUri ||
       urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
     )
   }
 
-  get _logoutRedirectURI() {
+  get _logoutRedirectURI(): string {
     return (
       this.options.logoutRedirectUri ||
       urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
     )
   }
 
-  _updateTokens(response) {
+  _updateTokens(response: HTTPResponse): void {
     const token = getResponseProp(response, this.options.token.property)
     const refreshToken = getResponseProp(
       response,
@@ -175,7 +176,7 @@ export default class Oauth2Scheme<
     return response
   }
 
-  async mounted() {
+  async mounted(): Promise<HTTPResponse | void> {
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 
     // Force reset if refresh token has expired
@@ -197,14 +198,14 @@ export default class Oauth2Scheme<
     }
   }
 
-  reset() {
+  reset(): void {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()
     this.requestHandler.reset()
   }
 
-  _generateRandomString() {
+  _generateRandomString(): string {
     const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
     window.crypto.getRandomValues(array)
     return Array.from(array, (dec) => ('0' + dec.toString(16)).substr(-2)).join(
@@ -212,13 +213,13 @@ export default class Oauth2Scheme<
     )
   }
 
-  _sha256(plain) {
+  _sha256(plain: string): Promise<ArrayBuffer> {
     const encoder = new TextEncoder()
     const data = encoder.encode(plain)
     return window.crypto.subtle.digest('SHA-256', data)
   }
 
-  _base64UrlEncode(str) {
+  _base64UrlEncode(str: ArrayBuffer): string {
     // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
     // btoa accepts chars only within ascii 0-255 and base64 encodes them.
     // Then convert the base64 encoded to base64url encoded
@@ -229,7 +230,10 @@ export default class Oauth2Scheme<
       .replace(/=+$/, '')
   }
 
-  async _pkceChallengeFromVerifier(v, hashValue) {
+  async _pkceChallengeFromVerifier(
+    v: string,
+    hashValue: boolean
+  ): Promise<string> {
     if (hashValue) {
       const hashed = await this._sha256(v)
       return this._base64UrlEncode(hashed)
@@ -237,7 +241,9 @@ export default class Oauth2Scheme<
     return v // plain is plain - url-encoded by default
   }
 
-  async login(_opts: { state?: string; params?; nonce?: string } = {}) {
+  async login(
+    _opts: { state?: string; params?; nonce?: string } = {}
+  ): Promise<void> {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -305,7 +311,7 @@ export default class Oauth2Scheme<
     window.location.replace(url)
   }
 
-  logout() {
+  logout(): Promise<void> {
     if (this.options.endpoints.logout) {
       const opts = {
         client_id: this.options.clientId + '',
@@ -317,7 +323,7 @@ export default class Oauth2Scheme<
     return this.$auth.reset()
   }
 
-  async fetchUser() {
+  async fetchUser(): Promise<void> {
     if (!this.check().valid) {
       return
     }
@@ -334,7 +340,7 @@ export default class Oauth2Scheme<
     this.$auth.setUser(getResponseProp(response, this.options.user.property))
   }
 
-  async _handleCallback() {
+  async _handleCallback(): Promise<boolean | void> {
     // Handle callback only for specified route
     if (
       this.$auth.options.redirect &&
@@ -423,7 +429,7 @@ export default class Oauth2Scheme<
     return true // True means a redirect happened
   }
 
-  async refreshTokens() {
+  async refreshTokens(): Promise<HTTPResponse> {
     // Get refresh token
     const refreshToken = this.refreshToken.get()
 
