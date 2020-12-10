@@ -5,11 +5,11 @@ import RefreshToken from '../../inc/refresh-token'
 import SchemeCheck from '../contracts/SchemeCheck'
 import LocalScheme from '../local'
 import RefreshableScheme from '../RefreshableScheme'
-import PartialOptions from '../contracts/PartialOptions'
+import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import Auth from '../../core/auth'
 import RefreshSchemeOptions from './contracts/RefreshSchemeOptions'
 
-const DEFAULTS: PartialOptions<RefreshSchemeOptions> = {
+const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {
   name: 'refresh',
   endpoints: {
     refresh: {
@@ -33,7 +33,7 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
   public refreshToken: RefreshToken
   public refreshController: RefreshController
 
-  constructor ($auth: Auth, options: PartialOptions<RefreshSchemeOptions>) {
+  constructor ($auth: Auth, options: SchemePartialOptions<RefreshSchemeOptions>) {
     super($auth, options, DEFAULTS)
 
     // Initialize Refresh Token instance

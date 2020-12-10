@@ -5,11 +5,11 @@ import { HTTPRequest, HTTPResponse } from '../../index'
 import SchemeCheck from '../contracts/SchemeCheck'
 import BaseScheme from '../_scheme'
 import TokenableScheme from '../TokenableScheme'
-import PartialOptions from '../contracts/PartialOptions'
+import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import Auth from '../../core/auth'
 import LocalSchemeOptions from './contracts/LocalSchemeOptions'
 
-const DEFAULTS: PartialOptions<LocalSchemeOptions> = {
+const DEFAULTS: SchemePartialOptions<LocalSchemeOptions> = {
   name: 'local',
   endpoints: {
     login: {
@@ -48,7 +48,7 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
   public token: Token
   public requestHandler: RequestHandler
 
-  constructor ($auth: Auth, options: PartialOptions<LocalSchemeOptions>, ...defaults: PartialOptions<LocalSchemeOptions>[]) {
+  constructor ($auth: Auth, options: SchemePartialOptions<LocalSchemeOptions>, ...defaults: SchemePartialOptions<LocalSchemeOptions>[]) {
     super($auth, options as OptionsT, ...defaults as OptionsT[], DEFAULTS as OptionsT)
 
     // Initialize Token instance
