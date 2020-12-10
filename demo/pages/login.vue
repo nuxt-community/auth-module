@@ -1,9 +1,7 @@
 <template>
   <div>
-    <h2 class="text-center">
-      Login
-    </h2>
-    <hr>
+    <h2 class="text-center">Login</h2>
+    <hr />
     <b-alert v-if="errorMessage" show variant="danger">
       {{ errorMessage }}
     </b-alert>
@@ -17,7 +15,11 @@
           <busy-overlay />
           <form @keydown.enter="login">
             <b-form-group label="Username">
-              <b-input ref="username" v-model="username" placeholder="anything" />
+              <b-input
+                ref="username"
+                v-model="username"
+                placeholder="anything"
+              />
             </b-form-group>
 
             <b-form-group label="Password">
@@ -25,9 +27,7 @@
             </b-form-group>
 
             <div class="text-center">
-              <b-btn variant="primary" block @click="login">
-                Login
-              </b-btn>
+              <b-btn variant="primary" block @click="login"> Login </b-btn>
               <b-btn variant="secondary" block @click="localRefresh">
                 Login with Refresh
               </b-btn>
@@ -37,9 +37,7 @@
       </b-col>
       <b-col md="1" align-self="center">
         <div class="text-center">
-          <b-badge pill>
-            OR
-          </b-badge>
+          <b-badge pill> OR </b-badge>
         </div>
       </b-col>
       <b-col md="4" class="text-center">
@@ -47,7 +45,7 @@
           <div v-for="s in strategies" :key="s.key" class="mb-2">
             <b-btn
               block
-              :style="{background: s.color}"
+              :style="{ background: s.color }"
               class="login-button"
               @click="$auth.loginWith(s.key)"
             >
@@ -57,7 +55,7 @@
           <div class="mb-2">
             <b-btn
               block
-              :style="{background: 'purple'}"
+              :style="{ background: 'purple' }"
               class="login-button"
               @click="$auth.loginWith('oauth2mock')"
             >
@@ -67,7 +65,7 @@
           <div class="mb-2">
             <b-btn
               block
-              :style="{background: '#e0640b'}"
+              :style="{ background: '#e0640b' }"
               class="login-button"
               @click="$auth.loginWith('oidcmock')"
             >
@@ -77,7 +75,7 @@
           <div class="mb-2">
             <b-btn
               block
-              :style="{background: '#ff2d20'}"
+              :style="{ background: '#ff2d20' }"
               class="login-button"
               @click="loginSanctum"
             >
@@ -87,7 +85,7 @@
           <div class="mb-2">
             <b-btn
               block
-              :style="{background: '#f8145a'}"
+              :style="{ background: '#f8145a' }"
               class="login-button"
               @click="loginJWT"
             >
@@ -97,7 +95,7 @@
           <div class="mb-2">
             <b-btn
               block
-              :style="{background: '#c61952'}"
+              :style="{ background: '#c61952' }"
               class="login-button"
               @click="loginPassport"
             >
@@ -107,7 +105,7 @@
           <div class="mb-2">
             <b-btn
               block
-              :style="{background: '#8c0d32'}"
+              :style="{ background: '#8c0d32' }"
               class="login-button"
               @click="loginPassportGrantFlow"
             >
@@ -120,19 +118,13 @@
   </div>
 </template>
 
-<style scoped>
-.login-button {
-  border: 0;
-}
-</style>
-
 <script>
 import busyOverlay from '~/components/busy-overlay'
 
 export default {
-  middleware: ['auth'],
   components: { busyOverlay },
-  data () {
+  middleware: ['auth'],
+  data() {
     return {
       username: '',
       password: '123',
@@ -146,16 +138,16 @@ export default {
       { key: 'facebook', name: 'Facebook', color: '#3c65c4' },
       { key: 'github', name: 'GitHub', color: '#202326' }
     ],
-    redirect () {
+    redirect() {
       return (
         this.$route.query.redirect &&
         decodeURIComponent(this.$route.query.redirect)
       )
     },
-    isCallback () {
+    isCallback() {
       return Boolean(this.$route.query.callback)
     },
-    errorMessage () {
+    errorMessage() {
       const { error } = this
       if (!error || typeof error === 'string') {
         return error
@@ -174,7 +166,7 @@ export default {
     }
   },
   methods: {
-    async login () {
+    async login() {
       this.error = null
 
       return this.$auth
@@ -189,7 +181,7 @@ export default {
         })
     },
 
-    async localRefresh () {
+    async localRefresh() {
       this.error = null
 
       return this.$auth
@@ -204,7 +196,7 @@ export default {
         })
     },
 
-    async loginJWT () {
+    async loginJWT() {
       this.error = null
 
       return this.$auth
@@ -219,17 +211,15 @@ export default {
         })
     },
 
-    async loginPassport () {
+    async loginPassport() {
       this.error = null
 
-      return this.$auth
-        .loginWith('laravelPassport')
-        .catch((e) => {
-          this.error = e.response ? e.response.data : e.toString()
-        })
+      return this.$auth.loginWith('laravelPassport').catch((e) => {
+        this.error = e.response ? e.response.data : e.toString()
+      })
     },
 
-    async loginPassportGrantFlow () {
+    async loginPassportGrantFlow() {
       this.error = null
 
       return this.$auth
@@ -244,7 +234,7 @@ export default {
         })
     },
 
-    async loginSanctum () {
+    async loginSanctum() {
       this.error = null
 
       return this.$auth
@@ -261,3 +251,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.login-button {
+  border: 0;
+}
+</style>

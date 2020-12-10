@@ -1,7 +1,10 @@
 import path from 'path'
-import { assignDefaults, assignAbsoluteEndpoints } from '../../../utils/provider'
+import {
+  assignDefaults,
+  assignAbsoluteEndpoints
+} from '../../../utils/provider'
 
-export default function laravelJWT (_nuxt, strategy) {
+export default function laravelJWT(_nuxt, strategy) {
   const { url } = strategy
 
   if (!url) {

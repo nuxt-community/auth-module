@@ -3,20 +3,17 @@ import { resolve } from 'path'
 import consola from 'consola'
 
 const logger = consola.withScope('nuxt:auth')
-const builtInSchemes = [
-  'local',
-  'cookie',
-  'oauth2',
-  'refresh',
-  'openIDConnect'
-]
+const builtInSchemes = [ 'local', 'cookie', 'oauth2', 'refresh', 'openIDConnect']
 
 export function resolveStrategies (nuxt, options) {
   const strategies = []
   const strategyScheme = new Map()
 
   for (const name of Object.keys(options.strategies)) {
-    if (!options.strategies[name] || options.strategies[name].enabled === false) {
+    if (
+      !options.strategies[name] ||
+      options.strategies[name].enabled === false
+    ) {
       continue
     }
 
@@ -61,7 +58,7 @@ export function resolveStrategies (nuxt, options) {
   }
 }
 
-export function resolveScheme (nuxt, scheme) {
+export function resolveScheme(nuxt, scheme) {
   if (typeof scheme !== 'string') {
     return
   }
@@ -81,7 +78,7 @@ export function resolveScheme (nuxt, scheme) {
   }
 }
 
-export function resolveProvider (nuxt, provider) {
+export function resolveProvider(nuxt, provider) {
   if (typeof provider === 'function') {
     return provider
   }

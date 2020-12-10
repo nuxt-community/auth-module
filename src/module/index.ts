@@ -13,7 +13,8 @@ export default function (moduleOptions) {
   delete options.strategies
 
   // Set defaultStrategy
-  options.defaultStrategy = options.defaultStrategy || strategies.length ? strategies[0].name : ''
+  options.defaultStrategy =
+    options.defaultStrategy || strategies.length ? strategies[0].name : ''
 
   // Add plugin
   const { dst } = this.addTemplate({
@@ -31,7 +32,7 @@ export default function (moduleOptions) {
 
   // Extend auth with plugins
   if (options.plugins) {
-    options.plugins.forEach(p => this.options.plugins.push(p))
+    options.plugins.forEach((p) => this.options.plugins.push(p))
     delete options.plugins
   }
 

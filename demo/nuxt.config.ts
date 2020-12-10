@@ -19,14 +19,8 @@ export default {
       })
     }
   ],
-  buildModules: [
-    '@nuxt/typescript-build'
-  ],
-  modules: [
-    'bootstrap-vue/nuxt',
-    '@nuxtjs/axios',
-    authModule
-  ],
+  buildModules: ['@nuxt/typescript-build'],
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', authModule],
   axios: {
     proxy: true
   },
@@ -66,7 +60,8 @@ export default {
       },
       facebook: {
         endpoints: {
-          userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
+          userInfo:
+            'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
         },
         clientId: '1671464192946675',
         scope: ['public_profile', 'email', 'user_birthday']

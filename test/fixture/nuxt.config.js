@@ -7,10 +7,7 @@ export default {
     authAPI,
     { path: '/oidc', handler: (req, res) => oidcMockServer(req, res, 3000) }
   ],
-  modules: [
-    '@nuxtjs/axios',
-    authModuleDist
-  ],
+  modules: ['@nuxtjs/axios', authModuleDist],
   axios: {
     proxy: true
   },
@@ -18,9 +15,7 @@ export default {
     '/api': 'http://localhost:3000'
   },
   auth: {
-    plugins: [
-      '~/plugins/auth.js'
-    ],
+    plugins: ['~/plugins/auth.js'],
     strategies: {
       local: {
         token: {

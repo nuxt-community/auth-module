@@ -5,37 +5,39 @@ position: 2
 category: Guide
 ---
 
-Check the [Nuxt.js documentation](https://nuxtjs.org/guides/configuration-glossary/configuration-modules) for more information about installing and using modules in Nuxt.js.
+- [Installation](#installation)
+- [Using with TypeScript](#using-with-typescript)
 
 ## Installation
 
+<alert type="info">
 
-<alert type="warning">
-
-This docs are for next version of nuxt-auth module which is unstable. Use with caution!
+Check the [Nuxt.js documentation](https://nuxtjs.org/guides/configuration-glossary/configuration-modules) for more information about installing and using modules in Nuxt.js.
 
 </alert>
 
 Add `@nuxtjs/auth-next @nuxtjs/axios` dependencies to your project:
 
 <code-group>
-  <code-block label="Yarn" active>
+  <code-block label="yarn" active>
 
   ```bash
-  yarn add @nuxtjs/auth-next @nuxtjs/axios
+  yarn add --exact @nuxtjs/auth-next
+  yarn add @nuxtjs/axios
   ```
 
   </code-block>
-  <code-block label="NPM">
+  <code-block label="npm">
 
   ```bash
+  npm install --save-exact @nuxtjs/auth-next
   npm install @nuxtjs/auth-next @nuxtjs/axios
   ```
 
   </code-block>
 </code-group>
 
-Then, add `@nuxtjs/xxx` to the `modules` section of `nuxt.config.js`:
+Then, add `@nuxtjs/auth-next` to the `modules` section of `nuxt.config.js`:
 
 ```js{}[nuxt.config.js]
 {
@@ -49,9 +51,34 @@ Then, add `@nuxtjs/xxx` to the `modules` section of `nuxt.config.js`:
 }
 ```
 
-<alert type="warning"> 
+<alert type="warning">
 
-IMPORTANT
 When adding `auth-module` to a new Nuxt project ensure you have [activated the Vuex store](https://nuxtjs.org/guide/vuex-store/#activate-the-store). More information on how to do that can be found on the [Nuxt Getting Started Guide](https://nuxtjs.org/guides/directory-structure/store).
+
+</alert>
+
+## Using with TypeScript
+
+<alert type="info">
+
+For more information about using TypeScript in your Nuxt.js project, visit the [Nuxt Typescript documentation](https://typescript.nuxtjs.org/).
+
+</alert>
+
+Add `@nuxtjs/auth-next` to the `compilerOptions.types` section of your project's `tsconfig.json` file:
+
+```json{}[tsconfig.json]
+{
+  compilerOptions: {
+    "types": [
+      "@nuxtjs/auth-next",
+    ]
+  },
+}
+```
+
+<alert type="warning">
+
+If you still receive errors after installing the types package, it may be necessary to restart your code editor so that the new types are recognized.
 
 </alert>
