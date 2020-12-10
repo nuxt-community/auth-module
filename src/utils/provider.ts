@@ -3,11 +3,11 @@ import axios from 'axios'
 import bodyParser from 'body-parser'
 import requrl from 'requrl'
 
-export function assignDefaults (strategy, defaults) {
+export function assignDefaults(strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
 }
 
-export function addAuthorize (nuxt, strategy) {
+export function addAuthorize(nuxt, strategy) {
   // Get clientSecret, clientId, endpoints.token and audience
   const clientSecret = strategy.clientSecret
   const clientID = strategy.clientId
@@ -86,7 +86,7 @@ export function addAuthorize (nuxt, strategy) {
   })
 }
 
-export function initializePasswordGrantFlow (nuxt, strategy) {
+export function initializePasswordGrantFlow(nuxt, strategy) {
   // Get clientSecret, clientId, endpoints.login.url
   const clientSecret = strategy.clientSecret
   const clientId = strategy.clientId
@@ -125,7 +125,10 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
         }
 
         // Grant type is password, but username or password is not available
-        if (data.grant_type === 'password' && (!data.username || !data.password)) {
+        if (
+          data.grant_type === 'password' &&
+          (!data.username || !data.password)
+        ) {
           return next(new Error('Invalid username or password'))
         }
 
@@ -160,7 +163,7 @@ export function initializePasswordGrantFlow (nuxt, strategy) {
   })
 }
 
-export function assignAbsoluteEndpoints (strategy) {
+export function assignAbsoluteEndpoints(strategy) {
   const { url, endpoints } = strategy
 
   if (endpoints) {

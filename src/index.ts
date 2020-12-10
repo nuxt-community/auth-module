@@ -12,7 +12,7 @@ export { AxiosResponse as HTTPResponse }
 export type Auth = _Auth
 
 export type SchemeOptions = {
-  name: string,
+  name: string
   [key: string]: any
 }
 
@@ -24,7 +24,7 @@ export type SchemeCheck = {
 }
 
 export type Scheme = _Scheme<SchemeOptions | any> & {
-  token?: Token,
+  token?: Token
   refreshToken?: RefreshToken
   requestHandler?: RequestHandler
   refreshTokens?: Function
@@ -44,29 +44,29 @@ export type AuthOptions = {
 
 declare module '@nuxt/types' {
   interface Context {
-    $auth: Auth;
+    $auth: Auth
   }
   interface NuxtAppOptions {
-    $auth: Auth;
+    $auth: Auth
   }
 }
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $auth: Auth;
+    $auth: Auth
   }
 }
 
 declare module 'vue/types/options' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ComponentOptions<V extends Vue> {
-    auth?: true | false | 'guest';
+    auth?: true | false | 'guest'
   }
 }
 
 declare module 'vuex/types/index' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Store<S> {
-    $auth: Auth;
+    $auth: Auth
   }
 }

@@ -9,7 +9,7 @@ export default class Storage {
   private _state: any
   private _useVuex: boolean
 
-  constructor (ctx, options) {
+  constructor(ctx, options) {
     this.ctx = ctx
     this.options = options
 
@@ -20,7 +20,7 @@ export default class Storage {
   // Universal
   // ------------------------------------
 
-  setUniversal (key, value) {
+  setUniversal(key, value) {
     // Unset null, undefined
     if (isUnset(value)) {
       return this.removeUniversal(key)
@@ -38,7 +38,7 @@ export default class Storage {
     return value
   }
 
-  getUniversal (key) {
+  getUniversal(key) {
     let value
 
     // Local state
@@ -64,7 +64,7 @@ export default class Storage {
     return value
   }
 
-  syncUniversal (key, defaultValue?) {
+  syncUniversal(key, defaultValue?) {
     let value = this.getUniversal(key)
 
     if (isUnset(value) && isSet(defaultValue)) {
@@ -78,7 +78,7 @@ export default class Storage {
     return value
   }
 
-  removeUniversal (key) {
+  removeUniversal(key) {
     this.removeState(key)
     this.removeLocalStorage(key)
     this.removeCookie(key)
@@ -88,7 +88,7 @@ export default class Storage {
   // Local state (reactive)
   // ------------------------------------
 
-  _initState () {
+  _initState() {
     // Private state is suitable to keep information not being exposed to Vuex store
     // This helps prevent stealing token from SSR response HTML
     Vue.set(this, '_state', {})
@@ -101,14 +101,16 @@ export default class Storage {
         namespaced: true,
         state: () => this.options.initialState,
         mutations: {
-          SET (state, payload) {
+          SET(state, payload) {
             Vue.set(state, payload.key, payload.value)
           }
         }
       }
 
       this.ctx.store.registerModule(this.options.vuex.namespace, storeModule, {
-        preserveState: Boolean(this.ctx.store.state[this.options.vuex.namespace])
+        preserveState: Boolean(
+          this.ctx.store.state[this.options.vuex.namespace]
+        )
       })
 
       this.state = this.ctx.store.state[this.options.vuex.namespace]
@@ -117,7 +119,7 @@ export default class Storage {
     }
   }
 
-  setState (key, value) {
+  setState(key, value) {
     if (key[0] === '_') {
       Vue.set(this._state, key, value)
     } else if (this._useVuex) {
@@ -132,7 +134,7 @@ export default class Storage {
     return value
   }
 
-  getState (key) {
+  getState(key) {
     if (key[0] !== '_') {
       return this.state[key]
     } else {
@@ -140,16 +142,16 @@ export default class Storage {
     }
   }
 
-  watchState (key, fn) {
+  watchState(key, fn) {
     if (this._useVuex) {
       return this.ctx.store.watch(
-        state => getProp(state[this.options.vuex.namespace], key),
+        (state) => getProp(state[this.options.vuex.namespace], key),
         fn
       )
     }
   }
 
-  removeState (key) {
+  removeState(key) {
     this.setState(key, undefined)
   }
 
@@ -157,7 +159,7 @@ export default class Storage {
   // Local storage
   // ------------------------------------
 
-  setLocalStorage (key, value) {
+  setLocalStorage(key, value) {
     // Unset null, undefined
     if (isUnset(value)) {
       return this.removeLocalStorage(key)
@@ -180,7 +182,7 @@ export default class Storage {
     return value
   }
 
-  getLocalStorage (key) {
+  getLocalStorage(key) {
     if (typeof localStorage === 'undefined' || !this.options.localStorage) {
       return
     }
@@ -192,7 +194,7 @@ export default class Storage {
     return decodeValue(value)
   }
 
-  removeLocalStorage (key) {
+  removeLocalStorage(key) {
     if (typeof localStorage === 'undefined' || !this.options.localStorage) {
       return
     }
@@ -204,7 +206,7 @@ export default class Storage {
   // ------------------------------------
   // Cookies
   // ------------------------------------
-  getCookies () {
+  getCookies() {
     const cookieStr = process.client
       ? document.cookie
       : this.ctx.req.headers.cookie
@@ -212,12 +214,13 @@ export default class Storage {
     return parseCookie(cookieStr || '') || {}
   }
 
-  setCookie (key, value, options: { prefix?: string } = {}) {
+  setCookie(key, value, options: { prefix?: string } = {}) {
     if (!this.options.cookie || (process.server && !this.ctx.res)) {
       return
     }
 
-    const _prefix = options.prefix !== undefined ? options.prefix : this.options.cookie.prefix
+    const _prefix =
+      options.prefix !== undefined ? options.prefix : this.options.cookie.prefix
     const _key = _prefix + key
     const _options = Object.assign({}, this.options.cookie.options, options)
     const _value = encodeValue(value)
@@ -229,7 +232,7 @@ export default class Storage {
 
     // Accept expires as a number for js-cookie compatiblity
     if (typeof _options.expires === 'number') {
-      _options.expires = new Date(Date.now() + (_options.expires * 864e+5))
+      _options.expires = new Date(Date.now() + _options.expires * 864e5)
     }
 
     const serializedCookie = serializeCookie(_key, _value, _options)
@@ -241,14 +244,21 @@ export default class Storage {
       // Send Set-Cookie header from server side
       const cookies = this.ctx.res.getHeader('Set-Cookie') || []
       cookies.unshift(serializedCookie)
-      this.ctx.res.setHeader('Set-Cookie', cookies
-        .filter((v, i, arr) => arr.findIndex(val => val.startsWith(v.substr(0, v.indexOf('=')))) === i))
+      this.ctx.res.setHeader(
+        'Set-Cookie',
+        cookies.filter(
+          (v, i, arr) =>
+            arr.findIndex((val) =>
+              val.startsWith(v.substr(0, v.indexOf('=')))
+            ) === i
+        )
+      )
     }
 
     return value
   }
 
-  getCookie (key) {
+  getCookie(key) {
     if (!this.options.cookie || (process.server && !this.ctx.req)) {
       return
     }
@@ -262,7 +272,7 @@ export default class Storage {
     return decodeValue(value)
   }
 
-  removeCookie (key, options?) {
+  removeCookie(key, options?) {
     this.setCookie(key, undefined, options)
   }
 }

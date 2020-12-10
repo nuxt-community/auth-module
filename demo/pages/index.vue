@@ -5,16 +5,12 @@
       This demo is using auth-module v{{ version }}
       <div class="mt-1">
         <template v-if="$auth.$state.loggedIn">
-          <b-btn class="ml-3" variant="info" to="/secure">
-            Secure
-          </b-btn>
+          <b-btn class="ml-3" variant="info" to="/secure"> Secure </b-btn>
           <b-btn class="ml-3" variant="danger" @click="$auth.logout()">
             Logout
           </b-btn>
         </template>
-        <b-btn v-else variant="success" to="/login">
-          Login
-        </b-btn>
+        <b-btn v-else variant="success" to="/login"> Login </b-btn>
       </div>
     </b-jumbotron>
 

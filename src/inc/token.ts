@@ -8,37 +8,40 @@ export default class Token {
   public scheme: Scheme
   public $storage: Storage
 
-  constructor (scheme: Scheme, storage: Storage) {
+  constructor(scheme: Scheme, storage: Storage) {
     this.scheme = scheme
     this.$storage = storage
   }
 
-  _getExpiration () {
+  _getExpiration() {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  _setExpiration (expiration) {
+  _setExpiration(expiration) {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration)
   }
 
-  _syncExpiration () {
+  _syncExpiration() {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  _updateExpiration (token) {
+  _updateExpiration(token) {
     let tokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis = this.scheme.options.token.maxAge * 1000
-    const _tokenExpiresAtMillis = _tokenTTLMillis ? _tokenIssuedAtMillis + _tokenTTLMillis : 0
+    const _tokenExpiresAtMillis = _tokenTTLMillis
+      ? _tokenIssuedAtMillis + _tokenTTLMillis
+      : 0
 
     try {
-      tokenExpiration = jwtDecode<JwtPayload>(token).exp * 1000 || _tokenExpiresAtMillis
+      tokenExpiration =
+        jwtDecode<JwtPayload>(token).exp * 1000 || _tokenExpiresAtMillis
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       tokenExpiration = _tokenExpiresAtMillis
@@ -52,25 +55,25 @@ export default class Token {
     return this._setExpiration(tokenExpiration || false)
   }
 
-  _setToken (token) {
+  _setToken(token) {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, token)
   }
 
-  _syncToken () {
+  _syncToken() {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  get () {
+  get() {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  set (tokenValue) {
+  set(tokenValue) {
     const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
 
     this._setToken(token)
@@ -80,7 +83,7 @@ export default class Token {
     return token
   }
 
-  sync () {
+  sync() {
     const token = this._syncToken()
     this._syncExpiration()
     this.scheme.requestHandler.setHeader(token)
@@ -88,13 +91,13 @@ export default class Token {
     return token
   }
 
-  reset () {
+  reset() {
     this.scheme.requestHandler.clearHeader()
     this._setToken(false)
     this._setExpiration(false)
   }
 
-  status () {
+  status() {
     return new TokenStatus(this.get(), this._getExpiration())
   }
 }
