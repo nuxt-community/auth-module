@@ -1,5 +1,5 @@
 // @ts-ignore
-import jwtDecode, { InvalidTokenError } from 'jwt-decode'
+import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
 import Storage from '../core/storage'
 import { addTokenPrefix } from '../utils'
 import type { Scheme } from '..'
@@ -41,7 +41,8 @@ export default class IdToken {
       : 0
 
     try {
-      idTokenExpiration = jwtDecode(idToken).exp * 1000 || _tokenExpiresAtMillis
+      idTokenExpiration =
+        jwtDecode<JwtPayload>(idToken).exp * 1000 || _tokenExpiresAtMillis
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       idTokenExpiration = _tokenExpiresAtMillis
