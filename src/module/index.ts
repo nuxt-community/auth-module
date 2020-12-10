@@ -1,10 +1,12 @@
 import { resolve, join } from 'path'
 import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
+import { Module } from '@nuxt/types'
+import { ModuleOptions } from '../types'
 import defaults from './defaults'
 import { resolveStrategies } from './resolve'
 
-export default function (moduleOptions) {
+const authModule: Module<ModuleOptions> = function (moduleOptions) {
   // Merge all option sources
   const options = merge({}, defaults, moduleOptions, this.options.auth)
 
@@ -44,3 +46,5 @@ export default function (moduleOptions) {
   // Transpile nanoid (used for oauth2) for IE11 support (#472)
   this.options.build.transpile.push(/^nanoid/)
 }
+
+export default authModule
