@@ -1,10 +1,10 @@
 import RefreshScheme from '../../../schemes/refresh'
 
 export default class LaravelJWT extends RefreshScheme {
-  _updateTokens(
+  updateTokens(
     response,
     { isRefreshing = false, updateOnRefresh = false } = {}
   ) {
-    super._updateTokens(response, { isRefreshing, updateOnRefresh })
+    super.updateTokens(response, { isRefreshing, updateOnRefresh })
   }
 }

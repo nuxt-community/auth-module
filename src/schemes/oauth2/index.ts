@@ -99,38 +99,24 @@ export default class Oauth2Scheme<
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  get _scope(): string {
+  protected get scope(): string {
     return Array.isArray(this.options.scope)
       ? this.options.scope.join(' ')
       : this.options.scope
   }
 
-  get _redirectURI(): string {
+  protected get redirectURI(): string {
     return (
       this.options.redirectUri ||
       urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
     )
   }
 
-  get _logoutRedirectURI(): string {
+  protected get logoutRedirectURI(): string {
     return (
       this.options.logoutRedirectUri ||
       urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
     )
-  }
-
-  _updateTokens(response: HTTPResponse): void {
-    const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = getResponseProp(
-      response,
-      this.options.refreshToken.property
-    )
-
-    this.token.set(token)
-
-    if (refreshToken) {
-      this.refreshToken.set(refreshToken)
-    }
   }
 
   check(checkStatus = false): SchemeCheck {
@@ -205,42 +191,6 @@ export default class Oauth2Scheme<
     this.requestHandler.reset()
   }
 
-  _generateRandomString(): string {
-    const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
-    window.crypto.getRandomValues(array)
-    return Array.from(array, (dec) => ('0' + dec.toString(16)).substr(-2)).join(
-      ''
-    )
-  }
-
-  _sha256(plain: string): Promise<ArrayBuffer> {
-    const encoder = new TextEncoder()
-    const data = encoder.encode(plain)
-    return window.crypto.subtle.digest('SHA-256', data)
-  }
-
-  _base64UrlEncode(str: ArrayBuffer): string {
-    // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
-    // btoa accepts chars only within ascii 0-255 and base64 encodes them.
-    // Then convert the base64 encoded to base64url encoded
-    //   (replace + with -, replace / with _, trim trailing =)
-    return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '')
-  }
-
-  async _pkceChallengeFromVerifier(
-    v: string,
-    hashValue: boolean
-  ): Promise<string> {
-    if (hashValue) {
-      const hashed = await this._sha256(v)
-      return this._base64UrlEncode(hashed)
-    }
-    return v // plain is plain - url-encoded by default
-  }
-
   async login(
     _opts: { state?: string; params?; nonce?: string } = {}
   ): Promise<void> {
@@ -249,8 +199,8 @@ export default class Oauth2Scheme<
       response_type: this.options.responseType,
       access_type: this.options.accessType,
       client_id: this.options.clientId,
-      redirect_uri: this._redirectURI,
-      scope: this._scope,
+      redirect_uri: this.redirectURI,
+      scope: this.scope,
       // Note: The primary reason for using the state parameter is to mitigate CSRF attacks.
       // https://auth0.com/docs/protocols/oauth2/oauth-state
       state: _opts.state || nanoid(),
@@ -276,14 +226,14 @@ export default class Oauth2Scheme<
         case 'plain':
         case 'S256':
           {
-            const state = this._generateRandomString()
+            const state = this.generateRandomString()
             this.$auth.$storage.setUniversal(this.name + '.pkce_state', state)
-            const codeVerifier = this._generateRandomString()
+            const codeVerifier = this.generateRandomString()
             this.$auth.$storage.setUniversal(
               this.name + '.pkce_code_verifier',
               codeVerifier
             )
-            const codeChallenge = await this._pkceChallengeFromVerifier(
+            const codeChallenge = await this.pkceChallengeFromVerifier(
               codeVerifier,
               opts.code_challenge_method === 'S256'
             )
@@ -315,7 +265,7 @@ export default class Oauth2Scheme<
     if (this.options.endpoints.logout) {
       const opts = {
         client_id: this.options.clientId + '',
-        logout_uri: this._logoutRedirectURI
+        logout_uri: this.logoutRedirectURI
       }
       const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
       window.location.replace(url)
@@ -397,7 +347,7 @@ export default class Oauth2Scheme<
         data: encodeQuery({
           code: parsedQuery.code,
           client_id: this.options.clientId + '',
-          redirect_uri: this._redirectURI,
+          redirect_uri: this.redirectURI,
           response_type: this.options.responseType,
           audience: this.options.audience,
           grant_type: this.options.grantType,
@@ -472,8 +422,58 @@ export default class Oauth2Scheme<
         return Promise.reject(error)
       })
 
-    this._updateTokens(response)
+    this.updateTokens(response)
 
     return response
+  }
+
+  protected updateTokens(response: HTTPResponse): void {
+    const token = getResponseProp(response, this.options.token.property)
+    const refreshToken = getResponseProp(
+      response,
+      this.options.refreshToken.property
+    )
+
+    this.token.set(token)
+
+    if (refreshToken) {
+      this.refreshToken.set(refreshToken)
+    }
+  }
+
+  protected async pkceChallengeFromVerifier(
+    v: string,
+    hashValue: boolean
+  ): Promise<string> {
+    if (hashValue) {
+      const hashed = await this.sha256(v)
+      return this.base64UrlEncode(hashed)
+    }
+    return v // plain is plain - url-encoded by default
+  }
+
+  protected generateRandomString(): string {
+    const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
+    window.crypto.getRandomValues(array)
+    return Array.from(array, (dec) => ('0' + dec.toString(16)).substr(-2)).join(
+      ''
+    )
+  }
+
+  private sha256(plain: string): Promise<ArrayBuffer> {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(plain)
+    return window.crypto.subtle.digest('SHA-256', data)
+  }
+
+  private base64UrlEncode(str: ArrayBuffer): string {
+    // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
+    // btoa accepts chars only within ascii 0-255 and base64 encodes them.
+    // Then convert the base64 encoded to base64url encoded
+    //   (replace + with -, replace / with _, trim trailing =)
+    return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '')
   }
 }

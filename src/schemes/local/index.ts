@@ -71,17 +71,6 @@ export default class LocalScheme<
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  _updateTokens(response: HTTPResponse): void {
-    if (this.options.token.required) {
-      const token = getResponseProp(response, this.options.token.property)
-      this.token.set(token)
-    }
-  }
-
-  _initializeRequestInterceptor(): void {
-    this.requestHandler.initializeRequestInterceptor()
-  }
-
   check(checkStatus = false): SchemeCheck {
     const response = {
       valid: false,
@@ -128,7 +117,7 @@ export default class LocalScheme<
     }
 
     // Initialize request interceptor
-    this._initializeRequestInterceptor()
+    this.initializeRequestInterceptor()
 
     // Fetch user once
     return this.$auth.fetchUserOnce()
@@ -169,11 +158,11 @@ export default class LocalScheme<
     )
 
     // Update tokens
-    this._updateTokens(response)
+    this.updateTokens(response)
 
     // Initialize request interceptor if not initialized
     if (!this.requestHandler.interceptor) {
-      this._initializeRequestInterceptor()
+      this.initializeRequestInterceptor()
     }
 
     // Fetch user if `autoFetch` is enabled
@@ -238,5 +227,16 @@ export default class LocalScheme<
     if (resetInterceptor) {
       this.requestHandler.reset()
     }
+  }
+
+  protected updateTokens(response: HTTPResponse): void {
+    if (this.options.token.required) {
+      const token = getResponseProp(response, this.options.token.property)
+      this.token.set(token)
+    }
+  }
+
+  protected initializeRequestInterceptor(): void {
+    this.requestHandler.initializeRequestInterceptor()
   }
 }

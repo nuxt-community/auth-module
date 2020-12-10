@@ -51,30 +51,6 @@ export default class RefreshScheme<
     this.refreshController = new RefreshController(this)
   }
 
-  _updateTokens(
-    response: HTTPResponse,
-    { isRefreshing = false, updateOnRefresh = true } = {}
-  ): void {
-    const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = this.options.refreshToken.required
-      ? getResponseProp(response, this.options.refreshToken.property)
-      : true
-
-    this.token.set(token)
-
-    // Update refresh token if defined and if `isRefreshing` is `false`
-    // If `isRefreshing` is `true`, then only update if `updateOnRefresh` is also `true`
-    if (refreshToken && (!isRefreshing || (isRefreshing && updateOnRefresh))) {
-      this.refreshToken.set(refreshToken)
-    }
-  }
-
-  _initializeRequestInterceptor(): void {
-    this.requestHandler.initializeRequestInterceptor(
-      this.options.endpoints.refresh.url
-    )
-  }
-
   check(checkStatus = false): SchemeCheck {
     const response = {
       valid: false,
@@ -186,7 +162,7 @@ export default class RefreshScheme<
       .request(endpoint, this.options.endpoints.refresh)
       .then((response) => {
         // Update tokens
-        this._updateTokens(response, { isRefreshing: true })
+        this.updateTokens(response, { isRefreshing: true })
         return response
       })
       .catch((error) => {
@@ -217,5 +193,29 @@ export default class RefreshScheme<
     if (resetInterceptor) {
       this.requestHandler.reset()
     }
+  }
+
+  protected updateTokens(
+    response: HTTPResponse,
+    { isRefreshing = false, updateOnRefresh = true } = {}
+  ): void {
+    const token = getResponseProp(response, this.options.token.property)
+    const refreshToken = this.options.refreshToken.required
+      ? getResponseProp(response, this.options.refreshToken.property)
+      : true
+
+    this.token.set(token)
+
+    // Update refresh token if defined and if `isRefreshing` is `false`
+    // If `isRefreshing` is `true`, then only update if `updateOnRefresh` is also `true`
+    if (refreshToken && (!isRefreshing || (isRefreshing && updateOnRefresh))) {
+      this.refreshToken.set(refreshToken)
+    }
+  }
+
+  protected initializeRequestInterceptor(): void {
+    this.requestHandler.initializeRequestInterceptor(
+      this.options.endpoints.refresh.url
+    )
   }
 }
