@@ -1,10 +1,18 @@
 {
   "extends": [
-    "@nuxtjs/eslint-config-typescript"
+    "@nuxtjs/eslint-config-typescript",
+    "prettier",
+    "prettier/vue",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier"
   ],
   "rules": {
-    "require-await": 0,
-    "no-useless-constructor": 0,
+    "prettier/prettier": "error",
+    "require-await": "off",
+    "no-useless-constructor": "off",
     // Correct support for unused var detection in Typescript:
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
     "no-unused-vars": "off",
