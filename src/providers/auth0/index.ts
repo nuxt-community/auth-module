@@ -1,7 +1,7 @@
 import path from 'path'
 import { assignDefaults } from '../../utils/provider'
 
-export default function auth0 (_nuxt, strategy) {
+export default function auth0(_nuxt, strategy) {
   assignDefaults(strategy, {
     scheme: path.resolve(__dirname, 'scheme'),
     endpoints: {

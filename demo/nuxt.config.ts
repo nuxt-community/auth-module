@@ -5,18 +5,9 @@ const config: NuxtConfig = {
   build: {
     extractCSS: true
   },
-  serverMiddleware: [
-    '~/api/auth',
-    '~/api/oauth2mockserver'
-  ],
-  buildModules: [
-    '@nuxt/typescript-build'
-  ],
-  modules: [
-    'bootstrap-vue/nuxt',
-    '@nuxtjs/axios',
-    authModule
-  ],
+  serverMiddleware: ['~/api/auth', '~/api/oauth2mockserver'],
+  buildModules: ['@nuxt/typescript-build'],
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', authModule],
   axios: {
     proxy: true
   },
@@ -56,7 +47,8 @@ const config: NuxtConfig = {
       },
       facebook: {
         endpoints: {
-          userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
+          userInfo:
+            'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
         },
         clientId: '1671464192946675',
         scope: ['public_profile', 'email', 'user_birthday']
