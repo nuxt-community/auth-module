@@ -1,8 +1,13 @@
 import path from 'path'
 import { assignDefaults } from '../../utils/provider'
+import ProviderPartialOptions from '../contracts/ProviderPartialOptions'
+import Auth0ProviderOptions from './contracts/Auth0ProviderOptions'
 
-export default function auth0(_nuxt, strategy) {
-  assignDefaults(strategy, {
+export default function auth0(
+  _nuxt,
+  strategy: ProviderPartialOptions<Auth0ProviderOptions>
+) {
+  const DEFAULTS: typeof strategy = {
     scheme: path.resolve(__dirname, 'scheme'),
     endpoints: {
       authorization: `https://${strategy.domain}/authorize`,
@@ -11,5 +16,7 @@ export default function auth0(_nuxt, strategy) {
       logout: `https://${strategy.domain}/v2/logout`
     },
     scope: ['openid', 'profile', 'email']
-  })
+  }
+
+  assignDefaults(strategy, DEFAULTS)
 }
