@@ -1,6 +1,6 @@
 import { routeOption, getMatchedComponents, normalizePath } from '../utils'
 
-export default async function authMiddleware (ctx) {
+export default async function authMiddleware(ctx) {
   // Disable middleware if options: { auth: false } is set on the route
   if (routeOption(ctx.route, 'auth', false)) {
     return
@@ -15,7 +15,8 @@ export default async function authMiddleware (ctx) {
 
   const { login, callback } = ctx.$auth.options.redirect
   const pageIsInGuestMode = routeOption(ctx.route, 'auth', 'guest')
-  const insidePage = page => normalizePath(ctx.route.path) === normalizePath(page)
+  const insidePage = (page) =>
+    normalizePath(ctx.route.path) === normalizePath(page)
 
   if (ctx.$auth.$state.loggedIn) {
     // -- Authorized --
@@ -24,7 +25,11 @@ export default async function authMiddleware (ctx) {
     }
 
     // Perform scheme checks.
-    const { tokenExpired, refreshTokenExpired, isRefreshable } = ctx.$auth.check(true)
+    const {
+      tokenExpired,
+      refreshTokenExpired,
+      isRefreshable
+    } = ctx.$auth.check(true)
 
     // Refresh token has expired. There is no way to refresh. Force reset.
     if (refreshTokenExpired) {

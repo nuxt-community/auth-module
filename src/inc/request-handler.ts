@@ -7,35 +7,41 @@ export default class RequestHandler {
   public axios: NuxtAxiosInstance
   public interceptor: any
 
-  constructor (scheme, axios) {
+  constructor(scheme, axios) {
     this.scheme = scheme
     this.axios = axios
     this.interceptor = null
   }
 
-  _needToken (config: HTTPRequest) {
+  _needToken(config: HTTPRequest) {
     const options = this.scheme.options
-    return options.token.global || Object.values(options.endpoints)
-      .some((endpoint: HTTPRequest | string) => typeof endpoint === 'object' ? endpoint.url === config.url : endpoint === config.url)
+    return (
+      options.token.global ||
+      Object.values(options.endpoints).some((endpoint: HTTPRequest | string) =>
+        typeof endpoint === 'object'
+          ? endpoint.url === config.url
+          : endpoint === config.url
+      )
+    )
   }
 
-  _getUpdatedRequestConfig (config: HTTPRequest, token) {
+  _getUpdatedRequestConfig(config: HTTPRequest, token) {
     config.headers[this.scheme.options.token.name] = token
     return config
   }
 
-  _requestHasAuthorizationHeader (config: HTTPRequest) {
+  _requestHasAuthorizationHeader(config: HTTPRequest) {
     return !!config.headers.common[this.scheme.options.token.name]
   }
 
-  setHeader (token) {
+  setHeader(token) {
     if (this.scheme.options.token.global) {
       // Set Authorization token for all axios requests
       this.axios.setHeader(this.scheme.options.token.name, token)
     }
   }
 
-  clearHeader () {
+  clearHeader() {
     if (this.scheme.options.token.global) {
       // Clear Authorization token for all axios requests
       this.axios.setHeader(this.scheme.options.token.name, false)
@@ -46,7 +52,7 @@ export default class RequestHandler {
   // Watch requests for token expiration
   // Refresh tokens if token has expired
   // ---------------------------------------------------------------
-  initializeRequestInterceptor (refreshEndpoint?: string) {
+  initializeRequestInterceptor(refreshEndpoint?: string) {
     this.interceptor = this.axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
       if (!this._needToken(config) || config.url === refreshEndpoint) {
@@ -77,11 +83,14 @@ export default class RequestHandler {
         }
 
         // Refresh token is available. Attempt refresh.
-        isValid = await this.scheme.refreshTokens().then(() => true).catch(() => {
-          // Tokens couldn't be refreshed. Force reset.
-          this.scheme.reset()
-          throw new ExpiredAuthSessionError()
-        })
+        isValid = await this.scheme
+          .refreshTokens()
+          .then(() => true)
+          .catch(() => {
+            // Tokens couldn't be refreshed. Force reset.
+            this.scheme.reset()
+            throw new ExpiredAuthSessionError()
+          })
       }
 
       // Sync token
@@ -104,7 +113,7 @@ export default class RequestHandler {
     })
   }
 
-  reset () {
+  reset() {
     // Eject request interceptor
     this.axios.interceptors.request.eject(this.interceptor)
     this.interceptor = null

@@ -18,7 +18,7 @@ describe('e2e', () => {
     })
 
     const port = await getPort()
-    url = p => 'http://localhost:' + port + p
+    url = (p) => 'http://localhost:' + port + p
     await nuxt.listen(port)
   }, 60000)
 
@@ -33,7 +33,11 @@ describe('e2e', () => {
 
     // @ts-ignore
     const state = await page.evaluate(() => window.__NUXT__.state)
-    expect(state.auth).toEqual({ user: null, loggedIn: false, strategy: 'local' })
+    expect(state.auth).toEqual({
+      user: null,
+      loggedIn: false,
+      strategy: 'local'
+    })
 
     await page.close()
   })
@@ -43,18 +47,21 @@ describe('e2e', () => {
     await page.goto(url('/'))
     await page.waitForFunction('!!window.$nuxt')
 
-    const { token, user, axiosBearer, response } = await page.evaluate(async () => {
-      const response = await window.$nuxt.$auth.loginWith('local', {
-        data: { username: 'test_username', password: '123' }
-      })
+    const { token, user, axiosBearer, response } = await page.evaluate(
+      async () => {
+        const response = await window.$nuxt.$auth.loginWith('local', {
+          data: { username: 'test_username', password: '123' }
+        })
 
-      return {
-        axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-        token: window.$nuxt.$auth.strategy.token.get(),
-        user: window.$nuxt.$auth.user,
-        response
+        return {
+          axiosBearer:
+            window.$nuxt.$axios.defaults.headers.common.Authorization,
+          token: window.$nuxt.$auth.strategy.token.get(),
+          user: window.$nuxt.$auth.user,
+          response
+        }
       }
-    })
+    )
 
     expect(axiosBearer).toBeDefined()
     expect(axiosBearer.split(' ')).toHaveLength(2)
@@ -85,7 +92,8 @@ describe('e2e', () => {
       })
 
       return {
-        loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        loginAxiosBearer:
+          window.$nuxt.$axios.defaults.headers.common.Authorization,
         loginToken: window.$nuxt.$auth.strategy.token.get(),
         loginRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
         loginExpiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
@@ -115,7 +123,8 @@ describe('e2e', () => {
       const refreshedResponse = await window.$nuxt.$auth.refreshTokens()
 
       return {
-        refreshedAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        refreshedAxiosBearer:
+          window.$nuxt.$axios.defaults.headers.common.Authorization,
         refreshedToken: window.$nuxt.$auth.strategy.token.get(),
         refreshedRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
         refreshedExpiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
@@ -152,7 +161,8 @@ describe('e2e', () => {
       })
 
       return {
-        loginAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        loginAxiosBearer:
+          window.$nuxt.$axios.defaults.headers.common.Authorization,
         loginToken: window.$nuxt.$auth.strategy.token.get()
       }
     })
@@ -164,7 +174,8 @@ describe('e2e', () => {
       await window.$nuxt.$auth.logout()
 
       return {
-        logoutAxiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
+        logoutAxiosBearer:
+          window.$nuxt.$axios.defaults.headers.common.Authorization,
         logoutToken: window.$nuxt.$auth.strategy.token.get()
       }
     })
