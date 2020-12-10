@@ -261,7 +261,7 @@ export default class Oauth2Scheme<
     window.location.replace(url)
   }
 
-  logout(): Promise<void> {
+  logout(): void {
     if (this.options.endpoints.logout) {
       const opts = {
         client_id: this.options.clientId + '',
