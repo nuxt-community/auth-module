@@ -3,9 +3,9 @@ import { UserOptions } from '../../contracts/SchemeOptions'
 import { EndpointsOption, TokenableSchemeOptions } from '../../TokenableScheme'
 
 export interface LocalSchemeEndpoints extends EndpointsOption {
-  login: HTTPRequest
-  logout: HTTPRequest
-  user: HTTPRequest
+  login: HTTPRequest | false
+  logout: HTTPRequest | false
+  user: HTTPRequest | false
 }
 
 export interface LocalSchemeOptions extends TokenableSchemeOptions {

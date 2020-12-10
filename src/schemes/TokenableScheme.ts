@@ -5,7 +5,7 @@ import SchemeOptions, { TokenOptions } from './contracts/SchemeOptions'
 import Scheme from './Scheme'
 
 export interface EndpointsOption {
-  [endpoint: string]: string | HTTPRequest
+  [endpoint: string]: string | HTTPRequest | false
 }
 
 export interface TokenableSchemeOptions extends SchemeOptions {

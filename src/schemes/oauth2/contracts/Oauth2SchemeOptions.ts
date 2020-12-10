@@ -6,7 +6,7 @@ export interface Oauth2SchemeEndpoints extends EndpointsOption {
   authorization: string
   token: string
   userInfo: string
-  logout: string
+  logout: string | false
 }
 
 export interface Oauth2SchemeOptions
@@ -28,7 +28,7 @@ export interface Oauth2SchemeOptions
   redirectUri: string
   logoutRedirectUri: string
   clientId: string | number
-  scope: string[]
+  scope: string | string[]
   state: string
   codeChallengeMethod: 'implicit' | 'S256' | 'plain'
   acrValues: string
