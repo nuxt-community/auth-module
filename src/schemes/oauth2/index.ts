@@ -10,6 +10,7 @@ import BaseScheme from '../_scheme'
 import SchemeCheck from '../contracts/SchemeCheck'
 import PartialOptions from '../contracts/PartialOptions'
 import RefreshableScheme from '../RefreshableScheme'
+import Auth from '../../core/auth'
 import Oauth2SchemeOptions from './contracts/Oauth2SchemeOptions'
 
 const DEFAULTS: PartialOptions<Oauth2SchemeOptions> = {
@@ -59,8 +60,8 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor ($auth, options, ...defaults) {
-    super($auth, options, ...defaults, DEFAULTS as OptionsT)
+  constructor ($auth: Auth, options: PartialOptions<Oauth2SchemeOptions>, ...defaults: PartialOptions<Oauth2SchemeOptions>[]) {
+    super($auth, options as OptionsT, ...defaults as OptionsT[], DEFAULTS as OptionsT)
 
     this.req = $auth.ctx.req
 

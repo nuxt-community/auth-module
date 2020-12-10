@@ -6,6 +6,7 @@ import SchemeCheck from '../contracts/SchemeCheck'
 import LocalScheme from '../local'
 import RefreshableScheme from '../RefreshableScheme'
 import PartialOptions from '../contracts/PartialOptions'
+import Auth from '../../core/auth'
 import RefreshSchemeOptions from './contracts/RefreshSchemeOptions'
 
 const DEFAULTS: PartialOptions<RefreshSchemeOptions> = {
@@ -32,7 +33,7 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
   public refreshToken: RefreshToken
   public refreshController: RefreshController
 
-  constructor ($auth, options) {
+  constructor ($auth: Auth, options: PartialOptions<RefreshSchemeOptions>) {
     super($auth, options, DEFAULTS)
 
     // Initialize Refresh Token instance

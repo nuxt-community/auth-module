@@ -6,6 +6,7 @@ import SchemeCheck from '../contracts/SchemeCheck'
 import BaseScheme from '../_scheme'
 import TokenableScheme from '../TokenableScheme'
 import PartialOptions from '../contracts/PartialOptions'
+import Auth from '../../core/auth'
 import LocalSchemeOptions from './contracts/LocalSchemeOptions'
 
 const DEFAULTS: PartialOptions<LocalSchemeOptions> = {
@@ -47,8 +48,8 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
   public token: Token
   public requestHandler: RequestHandler
 
-  constructor ($auth, options, ...defaults) {
-    super($auth, options, ...defaults, DEFAULTS as OptionsT)
+  constructor ($auth: Auth, options: PartialOptions<LocalSchemeOptions>, ...defaults: PartialOptions<LocalSchemeOptions>[]) {
+    super($auth, options as OptionsT, ...defaults as OptionsT[], DEFAULTS as OptionsT)
 
     // Initialize Token instance
     this.token = new Token(this, this.$auth.$storage)
