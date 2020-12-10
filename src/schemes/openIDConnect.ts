@@ -22,27 +22,27 @@ const DEFAULTS = {
 }
 
 export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
-  public idToken: IdToken;
-  public configurationDocument: ConfigurationDocument;
+  public idToken: IdToken
+  public configurationDocument: ConfigurationDocument
 
-  constructor ($auth: any, options: any, ...defaults: any) {
+  constructor($auth: any, options: any, ...defaults: any) {
     super($auth, options, ...defaults, DEFAULTS)
 
     this.idToken = new IdToken(this, this.$auth.$storage)
-    this.configurationDocument = new ConfigurationDocument(this, this.$auth.$storage)
+    this.configurationDocument = new ConfigurationDocument(
+      this,
+      this.$auth.$storage
+    )
   }
 
-  _updateTokens (response: AxiosResponse<any>) {
+  _updateTokens(response: AxiosResponse<any>) {
     const token = getResponseProp(response, this.options.token.property)
     const refreshToken = getResponseProp(
       response,
       this.options.refreshToken.property
     )
 
-    const idToken = getResponseProp(
-      response,
-      this.options.idToken.property
-    )
+    const idToken = getResponseProp(response, this.options.idToken.property)
 
     this.token.set(token)
 
@@ -55,7 +55,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     }
   }
 
-  check (checkStatus = false): SchemeCheck {
+  check(checkStatus = false): SchemeCheck {
     const response: SchemeCheck = {
       valid: false,
       tokenExpired: false,
@@ -107,7 +107,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     return response
   }
 
-  async mounted () {
+  async mounted() {
     // Get and validate configuration based upon OpenIDConnect Configuration document
     // https://openid.net/specs/openid-connect-configuration-1_0.html
     await this.configurationDocument.init()
@@ -133,7 +133,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     }
   }
 
-  reset () {
+  reset() {
     this.$auth.setUser(false)
     this.token.reset()
     this.idToken.reset()
@@ -142,7 +142,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     this.configurationDocument.reset()
   }
 
-  logout () {
+  logout() {
     if (this.options.endpoints.logout) {
       const opts = {
         id_token_hint: this.idToken.get(),
@@ -154,7 +154,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     return this.$auth.reset()
   }
 
-  async fetchUser () {
+  async fetchUser() {
     if (!this.check().valid) {
       return
     }
@@ -177,7 +177,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     this.$auth.setUser(data)
   }
 
-  async _handleCallback () {
+  async _handleCallback() {
     // Handle callback only for specified route
     if (
       this.$auth.options.redirect &&

@@ -8,7 +8,7 @@ import {
 const exec = util.promisify(execSync)
 const browserTimeout = 20 * 1000
 const port = 3000
-const url = p => 'http://localhost:' + port + p
+const url = (p) => 'http://localhost:' + port + p
 const setup = async () => {
   await exec('yarn nuxt build test/fixture')
   await setupDevServer({

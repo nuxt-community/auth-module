@@ -3,49 +3,54 @@ import type { Scheme, OpenIDConnectConfigurationDocument } from '../index'
 import Storage from '../core/storage'
 
 class ConfigurationDocumentRequestError extends Error {
-  constructor () {
+  constructor() {
     super('Error loading OpenIDConnect configuration document')
     this.name = 'ConfigurationDocumentRequestError'
   }
 }
 
 // eslint-disable-next-line no-console
-const ConfigurationDocumentWarning = (message: string) => console.warn(`[AUTH] [OPENID CONNECT] Invalid configuration. ${message}`)
+const ConfigurationDocumentWarning = (message: string) =>
+  // eslint-disable-next-line no-console
+  console.warn(`[AUTH] [OPENID CONNECT] Invalid configuration. ${message}`)
 
 export default class ConfigurationDocument {
   public scheme: Scheme
   public $storage: Storage
   public key: string
 
-  constructor (scheme: Scheme, storage: Storage) {
+  constructor(scheme: Scheme, storage: Storage) {
     this.scheme = scheme
     this.$storage = storage
     this.key = '_configuration_document.' + this.scheme.name
   }
 
-  _set (value: OpenIDConnectConfigurationDocument | boolean) {
+  _set(value: OpenIDConnectConfigurationDocument | boolean) {
     return this.$storage.setState(this.key, value)
   }
 
-  get (): OpenIDConnectConfigurationDocument {
+  get(): OpenIDConnectConfigurationDocument {
     return this.$storage.getState(this.key)
   }
 
-  set (value: OpenIDConnectConfigurationDocument | boolean) {
+  set(value: OpenIDConnectConfigurationDocument | boolean) {
     this._set(value)
 
     return value
   }
 
-  async request () {
+  async request() {
     // Get Configuration document from state hydration
-    const serverDoc: OpenIDConnectConfigurationDocument = this.scheme.$auth.ctx?.nuxtState?.$auth?.openIDConnect?.configurationDocument
+    const serverDoc: OpenIDConnectConfigurationDocument = this.scheme.$auth.ctx
+      ?.nuxtState?.$auth?.openIDConnect?.configurationDocument
     if (process.client && serverDoc) {
       this.set(serverDoc)
     }
 
     if (!this.get()) {
-      const configurationDocument = await this.scheme.requestHandler.axios.$get(this.scheme.options.endpoints.configuration).catch(e => Promise.reject(e))
+      const configurationDocument = await this.scheme.requestHandler.axios
+        .$get(this.scheme.options.endpoints.configuration)
+        .catch((e) => Promise.reject(e))
 
       // Push Configuration document to state hydration
       if (process.server) {
@@ -62,7 +67,7 @@ export default class ConfigurationDocument {
     }
   }
 
-  validate () {
+  validate() {
     const mapping = {
       responseType: 'response_type_supported',
       scope: 'scopes_supported',
@@ -78,13 +83,15 @@ export default class ConfigurationDocument {
 
       if (typeof configDocumentValue !== 'undefined') {
         if (!configDocumentValue.includes(optionsValue)) {
-          ConfigurationDocumentWarning(`Value of ${optionsKey} is not supported by Authorization Server.`)
+          ConfigurationDocumentWarning(
+            `Value of ${optionsKey} is not supported by Authorization Server.`
+          )
         }
       }
     })
   }
 
-  async init () {
+  async init() {
     await this.request().catch(() => {
       throw new ConfigurationDocumentRequestError()
     })
@@ -92,7 +99,7 @@ export default class ConfigurationDocument {
     this.setSchemeEndpoints()
   }
 
-  setSchemeEndpoints () {
+  setSchemeEndpoints() {
     const configurationDocument = this.get()
 
     this.scheme.options.endpoints = defu(this.scheme.options.endpoints, {
@@ -103,7 +110,7 @@ export default class ConfigurationDocument {
     })
   }
 
-  reset () {
+  reset() {
     this._set(false)
   }
 }

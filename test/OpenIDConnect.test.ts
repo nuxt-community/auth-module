@@ -8,7 +8,7 @@ import {
 const exec = util.promisify(execSync)
 const browserTimeout = 25 * 1000
 const port = 3000
-const url = p => 'http://localhost:' + port + p
+const url = (p) => 'http://localhost:' + port + p
 
 const MODES_TO_TEST = { UNIVERSAL: 'UNIVERSAL', SPA: 'SPA' }
 
@@ -57,7 +57,7 @@ const loginWithOidc = async () => {
   await page.click('[type="submit"]')
 
   //  Consent
-  const consentHtml = await page.$eval('.login-card', card => card.innerHTML)
+  const consentHtml = await page.$eval('.login-card', (card) => card.innerHTML)
   expect(consentHtml).toContain('scopes')
   expect(consentHtml).toContain('profile')
   await page.click('[type="submit"]')
@@ -217,7 +217,10 @@ describe('OpenID Connect', () => {
 
     describe('Custom fixture', () => {
       beforeAll(async () => {
-        await setup({ spa: mode === MODES_TO_TEST.SPA, configFilePath: 'nuxt.config.custom.js' })
+        await setup({
+          spa: mode === MODES_TO_TEST.SPA,
+          configFilePath: 'nuxt.config.custom.js'
+        })
       }, browserTimeout)
 
       beforeEach(async () => {
@@ -239,11 +242,14 @@ describe('OpenID Connect', () => {
         const activeStrategy = await page.evaluate(async () => ({
           name: window.$nuxt.$auth.strategy.name,
           userInfoEndpoint:
-              window.$nuxt.$auth.strategy.options.endpoints.userInfo,
-          logoutRedirectUri: window.$nuxt.$auth.strategy.options.logoutRedirectUri
+            window.$nuxt.$auth.strategy.options.endpoints.userInfo,
+          logoutRedirectUri:
+            window.$nuxt.$auth.strategy.options.logoutRedirectUri
         }))
         expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
-        expect(activeStrategy.logoutRedirectUri).toEqual('http://localhost:4000')
+        expect(activeStrategy.logoutRedirectUri).toEqual(
+          'http://localhost:4000'
+        )
         expect(activeStrategy.userInfoEndpoint).toEqual('/something/random')
       })
     })

@@ -3,9 +3,9 @@ import { resolve } from 'path'
 import consola from 'consola'
 
 const logger = consola.withScope('nuxt:auth')
-const builtInSchemes = [ 'local', 'cookie', 'oauth2', 'refresh', 'openIDConnect']
+const builtInSchemes = ['local', 'cookie', 'oauth2', 'refresh', 'openIDConnect']
 
-export function resolveStrategies (nuxt, options) {
+export function resolveStrategies(nuxt, options) {
   const strategies = []
   const strategyScheme = new Map()
 

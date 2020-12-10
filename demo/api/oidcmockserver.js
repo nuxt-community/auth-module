@@ -4,8 +4,12 @@ const defu = require('defu')
 
 // Suppress oidc-provider errors on test run
 if (process.env.NODE_ENV === 'test') {
-  console.warn = () => { /* Do nothing */ }
-  console.info = () => { /* Do nothing */ }
+  console.warn = () => {
+    /* Do nothing */
+  }
+  console.info = () => {
+    /* Do nothing */
+  }
 }
 
 const DEFAULTS = {

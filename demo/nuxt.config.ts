@@ -10,13 +10,14 @@ export default {
     '~/api/oauth2mockserver',
     {
       path: '/oidc',
-      handler: (req, res) => oidcMockServer(req, res, {
-        port: 3000,
-        path: '/oidc',
-        redirect: {
-          callback: '/callback'
-        }
-      })
+      handler: (req, res) =>
+        oidcMockServer(req, res, {
+          port: 3000,
+          path: '/oidc',
+          redirect: {
+            callback: '/callback'
+          }
+        })
     }
   ],
   buildModules: ['@nuxt/typescript-build'],
@@ -152,7 +153,8 @@ export default {
         clientId: 'oidc_authorization_code_client',
         logoutRedirectUri: 'http://localhost:3000',
         endpoints: {
-          configuration: 'http://localhost:3000/oidc/.well-known/openid-configuration'
+          configuration:
+            'http://localhost:3000/oidc/.well-known/openid-configuration'
         }
       }
     }

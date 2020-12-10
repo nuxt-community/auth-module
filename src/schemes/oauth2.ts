@@ -58,14 +58,16 @@ const DEFAULTS = {
   codeChallengeMethod: 'implicit'
 }
 
-export default class Oauth2Scheme<T = void> extends BaseScheme<T & typeof DEFAULTS> {
+export default class Oauth2Scheme<T = void> extends BaseScheme<
+  T & typeof DEFAULTS
+> {
   public req: IncomingMessage
   public token: Token
   public refreshToken: RefreshToken
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor ($auth: Auth, options, ...defaults) {
+  constructor($auth: Auth, options, ...defaults) {
     super($auth, options, ...defaults, DEFAULTS as any)
 
     this.req = $auth.ctx.req

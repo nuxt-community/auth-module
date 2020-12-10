@@ -17,7 +17,7 @@ export default class Auth {
   public $storage: Storage
   public $state
 
-  constructor (ctx: Context, options) {
+  constructor(ctx: Context, options) {
     this.ctx = ctx
     this.options = options
 

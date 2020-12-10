@@ -2,37 +2,37 @@
 import jwtDecode, { InvalidTokenError } from 'jwt-decode'
 import Storage from '../core/storage'
 import { addTokenPrefix } from '../utils'
-import TokenStatus from './token-status'
 import type { Scheme } from '..'
+import TokenStatus from './token-status'
 
 export default class IdToken {
   public scheme: Scheme
   public $storage: Storage
 
-  constructor (scheme: Scheme, storage: Storage) {
+  constructor(scheme: Scheme, storage: Storage) {
     this.scheme = scheme
     this.$storage = storage
   }
 
-  _getExpiration () {
+  _getExpiration() {
     const _key = this.scheme.options.idToken.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  _setExpiration (expiration: number | boolean) {
+  _setExpiration(expiration: number | boolean) {
     const _key = this.scheme.options.idToken.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration)
   }
 
-  _syncExpiration () {
+  _syncExpiration() {
     const _key = this.scheme.options.idToken.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  _updateExpiration (idToken: any) {
+  _updateExpiration(idToken: any) {
     let idTokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis = this.scheme.options.idToken.maxAge * 1000
@@ -55,25 +55,25 @@ export default class IdToken {
     return this._setExpiration(idTokenExpiration || false)
   }
 
-  _setToken (idToken: boolean) {
+  _setToken(idToken: boolean) {
     const _key = this.scheme.options.idToken.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, idToken)
   }
 
-  _syncToken () {
+  _syncToken() {
     const _key = this.scheme.options.idToken.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  get () {
+  get() {
     const _key = this.scheme.options.idToken.prefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  set (tokenValue: any) {
+  set(tokenValue: any) {
     const idToken = addTokenPrefix(tokenValue, this.scheme.options.idToken.type)
 
     this._setToken(idToken)
@@ -82,23 +82,23 @@ export default class IdToken {
     return idToken
   }
 
-  sync () {
+  sync() {
     const idToken = this._syncToken()
     this._syncExpiration()
 
     return idToken
   }
 
-  reset () {
+  reset() {
     this._setToken(false)
     this._setExpiration(false)
   }
 
-  status () {
+  status() {
     return new TokenStatus(this.get(), this._getExpiration())
   }
 
-  userInfo () {
+  userInfo() {
     const idToken = this.get()
     return jwtDecode(idToken)
   }
