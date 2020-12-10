@@ -44,12 +44,25 @@ const DEFAULTS: SchemePartialOptions<LocalSchemeOptions> = {
   scope: false
 }
 
-export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSchemeOptions> extends BaseScheme<OptionsT> implements TokenableScheme<OptionsT> {
+export default class LocalScheme<
+    OptionsT extends LocalSchemeOptions = LocalSchemeOptions
+  >
+  extends BaseScheme<OptionsT>
+  implements TokenableScheme<OptionsT> {
   public token: Token
   public requestHandler: RequestHandler
 
-  constructor ($auth: Auth, options: SchemePartialOptions<LocalSchemeOptions>, ...defaults: SchemePartialOptions<LocalSchemeOptions>[]) {
-    super($auth, options as OptionsT, ...defaults as OptionsT[], DEFAULTS as OptionsT)
+  constructor(
+    $auth: Auth,
+    options: SchemePartialOptions<LocalSchemeOptions>,
+    ...defaults: SchemePartialOptions<LocalSchemeOptions>[]
+  ) {
+    super(
+      $auth,
+      options as OptionsT,
+      ...(defaults as OptionsT[]),
+      DEFAULTS as OptionsT
+    )
 
     // Initialize Token instance
     this.token = new Token(this, this.$auth.$storage)
@@ -58,18 +71,18 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  _updateTokens (response) {
+  _updateTokens(response) {
     if (this.options.token.required) {
       const token = getResponseProp(response, this.options.token.property)
       this.token.set(token)
     }
   }
 
-  _initializeRequestInterceptor () {
+  _initializeRequestInterceptor() {
     this.requestHandler.initializeRequestInterceptor()
   }
 
-  check (checkStatus = false): SchemeCheck {
+  check(checkStatus = false): SchemeCheck {
     const response = {
       valid: false,
       tokenExpired: false
@@ -102,7 +115,7 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
     return response
   }
 
-  mounted ({
+  mounted({
     tokenCallback = () => this.$auth.reset(),
     refreshTokenCallback = undefined
   } = {}) {
@@ -121,7 +134,10 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
     return this.$auth.fetchUserOnce()
   }
 
-  async login (endpoint: HTTPRequest, { reset = true } = {}): Promise<HTTPResponse> {
+  async login(
+    endpoint: HTTPRequest,
+    { reset = true } = {}
+  ): Promise<HTTPResponse> {
     if (!this.options.endpoints.login) {
       return
     }
@@ -168,14 +184,14 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
     return response
   }
 
-  async setUserToken (token) {
+  async setUserToken(token) {
     this.token.set(token)
 
     // Fetch user
     return this.fetchUser()
   }
 
-  async fetchUser (endpoint?) {
+  async fetchUser(endpoint?) {
     // Token is required but not available
     if (!this.check().valid) {
       return
@@ -188,32 +204,32 @@ export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSche
     }
 
     // Try to fetch user and then set
-    return this.$auth.requestWith(
-      this.name,
-      endpoint,
-      this.options.endpoints.user
-    ).then((response) => {
-      this.$auth.setUser(getResponseProp(response, this.options.user.property))
-      return response
-    }).catch((error) => {
-      this.$auth.callOnError(error, { method: 'fetchUser' })
-    })
+    return this.$auth
+      .requestWith(this.name, endpoint, this.options.endpoints.user)
+      .then((response) => {
+        this.$auth.setUser(
+          getResponseProp(response, this.options.user.property)
+        )
+        return response
+      })
+      .catch((error) => {
+        this.$auth.callOnError(error, { method: 'fetchUser' })
+      })
   }
 
-  async logout (endpoint: HTTPRequest = {}) {
+  async logout(endpoint: HTTPRequest = {}) {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
       await this.$auth
         .requestWith(this.name, endpoint, this.options.endpoints.logout)
-        .catch(() => {
-        })
+        .catch(() => {})
     }
 
     // But reset regardless
     return this.$auth.reset()
   }
 
-  reset ({ resetInterceptor = true } = {}) {
+  reset({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
     this.token.reset()
 

@@ -1,4 +1,7 @@
-import { LocalSchemeEndpoints, LocalSchemeOptions } from '../../local/contracts/LocalSchemeOptions'
+import {
+  LocalSchemeEndpoints,
+  LocalSchemeOptions
+} from '../../local/contracts/LocalSchemeOptions'
 import { HTTPRequest } from '../../../index'
 
 export interface CookieSchemeEndpoints extends LocalSchemeEndpoints {

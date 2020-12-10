@@ -1,9 +1,15 @@
-import { assignDefaults, assignAbsoluteEndpoints } from '../../../utils/provider'
+import {
+  assignDefaults,
+  assignAbsoluteEndpoints
+} from '../../../utils/provider'
 import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
 import { HTTPRequest } from '../../../index'
 import LaravelSanctumProviderOptions from './contracts/LaravelSanctumProviderOptions'
 
-export default function laravelSanctum (_nuxt, strategy: ProviderPartialOptions<LaravelSanctumProviderOptions>) {
+export default function laravelSanctum(
+  _nuxt,
+  strategy: ProviderPartialOptions<LaravelSanctumProviderOptions>
+) {
   const { url } = strategy
 
   if (!url) {

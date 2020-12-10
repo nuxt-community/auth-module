@@ -7,7 +7,9 @@ export interface RefreshableSchemeOptions extends TokenableSchemeOptions {
   refreshToken: RefreshTokenOptions
 }
 
-export interface RefreshableScheme<OptionsT extends RefreshableSchemeOptions = RefreshableSchemeOptions> extends TokenableScheme<OptionsT> {
+export interface RefreshableScheme<
+  OptionsT extends RefreshableSchemeOptions = RefreshableSchemeOptions
+> extends TokenableScheme<OptionsT> {
   refreshToken: RefreshToken
   refreshTokens(): Promise<HTTPResponse>
 }

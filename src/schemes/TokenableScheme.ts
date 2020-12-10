@@ -9,11 +9,13 @@ export interface EndpointsOption {
 }
 
 export interface TokenableSchemeOptions extends SchemeOptions {
-  token: TokenOptions,
+  token: TokenOptions
   endpoints: EndpointsOption
 }
 
-export interface TokenableScheme<OptionsT extends TokenableSchemeOptions = TokenableSchemeOptions> extends Scheme<OptionsT> {
+export interface TokenableScheme<
+  OptionsT extends TokenableSchemeOptions = TokenableSchemeOptions
+> extends Scheme<OptionsT> {
   token: Token
   requestHandler: RequestHandler
 }

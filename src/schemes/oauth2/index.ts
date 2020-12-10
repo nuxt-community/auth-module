@@ -1,6 +1,13 @@
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
-import { encodeQuery, getResponseProp, normalizePath, parseQuery, removeTokenPrefix, urlJoin } from '../../utils'
+import {
+  encodeQuery,
+  getResponseProp,
+  normalizePath,
+  parseQuery,
+  removeTokenPrefix,
+  urlJoin
+} from '../../utils'
 import RefreshController from '../../inc/refresh-controller'
 import RequestHandler from '../../inc/request-handler'
 import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'
@@ -53,15 +60,28 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   codeChallengeMethod: 'implicit'
 }
 
-export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions> extends BaseScheme<OptionsT> implements RefreshableScheme {
+export default class Oauth2Scheme<
+    OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions
+  >
+  extends BaseScheme<OptionsT>
+  implements RefreshableScheme {
   public req
   public token: Token
   public refreshToken: RefreshToken
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor ($auth: Auth, options: SchemePartialOptions<Oauth2SchemeOptions>, ...defaults: SchemePartialOptions<Oauth2SchemeOptions>[]) {
-    super($auth, options as OptionsT, ...defaults as OptionsT[], DEFAULTS as OptionsT)
+  constructor(
+    $auth: Auth,
+    options: SchemePartialOptions<Oauth2SchemeOptions>,
+    ...defaults: SchemePartialOptions<Oauth2SchemeOptions>[]
+  ) {
+    super(
+      $auth,
+      options as OptionsT,
+      ...(defaults as OptionsT[]),
+      DEFAULTS as OptionsT
+    )
 
     this.req = $auth.ctx.req
 
@@ -78,23 +98,32 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  get _scope () {
+  get _scope() {
     return Array.isArray(this.options.scope)
       ? this.options.scope.join(' ')
       : this.options.scope
   }
 
-  get _redirectURI () {
-    return this.options.redirectUri || urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
+  get _redirectURI() {
+    return (
+      this.options.redirectUri ||
+      urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
+    )
   }
 
-  get _logoutRedirectURI () {
-    return this.options.logoutRedirectUri || urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
+  get _logoutRedirectURI() {
+    return (
+      this.options.logoutRedirectUri ||
+      urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
+    )
   }
 
-  _updateTokens (response) {
+  _updateTokens(response) {
     const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = getResponseProp(response, this.options.refreshToken.property)
+    const refreshToken = getResponseProp(
+      response,
+      this.options.refreshToken.property
+    )
 
     this.token.set(token)
 
@@ -103,7 +132,7 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     }
   }
 
-  check (checkStatus = false): SchemeCheck {
+  check(checkStatus = false): SchemeCheck {
     const response = {
       valid: false,
       tokenExpired: false,
@@ -146,7 +175,7 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     return response
   }
 
-  async mounted () {
+  async mounted() {
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 
     // Force reset if refresh token has expired
@@ -156,7 +185,9 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     }
 
     // Initialize request interceptor
-    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.token)
+    this.requestHandler.initializeRequestInterceptor(
+      this.options.endpoints.token
+    )
 
     // Handle callbacks on page load
     const redirected = await this._handleCallback()
@@ -166,35 +197,39 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     }
   }
 
-  reset () {
+  reset() {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()
     this.requestHandler.reset()
   }
 
-  _generateRandomString () {
+  _generateRandomString() {
     const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
     window.crypto.getRandomValues(array)
-    return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('')
+    return Array.from(array, (dec) => ('0' + dec.toString(16)).substr(-2)).join(
+      ''
+    )
   }
 
-  _sha256 (plain) {
+  _sha256(plain) {
     const encoder = new TextEncoder()
     const data = encoder.encode(plain)
     return window.crypto.subtle.digest('SHA-256', data)
   }
 
-  _base64UrlEncode (str) {
+  _base64UrlEncode(str) {
     // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
     // btoa accepts chars only within ascii 0-255 and base64 encodes them.
     // Then convert the base64 encoded to base64url encoded
     //   (replace + with -, replace / with _, trim trailing =)
     return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
-      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '')
   }
 
-  async _pkceChallengeFromVerifier (v, hashValue) {
+  async _pkceChallengeFromVerifier(v, hashValue) {
     if (hashValue) {
       const hashed = await this._sha256(v)
       return this._base64UrlEncode(hashed)
@@ -202,7 +237,7 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     return v // plain is plain - url-encoded by default
   }
 
-  async login (_opts: { state?: string, params?, nonce?: string } = {}) {
+  async login(_opts: { state?: string; params?; nonce?: string } = {}) {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -233,14 +268,21 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     if (opts.code_challenge_method) {
       switch (opts.code_challenge_method) {
         case 'plain':
-        case 'S256': {
-          const state = this._generateRandomString()
-          this.$auth.$storage.setUniversal(this.name + '.pkce_state', state)
-          const codeVerifier = this._generateRandomString()
-          this.$auth.$storage.setUniversal(this.name + '.pkce_code_verifier', codeVerifier)
-          const codeChallenge = await this._pkceChallengeFromVerifier(codeVerifier, opts.code_challenge_method === 'S256')
-          opts.code_challenge = window.encodeURIComponent(codeChallenge)
-        }
+        case 'S256':
+          {
+            const state = this._generateRandomString()
+            this.$auth.$storage.setUniversal(this.name + '.pkce_state', state)
+            const codeVerifier = this._generateRandomString()
+            this.$auth.$storage.setUniversal(
+              this.name + '.pkce_code_verifier',
+              codeVerifier
+            )
+            const codeChallenge = await this._pkceChallengeFromVerifier(
+              codeVerifier,
+              opts.code_challenge_method === 'S256'
+            )
+            opts.code_challenge = window.encodeURIComponent(codeChallenge)
+          }
           break
         case 'implicit':
         default:
@@ -263,7 +305,7 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     window.location.replace(url)
   }
 
-  logout () {
+  logout() {
     if (this.options.endpoints.logout) {
       const opts = {
         client_id: this.options.clientId + '',
@@ -275,7 +317,7 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     return this.$auth.reset()
   }
 
-  async fetchUser () {
+  async fetchUser() {
     if (!this.check().valid) {
       return
     }
@@ -292,9 +334,13 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     this.$auth.setUser(getResponseProp(response, this.options.user.property))
   }
 
-  async _handleCallback () {
+  async _handleCallback() {
     // Handle callback only for specified route
-    if (this.$auth.options.redirect && normalizePath(this.$auth.ctx.route.path) !== normalizePath(this.$auth.options.redirect.callback)) {
+    if (
+      this.$auth.options.redirect &&
+      normalizePath(this.$auth.ctx.route.path) !==
+        normalizePath(this.$auth.options.redirect.callback)
+    ) {
       return
     }
     // Callback flow is not supported in server side
@@ -321,9 +367,17 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
       let codeVerifier
 
       // Retrieve code verifier and remove it from storage
-      if (this.options.codeChallengeMethod && this.options.codeChallengeMethod !== 'implicit') {
-        codeVerifier = this.$auth.$storage.getUniversal(this.name + '.pkce_code_verifier')
-        this.$auth.$storage.setUniversal(this.name + '.pkce_code_verifier', null)
+      if (
+        this.options.codeChallengeMethod &&
+        this.options.codeChallengeMethod !== 'implicit'
+      ) {
+        codeVerifier = this.$auth.$storage.getUniversal(
+          this.name + '.pkce_code_verifier'
+        )
+        this.$auth.$storage.setUniversal(
+          this.name + '.pkce_code_verifier',
+          null
+        )
       }
 
       const response = await this.$auth.request({
@@ -342,7 +396,9 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
       })
 
       token = getResponseProp(response, this.options.token.property) || token
-      refreshToken = getResponseProp(response, this.options.refreshToken.property) || refreshToken
+      refreshToken =
+        getResponseProp(response, this.options.refreshToken.property) ||
+        refreshToken
     }
 
     if (!token || !token.length) {
@@ -363,12 +419,14 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     return true // True means a redirect happened
   }
 
-  async refreshTokens () {
+  async refreshTokens() {
     // Get refresh token
     const refreshToken = this.refreshToken.get()
 
     // Refresh token is required but not available
-    if (!refreshToken) { return }
+    if (!refreshToken) {
+      return
+    }
 
     // Get refresh token status
     const refreshTokenStatus = this.refreshToken.status()
@@ -383,21 +441,26 @@ export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2S
     // Delete current token from the request header before refreshing
     this.requestHandler.clearHeader()
 
-    const response = await this.$auth.request({
-      method: 'post',
-      url: this.options.endpoints.token,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: encodeQuery({
-        refresh_token: removeTokenPrefix(refreshToken, this.options.token.type),
-        client_id: this.options.clientId.toString(),
-        grant_type: 'refresh_token'
+    const response = await this.$auth
+      .request({
+        method: 'post',
+        url: this.options.endpoints.token,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: encodeQuery({
+          refresh_token: removeTokenPrefix(
+            refreshToken,
+            this.options.token.type
+          ),
+          client_id: this.options.clientId.toString(),
+          grant_type: 'refresh_token'
+        })
       })
-    }).catch((error) => {
-      this.$auth.callOnError(error, { method: 'refreshToken' })
-      return Promise.reject(error)
-    })
+      .catch((error) => {
+        this.$auth.callOnError(error, { method: 'refreshToken' })
+        return Promise.reject(error)
+      })
 
     this._updateTokens(response)
 

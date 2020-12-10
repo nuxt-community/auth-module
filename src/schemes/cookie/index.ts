@@ -21,20 +21,27 @@ const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
   }
 }
 
-export default class CookieScheme<OptionsT extends CookieSchemeOptions = CookieSchemeOptions> extends LocalScheme<OptionsT> implements TokenableScheme<OptionsT> {
-  constructor ($auth: Auth, options: SchemePartialOptions<CookieSchemeOptions>) {
+export default class CookieScheme<
+    OptionsT extends CookieSchemeOptions = CookieSchemeOptions
+  >
+  extends LocalScheme<OptionsT>
+  implements TokenableScheme<OptionsT> {
+  constructor($auth: Auth, options: SchemePartialOptions<CookieSchemeOptions>) {
     super($auth, options, DEFAULTS)
   }
 
-  mounted () {
+  mounted() {
     if (process.server) {
-      this.$auth.ctx.$axios.setHeader('referer', this.$auth.ctx.req.headers.host)
+      this.$auth.ctx.$axios.setHeader(
+        'referer',
+        this.$auth.ctx.req.headers.host
+      )
     }
 
     return super.mounted()
   }
 
-  check (): SchemeCheck {
+  check(): SchemeCheck {
     const response = { valid: false }
 
     if (!super.check().valid) {
@@ -51,7 +58,7 @@ export default class CookieScheme<OptionsT extends CookieSchemeOptions = CookieS
     return response
   }
 
-  async login (endpoint) {
+  async login(endpoint) {
     // Ditch any leftover local tokens before attempting to log in
     this.$auth.reset()
 
@@ -65,9 +72,11 @@ export default class CookieScheme<OptionsT extends CookieSchemeOptions = CookieS
     return super.login(endpoint, { reset: false })
   }
 
-  reset () {
+  reset() {
     if (this.options.cookie.name) {
-      this.$auth.$storage.setCookie(this.options.cookie.name, null, { prefix: '' })
+      this.$auth.$storage.setCookie(this.options.cookie.name, null, {
+        prefix: ''
+      })
     }
 
     return super.reset()

@@ -29,11 +29,18 @@ const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {
   autoLogout: false
 }
 
-export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = RefreshSchemeOptions> extends LocalScheme<OptionsT> implements RefreshableScheme<OptionsT> {
+export default class RefreshScheme<
+    OptionsT extends RefreshSchemeOptions = RefreshSchemeOptions
+  >
+  extends LocalScheme<OptionsT>
+  implements RefreshableScheme<OptionsT> {
   public refreshToken: RefreshToken
   public refreshController: RefreshController
 
-  constructor ($auth: Auth, options: SchemePartialOptions<RefreshSchemeOptions>) {
+  constructor(
+    $auth: Auth,
+    options: SchemePartialOptions<RefreshSchemeOptions>
+  ) {
     super($auth, options, DEFAULTS)
 
     // Initialize Refresh Token instance
@@ -43,9 +50,14 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
     this.refreshController = new RefreshController(this)
   }
 
-  _updateTokens (response, { isRefreshing = false, updateOnRefresh = true } = {}) {
+  _updateTokens(
+    response,
+    { isRefreshing = false, updateOnRefresh = true } = {}
+  ) {
     const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = this.options.refreshToken.required ? getResponseProp(response, this.options.refreshToken.property) : true
+    const refreshToken = this.options.refreshToken.required
+      ? getResponseProp(response, this.options.refreshToken.property)
+      : true
 
     this.token.set(token)
 
@@ -56,11 +68,13 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
     }
   }
 
-  _initializeRequestInterceptor () {
-    this.requestHandler.initializeRequestInterceptor(this.options.endpoints.refresh.url)
+  _initializeRequestInterceptor() {
+    this.requestHandler.initializeRequestInterceptor(
+      this.options.endpoints.refresh.url
+    )
   }
 
-  check (checkStatus = false): SchemeCheck {
+  check(checkStatus = false): SchemeCheck {
     const response = {
       valid: false,
       tokenExpired: false,
@@ -103,7 +117,7 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
     return response
   }
 
-  mounted () {
+  mounted() {
     return super.mounted({
       tokenCallback: () => {
         if (this.options.autoLogout) {
@@ -116,12 +130,16 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
     })
   }
 
-  async refreshTokens () {
+  async refreshTokens() {
     // Refresh endpoint is disabled
-    if (!this.options.endpoints.refresh) { return }
+    if (!this.options.endpoints.refresh) {
+      return
+    }
 
     // Token and refresh token are required but not available
-    if (!this.check().valid) { return }
+    if (!this.check().valid) {
+      return
+    }
 
     // Get refresh token status
     const refreshTokenStatus = this.refreshToken.status()
@@ -163,20 +181,20 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
     cleanObj(endpoint.data)
 
     // Make refresh request
-    return this.$auth.request(
-      endpoint,
-      this.options.endpoints.refresh
-    ).then((response) => {
-      // Update tokens
-      this._updateTokens(response, { isRefreshing: true })
-      return response
-    }).catch((error) => {
-      this.$auth.callOnError(error, { method: 'refreshToken' })
-      return Promise.reject(error)
-    })
+    return this.$auth
+      .request(endpoint, this.options.endpoints.refresh)
+      .then((response) => {
+        // Update tokens
+        this._updateTokens(response, { isRefreshing: true })
+        return response
+      })
+      .catch((error) => {
+        this.$auth.callOnError(error, { method: 'refreshToken' })
+        return Promise.reject(error)
+      })
   }
 
-  async setUserToken (token, refreshToken?) {
+  async setUserToken(token, refreshToken?) {
     this.token.set(token)
 
     if (refreshToken) {
@@ -187,7 +205,7 @@ export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = Refre
     return this.fetchUser()
   }
 
-  reset ({ resetInterceptor = true } = {}) {
+  reset({ resetInterceptor = true } = {}) {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()
