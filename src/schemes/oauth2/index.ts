@@ -1,15 +1,18 @@
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
-import { encodeQuery, getResponseProp, normalizePath, parseQuery, removeTokenPrefix, urlJoin } from '../utils'
-import RefreshController from '../inc/refresh-controller'
-import RequestHandler from '../inc/request-handler'
-import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
-import Token from '../inc/token'
-import RefreshToken from '../inc/refresh-token'
-import type { SchemeCheck } from '../index'
-import BaseScheme from './_scheme'
+import { encodeQuery, getResponseProp, normalizePath, parseQuery, removeTokenPrefix, urlJoin } from '../../utils'
+import RefreshController from '../../inc/refresh-controller'
+import RequestHandler from '../../inc/request-handler'
+import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'
+import Token from '../../inc/token'
+import RefreshToken from '../../inc/refresh-token'
+import BaseScheme from '../_scheme'
+import SchemeCheck from '../contracts/SchemeCheck'
+import PartialOptions from '../contracts/PartialOptions'
+import RefreshableScheme from '../RefreshableScheme'
+import Oauth2SchemeOptions from './contracts/Oauth2SchemeOptions'
 
-const DEFAULTS = {
+const DEFAULTS: PartialOptions<Oauth2SchemeOptions> = {
   name: 'oauth2',
   accessType: null,
   redirectUri: null,
@@ -49,7 +52,7 @@ const DEFAULTS = {
   codeChallengeMethod: 'implicit'
 }
 
-export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
+export default class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions> extends BaseScheme<OptionsT> implements RefreshableScheme {
   public req
   public token: Token
   public refreshToken: RefreshToken
@@ -57,7 +60,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   public requestHandler: RequestHandler
 
   constructor ($auth, options, ...defaults) {
-    super($auth, options, ...defaults, DEFAULTS)
+    super($auth, options, ...defaults, DEFAULTS as OptionsT)
 
     this.req = $auth.ctx.req
 
@@ -198,7 +201,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return v // plain is plain - url-encoded by default
   }
 
-  async login (_opts: { state?, params?, nonce? } = {}) {
+  async login (_opts: { state?: string, params?, nonce?: string } = {}) {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
@@ -262,7 +265,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
   logout () {
     if (this.options.endpoints.logout) {
       const opts = {
-        client_id: this.options.clientId,
+        client_id: this.options.clientId + '',
         logout_uri: this._logoutRedirectURI
       }
       const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
@@ -328,7 +331,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         baseURL: '',
         data: encodeQuery({
           code: parsedQuery.code,
-          client_id: this.options.clientId,
+          client_id: this.options.clientId + '',
           redirect_uri: this._redirectURI,
           response_type: this.options.responseType,
           audience: this.options.audience,
@@ -387,7 +390,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       },
       data: encodeQuery({
         refresh_token: removeTokenPrefix(refreshToken, this.options.token.type),
-        client_id: this.options.clientId,
+        client_id: this.options.clientId.toString(),
         grant_type: 'refresh_token'
       })
     }).catch((error) => {

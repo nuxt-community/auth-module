@@ -1,10 +1,11 @@
-import type { Scheme, Auth } from '../'
+import Auth from '../core/auth'
+import RefreshableScheme from '../schemes/RefreshableScheme'
 
 export default class RefreshController {
   public $auth: Auth
   private _refreshPromise = null
 
-  constructor (public scheme: Scheme) {
+  constructor (public scheme: RefreshableScheme) {
     this.$auth = scheme.$auth
   }
 

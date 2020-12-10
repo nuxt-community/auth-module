@@ -1,14 +1,14 @@
 import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
 import { addTokenPrefix } from '../utils'
-import type { Scheme } from '../'
 import Storage from '../core/storage'
+import RefreshableScheme from '../schemes/RefreshableScheme'
 import TokenStatus from './token-status'
 
 export default class RefreshToken {
-  public scheme: Scheme
+  public scheme: RefreshableScheme
   public $storage: Storage
 
-  constructor (scheme: Scheme, storage: Storage) {
+  constructor (scheme: RefreshableScheme, storage: Storage) {
     this.scheme = scheme
     this.$storage = storage
   }
@@ -34,7 +34,7 @@ export default class RefreshToken {
   _updateExpiration (refreshToken) {
     let refreshTokenExpiration
     const _tokenIssuedAtMillis = Date.now()
-    const _tokenTTLMillis = this.scheme.options.refreshToken.maxAge * 1000
+    const _tokenTTLMillis = Number(this.scheme.options.refreshToken.maxAge) * 1000
     const _tokenExpiresAtMillis = _tokenTTLMillis ? _tokenIssuedAtMillis + _tokenTTLMillis : 0
 
     try {

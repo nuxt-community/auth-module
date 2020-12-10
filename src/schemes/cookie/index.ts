@@ -1,7 +1,10 @@
-import type { SchemeCheck } from '../index'
-import LocalScheme from './local'
+import LocalScheme from '../local'
+import SchemeCheck from '../contracts/SchemeCheck'
+import PartialOptions from '../contracts/PartialOptions'
+import TokenableScheme from '../TokenableScheme'
+import CookieSchemeOptions from './contracts/CookieSchemeOptions'
 
-const DEFAULTS = {
+const DEFAULTS: PartialOptions<CookieSchemeOptions> = {
   name: 'cookie',
   cookie: {
     name: null
@@ -17,7 +20,7 @@ const DEFAULTS = {
   }
 }
 
-export default class CookieScheme extends LocalScheme {
+export default class CookieScheme<OptionsT extends CookieSchemeOptions = CookieSchemeOptions> extends LocalScheme<OptionsT> implements TokenableScheme<OptionsT> {
   constructor ($auth, options) {
     super($auth, options, DEFAULTS)
   }

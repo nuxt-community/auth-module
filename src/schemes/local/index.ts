@@ -1,10 +1,14 @@
-import { getResponseProp } from '../utils'
-import Token from '../inc/token'
-import RequestHandler from '../inc/request-handler'
-import type { SchemeCheck, SchemeOptions, HTTPRequest } from '../'
-import BaseScheme from './_scheme'
+import { getResponseProp } from '../../utils'
+import Token from '../../inc/token'
+import RequestHandler from '../../inc/request-handler'
+import { HTTPRequest, HTTPResponse } from '../../index'
+import SchemeCheck from '../contracts/SchemeCheck'
+import BaseScheme from '../_scheme'
+import TokenableScheme from '../TokenableScheme'
+import PartialOptions from '../contracts/PartialOptions'
+import LocalSchemeOptions from './contracts/LocalSchemeOptions'
 
-const DEFAULTS: SchemeOptions = {
+const DEFAULTS: PartialOptions<LocalSchemeOptions> = {
   name: 'local',
   endpoints: {
     login: {
@@ -39,12 +43,12 @@ const DEFAULTS: SchemeOptions = {
   scope: false
 }
 
-export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
+export default class LocalScheme<OptionsT extends LocalSchemeOptions = LocalSchemeOptions> extends BaseScheme<OptionsT> implements TokenableScheme<OptionsT> {
   public token: Token
   public requestHandler: RequestHandler
 
   constructor ($auth, options, ...defaults) {
-    super($auth, options, ...defaults, DEFAULTS)
+    super($auth, options, ...defaults, DEFAULTS as OptionsT)
 
     // Initialize Token instance
     this.token = new Token(this, this.$auth.$storage)
@@ -116,7 +120,7 @@ export default class LocalScheme extends BaseScheme<typeof DEFAULTS> {
     return this.$auth.fetchUserOnce()
   }
 
-  async login (endpoint, { reset = true } = {}) {
+  async login (endpoint: HTTPRequest, { reset = true } = {}): Promise<HTTPResponse> {
     if (!this.options.endpoints.login) {
       return
     }

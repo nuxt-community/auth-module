@@ -1,4 +1,6 @@
-export default {
+import { ModuleOptions } from '../types'
+
+const defaults: ModuleOptions = {
   //  -- Error handling --
 
   resetOnError: false,
@@ -49,3 +51,5 @@ export default {
 
   strategies: {}
 }
+
+export default defaults

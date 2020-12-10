@@ -1,11 +1,14 @@
-import { cleanObj, getResponseProp } from '../utils'
-import RefreshController from '../inc/refresh-controller'
-import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
-import RefreshToken from '../inc/refresh-token'
-import type { SchemeCheck } from '../index'
-import LocalScheme from './local'
+import { cleanObj, getResponseProp } from '../../utils'
+import RefreshController from '../../inc/refresh-controller'
+import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'
+import RefreshToken from '../../inc/refresh-token'
+import SchemeCheck from '../contracts/SchemeCheck'
+import LocalScheme from '../local'
+import RefreshableScheme from '../RefreshableScheme'
+import PartialOptions from '../contracts/PartialOptions'
+import RefreshSchemeOptions from './contracts/RefreshSchemeOptions'
 
-const DEFAULTS = {
+const DEFAULTS: PartialOptions<RefreshSchemeOptions> = {
   name: 'refresh',
   endpoints: {
     refresh: {
@@ -25,7 +28,7 @@ const DEFAULTS = {
   autoLogout: false
 }
 
-export default class RefreshScheme extends LocalScheme {
+export default class RefreshScheme<OptionsT extends RefreshSchemeOptions = RefreshSchemeOptions> extends LocalScheme<OptionsT> implements RefreshableScheme<OptionsT> {
   public refreshToken: RefreshToken
   public refreshController: RefreshController
 

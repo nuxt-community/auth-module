@@ -1,10 +1,11 @@
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
-import type { AuthOptions, HTTPRequest, HTTPResponse } from '../'
+import type { HTTPRequest, HTTPResponse } from '../'
+import { ModuleOptions } from '../types'
 import Storage from './storage'
 
 export default class Auth {
   public ctx: any
-  public options: AuthOptions
+  public options: ModuleOptions
   public strategies = {}
   public error: Error
 
@@ -16,13 +17,13 @@ export default class Auth {
   public $storage: Storage
   public $state
 
-  constructor (ctx, options) {
+  constructor (ctx, options: ModuleOptions) {
     this.ctx = ctx
     this.options = options
 
     // Storage & State
-    options.initialState = { user: null, loggedIn: false }
-    const storage = new Storage(ctx, options)
+    const initialState = { user: null, loggedIn: false }
+    const storage = new Storage(ctx, { ...options, ...{ initialState } })
     this.$storage = storage
     this.$state = storage.state
   }

@@ -1,13 +1,15 @@
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import type { Scheme, HTTPRequest } from '../'
+import type { HTTPRequest } from '../'
+import TokenableScheme from '../schemes/TokenableScheme'
+import RefreshableScheme from '../schemes/RefreshableScheme'
 import ExpiredAuthSessionError from './expired-auth-session-error'
 
 export default class RequestHandler {
-  public scheme: Scheme
+  public scheme: TokenableScheme | RefreshableScheme
   public axios: NuxtAxiosInstance
   public interceptor: any
 
-  constructor (scheme, axios) {
+  constructor (scheme: TokenableScheme | RefreshableScheme, axios: NuxtAxiosInstance) {
     this.scheme = scheme
     this.axios = axios
     this.interceptor = null
@@ -77,7 +79,7 @@ export default class RequestHandler {
         }
 
         // Refresh token is available. Attempt refresh.
-        isValid = await this.scheme.refreshTokens().then(() => true).catch(() => {
+        isValid = await (this.scheme as RefreshableScheme).refreshTokens().then(() => true).catch(() => {
           // Tokens couldn't be refreshed. Force reset.
           this.scheme.reset()
           throw new ExpiredAuthSessionError()
