@@ -353,7 +353,11 @@ export default class Oauth2Scheme<
     // accessToken/idToken
     let token = parsedQuery[this.options.token.property]
     // refresh token
-    let refreshToken = parsedQuery[this.options.refreshToken.property]
+    let refreshToken
+
+    if (this.options.refreshToken.property) {
+      refreshToken = parsedQuery[this.options.refreshToken.property]
+    }
 
     // Validate state
     const state = this.$auth.$storage.getUniversal(this.name + '.state')

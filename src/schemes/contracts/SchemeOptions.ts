@@ -10,9 +10,9 @@ export interface TokenOptions {
 }
 
 export interface RefreshTokenOptions {
-  property: string
+  property: string | false
   type: string | false
-  data: string
+  data: string | false
   maxAge: number | false
   required: boolean
   tokenRequired: boolean

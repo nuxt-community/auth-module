@@ -164,7 +164,7 @@ export default class RefreshScheme<
     }
 
     // Add refresh token to payload if required
-    if (this.options.refreshToken.required) {
+    if (this.options.refreshToken.required && this.options.refreshToken.data) {
       endpoint.data[this.options.refreshToken.data] = this.refreshToken.get()
     }
 
