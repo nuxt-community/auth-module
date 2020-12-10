@@ -25,7 +25,7 @@ export default function laravelSanctum(
     }
   }
 
-  const DEFAULTS: ProviderPartialOptions<LaravelSanctumProviderOptions> = {
+  const DEFAULTS: typeof strategy = {
     scheme: 'cookie',
     name: 'laravelSanctum',
     cookie: {
