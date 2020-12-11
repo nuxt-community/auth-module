@@ -1,13 +1,19 @@
 import { existsSync } from 'fs'
 import { resolve } from 'path'
 import consola from 'consola'
+import { ModuleOptions } from '../types'
+import Strategy from '../types/contracts/Strategy'
 
 const logger = consola.withScope('nuxt:auth')
 const builtInSchemes = ['local', 'cookie', 'oauth2', 'refresh']
 
-export function resolveStrategies(nuxt, options) {
-  const strategies = []
-  const strategyScheme = new Map()
+export function resolveStrategies(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  nuxt: any,
+  options: ModuleOptions
+): { strategies: Strategy[]; strategyScheme: Map<Strategy, string> } {
+  const strategies: Strategy[] = []
+  const strategyScheme = new Map<Strategy, string>()
 
   for (const name of Object.keys(options.strategies)) {
     if (
@@ -18,7 +24,7 @@ export function resolveStrategies(nuxt, options) {
     }
 
     // Clone strategy
-    const strategy = Object.assign({}, options.strategies[name])
+    const strategy: Strategy = Object.assign({}, options.strategies[name])
 
     // Default name
     if (!strategy.name) {
@@ -31,7 +37,10 @@ export function resolveStrategies(nuxt, options) {
     }
 
     // Try to resolve provider
-    const provider = resolveProvider(nuxt, strategy.provider)
+    const provider: (...args: unknown[]) => unknown = resolveProvider(
+      nuxt,
+      strategy.provider
+    )
     delete strategy.provider
 
     if (typeof provider === 'function') {
@@ -58,7 +67,11 @@ export function resolveStrategies(nuxt, options) {
   }
 }
 
-export function resolveScheme(nuxt, scheme) {
+export function resolveScheme(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  nuxt: any,
+  scheme: string
+): string {
   if (typeof scheme !== 'string') {
     return
   }
@@ -78,7 +91,11 @@ export function resolveScheme(nuxt, scheme) {
   }
 }
 
-export function resolveProvider(nuxt, provider) {
+export function resolveProvider(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  nuxt: any,
+  provider: string | ((...args: unknown[]) => unknown)
+): (...args: unknown[]) => unknown {
   if (typeof provider === 'function') {
     return provider
   }

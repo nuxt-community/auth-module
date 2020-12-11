@@ -8,7 +8,12 @@ import { resolveStrategies } from './resolve'
 
 const authModule: Module<ModuleOptions> = function (moduleOptions) {
   // Merge all option sources
-  const options = merge({}, defaults, moduleOptions, this.options.auth)
+  const options: ModuleOptions = merge(
+    {},
+    defaults,
+    moduleOptions,
+    this.options.auth
+  )
 
   // Resolve strategies
   const { strategies, strategyScheme } = resolveStrategies(this.nuxt, options)
@@ -18,6 +23,9 @@ const authModule: Module<ModuleOptions> = function (moduleOptions) {
   options.defaultStrategy =
     options.defaultStrategy || strategies.length ? strategies[0].name : ''
 
+  // Unique schemes
+  const uniqueSchemes: string[] = uniq([...strategyScheme.values()])
+
   // Add plugin
   const { dst } = this.addTemplate({
     src: resolve(__dirname, '../../templates/plugin.js'),
@@ -25,7 +33,7 @@ const authModule: Module<ModuleOptions> = function (moduleOptions) {
     options: {
       options,
       strategies,
-      uniqueSchemes: uniq([...strategyScheme.values()]),
+      uniqueSchemes,
       strategyScheme
     }
   })
