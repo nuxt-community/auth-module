@@ -129,10 +129,14 @@ export default {
     },
     updateDisplayedTokens() {
       this.tokenExpiresAt = this.getTokenExpirationDateString(
-        this.$auth.strategy.token._getExpiration()
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this.$auth.strategy.token.getExpiration()
       )
       this.refreshTokenExpiresAt = this.getTokenExpirationDateString(
-        this.$auth.strategy.refreshToken._getExpiration()
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this.$auth.strategy.refreshToken.getExpiration()
       )
     },
     getTokenExpirationDateString(tokenExpiration) {

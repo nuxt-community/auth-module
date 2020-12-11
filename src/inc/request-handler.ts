@@ -18,30 +18,6 @@ export default class RequestHandler {
     this.interceptor = null
   }
 
-  _needToken(config: HTTPRequest): boolean {
-    const options = this.scheme.options
-    return (
-      options.token.global ||
-      Object.values(options.endpoints).some((endpoint: HTTPRequest | string) =>
-        typeof endpoint === 'object'
-          ? endpoint.url === config.url
-          : endpoint === config.url
-      )
-    )
-  }
-
-  _getUpdatedRequestConfig(
-    config: HTTPRequest,
-    token: string | false
-  ): HTTPRequest {
-    config.headers[this.scheme.options.token.name] = token
-    return config
-  }
-
-  _requestHasAuthorizationHeader(config: HTTPRequest): boolean {
-    return !!config.headers.common[this.scheme.options.token.name]
-  }
-
   setHeader(token: string | false): void {
     if (this.scheme.options.token.global) {
       // Set Authorization token for all axios requests
@@ -57,13 +33,10 @@ export default class RequestHandler {
   }
 
   // ---------------------------------------------------------------
-  // Watch requests for token expiration
-  // Refresh tokens if token has expired
-  // ---------------------------------------------------------------
   initializeRequestInterceptor(refreshEndpoint?: string): void {
     this.interceptor = this.axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
-      if (!this._needToken(config) || config.url === refreshEndpoint) {
+      if (!this.needToken(config) || config.url === refreshEndpoint) {
         return config
       }
 
@@ -108,7 +81,7 @@ export default class RequestHandler {
       if (!isValid) {
         // The authorization header in the current request is expired.
         // Token was deleted right before this request
-        if (!token && this._requestHasAuthorizationHeader(config)) {
+        if (!token && this.requestHasAuthorizationHeader(config)) {
           throw new ExpiredAuthSessionError()
         }
 
@@ -117,7 +90,7 @@ export default class RequestHandler {
 
       // Token is valid, let the request pass
       // Fetch updated token and add to current request
-      return this._getUpdatedRequestConfig(config, token)
+      return this.getUpdatedRequestConfig(config, token)
     })
   }
 
@@ -125,5 +98,30 @@ export default class RequestHandler {
     // Eject request interceptor
     this.axios.interceptors.request.eject(this.interceptor)
     this.interceptor = null
+  }
+
+  private needToken(config): boolean {
+    const options = this.scheme.options
+    return (
+      options.token.global ||
+      Object.values(options.endpoints).some((endpoint: HTTPRequest | string) =>
+        typeof endpoint === 'object'
+          ? endpoint.url === config.url
+          : endpoint === config.url
+      )
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // Watch requests for token expiration
+  // Refresh tokens if token has expired
+
+  private getUpdatedRequestConfig(config, token: string | false) {
+    config.headers[this.scheme.options.token.name] = token
+    return config
+  }
+
+  private requestHasAuthorizationHeader(config): boolean {
+    return !!config.headers.common[this.scheme.options.token.name]
   }
 }

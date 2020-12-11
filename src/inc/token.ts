@@ -13,25 +13,59 @@ export default class Token {
     this.$storage = storage
   }
 
-  _getExpiration(): number | false {
+  get(): string | false {
+    const _key = this.scheme.options.token.prefix + this.scheme.name
+
+    return this.$storage.getUniversal(_key)
+  }
+
+  set(tokenValue: string | false): string | false {
+    const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
+
+    this.setToken(token)
+    this.scheme.requestHandler.setHeader(token)
+    this.updateExpiration(token)
+
+    return token
+  }
+
+  sync(): string | false {
+    const token = this.syncToken()
+    this.syncExpiration()
+    this.scheme.requestHandler.setHeader(token)
+
+    return token
+  }
+
+  reset(): void {
+    this.scheme.requestHandler.clearHeader()
+    this.setToken(false)
+    this.setExpiration(false)
+  }
+
+  status(): TokenStatus {
+    return new TokenStatus(this.get(), this.getExpiration())
+  }
+
+  private getExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  _setExpiration(expiration: number | false): number | false {
+  private setExpiration(expiration: number | false): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration)
   }
 
-  _syncExpiration(): number | false {
+  private syncExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  _updateExpiration(token: string): number | false | void {
+  private updateExpiration(token: string): number | false | void {
     let tokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis = Number(this.scheme.options.token.maxAge) * 1000
@@ -52,52 +86,18 @@ export default class Token {
     }
 
     // Set token expiration
-    return this._setExpiration(tokenExpiration || false)
+    return this.setExpiration(tokenExpiration || false)
   }
 
-  _setToken(token: string | false): string | false {
+  private setToken(token: string | false): string | false {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, token)
   }
 
-  _syncToken(): string | false {
+  private syncToken(): string | false {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
-  }
-
-  get(): string | false {
-    const _key = this.scheme.options.token.prefix + this.scheme.name
-
-    return this.$storage.getUniversal(_key)
-  }
-
-  set(tokenValue: string | false): string | false {
-    const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
-
-    this._setToken(token)
-    this.scheme.requestHandler.setHeader(token)
-    this._updateExpiration(token)
-
-    return token
-  }
-
-  sync(): string | false {
-    const token = this._syncToken()
-    this._syncExpiration()
-    this.scheme.requestHandler.setHeader(token)
-
-    return token
-  }
-
-  reset(): void {
-    this.scheme.requestHandler.clearHeader()
-    this._setToken(false)
-    this._setExpiration(false)
-  }
-
-  status(): TokenStatus {
-    return new TokenStatus(this.get(), this._getExpiration())
   }
 }

@@ -5,13 +5,25 @@ export enum TokenStatusEnum {
 }
 
 export default class TokenStatus {
-  private _status: TokenStatusEnum
+  private readonly status: TokenStatusEnum
 
   constructor(token: string | false, tokenExpiresAt: number | false) {
-    this._status = this._calculate(token, tokenExpiresAt)
+    this.status = this.calculate(token, tokenExpiresAt)
   }
 
-  _calculate(
+  unknown(): boolean {
+    return TokenStatusEnum.UNKNOWN === this.status
+  }
+
+  valid(): boolean {
+    return TokenStatusEnum.VALID === this.status
+  }
+
+  expired(): boolean {
+    return TokenStatusEnum.EXPIRED === this.status
+  }
+
+  private calculate(
     token: string | false,
     tokenExpiresAt: number | false
   ): TokenStatusEnum {
@@ -35,17 +47,5 @@ export default class TokenStatus {
     }
 
     return TokenStatusEnum.EXPIRED
-  }
-
-  unknown(): boolean {
-    return TokenStatusEnum.UNKNOWN === this._status
-  }
-
-  valid(): boolean {
-    return TokenStatusEnum.VALID === this._status
-  }
-
-  expired(): boolean {
-    return TokenStatusEnum.EXPIRED === this._status
   }
 }
