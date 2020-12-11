@@ -30,7 +30,9 @@ export function parseQuery(queryString: string): Record<string, unknown> {
   return query
 }
 
-export function encodeQuery(queryObject: { [key: string]: string }): string {
+export function encodeQuery(queryObject: {
+  [key: string]: string | number | boolean
+}): string {
   return Object.entries(queryObject)
     .filter(([_key, value]) => typeof value !== 'undefined')
     .map(
