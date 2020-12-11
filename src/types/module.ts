@@ -1,4 +1,5 @@
 export interface ModuleOptions {
+  plugins?: string[] | { src: string; ssr: boolean }[]
   resetOnError: boolean | Function
   defaultStrategy: string
   watchLoggedIn: boolean
