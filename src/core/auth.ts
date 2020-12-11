@@ -1,23 +1,29 @@
+import { Context } from '@nuxt/types'
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import type { HTTPRequest, HTTPResponse } from '../'
 import { ModuleOptions } from '../types'
+import Router from '../utils/contracts/Router'
+import Scheme from '../schemes/Scheme'
+import TokenableScheme from '../schemes/TokenableScheme'
+import RefreshableScheme from '../schemes/RefreshableScheme'
+import SchemeCheck from '../schemes/contracts/SchemeCheck'
 import Storage from './storage'
+import RedirectListener from './contracts/RedirectListener'
+import ErrorListener from './contracts/ErrorListener'
 
 export default class Auth {
-  public ctx: any
+  public ctx: Context
   public options: ModuleOptions
-  public strategies = {}
+  public strategies: Record<string, Scheme> = {}
   public error: Error
-
-  private _errorListeners = []
-  private _redirectListeners = []
+  public $storage: Storage
+  public $state
+  private _errorListeners: ErrorListener[] = []
+  private _redirectListeners: RedirectListener[] = []
   private _stateWarnShown: boolean
   private _getStateWarnShown: boolean
 
-  public $storage: Storage
-  public $state
-
-  constructor(ctx, options: ModuleOptions) {
+  constructor(ctx: Context, options: ModuleOptions) {
     this.ctx = ctx
     this.options = options
 
@@ -28,7 +34,41 @@ export default class Auth {
     this.$state = storage.state
   }
 
-  async init() {
+  // Backward compatibility
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  get state(): any {
+    if (!this._stateWarnShown) {
+      this._stateWarnShown = true
+      // eslint-disable-next-line no-console
+      console.warn(
+        '[AUTH] $auth.state is deprecated. Please use $auth.$state or top level props like $auth.loggedIn'
+      )
+    }
+
+    return this.$state
+  }
+
+  get strategy(): Scheme {
+    return this.strategies[this.$state.strategy]
+  }
+
+  get user(): Record<string, unknown> | null {
+    return this.$state.user
+  }
+
+  // ---------------------------------------------------------------
+  // Strategy and Scheme
+  // ---------------------------------------------------------------
+
+  get loggedIn(): boolean {
+    return this.$state.loggedIn
+  }
+
+  get busy(): boolean {
+    return this.$storage.getState('busy') as boolean
+  }
+
+  async init(): Promise<void> {
     // Reset on error
     if (this.options.resetOnError) {
       this.onError((...args) => {
@@ -63,7 +103,10 @@ export default class Auth {
       // Watch for loggedIn changes only in client side
       if (process.client && this.options.watchLoggedIn) {
         this.$storage.watchState('loggedIn', (loggedIn) => {
-          if (!routeOption(this.ctx.route, 'auth', false)) {
+          if (
+            // TODO: Why Router is incompatible?
+            !routeOption((this.ctx.route as unknown) as Router, 'auth', false)
+          ) {
             this.redirect(loggedIn ? 'home' : 'logout')
           }
         })
@@ -71,20 +114,7 @@ export default class Auth {
     }
   }
 
-  // Backward compatibility
-  get state() {
-    if (!this._stateWarnShown) {
-      this._stateWarnShown = true
-      // eslint-disable-next-line no-console
-      console.warn(
-        '[AUTH] $auth.state is deprecated. Please use $auth.$state or top level props like $auth.loggedIn'
-      )
-    }
-
-    return this.$state
-  }
-
-  getState(key) {
+  getState(key: string): unknown {
     if (!this._getStateWarnShown) {
       this._getStateWarnShown = true
       // eslint-disable-next-line no-console
@@ -96,19 +126,11 @@ export default class Auth {
     return this.$storage.getState(key)
   }
 
-  // ---------------------------------------------------------------
-  // Strategy and Scheme
-  // ---------------------------------------------------------------
-
-  get strategy() {
-    return this.strategies[this.$state.strategy]
-  }
-
-  registerStrategy(name, strategy) {
+  registerStrategy(name: string, strategy: Scheme): void {
     this.strategies[name] = strategy
   }
 
-  setStrategy(name) {
+  setStrategy(name: string): Promise<HTTPResponse | void> {
     if (name === this.$storage.getUniversal('strategy')) {
       return Promise.resolve()
     }
@@ -127,24 +149,22 @@ export default class Auth {
     return this.mounted()
   }
 
-  mounted() {
+  mounted(...args: unknown[]): Promise<HTTPResponse | void> {
     if (!this.strategy.mounted) {
       return this.fetchUserOnce()
     }
 
-    return Promise.resolve(this.strategy.mounted(...arguments)).catch(
-      (error) => {
-        this.callOnError(error, { method: 'mounted' })
-        return Promise.reject(error)
-      }
-    )
+    return Promise.resolve(this.strategy.mounted(...args)).catch((error) => {
+      this.callOnError(error, { method: 'mounted' })
+      return Promise.reject(error)
+    })
   }
 
-  loginWith(name, ...args) {
+  loginWith(name: string, ...args: unknown[]): Promise<HTTPResponse | void> {
     return this.setStrategy(name).then(() => this.login(...args))
   }
 
-  login(...args) {
+  login(...args: unknown[]): Promise<HTTPResponse | void> {
     if (!this.strategy.login) {
       return Promise.resolve()
     }
@@ -155,7 +175,7 @@ export default class Auth {
     })
   }
 
-  fetchUser(...args) {
+  fetchUser(...args: unknown[]): Promise<HTTPResponse | void> {
     if (!this.strategy.fetchUser) {
       return Promise.resolve()
     }
@@ -166,23 +186,28 @@ export default class Auth {
     })
   }
 
-  logout() {
+  logout(...args: unknown[]): Promise<void> {
     if (!this.strategy.logout) {
       this.reset()
       return Promise.resolve()
     }
 
-    return Promise.resolve(this.strategy.logout(...arguments)).catch(
-      (error) => {
-        this.callOnError(error, { method: 'logout' })
-        return Promise.reject(error)
-      }
-    )
+    return Promise.resolve(this.strategy.logout(...args)).catch((error) => {
+      this.callOnError(error, { method: 'logout' })
+      return Promise.reject(error)
+    })
   }
 
-  setUserToken(token, refreshToken?) {
+  // ---------------------------------------------------------------
+  // User helpers
+  // ---------------------------------------------------------------
+
+  setUserToken(
+    token: string | boolean,
+    refreshToken?: string | boolean
+  ): Promise<HTTPResponse | void> {
     if (!this.strategy.setUserToken) {
-      this.strategy.token.set(token)
+      ;(this.strategy as TokenableScheme).token.set(token)
       return Promise.resolve()
     }
 
@@ -194,57 +219,53 @@ export default class Auth {
     })
   }
 
-  reset(...args) {
+  reset(...args: unknown[]): void {
     if (!this.strategy.reset) {
       this.setUser(false)
-      this.strategy.token.reset()
-      this.strategy.refreshToken.reset()
+      // TODO: Check if is Tokenable Scheme
+      ;(this.strategy as TokenableScheme).token.reset()
+      // TODO: Check if is Refreshable Scheme
+      ;(this.strategy as RefreshableScheme).refreshToken.reset()
     }
 
-    return this.strategy.reset(...args)
+    return this.strategy.reset(
+      ...(args as [options?: { resetInterceptor: boolean }])
+    )
   }
 
-  refreshTokens() {
-    if (!this.strategy.refreshController) {
+  refreshTokens(): Promise<HTTPResponse | void> {
+    if (!(this.strategy as RefreshableScheme).refreshController) {
       return Promise.resolve()
     }
 
     return Promise.resolve(
-      this.strategy.refreshController.handleRefresh()
+      (this.strategy as RefreshableScheme).refreshController.handleRefresh()
     ).catch((error) => {
       this.callOnError(error, { method: 'refreshTokens' })
       return Promise.reject(error)
     })
   }
 
-  // ---------------------------------------------------------------
-  // User helpers
-  // ---------------------------------------------------------------
-
-  get user() {
-    return this.$state.user
-  }
-
-  get loggedIn() {
-    return this.$state.loggedIn
-  }
-
-  check(...args) {
+  check(...args: unknown[]): SchemeCheck {
     if (!this.strategy.check) {
       return { valid: true }
     }
 
-    return this.strategy.check(...args)
+    return this.strategy.check(...(args as [checkStatus: boolean]))
   }
 
-  fetchUserOnce(...args) {
+  fetchUserOnce(...args: unknown[]): Promise<HTTPResponse | void> {
     if (!this.$state.user) {
       return this.fetchUser(...args)
     }
     return Promise.resolve()
   }
 
-  setUser(user) {
+  // ---------------------------------------------------------------
+  // Utils
+  // ---------------------------------------------------------------
+
+  setUser(user: unknown): void {
     this.$storage.setState('user', user)
 
     let check = { valid: Boolean(user) }
@@ -256,14 +277,6 @@ export default class Auth {
 
     // Update `loggedIn` state
     this.$storage.setState('loggedIn', check.valid)
-  }
-
-  // ---------------------------------------------------------------
-  // Utils
-  // ---------------------------------------------------------------
-
-  get busy() {
-    return this.$storage.getState('busy')
   }
 
   request(
@@ -295,12 +308,15 @@ export default class Auth {
     endpoint: HTTPRequest,
     defaults?: HTTPRequest
   ): Promise<HTTPResponse> {
-    const token = this.strategy.token.get()
+    // TODO: Check if is Tokenable Scheme
+    const token = (this.strategy as TokenableScheme).token.get()
 
     const _endpoint = Object.assign({}, defaults, endpoint)
 
+    // TODO: Use `this.strategy` instead of `this.strategies[strategy]`
     const tokenName =
-      this.strategies[strategy].options.token.name || 'Authorization'
+      (this.strategies[strategy] as TokenableScheme).options.token.name ||
+      'Authorization'
     if (!_endpoint.headers) {
       _endpoint.headers = {}
     }
@@ -311,7 +327,9 @@ export default class Auth {
     return this.request(_endpoint)
   }
 
-  wrapLogin(promise) {
+  wrapLogin(
+    promise: Promise<HTTPResponse | void>
+  ): Promise<HTTPResponse | void> {
     this.$storage.setState('busy', true)
     this.error = null
 
@@ -326,11 +344,11 @@ export default class Auth {
       })
   }
 
-  onError(listener) {
+  onError(listener: ErrorListener): void {
     this._errorListeners.push(listener)
   }
 
-  callOnError(error, payload = {}) {
+  callOnError(error: Error, payload = {}): void {
     this.error = error
 
     for (const fn of this._errorListeners) {
@@ -338,7 +356,7 @@ export default class Auth {
     }
   }
 
-  redirect(name, noRouter = false) {
+  redirect(name: string, noRouter = false): void {
     if (!this.options.redirect) {
       return
     }
@@ -359,7 +377,7 @@ export default class Auth {
       }
 
       if (name === 'home') {
-        const redirect = this.$storage.getUniversal('redirect')
+        const redirect = this.$storage.getUniversal('redirect') as string
         this.$storage.setUniversal('redirect', null)
 
         if (isRelativeURL(redirect)) {
@@ -387,18 +405,18 @@ export default class Auth {
     }
   }
 
-  onRedirect(listener) {
+  onRedirect(listener: RedirectListener): void {
     this._redirectListeners.push(listener)
   }
 
-  callOnRedirect(to, from) {
+  callOnRedirect(to: string, from: string): string {
     for (const fn of this._redirectListeners) {
       to = fn(to, from) || to
     }
     return to
   }
 
-  hasScope(scope) {
+  hasScope(scope: string): boolean {
     const userScopes =
       this.$state.user && getProp(this.$state.user, this.options.scopeKey)
 

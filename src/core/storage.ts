@@ -1,15 +1,22 @@
 import Vue from 'vue'
+import { Context } from '@nuxt/types'
 import { parse as parseCookie, serialize as serializeCookie } from 'cookie'
 import { isUnset, isSet, decodeValue, encodeValue, getProp } from '../utils'
+import StorageOptions from './contracts/StorageOptions'
+
+// TODO: Improve type of storages: Universal / Cookie / Local / State
 
 export default class Storage {
-  public ctx: any
-  public options: any
+  public ctx: Context
+  public options: StorageOptions
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public state: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _state: any
   private _useVuex: boolean
 
-  constructor(ctx, options) {
+  constructor(ctx: Context, options: StorageOptions) {
     this.ctx = ctx
     this.options = options
 
@@ -20,7 +27,7 @@ export default class Storage {
   // Universal
   // ------------------------------------
 
-  setUniversal(key, value) {
+  setUniversal<V extends unknown>(key: string, value: V): V | void {
     // Unset null, undefined
     if (isUnset(value)) {
       return this.removeUniversal(key)
@@ -38,7 +45,7 @@ export default class Storage {
     return value
   }
 
-  getUniversal(key) {
+  getUniversal(key: string): unknown {
     let value
 
     // Local state
@@ -64,7 +71,7 @@ export default class Storage {
     return value
   }
 
-  syncUniversal(key, defaultValue?) {
+  syncUniversal(key: string, defaultValue?: unknown): unknown {
     let value = this.getUniversal(key)
 
     if (isUnset(value) && isSet(defaultValue)) {
@@ -78,7 +85,7 @@ export default class Storage {
     return value
   }
 
-  removeUniversal(key) {
+  removeUniversal(key: string): void {
     this.removeState(key)
     this.removeLocalStorage(key)
     this.removeCookie(key)
@@ -88,13 +95,13 @@ export default class Storage {
   // Local state (reactive)
   // ------------------------------------
 
-  _initState() {
+  _initState(): void {
     // Private state is suitable to keep information not being exposed to Vuex store
     // This helps prevent stealing token from SSR response HTML
     Vue.set(this, '_state', {})
 
     // Use vuex for local state's if possible
-    this._useVuex = this.options.vuex && this.ctx.store
+    this._useVuex = this.options.vuex && !!this.ctx.store
 
     if (this._useVuex) {
       const storeModule = {
@@ -119,7 +126,7 @@ export default class Storage {
     }
   }
 
-  setState(key, value) {
+  setState<V extends unknown>(key: string, value: V): V {
     if (key[0] === '_') {
       Vue.set(this._state, key, value)
     } else if (this._useVuex) {
@@ -134,7 +141,7 @@ export default class Storage {
     return value
   }
 
-  getState(key) {
+  getState(key: string): unknown {
     if (key[0] !== '_') {
       return this.state[key]
     } else {
@@ -142,7 +149,10 @@ export default class Storage {
     }
   }
 
-  watchState(key, fn) {
+  watchState(
+    key: string,
+    fn: (value: unknown, oldValue: unknown) => void
+  ): () => void {
     if (this._useVuex) {
       return this.ctx.store.watch(
         (state) => getProp(state[this.options.vuex.namespace], key),
@@ -151,7 +161,7 @@ export default class Storage {
     }
   }
 
-  removeState(key) {
+  removeState(key: string): void {
     this.setState(key, undefined)
   }
 
@@ -159,7 +169,7 @@ export default class Storage {
   // Local storage
   // ------------------------------------
 
-  setLocalStorage(key, value) {
+  setLocalStorage<V extends unknown>(key: string, value: V): V | void {
     // Unset null, undefined
     if (isUnset(value)) {
       return this.removeLocalStorage(key)
@@ -182,7 +192,7 @@ export default class Storage {
     return value
   }
 
-  getLocalStorage(key) {
+  getLocalStorage(key: string): unknown {
     if (typeof localStorage === 'undefined' || !this.options.localStorage) {
       return
     }
@@ -194,7 +204,7 @@ export default class Storage {
     return decodeValue(value)
   }
 
-  removeLocalStorage(key) {
+  removeLocalStorage(key: string): void {
     if (typeof localStorage === 'undefined' || !this.options.localStorage) {
       return
     }
@@ -206,7 +216,7 @@ export default class Storage {
   // ------------------------------------
   // Cookies
   // ------------------------------------
-  getCookies() {
+  getCookies(): Record<string, unknown> {
     const cookieStr = process.client
       ? document.cookie
       : this.ctx.req.headers.cookie
@@ -214,7 +224,11 @@ export default class Storage {
     return parseCookie(cookieStr || '') || {}
   }
 
-  setCookie(key, value, options: { prefix?: string } = {}) {
+  setCookie<V extends unknown>(
+    key: string,
+    value: V,
+    options: { prefix?: string } = {}
+  ): V {
     if (!this.options.cookie || (process.server && !this.ctx.res)) {
       return
     }
@@ -242,7 +256,7 @@ export default class Storage {
       document.cookie = serializedCookie
     } else if (process.server && this.ctx.res) {
       // Send Set-Cookie header from server side
-      const cookies = this.ctx.res.getHeader('Set-Cookie') || []
+      const cookies = (this.ctx.res.getHeader('Set-Cookie') as string[]) || []
       cookies.unshift(serializedCookie)
       this.ctx.res.setHeader(
         'Set-Cookie',
@@ -258,7 +272,7 @@ export default class Storage {
     return value
   }
 
-  getCookie(key) {
+  getCookie(key: string): unknown {
     if (!this.options.cookie || (process.server && !this.ctx.req)) {
       return
     }
@@ -267,12 +281,14 @@ export default class Storage {
 
     const cookies = this.getCookies()
 
-    const value = cookies[_key] ? decodeURIComponent(cookies[_key]) : undefined
+    const value = cookies[_key]
+      ? decodeURIComponent(cookies[_key] as string)
+      : undefined
 
     return decodeValue(value)
   }
 
-  removeCookie(key, options?) {
+  removeCookie(key: string, options?: { prefix?: string }): void {
     this.setCookie(key, undefined, options)
   }
 }

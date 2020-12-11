@@ -1,20 +1,32 @@
+import { Middleware } from '@nuxt/types'
 import { routeOption, getMatchedComponents, normalizePath } from '../utils'
+import Router from '../utils/contracts/Router'
 
-export default async function authMiddleware(ctx) {
+const authMiddleware: Middleware = async (ctx) => {
   // Disable middleware if options: { auth: false } is set on the route
-  if (routeOption(ctx.route, 'auth', false)) {
+  // TODO: Why Router is incompatible?
+  if (routeOption((ctx.route as unknown) as Router, 'auth', false)) {
     return
   }
 
   // Disable middleware if no route was matched to allow 404/error page
   const matches = []
-  const Components = getMatchedComponents(ctx.route, matches)
+  const Components = getMatchedComponents(
+    // TODO: Why Router is incompatible?
+    (ctx.route as unknown) as Router,
+    matches
+  )
   if (!Components.length) {
     return
   }
 
   const { login, callback } = ctx.$auth.options.redirect
-  const pageIsInGuestMode = routeOption(ctx.route, 'auth', 'guest')
+  const pageIsInGuestMode = routeOption(
+    // TODO: Why Router is incompatible?
+    (ctx.route as unknown) as Router,
+    'auth',
+    'guest'
+  )
   const insidePage = (page) =>
     normalizePath(ctx.route.path) === normalizePath(page)
 
@@ -52,3 +64,5 @@ export default async function authMiddleware(ctx) {
     ctx.$auth.redirect('login')
   }
 }
+
+export default authMiddleware
