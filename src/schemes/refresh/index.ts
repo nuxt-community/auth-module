@@ -172,8 +172,8 @@ export default class RefreshScheme<
   }
 
   async setUserToken(
-    token: string,
-    refreshToken?: string
+    token: string | boolean,
+    refreshToken?: string | boolean
   ): Promise<HTTPResponse | void> {
     this.token.set(token)
 
