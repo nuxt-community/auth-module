@@ -107,7 +107,7 @@ export default class LocalScheme<
   mounted({
     tokenCallback = () => this.$auth.reset(),
     refreshTokenCallback = undefined
-  } = {}): Promise<HTTPResponse> {
+  } = {}): Promise<HTTPResponse | void> {
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 
     if (refreshTokenExpired && typeof refreshTokenCallback === 'function') {
