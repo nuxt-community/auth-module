@@ -2,6 +2,7 @@ import Strategy from './contracts/Strategy'
 
 export interface ModuleOptions {
   plugins?: string[] | { src: string; ssr: boolean }[]
+  ignoreExceptions: boolean
   resetOnError: boolean | ((...args: unknown[]) => boolean)
   defaultStrategy: string
   watchLoggedIn: boolean
