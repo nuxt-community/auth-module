@@ -2,12 +2,25 @@ import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
 import requrl from 'requrl'
+import Oauth2SchemeOptions from '../schemes/oauth2/contracts/Oauth2SchemeOptions'
+import RefreshSchemeOptions from '../schemes/refresh/contracts/RefreshSchemeOptions'
+import LocalSchemeOptions from '../schemes/local/contracts/LocalSchemeOptions'
+import { HTTPRequest } from '../index'
+import StrategyOptions from './contracts/StrategyOptions'
 
-export function assignDefaults(strategy, defaults) {
+export function assignDefaults<SOptions extends StrategyOptions>(
+  strategy: SOptions,
+  defaults: SOptions
+): void {
   Object.assign(strategy, defu(strategy, defaults))
 }
 
-export function addAuthorize(nuxt, strategy) {
+export function addAuthorize<
+  SOptions extends StrategyOptions<Oauth2SchemeOptions>
+>(
+  nuxt: any, // eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  strategy: SOptions
+): void {
   // Get clientSecret, clientId, endpoints.token and audience
   const clientSecret = strategy.clientSecret
   const clientID = strategy.clientId
@@ -86,11 +99,16 @@ export function addAuthorize(nuxt, strategy) {
   })
 }
 
-export function initializePasswordGrantFlow(nuxt, strategy) {
+export function initializePasswordGrantFlow<
+  SOptions extends StrategyOptions<RefreshSchemeOptions>
+>(
+  nuxt: any, // eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  strategy: SOptions
+): void {
   // Get clientSecret, clientId, endpoints.login.url
   const clientSecret = strategy.clientSecret
   const clientId = strategy.clientId
-  const tokenEndpoint = strategy.endpoints.token
+  const tokenEndpoint = strategy.endpoints.token as string
 
   // IMPORTANT: remove clientSecret from generated bundle
   delete strategy.clientSecret
@@ -163,7 +181,11 @@ export function initializePasswordGrantFlow(nuxt, strategy) {
   })
 }
 
-export function assignAbsoluteEndpoints(strategy) {
+export function assignAbsoluteEndpoints<
+  SOptions extends StrategyOptions<
+    (LocalSchemeOptions | Oauth2SchemeOptions) & { url: string }
+  >
+>(strategy: SOptions): void {
   const { url, endpoints } = strategy
 
   if (endpoints) {
@@ -175,7 +197,7 @@ export function assignAbsoluteEndpoints(strategy) {
           if (!endpoint.url || endpoint.url.startsWith(url)) {
             continue
           }
-          endpoints[key].url = url + endpoint.url
+          ;(endpoints[key] as HTTPRequest).url = url + endpoint.url
         } else {
           if (endpoint.startsWith(url)) {
             continue
