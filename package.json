@@ -72,7 +72,6 @@
     "puppeteer": "latest",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "ts-loader": "latest",
     "typescript": "latest"
   }
 }

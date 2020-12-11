@@ -8,7 +8,7 @@ export function assignDefaults(strategy, defaults) {
   Object.assign(strategy, defu(strategy, defaults))
 }
 
-export function addAuthorize (nuxt, strategy, useForms = false) {
+export function addAuthorize(nuxt, strategy, useForms = false) {
   // Get clientSecret, clientId, endpoints.token and audience
   const clientSecret = strategy.clientSecret
   const clientID = strategy.clientId
@@ -56,7 +56,7 @@ export function addAuthorize (nuxt, strategy, useForms = false) {
           return next()
         }
 
-        let data: object|string = {
+        let data: object | string = {
           client_id: clientID,
           client_secret: clientSecret,
           refresh_token: refreshToken,
@@ -68,13 +68,12 @@ export function addAuthorize (nuxt, strategy, useForms = false) {
           code
         }
 
-        let headers = {
+        const headers = {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
 
         if (useForms) {
-          delete data['code_verifier']
           data = qs.stringify(data)
           headers['Content-Type'] = 'application/x-www-form-urlencoded'
         }
