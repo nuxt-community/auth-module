@@ -413,7 +413,7 @@ export default class Oauth2Scheme<
             refreshToken,
             this.options.token.type
           ),
-          client_id: this.options.clientId.toString(),
+          client_id: this.options.clientId + '',
           grant_type: 'refresh_token'
         })
       })
