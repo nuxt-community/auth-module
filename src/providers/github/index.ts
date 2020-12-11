@@ -3,9 +3,10 @@ import ProviderPartialOptions from '../contracts/ProviderPartialOptions'
 import GithubProviderOptions from './contracts/GithubProviderOptions'
 
 export default function github(
-  nuxt,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  nuxt: any,
   strategy: ProviderPartialOptions<GithubProviderOptions>
-) {
+): void {
   const DEFAULTS: typeof strategy = {
     scheme: 'oauth2',
     endpoints: {

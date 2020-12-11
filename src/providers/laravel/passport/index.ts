@@ -24,9 +24,10 @@ function isPasswordGrant(
 }
 
 export default function laravelPassport(
-  nuxt,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  nuxt: any,
   strategy: PartialPassportOptions | PartialPassportPasswordOptions
-) {
+): void {
   const { url } = strategy
 
   if (!url) {

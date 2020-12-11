@@ -7,9 +7,10 @@ import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
 import LaravelJWTProviderOptions from './contracts/LaravelJWTProviderOptions'
 
 export default function laravelJWT(
-  _nuxt,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  _nuxt: any,
   strategy: ProviderPartialOptions<LaravelJWTProviderOptions>
-) {
+): void {
   const { url } = strategy
 
   if (!url) {

@@ -3,9 +3,10 @@ import ProviderPartialOptions from '../contracts/ProviderPartialOptions'
 import FacebookProviderOptions from './contracts/FacebookProviderOptions'
 
 export default function facebook(
-  _nuxt,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  _nuxt: any,
   strategy: ProviderPartialOptions<FacebookProviderOptions>
-) {
+): void {
   const DEFAULTS: typeof strategy = {
     scheme: 'oauth2',
     endpoints: {
