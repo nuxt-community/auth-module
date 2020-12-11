@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": [
-      "dom"
+      "DOM"
     ],
     "esModuleInterop": true,
     "strict": false,
@@ -13,8 +13,7 @@
     "types": [
       "@types/node",
       "@nuxt/types"
-    ],
-    "skipLibCheck": true
+    ]
   },
   "include": [
     "./src"
