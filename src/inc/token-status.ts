@@ -7,11 +7,14 @@ export enum TokenStatusEnum {
 export default class TokenStatus {
   private _status: TokenStatusEnum
 
-  constructor(token, tokenExpiresAt) {
+  constructor(token: string | false, tokenExpiresAt: number | false) {
     this._status = this._calculate(token, tokenExpiresAt)
   }
 
-  _calculate(token, tokenExpiresAt) {
+  _calculate(
+    token: string | false,
+    tokenExpiresAt: number | false
+  ): TokenStatusEnum {
     const now = Date.now()
 
     try {
@@ -34,15 +37,15 @@ export default class TokenStatus {
     return TokenStatusEnum.EXPIRED
   }
 
-  unknown() {
+  unknown(): boolean {
     return TokenStatusEnum.UNKNOWN === this._status
   }
 
-  valid() {
+  valid(): boolean {
     return TokenStatusEnum.VALID === this._status
   }
 
-  expired() {
+  expired(): boolean {
     return TokenStatusEnum.EXPIRED === this._status
   }
 }

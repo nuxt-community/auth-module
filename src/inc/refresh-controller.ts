@@ -1,15 +1,16 @@
 import Auth from '../core/auth'
 import RefreshableScheme from '../schemes/RefreshableScheme'
+import { HTTPResponse } from '../index'
 
 export default class RefreshController {
   public $auth: Auth
-  private _refreshPromise = null
+  private _refreshPromise: Promise<HTTPResponse | void> = null
 
   constructor(public scheme: RefreshableScheme) {
     this.$auth = scheme.$auth
   }
 
-  _doRefresh() {
+  _doRefresh(): Promise<HTTPResponse | void> {
     this._refreshPromise = new Promise((resolve, reject) => {
       this.scheme
         .refreshTokens()
@@ -29,7 +30,7 @@ export default class RefreshController {
   // Returns a promise which is resolved when refresh is completed
   // Call this function when you intercept a request with an expired token.
   // Multiple requests will be queued until the first has completed token refresh.
-  handleRefresh() {
+  handleRefresh(): Promise<HTTPResponse | void> {
     // Another request has started refreshing the token, wait for it to complete
     if (this._refreshPromise) {
       return this._refreshPromise

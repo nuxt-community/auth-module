@@ -13,25 +13,25 @@ export default class Token {
     this.$storage = storage
   }
 
-  _getExpiration() {
+  _getExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  _setExpiration(expiration) {
+  _setExpiration(expiration: number | false): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration)
   }
 
-  _syncExpiration() {
+  _syncExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  _updateExpiration(token) {
+  _updateExpiration(token: string): number | false | void {
     let tokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis = Number(this.scheme.options.token.maxAge) * 1000
@@ -55,25 +55,25 @@ export default class Token {
     return this._setExpiration(tokenExpiration || false)
   }
 
-  _setToken(token) {
+  _setToken(token: string | false): string | false {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, token)
   }
 
-  _syncToken() {
+  _syncToken(): string | false {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  get() {
+  get(): string | false {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  set(tokenValue) {
+  set(tokenValue: string | false): string | false {
     const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
 
     this._setToken(token)
@@ -83,7 +83,7 @@ export default class Token {
     return token
   }
 
-  sync() {
+  sync(): string | false {
     const token = this._syncToken()
     this._syncExpiration()
     this.scheme.requestHandler.setHeader(token)
@@ -91,13 +91,13 @@ export default class Token {
     return token
   }
 
-  reset() {
+  reset(): void {
     this.scheme.requestHandler.clearHeader()
     this._setToken(false)
     this._setExpiration(false)
   }
 
-  status() {
+  status(): TokenStatus {
     return new TokenStatus(this.get(), this._getExpiration())
   }
 }

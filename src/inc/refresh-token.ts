@@ -13,28 +13,28 @@ export default class RefreshToken {
     this.$storage = storage
   }
 
-  _getExpiration() {
+  _getExpiration(): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  _setExpiration(expiration) {
+  _setExpiration(expiration: number | false): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration)
   }
 
-  _syncExpiration() {
+  _syncExpiration(): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  _updateExpiration(refreshToken) {
+  _updateExpiration(refreshToken: string): number | false | void {
     let refreshTokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis =
@@ -59,25 +59,25 @@ export default class RefreshToken {
     return this._setExpiration(refreshTokenExpiration || false)
   }
 
-  _setToken(refreshToken) {
+  _setToken(refreshToken: string | false): string | false {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, refreshToken)
   }
 
-  _syncToken() {
+  _syncToken(): string | false {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
   }
 
-  get() {
+  get(): string | false {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  set(tokenValue) {
+  set(tokenValue: string | false): string | false {
     const refreshToken = addTokenPrefix(
       tokenValue,
       this.scheme.options.refreshToken.type
@@ -89,19 +89,19 @@ export default class RefreshToken {
     return refreshToken
   }
 
-  sync() {
+  sync(): string | false {
     const refreshToken = this._syncToken()
     this._syncExpiration()
 
     return refreshToken
   }
 
-  reset() {
+  reset(): void {
     this._setToken(false)
     this._setExpiration(false)
   }
 
-  status() {
+  status(): TokenStatus {
     return new TokenStatus(this.get(), this._getExpiration())
   }
 }

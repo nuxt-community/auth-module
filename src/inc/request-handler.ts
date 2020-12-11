@@ -7,7 +7,7 @@ import ExpiredAuthSessionError from './expired-auth-session-error'
 export default class RequestHandler {
   public scheme: TokenableScheme | RefreshableScheme
   public axios: NuxtAxiosInstance
-  public interceptor: any
+  public interceptor: number
 
   constructor(
     scheme: TokenableScheme | RefreshableScheme,
@@ -18,7 +18,7 @@ export default class RequestHandler {
     this.interceptor = null
   }
 
-  _needToken(config: HTTPRequest) {
+  _needToken(config: HTTPRequest): boolean {
     const options = this.scheme.options
     return (
       options.token.global ||
@@ -30,23 +30,26 @@ export default class RequestHandler {
     )
   }
 
-  _getUpdatedRequestConfig(config: HTTPRequest, token) {
+  _getUpdatedRequestConfig(
+    config: HTTPRequest,
+    token: string | false
+  ): HTTPRequest {
     config.headers[this.scheme.options.token.name] = token
     return config
   }
 
-  _requestHasAuthorizationHeader(config: HTTPRequest) {
+  _requestHasAuthorizationHeader(config: HTTPRequest): boolean {
     return !!config.headers.common[this.scheme.options.token.name]
   }
 
-  setHeader(token) {
+  setHeader(token: string | false): void {
     if (this.scheme.options.token.global) {
       // Set Authorization token for all axios requests
       this.axios.setHeader(this.scheme.options.token.name, token)
     }
   }
 
-  clearHeader() {
+  clearHeader(): void {
     if (this.scheme.options.token.global) {
       // Clear Authorization token for all axios requests
       this.axios.setHeader(this.scheme.options.token.name, false)
@@ -57,7 +60,7 @@ export default class RequestHandler {
   // Watch requests for token expiration
   // Refresh tokens if token has expired
   // ---------------------------------------------------------------
-  initializeRequestInterceptor(refreshEndpoint?: string) {
+  initializeRequestInterceptor(refreshEndpoint?: string): void {
     this.interceptor = this.axios.interceptors.request.use(async (config) => {
       // Don't intercept refresh token requests
       if (!this._needToken(config) || config.url === refreshEndpoint) {
@@ -118,7 +121,7 @@ export default class RequestHandler {
     })
   }
 
-  reset() {
+  reset(): void {
     // Eject request interceptor
     this.axios.interceptors.request.eject(this.interceptor)
     this.interceptor = null
