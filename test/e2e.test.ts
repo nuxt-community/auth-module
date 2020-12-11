@@ -96,7 +96,7 @@ describe('e2e', () => {
           window.$nuxt.$axios.defaults.headers.common.Authorization,
         loginToken: window.$nuxt.$auth.strategy.token.get(),
         loginRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
-        loginExpiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
+        loginExpiresAt: window.$nuxt.$auth.strategy.token.getExpiration(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
       }
@@ -127,7 +127,7 @@ describe('e2e', () => {
           window.$nuxt.$axios.defaults.headers.common.Authorization,
         refreshedToken: window.$nuxt.$auth.strategy.token.get(),
         refreshedRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
-        refreshedExpiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
+        refreshedExpiresAt: window.$nuxt.$auth.strategy.token.getExpiration(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
       }
