@@ -18,10 +18,10 @@ export default class RequestHandler {
     this.interceptor = null
   }
 
-  setHeader(token: string | false): void {
+  setHeader(token: string | boolean): void {
     if (this.scheme.options.token.global) {
       // Set Authorization token for all axios requests
-      this.axios.setHeader(this.scheme.options.token.name, token)
+      this.axios.setHeader(this.scheme.options.token.name, token + '')
     }
   }
 
@@ -116,7 +116,7 @@ export default class RequestHandler {
   // Watch requests for token expiration
   // Refresh tokens if token has expired
 
-  private getUpdatedRequestConfig(config, token: string | false) {
+  private getUpdatedRequestConfig(config, token: string | boolean) {
     config.headers[this.scheme.options.token.name] = token
     return config
   }

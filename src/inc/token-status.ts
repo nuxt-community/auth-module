@@ -7,7 +7,7 @@ export enum TokenStatusEnum {
 export default class TokenStatus {
   private readonly status: TokenStatusEnum
 
-  constructor(token: string | false, tokenExpiresAt: number | false) {
+  constructor(token: string | boolean, tokenExpiresAt: number | false) {
     this.status = this.calculate(token, tokenExpiresAt)
   }
 
@@ -24,7 +24,7 @@ export default class TokenStatus {
   }
 
   private calculate(
-    token: string | false,
+    token: string | boolean,
     tokenExpiresAt: number | false
   ): TokenStatusEnum {
     const now = Date.now()

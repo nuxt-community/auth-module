@@ -13,13 +13,13 @@ export default class RefreshToken {
     this.$storage = storage
   }
 
-  get(): string | false {
+  get(): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  set(tokenValue: string | false): string | false {
+  set(tokenValue: string | boolean): string | boolean {
     const refreshToken = addTokenPrefix(
       tokenValue,
       this.scheme.options.refreshToken.type
@@ -31,7 +31,7 @@ export default class RefreshToken {
     return refreshToken
   }
 
-  sync(): string | false {
+  sync(): string | boolean {
     const refreshToken = this.syncToken()
     this.syncExpiration()
 
@@ -93,13 +93,13 @@ export default class RefreshToken {
     return this.setExpiration(refreshTokenExpiration || false)
   }
 
-  private setToken(refreshToken: string | false): string | false {
+  private setToken(refreshToken: string | boolean): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, refreshToken)
   }
 
-  private syncToken(): string | false {
+  private syncToken(): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)

@@ -13,13 +13,13 @@ export default class Token {
     this.$storage = storage
   }
 
-  get(): string | false {
+  get(): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.getUniversal(_key)
   }
 
-  set(tokenValue: string | false): string | false {
+  set(tokenValue: string | boolean): string | boolean {
     const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
 
     this.setToken(token)
@@ -29,7 +29,7 @@ export default class Token {
     return token
   }
 
-  sync(): string | false {
+  sync(): string | boolean {
     const token = this.syncToken()
     this.syncExpiration()
     this.scheme.requestHandler.setHeader(token)
@@ -89,13 +89,13 @@ export default class Token {
     return this.setExpiration(tokenExpiration || false)
   }
 
-  private setToken(token: string | false): string | false {
+  private setToken(token: string | boolean): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, token)
   }
 
-  private syncToken(): string | false {
+  private syncToken(): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key)
