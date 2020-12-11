@@ -16,7 +16,7 @@ export default class Token {
   get(): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
-    return this.$storage.getUniversal(_key)
+    return this.$storage.getUniversal(_key) as string | boolean
   }
 
   set(tokenValue: string | boolean): string | boolean {
@@ -50,22 +50,22 @@ export default class Token {
   private getExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
-    return this.$storage.getUniversal(_key)
+    return this.$storage.getUniversal(_key) as number | false
   }
 
   private setExpiration(expiration: number | false): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
-    return this.$storage.setUniversal(_key, expiration)
+    return this.$storage.setUniversal(_key, expiration) as number | false
   }
 
   private syncExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
-    return this.$storage.syncUniversal(_key)
+    return this.$storage.syncUniversal(_key) as number | false
   }
 
-  private updateExpiration(token: string): number | false | void {
+  private updateExpiration(token: string | boolean): number | false | void {
     let tokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis = Number(this.scheme.options.token.maxAge) * 1000
@@ -75,7 +75,7 @@ export default class Token {
 
     try {
       tokenExpiration =
-        jwtDecode<JwtPayload>(token).exp * 1000 || _tokenExpiresAtMillis
+        jwtDecode<JwtPayload>(token + '').exp * 1000 || _tokenExpiresAtMillis
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       tokenExpiration = _tokenExpiresAtMillis
@@ -92,12 +92,12 @@ export default class Token {
   private setToken(token: string | boolean): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
-    return this.$storage.setUniversal(_key, token)
+    return this.$storage.setUniversal(_key, token) as string | boolean
   }
 
   private syncToken(): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
-    return this.$storage.syncUniversal(_key)
+    return this.$storage.syncUniversal(_key) as string | boolean
   }
 }

@@ -16,7 +16,7 @@ export default class RefreshToken {
   get(): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
-    return this.$storage.getUniversal(_key)
+    return this.$storage.getUniversal(_key) as string | boolean
   }
 
   set(tokenValue: string | boolean): string | boolean {
@@ -51,24 +51,26 @@ export default class RefreshToken {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
-    return this.$storage.getUniversal(_key)
+    return this.$storage.getUniversal(_key) as number | false
   }
 
   private setExpiration(expiration: number | false): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
-    return this.$storage.setUniversal(_key, expiration)
+    return this.$storage.setUniversal(_key, expiration) as number | false
   }
 
   private syncExpiration(): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
-    return this.$storage.syncUniversal(_key)
+    return this.$storage.syncUniversal(_key) as number | false
   }
 
-  private updateExpiration(refreshToken: string): number | false | void {
+  private updateExpiration(
+    refreshToken: string | boolean
+  ): number | false | void {
     let refreshTokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis =
@@ -79,7 +81,8 @@ export default class RefreshToken {
 
     try {
       refreshTokenExpiration =
-        jwtDecode<JwtPayload>(refreshToken).exp * 1000 || _tokenExpiresAtMillis
+        jwtDecode<JwtPayload>(refreshToken + '').exp * 1000 ||
+        _tokenExpiresAtMillis
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       refreshTokenExpiration = _tokenExpiresAtMillis
@@ -96,12 +99,12 @@ export default class RefreshToken {
   private setToken(refreshToken: string | boolean): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
-    return this.$storage.setUniversal(_key, refreshToken)
+    return this.$storage.setUniversal(_key, refreshToken) as string | boolean
   }
 
   private syncToken(): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
-    return this.$storage.syncUniversal(_key)
+    return this.$storage.syncUniversal(_key) as string | boolean
   }
 }
