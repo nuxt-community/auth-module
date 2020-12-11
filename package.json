@@ -53,6 +53,7 @@
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@types/jest": "latest",
+    "@types/lodash.get": "^4.4.6",
     "@types/node": "latest",
     "@types/puppeteer": "latest",
     "babel-jest": "latest",
@@ -72,6 +73,7 @@
     "puppeteer": "latest",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "vue": "^2.6.12"
   }
 }
