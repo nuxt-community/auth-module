@@ -31,7 +31,7 @@ export default class CookieScheme<
     super($auth, options, DEFAULTS)
   }
 
-  mounted(): Promise<HTTPResponse> {
+  mounted(): Promise<HTTPResponse | void> {
     if (process.server) {
       this.$auth.ctx.$axios.setHeader(
         'referer',

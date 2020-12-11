@@ -94,7 +94,7 @@ export default class RefreshScheme<
     return response
   }
 
-  mounted(): Promise<HTTPResponse> {
+  mounted(): Promise<HTTPResponse | void> {
     return super.mounted({
       tokenCallback: () => {
         if (this.options.autoLogout) {
