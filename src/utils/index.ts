@@ -30,7 +30,7 @@ export function parseQuery(queryString: string): Record<string, unknown> {
   return query
 }
 
-export function encodeQuery(queryObject: { [key: string]: string }) {
+export function encodeQuery(queryObject: { [key: string]: string }): string {
   return Object.entries(queryObject)
     .filter(([_key, value]) => typeof value !== 'undefined')
     .map(
@@ -157,9 +157,9 @@ export function getResponseProp(
 export function addTokenPrefix(
   token: string | boolean,
   tokenType: string | false
-): string {
+): string | boolean {
   if (!token || !tokenType || (token + '').startsWith(tokenType)) {
-    return token as string
+    return token
   }
 
   return tokenType + ' ' + token
@@ -168,9 +168,9 @@ export function addTokenPrefix(
 export function removeTokenPrefix(
   token: string | boolean,
   tokenType: string | false
-): string {
+): string | boolean {
   if (!token || !tokenType) {
-    return token as string
+    return token
   }
 
   return (token + '').replace(tokenType + ' ', '')
