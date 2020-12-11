@@ -300,7 +300,7 @@ export default class Auth {
     const _endpoint = Object.assign({}, defaults, endpoint)
 
     const tokenName =
-      this.strategies[strategy].options.tokenName || 'Authorization'
+      this.strategies[strategy].options.token.name || 'Authorization'
     if (!_endpoint.headers) {
       _endpoint.headers = {}
     }
