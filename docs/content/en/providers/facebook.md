@@ -14,10 +14,10 @@ auth: {
   strategies: {
     facebook: {
       endpoints: {
-        userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday'
+        userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
       },
       clientId: '...',
-      scope: ['public_profile', 'email', 'user_birthday']
+      scope: ['public_profile', 'email']
     },
   }
 }
