@@ -1,6 +1,8 @@
+import Strategy from './contracts/Strategy'
+
 export interface ModuleOptions {
   plugins?: string[] | { src: string; ssr: boolean }[]
-  resetOnError: boolean | Function
+  resetOnError: boolean | ((...args: unknown[]) => boolean)
   defaultStrategy: string
   watchLoggedIn: boolean
   rewriteRedirects: boolean
@@ -30,5 +32,7 @@ export interface ModuleOptions {
   localStorage: {
     prefix: string
   }
-  strategies?: {}
+  strategies: {
+    [strategy: string]: Strategy
+  }
 }
