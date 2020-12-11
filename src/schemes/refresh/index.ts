@@ -199,9 +199,15 @@ export default class RefreshScheme<
     response: HTTPResponse,
     { isRefreshing = false, updateOnRefresh = true } = {}
   ): void {
-    const token = getResponseProp(response, this.options.token.property)
+    const token = getResponseProp(
+      response,
+      this.options.token.property
+    ) as string
     const refreshToken = this.options.refreshToken.required
-      ? getResponseProp(response, this.options.refreshToken.property)
+      ? (getResponseProp(
+          response,
+          this.options.refreshToken.property
+        ) as string)
       : true
 
     this.token.set(token)

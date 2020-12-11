@@ -231,7 +231,10 @@ export default class LocalScheme<
 
   protected updateTokens(response: HTTPResponse): void {
     if (this.options.token.required) {
-      const token = getResponseProp(response, this.options.token.property)
+      const token = getResponseProp(
+        response,
+        this.options.token.property
+      ) as string
       this.token.set(token)
     }
   }

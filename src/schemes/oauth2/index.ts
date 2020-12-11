@@ -307,12 +307,12 @@ export default class Oauth2Scheme<
     const hash = parseQuery(this.$auth.ctx.route.hash.substr(1))
     const parsedQuery = Object.assign({}, this.$auth.ctx.route.query, hash)
     // accessToken/idToken
-    let token = parsedQuery[this.options.token.property]
+    let token: string = parsedQuery[this.options.token.property] as string
     // refresh token
-    let refreshToken
+    let refreshToken: string
 
     if (this.options.refreshToken.property) {
-      refreshToken = parsedQuery[this.options.refreshToken.property]
+      refreshToken = parsedQuery[this.options.refreshToken.property] as string
     }
 
     // Validate state
@@ -345,7 +345,7 @@ export default class Oauth2Scheme<
         url: this.options.endpoints.token,
         baseURL: '',
         data: encodeQuery({
-          code: parsedQuery.code,
+          code: parsedQuery.code as string,
           client_id: this.options.clientId + '',
           redirect_uri: this.redirectURI,
           response_type: this.options.responseType,
@@ -355,10 +355,14 @@ export default class Oauth2Scheme<
         })
       })
 
-      token = getResponseProp(response, this.options.token.property) || token
+      token =
+        (getResponseProp(response, this.options.token.property) as string) ||
+        token
       refreshToken =
-        getResponseProp(response, this.options.refreshToken.property) ||
-        refreshToken
+        (getResponseProp(
+          response,
+          this.options.refreshToken.property
+        ) as string) || refreshToken
     }
 
     if (!token || !token.length) {
@@ -428,11 +432,14 @@ export default class Oauth2Scheme<
   }
 
   protected updateTokens(response: HTTPResponse): void {
-    const token = getResponseProp(response, this.options.token.property)
+    const token = getResponseProp(
+      response,
+      this.options.token.property
+    ) as string
     const refreshToken = getResponseProp(
       response,
       this.options.refreshToken.property
-    )
+    ) as string
 
     this.token.set(token)
 
