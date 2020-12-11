@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 
 // Generated at http://jwtbuilder.jamiekurtz.com/
 const TOKEN_NEVER_EXPIRING =

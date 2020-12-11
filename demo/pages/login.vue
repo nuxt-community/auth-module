@@ -108,10 +108,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import busyOverlay from '~/components/busy-overlay'
 
-export default {
+export default Vue.extend({
   components: { busyOverlay },
   middleware: ['auth'],
   data() {
@@ -239,7 +240,7 @@ export default {
         })
     }
   }
-}
+})
 </script>
 
 <style scoped>
