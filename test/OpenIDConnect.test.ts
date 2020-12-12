@@ -51,18 +51,19 @@ const loginWithOidc = async () => {
   //  Login
   await page.waitForNavigation()
   expect(page.url()).toContain('/oidc/interaction')
-
   await page.type('[name="login"]', 'test_username')
   await page.type('[name="password"]', 'test')
   await page.click('[type="submit"]')
 
   //  Consent
+  await page.waitForNavigation()
   const consentHtml = await page.$eval('.login-card', (card) => card.innerHTML)
   expect(consentHtml).toContain('scopes')
   expect(consentHtml).toContain('profile')
   await page.click('[type="submit"]')
 
   // Callback
+  await page.waitForNavigation()
   expect(page.url()).toContain(`http://localhost:${port}/login`)
 
   // Redirect to home
