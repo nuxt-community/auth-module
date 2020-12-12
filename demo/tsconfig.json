@@ -10,8 +10,9 @@
     ],
     "esModuleInterop": true,
     "allowJs": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": true,
+    "strict": false,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
