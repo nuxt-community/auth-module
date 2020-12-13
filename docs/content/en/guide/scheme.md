@@ -40,7 +40,7 @@ First, create your own scheme file in `~/schemes`. You can use a different path 
 > In this example we will be extending `local` scheme and overriding `fetchUser` method. We will transform the user object before setting it.
 
 ```js{}[~/schemes/customScheme.js]
-import LocalScheme from '@nuxtjs/auth-next/src/schemes/local'
+import LocalScheme from '~auth/schemes/local'
 
 export default class CustomScheme extends LocalScheme {
   // Override `fetchUser` method of `local` scheme
