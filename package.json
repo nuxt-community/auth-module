@@ -52,11 +52,11 @@
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "@types/cookie-parser": "^1.4.2",
-    "@types/express-jwt": "^0.0.42",
+    "@types/cookie-parser": "latest",
+    "@types/express-jwt": "latest",
     "@types/jest": "latest",
-    "@types/jsonwebtoken": "^8.5.0",
-    "@types/lodash.get": "^4.4.6",
+    "@types/jsonwebtoken": "latest",
+    "@types/lodash.get": "latest",
     "@types/node": "latest",
     "@types/puppeteer": "latest",
     "babel-jest": "latest",
@@ -77,6 +77,6 @@
     "standard-version": "latest",
     "ts-jest": "latest",
     "typescript": "latest",
-    "vue": "^2.6.12"
+    "vue": "latest"
   }
 }
