@@ -123,7 +123,7 @@ app.use((err, _req, res) => {
 })
 
 // -- export app --
-module.exports = {
+export default {
   path: '/api/auth',
   handler: app
 }

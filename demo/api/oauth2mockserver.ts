@@ -36,7 +36,7 @@ app.get('/cats', (_req, res) => {
 })
 
 // -- export app --
-module.exports = {
+export default {
   path: '/oauth2mockserver',
   handler: app
 }
