@@ -4,13 +4,13 @@ import {
   initializePasswordGrantFlow,
   assignAbsoluteEndpoints
 } from '../../../utils/provider'
-import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
 import {
   RefreshTokenOptions,
   TokenOptions,
   UserOptions
 } from '../../../schemes/contracts/SchemeOptions'
 import { RecursivePartial } from '../../../types/utils'
+import { ProviderPartialOptions } from '../../index'
 import LaravelPassportProviderOptions from './contracts/LaravelPassportProviderOptions'
 import LaravelPassportPasswordProviderOptions from './contracts/LaravelPassportPasswordProviderOptions'
 

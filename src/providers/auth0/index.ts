@@ -1,6 +1,6 @@
 import path from 'path'
 import { assignDefaults } from '../../utils/provider'
-import ProviderPartialOptions from '../contracts/ProviderPartialOptions'
+import { ProviderPartialOptions } from '../index'
 import Auth0ProviderOptions from './contracts/Auth0ProviderOptions'
 
 export default function auth0(

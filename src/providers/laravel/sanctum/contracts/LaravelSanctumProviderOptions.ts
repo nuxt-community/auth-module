@@ -1,5 +1,5 @@
 import CookieSchemeOptions from '../../../../schemes/cookie/contracts/CookieSchemeOptions'
-import ProviderOptions from '../../../contracts/ProviderOptions'
+import { ProviderOptions } from '../../../index'
 
 export interface LaravelSanctumProviderOptions
   extends ProviderOptions,

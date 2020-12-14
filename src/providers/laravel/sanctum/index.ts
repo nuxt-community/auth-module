@@ -2,8 +2,8 @@ import {
   assignDefaults,
   assignAbsoluteEndpoints
 } from '../../../utils/provider'
-import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
 import { HTTPRequest } from '../../../index'
+import { ProviderPartialOptions } from '../../index'
 import LaravelSanctumProviderOptions from './contracts/LaravelSanctumProviderOptions'
 
 export default function laravelSanctum(

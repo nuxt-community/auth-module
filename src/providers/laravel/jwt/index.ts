@@ -3,7 +3,7 @@ import {
   assignDefaults,
   assignAbsoluteEndpoints
 } from '../../../utils/provider'
-import ProviderPartialOptions from '../../contracts/ProviderPartialOptions'
+import { ProviderPartialOptions } from '../../index'
 import LaravelJWTProviderOptions from './contracts/LaravelJWTProviderOptions'
 
 export default function laravelJWT(

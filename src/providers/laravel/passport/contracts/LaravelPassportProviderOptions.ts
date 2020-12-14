@@ -1,5 +1,5 @@
-import ProviderOptions from '../../../contracts/ProviderOptions'
 import Oauth2SchemeOptions from '../../../../schemes/oauth2/contracts/Oauth2SchemeOptions'
+import { ProviderOptions } from '../../../index'
 
 export interface LaravelPassportProviderOptions
   extends ProviderOptions,
