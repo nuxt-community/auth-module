@@ -1,9 +1,8 @@
 import LocalScheme from '../local'
-import SchemeCheck from '../contracts/SchemeCheck'
-import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import TokenableScheme from '../TokenableScheme'
 import Auth from '../../core/auth'
 import { HTTPRequest, HTTPResponse } from '../../index'
+import { SchemePartialOptions, SchemeCheck } from '../index'
 import CookieSchemeOptions from './contracts/CookieSchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {

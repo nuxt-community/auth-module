@@ -1,6 +1,6 @@
-import SchemeOptions, { UserOptions } from '../../contracts/SchemeOptions'
 import { EndpointsOption, TokenableSchemeOptions } from '../../TokenableScheme'
 import { RefreshableSchemeOptions } from '../../RefreshableScheme'
+import { UserOptions, SchemeOptions } from '../../index'
 
 export interface Oauth2SchemeEndpoints extends EndpointsOption {
   authorization: string

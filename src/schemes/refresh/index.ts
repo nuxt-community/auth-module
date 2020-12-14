@@ -2,12 +2,11 @@ import { cleanObj, getResponseProp } from '../../utils'
 import RefreshController from '../../inc/refresh-controller'
 import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'
 import RefreshToken from '../../inc/refresh-token'
-import SchemeCheck from '../contracts/SchemeCheck'
 import LocalScheme from '../local'
 import RefreshableScheme from '../RefreshableScheme'
-import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import Auth from '../../core/auth'
 import { HTTPResponse } from '../../index'
+import { SchemePartialOptions, SchemeCheck } from '../index'
 import RefreshSchemeOptions from './contracts/RefreshSchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {

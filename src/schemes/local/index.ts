@@ -2,11 +2,10 @@ import { getResponseProp } from '../../utils'
 import Token from '../../inc/token'
 import RequestHandler from '../../inc/request-handler'
 import { HTTPRequest, HTTPResponse } from '../../index'
-import SchemeCheck from '../contracts/SchemeCheck'
 import BaseScheme from '../_scheme'
 import TokenableScheme from '../TokenableScheme'
-import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import Auth from '../../core/auth'
+import { SchemePartialOptions, SchemeCheck } from '../index'
 import LocalSchemeOptions from './contracts/LocalSchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<LocalSchemeOptions> = {

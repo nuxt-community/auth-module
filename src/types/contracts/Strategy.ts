@@ -1,4 +1,4 @@
-import SchemeOptions from '../../schemes/contracts/SchemeOptions'
+import { SchemeOptions } from '../../schemes'
 
 export interface Strategy extends SchemeOptions {
   provider?: string | ((...args: unknown[]) => unknown)

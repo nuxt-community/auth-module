@@ -1,7 +1,6 @@
 import { HTTPRequest, HTTPResponse } from '../index'
 import _Scheme from './_scheme'
-import SchemeOptions from './contracts/SchemeOptions'
-import SchemeCheck from './contracts/SchemeCheck'
+import { SchemeCheck, SchemeOptions } from './index'
 
 export interface Scheme<OptionsT extends SchemeOptions = SchemeOptions>
   extends _Scheme<OptionsT> {

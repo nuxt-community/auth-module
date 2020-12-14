@@ -1,8 +1,8 @@
 import RefreshToken from '../inc/refresh-token'
 import { HTTPResponse } from '../index'
 import RefreshController from '../inc/refresh-controller'
-import { RefreshTokenOptions } from './contracts/SchemeOptions'
 import TokenableScheme, { TokenableSchemeOptions } from './TokenableScheme'
+import { RefreshTokenOptions } from './index'
 
 export interface RefreshableSchemeOptions extends TokenableSchemeOptions {
   refreshToken: RefreshTokenOptions

@@ -14,11 +14,10 @@ import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'
 import Token from '../../inc/token'
 import RefreshToken from '../../inc/refresh-token'
 import BaseScheme from '../_scheme'
-import SchemeCheck from '../contracts/SchemeCheck'
-import SchemePartialOptions from '../contracts/SchemePartialOptions'
 import RefreshableScheme from '../RefreshableScheme'
 import Auth from '../../core/auth'
 import { HTTPResponse } from '../../index'
+import { SchemePartialOptions, SchemeCheck } from '../index'
 import Oauth2SchemeOptions from './contracts/Oauth2SchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {

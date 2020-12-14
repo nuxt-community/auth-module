@@ -1,8 +1,8 @@
 import Token from '../inc/token'
 import RequestHandler from '../inc/request-handler'
 import { HTTPRequest } from '../index'
-import SchemeOptions, { TokenOptions } from './contracts/SchemeOptions'
 import Scheme from './Scheme'
+import { TokenOptions, SchemeOptions } from './index'
 
 export interface EndpointsOption {
   [endpoint: string]: string | HTTPRequest | false

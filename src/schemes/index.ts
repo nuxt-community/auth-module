@@ -1,3 +1,12 @@
+import { PartialExcept } from '../types/utils'
+
+export interface SchemeCheck {
+  valid: boolean
+  tokenExpired?: boolean
+  refreshTokenExpired?: boolean
+  isRefreshable?: boolean
+}
+
 export interface TokenOptions {
   property: string
   type: string | false
@@ -29,4 +38,7 @@ export interface SchemeOptions {
   name: string
 }
 
-export default SchemeOptions
+export type SchemePartialOptions<Options extends SchemeOptions> = PartialExcept<
+  Options,
+  keyof SchemeOptions
+>

@@ -1,6 +1,6 @@
 import defu from 'defu'
 import Auth from '../core/auth'
-import SchemeOptions from './contracts/SchemeOptions'
+import { SchemeOptions } from './index'
 
 export default class BaseScheme<OptionsT extends SchemeOptions> {
   public options: OptionsT

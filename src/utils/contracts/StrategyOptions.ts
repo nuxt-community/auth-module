@@ -1,5 +1,5 @@
-import SchemeOptions from '../../schemes/contracts/SchemeOptions'
 import { ProviderOptions, ProviderPartialOptions } from '../../providers'
+import { SchemeOptions } from '../../schemes'
 
 export type StrategyOptions<
   SOptions extends SchemeOptions = SchemeOptions

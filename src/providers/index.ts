@@ -1,5 +1,5 @@
-import SchemeOptions from '../schemes/contracts/SchemeOptions'
 import { PartialExcept } from '../types/utils'
+import { SchemeOptions } from '../schemes'
 
 export interface ProviderOptions {
   scheme: string
