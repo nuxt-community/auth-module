@@ -11,8 +11,6 @@ import Vue from 'vue'
 
 export default Vue.extend({
   middleware: ['auth'],
-  options: {
-    auth: false
-  }
+  auth: false
 })
 </script>
