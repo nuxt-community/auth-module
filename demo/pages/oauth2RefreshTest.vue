@@ -133,12 +133,12 @@ export default Vue.extend({
       this.tokenExpiresAt = this.getTokenExpirationDateString(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.$auth.strategy.token.getExpiration()
+        this.$auth.strategy.token._getExpiration()
       )
       this.refreshTokenExpiresAt = this.getTokenExpirationDateString(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.$auth.strategy.refreshToken.getExpiration()
+        this.$auth.strategy.refreshToken._getExpiration()
       )
     },
     getTokenExpirationDateString(tokenExpiration) {

@@ -22,16 +22,16 @@ export default class Token {
   set(tokenValue: string | boolean): string | boolean {
     const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
 
-    this.setToken(token)
+    this._setToken(token)
     this.scheme.requestHandler.setHeader(token)
-    this.updateExpiration(token)
+    this._updateExpiration(token)
 
     return token
   }
 
   sync(): string | boolean {
-    const token = this.syncToken()
-    this.syncExpiration()
+    const token = this._syncToken()
+    this._syncExpiration()
     this.scheme.requestHandler.setHeader(token)
 
     return token
@@ -39,33 +39,33 @@ export default class Token {
 
   reset(): void {
     this.scheme.requestHandler.clearHeader()
-    this.setToken(false)
-    this.setExpiration(false)
+    this._setToken(false)
+    this._setExpiration(false)
   }
 
   status(): TokenStatus {
-    return new TokenStatus(this.get(), this.getExpiration())
+    return new TokenStatus(this.get(), this._getExpiration())
   }
 
-  private getExpiration(): number | false {
+  private _getExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key) as number | false
   }
 
-  private setExpiration(expiration: number | false): number | false {
+  private _setExpiration(expiration: number | false): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration) as number | false
   }
 
-  private syncExpiration(): number | false {
+  private _syncExpiration(): number | false {
     const _key = this.scheme.options.token.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key) as number | false
   }
 
-  private updateExpiration(token: string | boolean): number | false | void {
+  private _updateExpiration(token: string | boolean): number | false | void {
     let tokenExpiration
     const _tokenIssuedAtMillis = Date.now()
     const _tokenTTLMillis = Number(this.scheme.options.token.maxAge) * 1000
@@ -86,16 +86,16 @@ export default class Token {
     }
 
     // Set token expiration
-    return this.setExpiration(tokenExpiration || false)
+    return this._setExpiration(tokenExpiration || false)
   }
 
-  private setToken(token: string | boolean): string | boolean {
+  private _setToken(token: string | boolean): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, token) as string | boolean
   }
 
-  private syncToken(): string | boolean {
+  private _syncToken(): string | boolean {
     const _key = this.scheme.options.token.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key) as string | boolean

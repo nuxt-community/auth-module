@@ -4,7 +4,7 @@ import { HTTPResponse } from '../index'
 
 export default class RefreshController {
   public $auth: Auth
-  private refreshPromise: Promise<HTTPResponse | void> = null
+  private _refreshPromise: Promise<HTTPResponse | void> = null
 
   constructor(public scheme: RefreshableScheme) {
     this.$auth = scheme.$auth
@@ -13,30 +13,30 @@ export default class RefreshController {
   // Multiple requests will be queued until the first has completed token refresh.
   handleRefresh(): Promise<HTTPResponse | void> {
     // Another request has started refreshing the token, wait for it to complete
-    if (this.refreshPromise) {
-      return this.refreshPromise
+    if (this._refreshPromise) {
+      return this._refreshPromise
     }
 
-    return this.doRefresh()
+    return this._doRefresh()
   }
 
   // Returns a promise which is resolved when refresh is completed
   // Call this function when you intercept a request with an expired token.
 
-  private doRefresh(): Promise<HTTPResponse | void> {
-    this.refreshPromise = new Promise((resolve, reject) => {
+  private _doRefresh(): Promise<HTTPResponse | void> {
+    this._refreshPromise = new Promise((resolve, reject) => {
       this.scheme
         .refreshTokens()
         .then((response) => {
-          this.refreshPromise = null
+          this._refreshPromise = null
           resolve(response)
         })
         .catch((error) => {
-          this.refreshPromise = null
+          this._refreshPromise = null
           reject(error)
         })
     })
 
-    return this.refreshPromise
+    return this._refreshPromise
   }
 }

@@ -25,50 +25,50 @@ export default class RefreshToken {
       this.scheme.options.refreshToken.type
     )
 
-    this.setToken(refreshToken)
-    this.updateExpiration(refreshToken)
+    this._setToken(refreshToken)
+    this._updateExpiration(refreshToken)
 
     return refreshToken
   }
 
   sync(): string | boolean {
-    const refreshToken = this.syncToken()
-    this.syncExpiration()
+    const refreshToken = this._syncToken()
+    this._syncExpiration()
 
     return refreshToken
   }
 
   reset(): void {
-    this.setToken(false)
-    this.setExpiration(false)
+    this._setToken(false)
+    this._setExpiration(false)
   }
 
   status(): TokenStatus {
-    return new TokenStatus(this.get(), this.getExpiration())
+    return new TokenStatus(this.get(), this._getExpiration())
   }
 
-  private getExpiration(): number | false {
+  private _getExpiration(): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
     return this.$storage.getUniversal(_key) as number | false
   }
 
-  private setExpiration(expiration: number | false): number | false {
+  private _setExpiration(expiration: number | false): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, expiration) as number | false
   }
 
-  private syncExpiration(): number | false {
+  private _syncExpiration(): number | false {
     const _key =
       this.scheme.options.refreshToken.expirationPrefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key) as number | false
   }
 
-  private updateExpiration(
+  private _updateExpiration(
     refreshToken: string | boolean
   ): number | false | void {
     let refreshTokenExpiration
@@ -93,16 +93,16 @@ export default class RefreshToken {
     }
 
     // Set token expiration
-    return this.setExpiration(refreshTokenExpiration || false)
+    return this._setExpiration(refreshTokenExpiration || false)
   }
 
-  private setToken(refreshToken: string | boolean): string | boolean {
+  private _setToken(refreshToken: string | boolean): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.setUniversal(_key, refreshToken) as string | boolean
   }
 
-  private syncToken(): string | boolean {
+  private _syncToken(): string | boolean {
     const _key = this.scheme.options.refreshToken.prefix + this.scheme.name
 
     return this.$storage.syncUniversal(_key) as string | boolean

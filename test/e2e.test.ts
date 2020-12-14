@@ -105,7 +105,7 @@ describe('e2e', () => {
         loginRefreshToken: strategy.refreshToken.get(),
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        loginExpiresAt: strategy.token.getExpiration(),
+        loginExpiresAt: strategy.token._getExpiration(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
       }
@@ -140,7 +140,7 @@ describe('e2e', () => {
         refreshedRefreshToken: strategy.refreshToken.get(),
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        refreshedExpiresAt: strategy.token.getExpiration(),
+        refreshedExpiresAt: strategy.token._getExpiration(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
       }
