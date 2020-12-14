@@ -34,7 +34,7 @@
     "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "5.12.1",
+    "@nuxtjs/axios": "^5.12.4",
     "body-parser": "^1.19.0",
     "consola": "^2.15.0",
     "cookie": "^0.4.1",
