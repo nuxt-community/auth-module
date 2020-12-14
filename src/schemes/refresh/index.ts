@@ -29,7 +29,7 @@ const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {
   autoLogout: false
 }
 
-export default class RefreshScheme<
+export class RefreshScheme<
     OptionsT extends RefreshSchemeOptions = RefreshSchemeOptions
   >
   extends LocalScheme<OptionsT>
@@ -224,3 +224,7 @@ export default class RefreshScheme<
     )
   }
 }
+
+export * from './contracts/RefreshSchemeOptions'
+
+export default RefreshScheme

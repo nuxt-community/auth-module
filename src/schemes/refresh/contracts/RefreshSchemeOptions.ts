@@ -1,7 +1,4 @@
-import {
-  LocalSchemeEndpoints,
-  LocalSchemeOptions
-} from '../../local/contracts/LocalSchemeOptions'
+import { LocalSchemeEndpoints, LocalSchemeOptions } from '../../local'
 import { HTTPRequest } from '../../../index'
 import { RefreshableSchemeOptions } from '../../RefreshableScheme'
 

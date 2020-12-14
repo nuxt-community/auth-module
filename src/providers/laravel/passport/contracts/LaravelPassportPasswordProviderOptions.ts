@@ -1,4 +1,4 @@
-import RefreshSchemeOptions from '../../../../schemes/refresh/contracts/RefreshSchemeOptions'
+import { RefreshSchemeOptions } from '../../../../schemes/refresh'
 import { ProviderOptions } from '../../../index'
 
 export interface LaravelPassportPasswordProviderOptions

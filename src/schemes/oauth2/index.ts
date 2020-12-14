@@ -60,7 +60,7 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   codeChallengeMethod: 'implicit'
 }
 
-export default class Oauth2Scheme<
+export class Oauth2Scheme<
     OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions
   >
   extends BaseScheme<OptionsT>
@@ -483,3 +483,7 @@ export default class Oauth2Scheme<
       .replace(/=+$/, '')
   }
 }
+
+export * from './contracts/Oauth2SchemeOptions'
+
+export default Oauth2Scheme

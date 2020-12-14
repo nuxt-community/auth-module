@@ -21,7 +21,7 @@ const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
   }
 }
 
-export default class CookieScheme<
+export class CookieScheme<
     OptionsT extends CookieSchemeOptions = CookieSchemeOptions
   >
   extends LocalScheme<OptionsT>
@@ -82,3 +82,7 @@ export default class CookieScheme<
     return super.reset()
   }
 }
+
+export * from './contracts/CookieSchemeOptions'
+
+export default CookieScheme

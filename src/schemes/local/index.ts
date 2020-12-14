@@ -43,7 +43,7 @@ const DEFAULTS: SchemePartialOptions<LocalSchemeOptions> = {
   scope: false
 }
 
-export default class LocalScheme<
+export class LocalScheme<
     OptionsT extends LocalSchemeOptions = LocalSchemeOptions
   >
   extends BaseScheme<OptionsT>
@@ -242,3 +242,7 @@ export default class LocalScheme<
     this.requestHandler.initializeRequestInterceptor()
   }
 }
+
+export * from './contracts/LocalSchemeOptions'
+
+export default LocalScheme
