@@ -5,6 +5,8 @@ const defaults: ModuleOptions = {
 
   resetOnError: false,
 
+  ignoreExceptions: false,
+
   // -- Authorization --
 
   scopeKey: 'scope',
