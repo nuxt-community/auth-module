@@ -1,7 +1,9 @@
-const path = require('path')
-const { loadNuxt } = require('nuxt-edge')
-const puppeteer = require('puppeteer')
-const getPort = require('get-port')
+import path from 'path'
+import { loadNuxt } from 'nuxt-edge'
+import puppeteer from 'puppeteer'
+import getPort from 'get-port'
+import RefreshableScheme from '../src/schemes/RefreshableScheme'
+import TokenableScheme from '../src/schemes/TokenableScheme'
 
 describe('e2e', () => {
   let url, nuxt, browser
@@ -31,6 +33,7 @@ describe('e2e', () => {
     const page = await browser.newPage()
     await page.goto(url('/'))
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const state = await page.evaluate(() => window.__NUXT__.state)
     expect(state.auth).toEqual({
@@ -52,11 +55,13 @@ describe('e2e', () => {
         const response = await window.$nuxt.$auth.loginWith('local', {
           data: { username: 'test_username', password: '123' }
         })
+        const strategy = (window.$nuxt.$auth
+          .strategy as unknown) as TokenableScheme
 
         return {
           axiosBearer:
             window.$nuxt.$axios.defaults.headers.common.Authorization,
-          token: window.$nuxt.$auth.strategy.token.get(),
+          token: strategy.token.get(),
           user: window.$nuxt.$auth.user,
           response
         }
@@ -90,13 +95,17 @@ describe('e2e', () => {
       const loginResponse = await window.$nuxt.$auth.loginWith('localRefresh', {
         data: { username: 'test_username', password: '123' }
       })
+      const strategy = (window.$nuxt.$auth
+        .strategy as unknown) as RefreshableScheme
 
       return {
         loginAxiosBearer:
           window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.strategy.token.get(),
-        loginRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
-        loginExpiresAt: window.$nuxt.$auth.strategy.token.getExpiration(),
+        loginToken: strategy.token.get(),
+        loginRefreshToken: strategy.refreshToken.get(),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        loginExpiresAt: strategy.token.getExpiration(),
         loginUser: window.$nuxt.$auth.user,
         loginResponse
       }
@@ -121,13 +130,17 @@ describe('e2e', () => {
       refreshedResponse
     } = await page.evaluate(async () => {
       const refreshedResponse = await window.$nuxt.$auth.refreshTokens()
+      const strategy = (window.$nuxt.$auth
+        .strategy as unknown) as RefreshableScheme
 
       return {
         refreshedAxiosBearer:
           window.$nuxt.$axios.defaults.headers.common.Authorization,
-        refreshedToken: window.$nuxt.$auth.strategy.token.get(),
-        refreshedRefreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
-        refreshedExpiresAt: window.$nuxt.$auth.strategy.token.getExpiration(),
+        refreshedToken: strategy.token.get(),
+        refreshedRefreshToken: strategy.refreshToken.get(),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        refreshedExpiresAt: strategy.token.getExpiration(),
         refreshedUser: window.$nuxt.$auth.user,
         refreshedResponse
       }
@@ -160,10 +173,13 @@ describe('e2e', () => {
         data: { username: 'test_username', password: '123' }
       })
 
+      const strategy = (window.$nuxt.$auth
+        .strategy as unknown) as TokenableScheme
+
       return {
         loginAxiosBearer:
           window.$nuxt.$axios.defaults.headers.common.Authorization,
-        loginToken: window.$nuxt.$auth.strategy.token.get()
+        loginToken: strategy.token.get()
       }
     })
 
@@ -173,10 +189,13 @@ describe('e2e', () => {
     const { logoutToken, logoutAxiosBearer } = await page.evaluate(async () => {
       await window.$nuxt.$auth.logout()
 
+      const strategy = (window.$nuxt.$auth
+        .strategy as unknown) as TokenableScheme
+
       return {
         logoutAxiosBearer:
           window.$nuxt.$axios.defaults.headers.common.Authorization,
-        logoutToken: window.$nuxt.$auth.strategy.token.get()
+        logoutToken: strategy.token.get()
       }
     })
 
@@ -191,6 +210,7 @@ describe('e2e', () => {
     await page.goto(url('/'))
 
     const flag = await page.evaluate(() => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return window.$nuxt.$auth._custom_plugin
     })
