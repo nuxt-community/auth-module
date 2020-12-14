@@ -110,10 +110,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import busyOverlay from '~/components/busy-overlay'
 
 export default Vue.extend({
-  components: { busyOverlay },
   middleware: ['auth'],
   data() {
     return {

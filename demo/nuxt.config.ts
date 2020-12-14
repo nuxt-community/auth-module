@@ -8,6 +8,7 @@ const config: NuxtConfig = {
   serverMiddleware: ['~/api/auth', '~/api/oauth2mockserver'],
   buildModules: ['@nuxt/typescript-build'],
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', authModule],
+  components: true,
   axios: {
     proxy: true
   },
