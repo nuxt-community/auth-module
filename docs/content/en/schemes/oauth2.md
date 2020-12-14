@@ -7,7 +7,7 @@ category: Schemes
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/oauth2.ts)
 
-`oauth2` supports various oauth2 login flows. There are many pre-configured providers like [auth0](../providers/auth0) that you may use instead of directly using this scheme.
+`oauth2` supports various oauth2 login flows. There are many pre-configured providers like [auth0](../../providers/auth0) that you may use instead of directly using this scheme.
 
 ## Usage
 
