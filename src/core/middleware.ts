@@ -1,6 +1,6 @@
 import { Middleware } from '@nuxt/types'
-import { routeOption, getMatchedComponents, normalizePath } from '../utils'
-import Router from '../utils/contracts/Router'
+import { routeOption, getMatchedComponents, normalizePath } from 'src/utils'
+import Router from 'src/utils/contracts/Router'
 
 const authMiddleware: Middleware = async (ctx) => {
   // Disable middleware if options: { auth: false } is set on the route

@@ -1,5 +1,5 @@
-import { assignDefaults, addAuthorize } from '../../utils/provider'
-import { ProviderPartialOptions } from '../index'
+import { assignDefaults, addAuthorize } from 'src/utils/provider'
+import { ProviderPartialOptions } from 'src/providers'
 import GithubProviderOptions from './contracts/GithubProviderOptions'
 
 export default function github(

@@ -1,8 +1,8 @@
-import LocalScheme from '../local'
-import TokenableScheme from '../TokenableScheme'
-import Auth from '../../core/auth'
-import { HTTPRequest, HTTPResponse } from '../../index'
-import { SchemePartialOptions, SchemeCheck } from '../index'
+import LocalScheme from 'src/schemes/local'
+import TokenableScheme from 'src/schemes/TokenableScheme'
+import Auth from 'src/core/auth'
+import { HTTPRequest, HTTPResponse } from 'src/index'
+import { SchemePartialOptions, SchemeCheck } from 'src/schemes'
 import CookieSchemeOptions from './contracts/CookieSchemeOptions'
 
 const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {

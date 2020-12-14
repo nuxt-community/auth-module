@@ -1,6 +1,9 @@
-import { HTTPRequest } from '../../../index'
-import { EndpointsOption, TokenableSchemeOptions } from '../../TokenableScheme'
-import { UserOptions } from '../../index'
+import { HTTPRequest } from 'src/index'
+import { UserOptions } from 'src/schemes'
+import {
+  EndpointsOption,
+  TokenableSchemeOptions
+} from 'src/schemes/TokenableScheme'
 
 export interface LocalSchemeEndpoints extends EndpointsOption {
   login: HTTPRequest

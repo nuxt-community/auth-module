@@ -1,4 +1,4 @@
-import { ModuleOptions } from '../types'
+import { ModuleOptions } from 'src/types'
 
 const defaults: ModuleOptions = {
   //  -- Error handling --

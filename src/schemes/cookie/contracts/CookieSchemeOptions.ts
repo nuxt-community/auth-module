@@ -1,5 +1,5 @@
-import { LocalSchemeEndpoints, LocalSchemeOptions } from '../../local'
-import { HTTPRequest } from '../../../index'
+import { LocalSchemeEndpoints, LocalSchemeOptions } from 'src/schemes/local'
+import { HTTPRequest } from 'src/index'
 
 export interface CookieSchemeEndpoints extends LocalSchemeEndpoints {
   csrf: HTTPRequest

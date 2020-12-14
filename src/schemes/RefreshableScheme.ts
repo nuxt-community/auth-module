@@ -1,6 +1,6 @@
-import RefreshToken from '../inc/refresh-token'
-import { HTTPResponse } from '../index'
-import RefreshController from '../inc/refresh-controller'
+import RefreshToken from 'src/inc/refresh-token'
+import { HTTPResponse } from 'src/index'
+import RefreshController from 'src/inc/refresh-controller'
 import TokenableScheme, { TokenableSchemeOptions } from './TokenableScheme'
 import { RefreshTokenOptions } from './index'
 

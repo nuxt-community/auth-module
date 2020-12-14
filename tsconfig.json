@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "strict": false,
     "declaration": true,
+    "baseUrl": ".",
     "outDir": "dist",
     "types": [
       "@types/node",

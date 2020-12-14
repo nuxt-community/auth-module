@@ -1,4 +1,4 @@
-import { HTTPRequest, HTTPResponse } from '../index'
+import { HTTPRequest, HTTPResponse } from 'src/index'
 import _Scheme from './_scheme'
 import { SchemeCheck, SchemeOptions } from './index'
 

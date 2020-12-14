@@ -1,5 +1,5 @@
-import { RefreshSchemeOptions } from '../../../../schemes/refresh'
-import { ProviderOptions } from '../../../index'
+import { RefreshSchemeOptions } from 'src/schemes/refresh'
+import { ProviderOptions } from 'src/providers'
 
 export interface LaravelJWTProviderOptions
   extends ProviderOptions,

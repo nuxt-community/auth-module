@@ -1,5 +1,5 @@
-import { RecursivePartial } from '../types/utils'
-import { HTTPResponse } from '../index'
+import { RecursivePartial } from 'src/types/utils'
+import { HTTPResponse } from 'src/index'
 import Route from './contracts/Router'
 
 export const isUnset = (o: unknown): boolean =>

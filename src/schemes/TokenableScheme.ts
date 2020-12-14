@@ -1,6 +1,6 @@
-import Token from '../inc/token'
-import RequestHandler from '../inc/request-handler'
-import { HTTPRequest } from '../index'
+import Token from 'src/inc/token'
+import RequestHandler from 'src/inc/request-handler'
+import { HTTPRequest } from 'src/index'
 import Scheme from './Scheme'
 import { TokenOptions, SchemeOptions } from './index'
 

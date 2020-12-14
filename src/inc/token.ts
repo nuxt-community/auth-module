@@ -1,7 +1,7 @@
 import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
-import { addTokenPrefix } from '../utils'
-import Storage from '../core/storage'
-import TokenableScheme from '../schemes/TokenableScheme'
+import TokenableScheme from 'src/schemes/TokenableScheme'
+import { addTokenPrefix } from 'src/utils'
+import Storage from 'src/core/storage'
 import TokenStatus from './token-status'
 
 export default class Token {

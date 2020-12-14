@@ -1,6 +1,6 @@
-import { LocalSchemeEndpoints, LocalSchemeOptions } from '../../local'
-import { HTTPRequest } from '../../../index'
-import { RefreshableSchemeOptions } from '../../RefreshableScheme'
+import { LocalSchemeEndpoints, LocalSchemeOptions } from 'src/schemes/local'
+import { HTTPRequest } from 'src/index'
+import { RefreshableSchemeOptions } from 'src/schemes/RefreshableScheme'
 
 export interface RefreshSchemeEndpoints extends LocalSchemeEndpoints {
   refresh: HTTPRequest

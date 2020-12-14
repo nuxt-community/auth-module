@@ -2,7 +2,7 @@ import { resolve, join } from 'path'
 import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 import { Module } from '@nuxt/types'
-import { ModuleOptions } from '../types'
+import { ModuleOptions } from 'src/types'
 import defaults from './defaults'
 import { resolveStrategies } from './resolve'
 

@@ -1,6 +1,6 @@
-import Auth from '../core/auth'
-import RefreshableScheme from '../schemes/RefreshableScheme'
-import { HTTPResponse } from '../index'
+import RefreshableScheme from 'src/schemes/RefreshableScheme'
+import Auth from 'src/core/auth'
+import { HTTPResponse } from 'src/index'
 
 export default class RefreshController {
   public $auth: Auth

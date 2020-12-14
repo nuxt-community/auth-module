@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Auth from '../core/auth'
+import Auth from 'src/core/auth'
 import { ModuleOptions } from './module'
 import { RecursivePartial } from './utils'
 

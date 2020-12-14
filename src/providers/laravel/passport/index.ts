@@ -1,16 +1,12 @@
+import { RefreshTokenOptions, TokenOptions, UserOptions } from 'src/schemes'
 import {
   assignDefaults,
   addAuthorize,
   initializePasswordGrantFlow,
   assignAbsoluteEndpoints
-} from '../../../utils/provider'
-import { RecursivePartial } from '../../../types/utils'
-import { ProviderPartialOptions } from '../../index'
-import {
-  RefreshTokenOptions,
-  TokenOptions,
-  UserOptions
-} from '../../../schemes'
+} from 'src/utils/provider'
+import { RecursivePartial } from 'src/types/utils'
+import { ProviderPartialOptions } from 'src/providers'
 import LaravelPassportProviderOptions from './contracts/LaravelPassportProviderOptions'
 import LaravelPassportPasswordProviderOptions from './contracts/LaravelPassportPasswordProviderOptions'
 

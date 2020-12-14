@@ -1,5 +1,5 @@
-import { assignDefaults } from '../../utils/provider'
-import { ProviderPartialOptions } from '../index'
+import { assignDefaults } from 'src/utils/provider'
+import { ProviderPartialOptions } from 'src/providers'
 import GoogleProviderOptions from './contracts/GoogleProviderOptions'
 
 export default function google(

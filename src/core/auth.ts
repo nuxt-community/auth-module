@@ -1,12 +1,18 @@
 import { Context } from '@nuxt/types'
-import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
-import type { HTTPRequest, HTTPResponse } from '../'
-import { ModuleOptions } from '../types'
-import Router from '../utils/contracts/Router'
-import Scheme from '../schemes/Scheme'
-import TokenableScheme from '../schemes/TokenableScheme'
-import RefreshableScheme from '../schemes/RefreshableScheme'
-import { SchemeCheck } from '../schemes'
+import type { HTTPRequest, HTTPResponse } from 'src'
+import { ModuleOptions } from 'src/types'
+import {
+  routeOption,
+  isRelativeURL,
+  isSet,
+  isSameURL,
+  getProp
+} from 'src/utils'
+import Router from 'src/utils/contracts/Router'
+import Scheme from 'src/schemes/Scheme'
+import TokenableScheme from 'src/schemes/TokenableScheme'
+import RefreshableScheme from 'src/schemes/RefreshableScheme'
+import { SchemeCheck } from 'src/schemes'
 import Storage from './storage'
 import RedirectListener from './contracts/RedirectListener'
 import ErrorListener from './contracts/ErrorListener'

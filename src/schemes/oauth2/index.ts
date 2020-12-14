@@ -7,7 +7,7 @@ import {
   parseQuery,
   removeTokenPrefix,
   urlJoin
-} from '../../utils'
+} from 'src/utils'
 import RefreshController from '../../inc/refresh-controller'
 import RequestHandler from '../../inc/request-handler'
 import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'

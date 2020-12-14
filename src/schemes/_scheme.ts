@@ -1,5 +1,5 @@
 import defu from 'defu'
-import Auth from '../core/auth'
+import Auth from 'src/core/auth'
 import { SchemeOptions } from './index'
 
 export default class BaseScheme<OptionsT extends SchemeOptions> {

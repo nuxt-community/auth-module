@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { parse as parseCookie, serialize as serializeCookie } from 'cookie'
-import { isUnset, isSet, decodeValue, encodeValue, getProp } from '../utils'
+import { isUnset, isSet, decodeValue, encodeValue, getProp } from 'src/utils'
 import StorageOptions from './contracts/StorageOptions'
 
 // TODO: Improve type of storages: Universal / Cookie / Local / State
