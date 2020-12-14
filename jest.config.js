@@ -7,6 +7,7 @@ module.exports = {
   },
   testEnvironment: 'node',
   testMatch: ['**/test/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  testPathIgnorePatterns: ['/test/fixture'],
   transform: {
     '^.+\\.js$': 'babel-jest'
   }
