@@ -43,7 +43,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "nanoid": "^3.1.20",
-    "requrl": "^2.0.1"
+    "requrl": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "latest",
