@@ -2,7 +2,7 @@ import Middleware from './middleware'
 import { Auth, authMiddleware, ExpiredAuthSessionError } from '~auth/runtime'
 
 // Active schemes
-<%= options.schemeImports.map(i => `import { ${i.name}${i.name !== i.as ? 'as ' + i.as : '' } } from '${i.from}'`).join('\n') %>
+<%= options.schemeImports.map(i => `import { ${i.name}${i.name !== i.as ? ' as ' + i.as : '' } } from '${i.from}'`).join('\n') %>
 
 Middleware.auth = authMiddleware
 

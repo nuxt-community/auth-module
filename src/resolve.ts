@@ -97,7 +97,7 @@ export function resolveScheme(nuxt: any, scheme: string): ImportOptions {
     const _path = path.replace(/\\/g, '/')
     return {
       name: 'default',
-      as: 'Scheme$' + hash(_path).substr(4),
+      as: 'Scheme$' + hash(_path).substr(0, 4),
       from: _path
     }
   }
