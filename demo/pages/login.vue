@@ -165,8 +165,9 @@ export default Vue.extend({
             password: this.password
           }
         })
-        .catch((e) => {
-          this.error = e.response.data
+        .catch((err) => {
+          console.error(err)
+          this.error = err.response?.data
         })
     },
 
@@ -180,8 +181,9 @@ export default Vue.extend({
             password: this.password
           }
         })
-        .catch((e) => {
-          this.error = e.response.data
+        .catch((err) => {
+          console.error(err)
+          this.error = err.response?.data
         })
     },
 
