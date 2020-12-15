@@ -1,6 +1,6 @@
 import type { Context } from '@nuxt/types'
 import Vue from 'vue'
-import { parse as parseCookie, serialize as serializeCookie } from 'cookie'
+import cookie from 'cookie'
 import type { ModuleOptions } from '../types'
 import { isUnset, isSet, decodeValue, encodeValue, getProp } from '../utils'
 
@@ -229,7 +229,7 @@ export class Storage {
       ? document.cookie
       : this.ctx.req.headers.cookie
 
-    return parseCookie(cookieStr || '') || {}
+    return cookie.parse(cookieStr || '') || {}
   }
 
   setCookie<V extends unknown>(
@@ -257,7 +257,7 @@ export class Storage {
       _options.expires = new Date(Date.now() + _options.expires * 864e5)
     }
 
-    const serializedCookie = serializeCookie(_key, _value, _options)
+    const serializedCookie = cookie.serialize(_key, _value, _options)
 
     if (process.client) {
       // Set in browser

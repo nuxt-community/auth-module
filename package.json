@@ -38,10 +38,7 @@
     "cookie": "^0.4.1",
     "defu": "^3.2.2",
     "hasha": "^5.2.2",
-    "js-cookie": "^2.2.1",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.20",
-    "nanoid": "^3.1.20",
     "requrl": "^3.0.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
-import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
+import type { JwtPayload } from 'jwt-decode'
 import type { Storage, TokenableScheme } from '../types'
 import { addTokenPrefix } from '../utils'
 import { TokenStatus } from './token-status'
@@ -79,7 +80,7 @@ export class Token {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       tokenExpiration = _tokenExpiresAtMillis
 
-      if (!(error instanceof InvalidTokenError)) {
+      if (!(error && error.name === 'InvalidTokenError')) {
         throw error
       }
     }

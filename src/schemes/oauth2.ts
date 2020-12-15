@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import requrl from 'requrl'
 import type {
   RefreshableScheme,
@@ -18,7 +17,8 @@ import {
   normalizePath,
   parseQuery,
   removeTokenPrefix,
-  urlJoin
+  urlJoin,
+  randomString
 } from '../utils'
 import {
   RefreshController,
@@ -245,7 +245,7 @@ export class Oauth2Scheme<
       scope: this.scope,
       // Note: The primary reason for using the state parameter is to mitigate CSRF attacks.
       // https://auth0.com/docs/protocols/oauth2/oauth-state
-      state: _opts.state || nanoid(),
+      state: _opts.state || randomString(10),
       code_challenge_method: this.options.codeChallengeMethod,
       ..._opts.params
     }
@@ -258,9 +258,7 @@ export class Oauth2Scheme<
     // More Info: https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes
     // More Info: https://tools.ietf.org/html/draft-ietf-oauth-v2-threatmodel-06#section-4.6.2
     if (opts.response_type.includes('id_token')) {
-      // nanoid auto-generates an URL Friendly, unique Cryptographic string
-      // Recommended by Auth0 on https://auth0.com/docs/api-auth/tutorials/nonce
-      opts.nonce = _opts.nonce || nanoid()
+      opts.nonce = _opts.nonce || randomString(10)
     }
 
     if (opts.code_challenge_method) {
