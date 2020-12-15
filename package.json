@@ -4,24 +4,12 @@
   "description": "Authentication module for Nuxt.js",
   "repository": "nuxt-community/auth-module",
   "license": "MIT",
-  "main": "./dist/module/index.js",
+  "main": "./dist/module.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "templates"
   ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "esmodules": true
-          }
-        }
-      ]
-    ]
-  },
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
@@ -39,6 +27,7 @@
     "consola": "^2.15.0",
     "cookie": "^0.4.1",
     "defu": "^3.2.2",
+    "hasha": "^5.2.2",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
@@ -76,6 +65,7 @@
     "puppeteer": "latest",
     "standard-version": "latest",
     "ts-jest": "latest",
+    "ts-loader": "^8.0.12",
     "typescript": "latest",
     "vue": "latest"
   }

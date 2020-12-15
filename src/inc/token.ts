@@ -1,6 +1,6 @@
-import type { Storage, TokenableScheme } from 'src'
 import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
-import { addTokenPrefix } from 'src/utils'
+import type { Storage, TokenableScheme } from '..'
+import { addTokenPrefix } from '../utils'
 import { TokenStatus } from './token-status'
 
 export class Token {

@@ -3,8 +3,8 @@ import type {
   HTTPRequest,
   ProviderOptions,
   CookieSchemeOptions
-} from 'src'
-import { assignDefaults, assignAbsoluteEndpoints } from 'src/utils/provider'
+} from '..'
+import { assignDefaults, assignAbsoluteEndpoints } from '../utils/provider'
 
 export interface LaravelSanctumProviderOptions
   extends ProviderOptions,
@@ -12,7 +12,7 @@ export interface LaravelSanctumProviderOptions
   url: string
 }
 
-export default function laravelSanctum(
+export function laravelSanctum(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   _nuxt: any,
   strategy: ProviderPartialOptions<LaravelSanctumProviderOptions>

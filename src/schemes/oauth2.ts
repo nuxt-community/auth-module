@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid'
+import requrl from 'requrl'
 import type {
   RefreshableScheme,
   Auth,
@@ -9,9 +11,7 @@ import type {
   HTTPResponse,
   EndpointsOption,
   TokenableSchemeOptions
-} from 'src'
-import { nanoid } from 'nanoid'
-import requrl from 'requrl'
+} from '..'
 import {
   encodeQuery,
   getResponseProp,
@@ -19,14 +19,14 @@ import {
   parseQuery,
   removeTokenPrefix,
   urlJoin
-} from 'src/utils'
+} from '../utils'
 import {
   RefreshController,
   RequestHandler,
   ExpiredAuthSessionError,
   Token,
   RefreshToken
-} from 'src/inc'
+} from '../inc'
 import { BaseScheme } from './base'
 
 export interface Oauth2SchemeEndpoints extends EndpointsOption {
@@ -425,7 +425,7 @@ export class Oauth2Scheme<
     return true // True means a redirect happened
   }
 
-  async refreshTokens(): Promise<HTTPResponse> {
+  async refreshTokens(): Promise<HTTPResponse | void> {
     // Get refresh token
     const refreshToken = this.refreshToken.get()
 

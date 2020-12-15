@@ -2,14 +2,14 @@ import type {
   ProviderOptions,
   Oauth2SchemeOptions,
   ProviderPartialOptions
-} from 'src'
-import { assignDefaults, addAuthorize } from 'src/utils/provider'
+} from '..'
+import { assignDefaults, addAuthorize } from '../utils/provider'
 
 export interface GithubProviderOptions
   extends ProviderOptions,
     Oauth2SchemeOptions {}
 
-export default function github(
+export function github(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   nuxt: any,
   strategy: ProviderPartialOptions<GithubProviderOptions>

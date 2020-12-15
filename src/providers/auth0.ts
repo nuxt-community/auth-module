@@ -3,8 +3,8 @@ import type {
   ProviderOptions,
   ProviderPartialOptions,
   Oauth2SchemeOptions
-} from 'src'
-import { assignDefaults } from 'src/utils/provider'
+} from '..'
+import { assignDefaults } from '../utils/provider'
 
 export interface Auth0ProviderOptions
   extends ProviderOptions,
@@ -12,13 +12,13 @@ export interface Auth0ProviderOptions
   domain: string
 }
 
-export default function auth0(
+export function auth0(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   _nuxt: any,
   strategy: ProviderPartialOptions<Auth0ProviderOptions>
 ): void {
   const DEFAULTS: typeof strategy = {
-    scheme: path.resolve(__dirname, 'scheme'),
+    scheme: 'auth0',
     endpoints: {
       authorization: `https://${strategy.domain}/authorize`,
       userInfo: `https://${strategy.domain}/userinfo`,

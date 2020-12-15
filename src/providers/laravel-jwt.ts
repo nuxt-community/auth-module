@@ -3,8 +3,8 @@ import type {
   ProviderPartialOptions,
   ProviderOptions,
   RefreshSchemeOptions
-} from 'src'
-import { assignDefaults, assignAbsoluteEndpoints } from 'src/utils/provider'
+} from '..'
+import { assignDefaults, assignAbsoluteEndpoints } from '../utils/provider'
 
 export interface LaravelJWTProviderOptions
   extends ProviderOptions,
@@ -12,7 +12,7 @@ export interface LaravelJWTProviderOptions
   url: string
 }
 
-export default function laravelJWT(
+export function laravelJWT(
   _nuxt: any,
   strategy: ProviderPartialOptions<LaravelJWTProviderOptions>
 ): void {
@@ -23,8 +23,8 @@ export default function laravelJWT(
   }
 
   const DEFAULTS: typeof strategy = {
-    scheme: path.resolve(__dirname, 'scheme'),
     name: 'laravelJWT',
+    scheme: 'laravelJWT',
     endpoints: {
       login: {
         url: url + '/api/auth/login'

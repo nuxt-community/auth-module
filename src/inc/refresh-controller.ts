@@ -1,4 +1,4 @@
-import type { Auth, RefreshableScheme, HTTPResponse } from 'src'
+import type { Auth, RefreshableScheme, HTTPResponse } from '..'
 
 export class RefreshController {
   public $auth: Auth

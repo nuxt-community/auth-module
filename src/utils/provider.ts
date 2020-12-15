@@ -1,14 +1,14 @@
+import defu from 'defu'
+import axios from 'axios'
+import bodyParser from 'body-parser'
+import requrl from 'requrl'
 import type {
   Oauth2SchemeOptions,
   RefreshSchemeOptions,
   StrategyOptions,
   HTTPRequest,
   LocalSchemeOptions
-} from 'src'
-import defu from 'defu'
-import axios from 'axios'
-import bodyParser from 'body-parser'
-import requrl from 'requrl'
+} from '..'
 
 export function assignDefaults<SOptions extends StrategyOptions>(
   strategy: SOptions,

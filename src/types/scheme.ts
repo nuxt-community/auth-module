@@ -1,10 +1,10 @@
-import type { HTTPRequest, HTTPResponse, Auth } from 'src'
+import type { HTTPRequest, HTTPResponse, Auth } from '..'
 import type {
   Token,
   RefreshToken,
   RefreshController,
   RequestHandler
-} from 'src/inc'
+} from '../inc'
 import type { PartialExcept } from './utils'
 
 // TODO: Move us to our home
@@ -96,5 +96,5 @@ export interface RefreshableScheme<
 > extends TokenableScheme<OptionsT> {
   refreshToken: RefreshToken
   refreshController: RefreshController
-  refreshTokens(): Promise<HTTPResponse>
+  refreshTokens(): Promise<HTTPResponse | void>
 }

@@ -6,13 +6,13 @@ import type {
   HTTPResponse,
   HTTPRequest,
   RefreshableSchemeOptions
-} from 'src'
-import { cleanObj, getResponseProp } from 'src/utils'
+} from '..'
+import { cleanObj, getResponseProp } from '../utils'
 import {
   RefreshController,
   RefreshToken,
   ExpiredAuthSessionError
-} from 'src/inc'
+} from '../inc'
 import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
 
 export interface RefreshSchemeEndpoints extends LocalSchemeEndpoints {

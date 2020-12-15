@@ -1,16 +1,14 @@
-import authMiddleware from '~auth/core/middleware'
 import Middleware from './middleware'
-import Auth from '~auth/core/auth'
-import ExpiredAuthSessionError from '~auth/inc/expired-auth-session-error'
+import { Auth, authMiddleware, ExpiredAuthSessionError } from '~auth/runtime'
 
 // Active schemes
-<%= options.uniqueSchemes.map(path => `import ${'scheme_' + hash(path)} from '${(path || '404').replace(/\\/g,'/')}'`).join('\n') %>
+<%= options.schemeImports.map(i => `import { ${i.name}${i.name !== i.as ? 'as ' + i.as : '' } } from '${i.from}'`).join('\n') %>
 
 Middleware.auth = authMiddleware
 
 export default function (ctx, inject) {
   // Options
-  const options = <%= JSON.stringify(options.options) %>
+  const options = <%= JSON.stringify(options.options, null, 2) %>
 
   // Create a new Auth instance
   const $auth = new Auth(ctx, options)
@@ -18,10 +16,9 @@ export default function (ctx, inject) {
   // Register strategies
   <%=
   options.strategies.map(strategy => {
-    const scheme = 'scheme_' + hash(options.strategyScheme.get(strategy))
-    const schemeOptions = JSON.stringify(strategy)
-    const name = strategy.name
-    return `// ${name}\n  $auth.registerStrategy('${name}', new ${scheme}($auth, ${schemeOptions}))`
+    const scheme = options.strategyScheme[strategy.name]
+    const schemeOptions = JSON.stringify(strategy, null, 2)
+    return `// ${strategy.name}\n  $auth.registerStrategy('${scheme.name}', new ${scheme.as}($auth, ${schemeOptions}))`
   }).join('\n\n  ')
   %>
 

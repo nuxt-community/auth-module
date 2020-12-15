@@ -2,14 +2,14 @@ import type {
   ProviderPartialOptions,
   Oauth2SchemeOptions,
   ProviderOptions
-} from 'src'
-import { assignDefaults } from 'src/utils/provider'
+} from '..'
+import { assignDefaults } from '../utils/provider'
 
 export interface FacebookProviderOptions
   extends ProviderOptions,
     Oauth2SchemeOptions {}
 
-export default function facebook(
+export function facebook(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   _nuxt: any,
   strategy: ProviderPartialOptions<FacebookProviderOptions>

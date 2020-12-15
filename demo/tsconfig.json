@@ -30,9 +30,6 @@
       "@types/express-jwt",
       "@types/jsonwebtoken",
       "../src/index"
-    ],
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    ]
+  }
 }

@@ -1,7 +1,7 @@
-import type { HTTPResponse } from 'src'
-import { RefreshScheme } from 'src/schemes/refresh'
+import type { HTTPResponse } from '..'
+import { RefreshScheme } from './refresh'
 
-export default class LaravelJWT extends RefreshScheme {
+export class LaravelJWTScheme extends RefreshScheme {
   protected updateTokens(
     response: HTTPResponse,
     { isRefreshing = false, updateOnRefresh = false } = {}

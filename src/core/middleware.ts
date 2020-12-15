@@ -1,8 +1,8 @@
-import type { Route } from 'src'
 import type { Middleware } from '@nuxt/types'
-import { routeOption, getMatchedComponents, normalizePath } from 'src/utils'
+import type { Route } from '..'
+import { routeOption, getMatchedComponents, normalizePath } from '../utils'
 
-const authMiddleware: Middleware = async (ctx) => {
+export const authMiddleware: Middleware = async (ctx) => {
   // Disable middleware if options: { auth: false } is set on the route
   // TODO: Why Router is incompatible?
   if (routeOption((ctx.route as unknown) as Route, 'auth', false)) {
@@ -64,5 +64,3 @@ const authMiddleware: Middleware = async (ctx) => {
     ctx.$auth.redirect('login')
   }
 }
-
-export default authMiddleware

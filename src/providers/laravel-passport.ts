@@ -7,13 +7,13 @@ import type {
   ProviderPartialOptions,
   ProviderOptions,
   Oauth2SchemeOptions
-} from 'src'
+} from '..'
 import {
   assignDefaults,
   addAuthorize,
   initializePasswordGrantFlow,
   assignAbsoluteEndpoints
-} from 'src/utils/provider'
+} from '../utils/provider'
 
 export interface LaravelPassportProviderOptions
   extends ProviderOptions,
@@ -36,7 +36,7 @@ function isPasswordGrant(
   return strategy.grantType === 'password'
 }
 
-export default function laravelPassport(
+export function laravelPassport(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   nuxt: any,
   strategy: PartialPassportOptions | PartialPassportPasswordOptions

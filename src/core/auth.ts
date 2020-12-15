@@ -8,14 +8,8 @@ import type {
   TokenableScheme,
   RefreshableScheme,
   SchemeCheck
-} from 'src'
-import {
-  routeOption,
-  isRelativeURL,
-  isSet,
-  isSameURL,
-  getProp
-} from 'src/utils'
+} from '..'
+import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import { Storage } from './storage'
 
 export type ErrorListener = (...args: unknown[]) => void

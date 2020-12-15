@@ -8,9 +8,9 @@ import type {
   HTTPResponse,
   SchemeCheck,
   Auth
-} from 'src'
-import { getResponseProp } from 'src/utils'
-import { Token, RequestHandler } from 'src/inc'
+} from '..'
+import { getResponseProp } from '../utils'
+import { Token, RequestHandler } from '../inc'
 import { BaseScheme } from './base'
 
 export interface LocalSchemeEndpoints extends EndpointsOption {

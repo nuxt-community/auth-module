@@ -1,19 +1,31 @@
 import { existsSync } from 'fs'
-import { resolve } from 'path'
-import type { Strategy } from 'src'
-import consola from 'consola'
+import hash from 'hasha'
+import * as AUTH_PROVIDERS from './providers'
+import { ProviderAliases } from './providers'
 import type { ModuleOptions } from './options'
+import type { Strategy } from '.'
 
-const logger = consola.withScope('nuxt:auth')
-const builtInSchemes = ['local', 'cookie', 'oauth2', 'refresh']
+const BuiltinSchemes = {
+  local: 'LocalScheme',
+  cookie: 'CookieScheme',
+  oauth2: 'Oauth2Scheme',
+  refresh: 'RefreshScheme',
+  laravelJWT: 'LaravelJWTScheme',
+  auth0: 'Auth0Scheme'
+}
+
+export interface ImportOptions {
+  name: string
+  as: string
+  from: string
+}
 
 export function resolveStrategies(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   nuxt: any,
   options: ModuleOptions
-): { strategies: Strategy[]; strategyScheme: Map<Strategy, string> } {
+): { strategies: Strategy[]; strategyScheme: Record<string, ImportOptions> } {
   const strategies: Strategy[] = []
-  const strategyScheme = new Map<Strategy, string>()
+  const strategyScheme = {} as Record<string, ImportOptions>
 
   for (const name of Object.keys(options.strategies)) {
     if (
@@ -53,9 +65,9 @@ export function resolveStrategies(
     }
 
     // Resolve and keep scheme needed for strategy
-    const scheme = resolveScheme(nuxt, strategy.scheme)
+    const schemeImport = resolveScheme(nuxt, strategy.scheme)
     delete strategy.scheme
-    strategyScheme.set(strategy, scheme)
+    strategyScheme[strategy.name] = schemeImport
 
     // Add strategy to array
     strategies.push(strategy)
@@ -67,27 +79,27 @@ export function resolveStrategies(
   }
 }
 
-export function resolveScheme(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  nuxt: any,
-  scheme: string
-): string {
+export function resolveScheme(nuxt: any, scheme: string): ImportOptions {
   if (typeof scheme !== 'string') {
     return
   }
 
-  if (builtInSchemes.includes(scheme)) {
-    return '~auth/schemes/' + scheme
+  if (BuiltinSchemes[scheme]) {
+    return {
+      name: BuiltinSchemes[scheme],
+      as: BuiltinSchemes[scheme],
+      from: '~auth/runtime'
+    }
   }
 
-  try {
-    const path = nuxt.resolvePath(scheme)
-
-    if (existsSync(path)) {
-      return path
+  const path = nuxt.resolvePath(scheme)
+  if (existsSync(path)) {
+    const _path = path.replace(/\\/g, '/')
+    return {
+      name: 'default',
+      as: 'Scheme$' + hash(_path).substr(4),
+      from: _path
     }
-  } catch (e) {
-    logger.fatal(`Scheme ${scheme} wasn't found!`)
   }
 }
 
@@ -104,15 +116,17 @@ export function resolveProvider(
     return
   }
 
-  const builtInProvider = resolve(__dirname, '../providers', provider)
+  provider = (ProviderAliases[provider] || provider) as string
 
-  for (const _path of [provider, builtInProvider]) {
-    try {
-      const m = nuxt.resolver.requireModule(_path, { useESM: true })
-      return m.default || m
-    } catch (e) {
-      // TODO: Check if e.code is not file not found, throw an error (can be parse error)
-      // Ignore
-    }
+  if (AUTH_PROVIDERS[provider]) {
+    return AUTH_PROVIDERS[provider]
+  }
+
+  try {
+    const m = nuxt.resolver.requireModule(provider, { useESM: true })
+    return m.default || m
+  } catch (e) {
+    // TODO: Check if e.code is not file not found, throw an error (can be parse error)
+    // Ignore
   }
 }
