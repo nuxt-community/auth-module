@@ -17,7 +17,8 @@
   "main": "./dist/module.js",
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "siroc build && yarn tsc --emitDeclarationOnly",
