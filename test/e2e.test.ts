@@ -1,37 +1,13 @@
-import path from 'path'
-import { loadNuxt } from 'nuxt-edge'
-import puppeteer from 'puppeteer'
-import getPort from 'get-port'
-import RefreshableScheme from '../src/schemes/RefreshableScheme'
-import TokenableScheme from '../src/schemes/TokenableScheme'
+import { setupTest, createPage } from '@nuxt/test-utils'
+import { RefreshableScheme, TokenableScheme } from '../src'
 
 describe('e2e', () => {
-  let url, nuxt, browser
-
-  beforeAll(async () => {
-    browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
-    })
-
-    nuxt = await loadNuxt({
-      for: 'start',
-      rootDir: path.resolve(__dirname, 'fixture')
-    })
-
-    const port = await getPort()
-    url = (p) => 'http://localhost:' + port + p
-    await nuxt.listen(port)
-  }, 60000)
-
-  afterAll(async () => {
-    await browser.close()
-    await nuxt.close()
+  setupTest({
+    browser: true
   })
 
   test('initial state', async () => {
-    const page = await browser.newPage()
-    await page.goto(url('/'))
+    const page = await createPage('/')
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -46,8 +22,7 @@ describe('e2e', () => {
   })
 
   test('login', async () => {
-    const page = await browser.newPage()
-    await page.goto(url('/'))
+    const page = await createPage('/')
     await page.waitForFunction('!!window.$nuxt')
 
     const { token, user, axiosBearer, response } = await page.evaluate(
@@ -80,8 +55,7 @@ describe('e2e', () => {
   })
 
   test('refresh', async () => {
-    const page = await browser.newPage()
-    await page.goto(url('/'))
+    const page = await createPage('/')
     await page.waitForFunction('!!window.$nuxt')
 
     const {
@@ -103,7 +77,6 @@ describe('e2e', () => {
           window.$nuxt.$axios.defaults.headers.common.Authorization,
         loginToken: strategy.token.get(),
         loginRefreshToken: strategy.refreshToken.get(),
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         loginExpiresAt: strategy.token._getExpiration(),
         loginUser: window.$nuxt.$auth.user,
@@ -138,7 +111,6 @@ describe('e2e', () => {
           window.$nuxt.$axios.defaults.headers.common.Authorization,
         refreshedToken: strategy.token.get(),
         refreshedRefreshToken: strategy.refreshToken.get(),
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         refreshedExpiresAt: strategy.token._getExpiration(),
         refreshedUser: window.$nuxt.$auth.user,
@@ -155,7 +127,7 @@ describe('e2e', () => {
     expect(refreshedRefreshToken).toBeDefined()
     expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
     expect(refreshedExpiresAt).toBeDefined()
-    expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
+    expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt as number)
     expect(refreshedUser).toBeDefined()
     expect(refreshedUser.username).toBe('test_username')
     expect(refreshedResponse).toBeDefined()
@@ -164,8 +136,7 @@ describe('e2e', () => {
   })
 
   test('logout', async () => {
-    const page = await browser.newPage()
-    await page.goto(url('/'))
+    const page = await createPage('/')
     await page.waitForFunction('!!window.$nuxt')
 
     const { loginAxiosBearer, loginToken } = await page.evaluate(async () => {
@@ -206,8 +177,7 @@ describe('e2e', () => {
   })
 
   test('auth plugin', async () => {
-    const page = await browser.newPage()
-    await page.goto(url('/'))
+    const page = await createPage('/')
 
     const flag = await page.evaluate(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
