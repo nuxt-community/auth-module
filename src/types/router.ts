@@ -6,4 +6,3 @@ interface VueComponent {
 type match = { components: VueComponent[] }
 
 export type Route = { matched: match[] }
-

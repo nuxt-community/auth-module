@@ -1,6 +1,4 @@
-import type Vue from 'vue'
-import type { Auth } from 'src/core'
-import type { ModuleOptions } from 'src/module'
+import type { Auth, ModuleOptions } from 'src'
 import type { RecursivePartial } from './utils'
 
 declare module '@nuxt/types' {
@@ -23,14 +21,14 @@ declare module 'vue/types/vue' {
 }
 
 declare module 'vue/types/options' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface ComponentOptions<V extends Vue> {
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+  interface ComponentOptions<V> {
     auth?: true | false | 'guest'
   }
 }
 
 declare module 'vuex/types/index' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   interface Store<S> {
     $auth: Auth
   }

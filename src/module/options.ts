@@ -19,17 +19,17 @@ export interface ModuleOptions {
     namespace: string
   }
   cookie:
-  | {
-    prefix: string
-    options: {
-      path: string
-      expires?: number | Date
-      maxAge?: number
-      domain?: string
-      secure?: boolean
-    }
-  }
-  | false
+    | {
+        prefix: string
+        options: {
+          path: string
+          expires?: number | Date
+          maxAge?: number
+          domain?: string
+          secure?: boolean
+        }
+      }
+    | false
   localStorage: {
     prefix: string
   }

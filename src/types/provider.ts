@@ -8,5 +8,6 @@ export interface ProviderOptions {
 
 type ProviderOptionsKeys = Exclude<keyof ProviderOptions, 'clientSecret'>
 
-export type ProviderPartialOptions<Options extends ProviderOptions & SchemeOptions>
-  = PartialExcept<Options, ProviderOptionsKeys>
+export type ProviderPartialOptions<
+  Options extends ProviderOptions & SchemeOptions
+> = PartialExcept<Options, ProviderOptionsKeys>

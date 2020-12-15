@@ -1,4 +1,10 @@
-import type { Oauth2SchemeOptions, RefreshSchemeOptions, StrategyOptions, HTTPRequest, LocalSchemeOptions } from 'src'
+import type {
+  Oauth2SchemeOptions,
+  RefreshSchemeOptions,
+  StrategyOptions,
+  HTTPRequest,
+  LocalSchemeOptions
+} from 'src'
 import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'

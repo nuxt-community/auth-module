@@ -1,12 +1,18 @@
-import type { ProviderPartialOptions, ProviderOptions, Oauth2SchemeOptions } from 'src'
+import type {
+  ProviderPartialOptions,
+  ProviderOptions,
+  Oauth2SchemeOptions
+} from 'src'
 import { assignDefaults } from 'src/utils/provider'
 
 export interface GoogleProviderOptions
   extends ProviderOptions,
-  Oauth2SchemeOptions { }
+    Oauth2SchemeOptions {}
 
-
-export default function google(_nuxt: any, strategy: ProviderPartialOptions<GoogleProviderOptions> ): void {
+export default function google(
+  _nuxt: any,
+  strategy: ProviderPartialOptions<GoogleProviderOptions>
+): void {
   const DEFAULTS: typeof strategy = {
     scheme: 'oauth2',
     endpoints: {

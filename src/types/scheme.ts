@@ -1,7 +1,38 @@
 import type { HTTPRequest, HTTPResponse, Auth } from 'src'
-import type { Token, RefreshToken, RefreshController, RequestHandler } from 'src/inc'
+import type {
+  Token,
+  RefreshToken,
+  RefreshController,
+  RequestHandler
+} from 'src/inc'
 import type { PartialExcept } from './utils'
 
+// TODO: Move us to our home
+export interface UserOptions {
+  property: string | false
+  autoFetch: boolean
+}
+export interface EndpointsOption {
+  [endpoint: string]: string | HTTPRequest | false
+}
+
+// Scheme
+
+export interface SchemeOptions {
+  name: string
+}
+
+export type SchemePartialOptions<Options extends SchemeOptions> = PartialExcept<
+  Options,
+  keyof SchemeOptions
+>
+
+export interface SchemeCheck {
+  valid: boolean
+  tokenExpired?: boolean
+  refreshTokenExpired?: boolean
+  isRefreshable?: boolean
+}
 export interface Scheme<OptionsT extends SchemeOptions = SchemeOptions> {
   options: OptionsT
   name?: string
@@ -18,12 +49,7 @@ export interface Scheme<OptionsT extends SchemeOptions = SchemeOptions> {
   reset?(options?: { resetInterceptor: boolean }): void
 }
 
-export interface SchemeCheck {
-  valid: boolean
-  tokenExpired?: boolean
-  refreshTokenExpired?: boolean
-  isRefreshable?: boolean
-}
+// Token
 
 export interface TokenOptions {
   property: string
@@ -36,6 +62,20 @@ export interface TokenOptions {
   expirationPrefix: string
 }
 
+export interface TokenableSchemeOptions extends SchemeOptions {
+  token: TokenOptions
+  endpoints: EndpointsOption
+}
+
+export interface TokenableScheme<
+  OptionsT extends TokenableSchemeOptions = TokenableSchemeOptions
+> extends Scheme<OptionsT> {
+  token: Token
+  requestHandler: RequestHandler
+}
+
+// Refrash
+
 export interface RefreshTokenOptions {
   property: string | false
   type: string | false
@@ -47,46 +87,14 @@ export interface RefreshTokenOptions {
   expirationPrefix: string
 }
 
-export interface UserOptions {
-  property: string | false
-  autoFetch: boolean
-}
-
-export interface SchemeOptions {
-  name: string
-}
-
-export type SchemePartialOptions<Options extends SchemeOptions> = PartialExcept<
-  Options,
-  keyof SchemeOptions
->
-
-
 export interface RefreshableSchemeOptions extends TokenableSchemeOptions {
   refreshToken: RefreshTokenOptions
 }
 
 export interface RefreshableScheme<
   OptionsT extends RefreshableSchemeOptions = RefreshableSchemeOptions
-  > extends TokenableScheme<OptionsT> {
+> extends TokenableScheme<OptionsT> {
   refreshToken: RefreshToken
   refreshController: RefreshController
   refreshTokens(): Promise<HTTPResponse>
-}
-
-
-export interface EndpointsOption {
-  [endpoint: string]: string | HTTPRequest | false
-}
-
-export interface TokenableSchemeOptions extends SchemeOptions {
-  token: TokenOptions
-  endpoints: EndpointsOption
-}
-
-export interface TokenableScheme<
-  OptionsT extends TokenableSchemeOptions = TokenableSchemeOptions
-> extends Scheme<OptionsT> {
-  token: Token
-  requestHandler: RequestHandler
 }

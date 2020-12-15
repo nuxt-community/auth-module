@@ -1,17 +1,31 @@
 import type {
-  RefreshableScheme, Auth, SchemePartialOptions, SchemeCheck,
-  RefreshableSchemeOptions, UserOptions, SchemeOptions, HTTPResponse,
-  EndpointsOption, TokenableSchemeOptions
+  RefreshableScheme,
+  Auth,
+  SchemePartialOptions,
+  SchemeCheck,
+  RefreshableSchemeOptions,
+  UserOptions,
+  SchemeOptions,
+  HTTPResponse,
+  EndpointsOption,
+  TokenableSchemeOptions
 } from 'src'
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
 import {
-  encodeQuery, getResponseProp, normalizePath,
-  parseQuery, removeTokenPrefix, urlJoin
+  encodeQuery,
+  getResponseProp,
+  normalizePath,
+  parseQuery,
+  removeTokenPrefix,
+  urlJoin
 } from 'src/utils'
 import {
-  RefreshController, RequestHandler, ExpiredAuthSessionError,
-  Token, RefreshToken
+  RefreshController,
+  RequestHandler,
+  ExpiredAuthSessionError,
+  Token,
+  RefreshToken
 } from 'src/inc'
 import { BaseScheme } from './base'
 
@@ -23,18 +37,20 @@ export interface Oauth2SchemeEndpoints extends EndpointsOption {
 }
 
 export interface Oauth2SchemeOptions
-  extends SchemeOptions, TokenableSchemeOptions, RefreshableSchemeOptions {
+  extends SchemeOptions,
+    TokenableSchemeOptions,
+    RefreshableSchemeOptions {
   endpoints: Oauth2SchemeEndpoints
   user: UserOptions
   responseMode: 'query.jwt' | 'fragment.jwt' | 'form_post.jwt' | 'jwt'
   responseType: 'code' | 'token' | 'id_token' | 'none' | string
   grantType:
-  | 'implicit'
-  | 'authorization_code'
-  | 'client_credentials'
-  | 'password'
-  | 'refresh_token'
-  | 'urn:ietf:params:oauth:grant-type:device_code'
+    | 'implicit'
+    | 'authorization_code'
+    | 'client_credentials'
+    | 'password'
+    | 'refresh_token'
+    | 'urn:ietf:params:oauth:grant-type:device_code'
   accessType: 'online' | 'offline'
   redirectUri: string
   logoutRedirectUri: string
@@ -87,8 +103,11 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   codeChallengeMethod: 'implicit'
 }
 
-export class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions>
-  extends BaseScheme<OptionsT> implements RefreshableScheme {
+export class Oauth2Scheme<
+    OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions
+  >
+  extends BaseScheme<OptionsT>
+  implements RefreshableScheme {
   public req
   public token: Token
   public refreshToken: RefreshToken

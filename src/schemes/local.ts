@@ -1,7 +1,13 @@
 import type {
-  EndpointsOption, SchemePartialOptions, TokenableSchemeOptions,
-  TokenableScheme, UserOptions, HTTPRequest, HTTPResponse,
-  SchemeCheck, Auth
+  EndpointsOption,
+  SchemePartialOptions,
+  TokenableSchemeOptions,
+  TokenableScheme,
+  UserOptions,
+  HTTPRequest,
+  HTTPResponse,
+  SchemeCheck,
+  Auth
 } from 'src'
 import { getResponseProp } from 'src/utils'
 import { Token, RequestHandler } from 'src/inc'
@@ -185,23 +191,23 @@ export class LocalScheme<
     return response
   }
 
-  async setUserToken(token: string): Promise<HTTPResponse | void> {
+  setUserToken(token: string): Promise<HTTPResponse | void> {
     this.token.set(token)
 
     // Fetch user
     return this.fetchUser()
   }
 
-  async fetchUser(endpoint?: HTTPRequest): Promise<HTTPResponse | void> {
+  fetchUser(endpoint?: HTTPRequest): Promise<HTTPResponse | void> {
     // Token is required but not available
     if (!this.check().valid) {
-      return
+      return Promise.resolve()
     }
 
     // User endpoint is disabled
     if (!this.options.endpoints.user) {
       this.$auth.setUser({})
-      return
+      return Promise.resolve()
     }
 
     // Try to fetch user and then set

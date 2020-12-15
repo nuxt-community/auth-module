@@ -1,6 +1,18 @@
-import type { Auth, RefreshableScheme, SchemePartialOptions, SchemeCheck, HTTPResponse, HTTPRequest, RefreshableSchemeOptions } from 'src'
+import type {
+  Auth,
+  RefreshableScheme,
+  SchemePartialOptions,
+  SchemeCheck,
+  HTTPResponse,
+  HTTPRequest,
+  RefreshableSchemeOptions
+} from 'src'
 import { cleanObj, getResponseProp } from 'src/utils'
-import { RefreshController, RefreshToken, ExpiredAuthSessionError } from 'src/inc'
+import {
+  RefreshController,
+  RefreshToken,
+  ExpiredAuthSessionError
+} from 'src/inc'
 import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
 
 export interface RefreshSchemeEndpoints extends LocalSchemeEndpoints {
@@ -9,7 +21,7 @@ export interface RefreshSchemeEndpoints extends LocalSchemeEndpoints {
 
 export interface RefreshSchemeOptions
   extends LocalSchemeOptions,
-  RefreshableSchemeOptions {
+    RefreshableSchemeOptions {
   endpoints: RefreshSchemeEndpoints
   autoLogout: boolean
 }
@@ -111,15 +123,15 @@ export class RefreshScheme<
     })
   }
 
-  async refreshTokens(): Promise<HTTPResponse> {
+  refreshTokens(): Promise<HTTPResponse | void> {
     // Refresh endpoint is disabled
     if (!this.options.endpoints.refresh) {
-      return
+      return Promise.resolve()
     }
 
     // Token and refresh token are required but not available
     if (!this.check().valid) {
-      return
+      return Promise.resolve()
     }
 
     // Get refresh token status
@@ -175,7 +187,7 @@ export class RefreshScheme<
       })
   }
 
-  async setUserToken(
+  setUserToken(
     token: string | boolean,
     refreshToken?: string | boolean
   ): Promise<HTTPResponse | void> {

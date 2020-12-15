@@ -1,6 +1,7 @@
 import type { Route, HTTPResponse, RecursivePartial } from 'src'
 
-export const isUnset = (o: unknown): boolean => typeof o === 'undefined' || o === null
+export const isUnset = (o: unknown): boolean =>
+  typeof o === 'undefined' || o === null
 
 export const isSet = (o: unknown): boolean => !isUnset(o)
 

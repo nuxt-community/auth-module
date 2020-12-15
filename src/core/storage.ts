@@ -12,7 +12,6 @@ export type StorageOptions = ModuleOptions & {
   }
 }
 
-
 // TODO: Improve type of storages: Universal / Cookie / Local / State
 
 export class Storage {

@@ -155,7 +155,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    async login() {
+    login() {
       this.error = null
 
       return this.$auth
@@ -170,7 +170,7 @@ export default Vue.extend({
         })
     },
 
-    async localRefresh() {
+    localRefresh() {
       this.error = null
 
       return this.$auth
@@ -185,7 +185,7 @@ export default Vue.extend({
         })
     },
 
-    async loginJWT() {
+    loginJWT() {
       this.error = null
 
       return this.$auth
@@ -200,7 +200,7 @@ export default Vue.extend({
         })
     },
 
-    async loginPassport() {
+    loginPassport() {
       this.error = null
 
       return this.$auth.loginWith('laravelPassport').catch((e) => {
@@ -208,7 +208,7 @@ export default Vue.extend({
       })
     },
 
-    async loginPassportGrantFlow() {
+    loginPassportGrantFlow() {
       this.error = null
 
       return this.$auth
@@ -223,7 +223,7 @@ export default Vue.extend({
         })
     },
 
-    async loginSanctum() {
+    loginSanctum() {
       this.error = null
 
       return this.$auth

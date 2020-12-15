@@ -1,7 +1,14 @@
-import type { ProviderPartialOptions, HTTPRequest, ProviderOptions, CookieSchemeOptions } from 'src'
+import type {
+  ProviderPartialOptions,
+  HTTPRequest,
+  ProviderOptions,
+  CookieSchemeOptions
+} from 'src'
 import { assignDefaults, assignAbsoluteEndpoints } from 'src/utils/provider'
 
-export interface LaravelSanctumProviderOptions extends ProviderOptions, CookieSchemeOptions {
+export interface LaravelSanctumProviderOptions
+  extends ProviderOptions,
+    CookieSchemeOptions {
   url: string
 }
 

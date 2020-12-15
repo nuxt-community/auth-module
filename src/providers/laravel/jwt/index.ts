@@ -1,8 +1,14 @@
-import type { ProviderPartialOptions, ProviderOptions, RefreshSchemeOptions } from 'src'
 import path from 'path'
+import type {
+  ProviderPartialOptions,
+  ProviderOptions,
+  RefreshSchemeOptions
+} from 'src'
 import { assignDefaults, assignAbsoluteEndpoints } from 'src/utils/provider'
 
-export interface LaravelJWTProviderOptions extends ProviderOptions, RefreshSchemeOptions {
+export interface LaravelJWTProviderOptions
+  extends ProviderOptions,
+    RefreshSchemeOptions {
   url: string
 }
 

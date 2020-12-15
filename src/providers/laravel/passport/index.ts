@@ -1,19 +1,29 @@
 import type {
-  RefreshTokenOptions, TokenOptions, UserOptions, RefreshSchemeOptions,
-  RecursivePartial, ProviderPartialOptions, ProviderOptions, Oauth2SchemeOptions,
+  RefreshTokenOptions,
+  TokenOptions,
+  UserOptions,
+  RefreshSchemeOptions,
+  RecursivePartial,
+  ProviderPartialOptions,
+  ProviderOptions,
+  Oauth2SchemeOptions
 } from 'src'
-import { assignDefaults, addAuthorize, initializePasswordGrantFlow, assignAbsoluteEndpoints } from 'src/utils/provider'
-
+import {
+  assignDefaults,
+  addAuthorize,
+  initializePasswordGrantFlow,
+  assignAbsoluteEndpoints
+} from 'src/utils/provider'
 
 export interface LaravelPassportProviderOptions
   extends ProviderOptions,
-  Oauth2SchemeOptions {
+    Oauth2SchemeOptions {
   url: string
 }
 
 export interface LaravelPassportPasswordProviderOptions
   extends ProviderOptions,
-  RefreshSchemeOptions {
+    RefreshSchemeOptions {
   url: string
 }
 

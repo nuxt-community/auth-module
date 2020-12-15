@@ -1,5 +1,5 @@
-import type { Module } from '@nuxt/types'
 import { resolve, join } from 'path'
+import type { Module } from '@nuxt/types'
 import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
 import { ModuleOptions, moduleDefaults } from './options'

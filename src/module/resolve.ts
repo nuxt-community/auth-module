@@ -1,8 +1,8 @@
-import type { Strategy } from 'src'
-import type { ModuleOptions } from './options'
 import { existsSync } from 'fs'
 import { resolve } from 'path'
+import type { Strategy } from 'src'
 import consola from 'consola'
+import type { ModuleOptions } from './options'
 
 const logger = consola.withScope('nuxt:auth')
 const builtInSchemes = ['local', 'cookie', 'oauth2', 'refresh']

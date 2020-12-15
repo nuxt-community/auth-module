@@ -1,10 +1,14 @@
-import type { ProviderOptions, ProviderPartialOptions, Oauth2SchemeOptions } from 'src'
 import path from 'path'
+import type {
+  ProviderOptions,
+  ProviderPartialOptions,
+  Oauth2SchemeOptions
+} from 'src'
 import { assignDefaults } from 'src/utils/provider'
 
 export interface Auth0ProviderOptions
   extends ProviderOptions,
-  Oauth2SchemeOptions {
+    Oauth2SchemeOptions {
   domain: string
 }
 

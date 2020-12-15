@@ -1,9 +1,13 @@
-import type { ProviderOptions, Oauth2SchemeOptions, ProviderPartialOptions } from 'src'
+import type {
+  ProviderOptions,
+  Oauth2SchemeOptions,
+  ProviderPartialOptions
+} from 'src'
 import { assignDefaults, addAuthorize } from 'src/utils/provider'
 
 export interface GithubProviderOptions
   extends ProviderOptions,
-  Oauth2SchemeOptions { }
+    Oauth2SchemeOptions {}
 
 export default function github(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types

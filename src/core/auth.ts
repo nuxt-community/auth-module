@@ -1,14 +1,25 @@
 import type { Context } from '@nuxt/types'
 import type {
-  HTTPRequest, HTTPResponse, ModuleOptions,
-  Route, Scheme, TokenableScheme, RefreshableScheme, SchemeCheck
+  HTTPRequest,
+  HTTPResponse,
+  ModuleOptions,
+  Route,
+  Scheme,
+  TokenableScheme,
+  RefreshableScheme,
+  SchemeCheck
 } from 'src'
-import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from 'src/utils'
+import {
+  routeOption,
+  isRelativeURL,
+  isSet,
+  isSameURL,
+  getProp
+} from 'src/utils'
 import { Storage } from './storage'
 
 export type ErrorListener = (...args: unknown[]) => void
 export type RedirectListener = (to: string, from: string) => string
-
 
 export class Auth {
   public ctx: Context
