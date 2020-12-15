@@ -166,6 +166,7 @@ export default Vue.extend({
           }
         })
         .catch((err) => {
+          // eslint-disable-next-line no-console
           console.error(err)
           this.error = err.response?.data
         })
@@ -182,6 +183,7 @@ export default Vue.extend({
           }
         })
         .catch((err) => {
+          // eslint-disable-next-line no-console
           console.error(err)
           this.error = err.response?.data
         })
