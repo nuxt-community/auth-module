@@ -1,4 +1,4 @@
-import type { Strategy } from '../types'
+import type { Strategy } from 'src'
 
 export interface ModuleOptions {
   plugins?: string[] | { src: string; ssr: boolean }[]

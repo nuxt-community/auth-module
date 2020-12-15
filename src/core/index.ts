@@ -1,2 +1,2 @@
-export { Auth } from './auth'
-export { Storage } from './storage'
+export * from './auth'
+export * from './storage'
