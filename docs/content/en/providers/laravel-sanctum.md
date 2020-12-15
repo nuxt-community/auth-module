@@ -32,7 +32,7 @@ auth: {
   },
   proxy: {
     '/laravel': {
-      target: 'https://laravel-auth.vercel.app',
+      target: 'https://laravel-auth.nuxtjs.app',
       pathRewrite: { '^/laravel': '/' }
     }
   },

@@ -14,7 +14,7 @@ export default <NuxtConfig>{
   proxy: {
     '/api': 'http://localhost:3000',
     '/laravel': {
-      target: 'https://laravel-auth.vercel.app',
+      target: 'https://laravel-auth.nuxtjs.app',
       pathRewrite: { '^/laravel': '/' }
     }
   },
@@ -85,7 +85,7 @@ export default <NuxtConfig>{
         url: '/laravel'
       },
       laravelPassport: {
-        url: 'https://laravel-auth.vercel.app',
+        url: 'https://laravel-auth.nuxtjs.app',
         endpoints: {
           userInfo: '/api/auth/passport/user'
         },
