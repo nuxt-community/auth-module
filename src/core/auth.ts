@@ -1,23 +1,14 @@
 import { Context } from '@nuxt/types'
-import type { HTTPRequest, HTTPResponse } from 'src'
-import { ModuleOptions } from 'src/types'
-import {
-  routeOption,
-  isRelativeURL,
-  isSet,
-  isSameURL,
-  getProp
-} from 'src/utils'
-import Router from 'src/utils/contracts/Router'
-import Scheme from 'src/schemes/Scheme'
-import TokenableScheme from 'src/schemes/TokenableScheme'
-import RefreshableScheme from 'src/schemes/RefreshableScheme'
-import { SchemeCheck } from 'src/schemes'
-import Storage from './storage'
-import RedirectListener from './contracts/RedirectListener'
-import ErrorListener from './contracts/ErrorListener'
+import type { HTTPRequest, HTTPResponse } from 'src/types'
+import { ModuleOptions } from 'src/module'
+import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from 'src/utils'
+import type { Route, Scheme, TokenableScheme, RefreshableScheme, SchemeCheck } from 'src/types'
+import { Storage } from './storage'
 
-export default class Auth {
+export type ErrorListener = (...args: unknown[]) => void
+export type RedirectListener = (to: string, from: string) => string
+
+export class Auth {
   public ctx: Context
   public options: ModuleOptions
   public strategies: Record<string, Scheme> = {}
@@ -111,7 +102,7 @@ export default class Auth {
         this.$storage.watchState('loggedIn', (loggedIn) => {
           if (
             // TODO: Why Router is incompatible?
-            !routeOption((this.ctx.route as unknown) as Router, 'auth', false)
+            !routeOption((this.ctx.route as unknown) as Route, 'auth', false)
           ) {
             this.redirect(loggedIn ? 'home' : 'logout')
           }

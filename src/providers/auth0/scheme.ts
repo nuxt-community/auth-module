@@ -1,5 +1,5 @@
-import Oauth2Scheme from 'src/schemes/oauth2'
 import { encodeQuery } from 'src/utils'
+import { Oauth2Scheme } from 'src/schemes/oauth2'
 
 export default class Auth0 extends Oauth2Scheme {
   logout(): void {

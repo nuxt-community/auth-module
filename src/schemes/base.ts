@@ -1,8 +1,7 @@
+import type { Auth, SchemeOptions } from 'src'
 import defu from 'defu'
-import Auth from 'src/core/auth'
-import { SchemeOptions } from './index'
 
-export default class BaseScheme<OptionsT extends SchemeOptions> {
+export class BaseScheme<OptionsT extends SchemeOptions> {
   public options: OptionsT
 
   constructor(public $auth: Auth, ...options: OptionsT[]) {

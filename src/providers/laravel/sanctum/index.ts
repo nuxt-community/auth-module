@@ -1,7 +1,9 @@
+import type { ProviderPartialOptions, HTTPRequest, ProviderOptions, CookieSchemeOptions } from 'src'
 import { assignDefaults, assignAbsoluteEndpoints } from 'src/utils/provider'
-import { HTTPRequest } from 'src/index'
-import { ProviderPartialOptions } from 'src/providers'
-import LaravelSanctumProviderOptions from './contracts/LaravelSanctumProviderOptions'
+
+export interface LaravelSanctumProviderOptions extends ProviderOptions, CookieSchemeOptions {
+  url: string
+}
 
 export default function laravelSanctum(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types

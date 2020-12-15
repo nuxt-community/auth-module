@@ -2,11 +2,20 @@ import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { parse as parseCookie, serialize as serializeCookie } from 'cookie'
 import { isUnset, isSet, decodeValue, encodeValue, getProp } from 'src/utils'
-import StorageOptions from './contracts/StorageOptions'
+import type { ModuleOptions } from 'src/module/options'
+
+// TODO: Normalize type at module itself
+export type StorageOptions = ModuleOptions & {
+  initialState: {
+    user: null
+    loggedIn: boolean
+  }
+}
+
 
 // TODO: Improve type of storages: Universal / Cookie / Local / State
 
-export default class Storage {
+export class Storage {
   public ctx: Context
   public options: StorageOptions
 

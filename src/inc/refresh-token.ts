@@ -1,10 +1,9 @@
+import type { RefreshableScheme, Storage } from 'src'
 import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
-import RefreshableScheme from 'src/schemes/RefreshableScheme'
 import { addTokenPrefix } from 'src/utils'
-import Storage from 'src/core/storage'
-import TokenStatus from './token-status'
+import { TokenStatus } from './token-status'
 
-export default class RefreshToken {
+export class RefreshToken {
   public scheme: RefreshableScheme
   public $storage: Storage
 

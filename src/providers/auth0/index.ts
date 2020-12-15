@@ -1,7 +1,12 @@
+import type { ProviderOptions, ProviderPartialOptions, Oauth2SchemeOptions } from 'src'
 import path from 'path'
 import { assignDefaults } from 'src/utils/provider'
-import { ProviderPartialOptions } from 'src/providers'
-import Auth0ProviderOptions from './contracts/Auth0ProviderOptions'
+
+export interface Auth0ProviderOptions
+  extends ProviderOptions,
+  Oauth2SchemeOptions {
+  domain: string
+}
 
 export default function auth0(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types

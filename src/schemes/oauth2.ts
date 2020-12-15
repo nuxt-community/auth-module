@@ -1,24 +1,51 @@
+import type {
+  RefreshableScheme, Auth, SchemePartialOptions, SchemeCheck,
+  RefreshableSchemeOptions, UserOptions, SchemeOptions, HTTPResponse,
+  EndpointsOption, TokenableSchemeOptions
+} from 'src'
 import { nanoid } from 'nanoid'
 import requrl from 'requrl'
 import {
-  encodeQuery,
-  getResponseProp,
-  normalizePath,
-  parseQuery,
-  removeTokenPrefix,
-  urlJoin
+  encodeQuery, getResponseProp, normalizePath,
+  parseQuery, removeTokenPrefix, urlJoin
 } from 'src/utils'
-import RefreshController from '../../inc/refresh-controller'
-import RequestHandler from '../../inc/request-handler'
-import ExpiredAuthSessionError from '../../inc/expired-auth-session-error'
-import Token from '../../inc/token'
-import RefreshToken from '../../inc/refresh-token'
-import BaseScheme from '../_scheme'
-import RefreshableScheme from '../RefreshableScheme'
-import Auth from '../../core/auth'
-import { HTTPResponse } from '../../index'
-import { SchemePartialOptions, SchemeCheck } from '../index'
-import Oauth2SchemeOptions from './contracts/Oauth2SchemeOptions'
+import {
+  RefreshController, RequestHandler, ExpiredAuthSessionError,
+  Token, RefreshToken
+} from 'src/inc'
+import { BaseScheme } from './base'
+
+export interface Oauth2SchemeEndpoints extends EndpointsOption {
+  authorization: string
+  token: string
+  userInfo: string
+  logout: string | false
+}
+
+export interface Oauth2SchemeOptions
+  extends SchemeOptions, TokenableSchemeOptions, RefreshableSchemeOptions {
+  endpoints: Oauth2SchemeEndpoints
+  user: UserOptions
+  responseMode: 'query.jwt' | 'fragment.jwt' | 'form_post.jwt' | 'jwt'
+  responseType: 'code' | 'token' | 'id_token' | 'none' | string
+  grantType:
+  | 'implicit'
+  | 'authorization_code'
+  | 'client_credentials'
+  | 'password'
+  | 'refresh_token'
+  | 'urn:ietf:params:oauth:grant-type:device_code'
+  accessType: 'online' | 'offline'
+  redirectUri: string
+  logoutRedirectUri: string
+  clientId: string | number
+  scope: string | string[]
+  state: string
+  codeChallengeMethod: 'implicit' | 'S256' | 'plain'
+  acrValues: string
+  audience: string
+  autoLogout: boolean
+}
 
 const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   name: 'oauth2',
@@ -60,11 +87,8 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   codeChallengeMethod: 'implicit'
 }
 
-export class Oauth2Scheme<
-    OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions
-  >
-  extends BaseScheme<OptionsT>
-  implements RefreshableScheme {
+export class Oauth2Scheme<OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions>
+  extends BaseScheme<OptionsT> implements RefreshableScheme {
   public req
   public token: Token
   public refreshToken: RefreshToken
@@ -483,7 +507,3 @@ export class Oauth2Scheme<
       .replace(/=+$/, '')
   }
 }
-
-export * from './contracts/Oauth2SchemeOptions'
-
-export default Oauth2Scheme

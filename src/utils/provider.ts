@@ -1,12 +1,8 @@
+import type { Oauth2SchemeOptions, RefreshSchemeOptions, StrategyOptions, HTTPRequest, LocalSchemeOptions } from 'src'
 import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
 import requrl from 'requrl'
-import Oauth2SchemeOptions from 'src/schemes/oauth2/contracts/Oauth2SchemeOptions'
-import RefreshSchemeOptions from 'src/schemes/refresh/contracts/RefreshSchemeOptions'
-import LocalSchemeOptions from 'src/schemes/local/contracts/LocalSchemeOptions'
-import { HTTPRequest } from 'src/index'
-import StrategyOptions from './contracts/StrategyOptions'
 
 export function assignDefaults<SOptions extends StrategyOptions>(
   strategy: SOptions,

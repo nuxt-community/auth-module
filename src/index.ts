@@ -1,36 +1,8 @@
-import './types'
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
-import _Auth from './core/auth'
+// This entrypoint exports runtime (excluding module + providers) and all available types
 
-export { AxiosRequestConfig as HTTPRequest }
-export { AxiosResponse as HTTPResponse }
+export type { ModuleOptions } from './module'
 
-/* Auth */
-export { _Auth as Auth }
+export * from './types'
+export * from './schemes'
+export * from './core'
 
-/* Providers */
-export * from './providers/index'
-
-/* Schemes */
-export * from './schemes/index'
-
-// Scheme
-export * from './schemes/Scheme'
-
-// Tokenable
-export * from './schemes/TokenableScheme'
-
-// Refreshable
-export * from './schemes/RefreshableScheme'
-
-// Local
-export * from './schemes/local'
-
-// Refresh
-export * from './schemes/refresh'
-
-// Cookie
-export * from './schemes/cookie'
-
-// Oauth2
-export * from './schemes/oauth2'

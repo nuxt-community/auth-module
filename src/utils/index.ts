@@ -1,9 +1,7 @@
-import { RecursivePartial } from 'src/types/utils'
-import { HTTPResponse } from 'src/index'
-import Route from './contracts/Router'
+import type { Route, HTTPResponse, RecursivePartial } from 'src'
 
-export const isUnset = (o: unknown): boolean =>
-  typeof o === 'undefined' || o === null
+export const isUnset = (o: unknown): boolean => typeof o === 'undefined' || o === null
+
 export const isSet = (o: unknown): boolean => !isUnset(o)
 
 export function isSameURL(a: string, b: string): boolean {

@@ -1,13 +1,18 @@
+import type { Auth, RefreshableScheme, SchemePartialOptions, SchemeCheck, HTTPResponse, HTTPRequest, RefreshableSchemeOptions } from 'src'
 import { cleanObj, getResponseProp } from 'src/utils'
-import RefreshController from 'src/inc/refresh-controller'
-import ExpiredAuthSessionError from 'src/inc/expired-auth-session-error'
-import RefreshToken from 'src/inc/refresh-token'
-import LocalScheme from 'src/schemes/local'
-import RefreshableScheme from 'src/schemes/RefreshableScheme'
-import Auth from 'src/core/auth'
-import { HTTPResponse } from 'src/index'
-import { SchemePartialOptions, SchemeCheck } from 'src/schemes'
-import RefreshSchemeOptions from './contracts/RefreshSchemeOptions'
+import { RefreshController, RefreshToken, ExpiredAuthSessionError } from 'src/inc'
+import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
+
+export interface RefreshSchemeEndpoints extends LocalSchemeEndpoints {
+  refresh: HTTPRequest
+}
+
+export interface RefreshSchemeOptions
+  extends LocalSchemeOptions,
+  RefreshableSchemeOptions {
+  endpoints: RefreshSchemeEndpoints
+  autoLogout: boolean
+}
 
 const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {
   name: 'refresh',
@@ -224,7 +229,3 @@ export class RefreshScheme<
     )
   }
 }
-
-export * from './contracts/RefreshSchemeOptions'
-
-export default RefreshScheme

@@ -1,12 +1,25 @@
+import type {
+  EndpointsOption, SchemePartialOptions, TokenableSchemeOptions,
+  TokenableScheme, UserOptions, HTTPRequest, HTTPResponse,
+  SchemeCheck, Auth
+} from 'src'
 import { getResponseProp } from 'src/utils'
-import Token from 'src/inc/token'
-import RequestHandler from 'src/inc/request-handler'
-import { HTTPRequest, HTTPResponse } from 'src/index'
-import BaseScheme from 'src/schemes/_scheme'
-import TokenableScheme from 'src/schemes/TokenableScheme'
-import Auth from 'src/core/auth'
-import { SchemePartialOptions, SchemeCheck } from 'src/schemes'
-import LocalSchemeOptions from './contracts/LocalSchemeOptions'
+import { Token, RequestHandler } from 'src/inc'
+import { BaseScheme } from './base'
+
+export interface LocalSchemeEndpoints extends EndpointsOption {
+  login: HTTPRequest
+  logout: HTTPRequest | false
+  user: HTTPRequest | false
+}
+
+export interface LocalSchemeOptions extends TokenableSchemeOptions {
+  endpoints: LocalSchemeEndpoints
+  user: UserOptions
+  clientId: string | false
+  grantType: string | false
+  scope: string[] | false
+}
 
 const DEFAULTS: SchemePartialOptions<LocalSchemeOptions> = {
   name: 'local',
@@ -242,7 +255,3 @@ export class LocalScheme<
     this.requestHandler.initializeRequestInterceptor()
   }
 }
-
-export * from './contracts/LocalSchemeOptions'
-
-export default LocalScheme

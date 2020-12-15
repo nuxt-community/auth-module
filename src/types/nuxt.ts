@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Auth from 'src/core/auth'
-import { ModuleOptions } from './module'
-import { RecursivePartial } from './utils'
+import type Vue from 'vue'
+import type { Auth } from 'src/core'
+import type { ModuleOptions } from 'src/module'
+import type { RecursivePartial } from './utils'
 
 declare module '@nuxt/types' {
   interface Context {

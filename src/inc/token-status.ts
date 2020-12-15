@@ -4,7 +4,7 @@ export enum TokenStatusEnum {
   EXPIRED = 'EXPIRED'
 }
 
-export default class TokenStatus {
+export class TokenStatus {
   private readonly _status: TokenStatusEnum
 
   constructor(token: string | boolean, tokenExpiresAt: number | false) {

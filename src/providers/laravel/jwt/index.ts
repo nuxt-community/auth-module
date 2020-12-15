@@ -1,10 +1,12 @@
+import type { ProviderPartialOptions, ProviderOptions, RefreshSchemeOptions } from 'src'
 import path from 'path'
 import { assignDefaults, assignAbsoluteEndpoints } from 'src/utils/provider'
-import { ProviderPartialOptions } from 'src/providers'
-import LaravelJWTProviderOptions from './contracts/LaravelJWTProviderOptions'
+
+export interface LaravelJWTProviderOptions extends ProviderOptions, RefreshSchemeOptions {
+  url: string
+}
 
 export default function laravelJWT(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   _nuxt: any,
   strategy: ProviderPartialOptions<LaravelJWTProviderOptions>
 ): void {

@@ -1,11 +1,11 @@
 import { Middleware } from '@nuxt/types'
 import { routeOption, getMatchedComponents, normalizePath } from 'src/utils'
-import Router from 'src/utils/contracts/Router'
+import type { Route } from 'src/types'
 
 const authMiddleware: Middleware = async (ctx) => {
   // Disable middleware if options: { auth: false } is set on the route
   // TODO: Why Router is incompatible?
-  if (routeOption((ctx.route as unknown) as Router, 'auth', false)) {
+  if (routeOption((ctx.route as unknown) as Route, 'auth', false)) {
     return
   }
 
@@ -13,7 +13,7 @@ const authMiddleware: Middleware = async (ctx) => {
   const matches = []
   const Components = getMatchedComponents(
     // TODO: Why Router is incompatible?
-    (ctx.route as unknown) as Router,
+    (ctx.route as unknown) as Route,
     matches
   )
   if (!Components.length) {
@@ -23,7 +23,7 @@ const authMiddleware: Middleware = async (ctx) => {
   const { login, callback } = ctx.$auth.options.redirect
   const pageIsInGuestMode = routeOption(
     // TODO: Why Router is incompatible?
-    (ctx.route as unknown) as Router,
+    (ctx.route as unknown) as Route,
     'auth',
     'guest'
   )

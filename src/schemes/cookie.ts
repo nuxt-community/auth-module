@@ -1,9 +1,22 @@
-import LocalScheme from 'src/schemes/local'
-import TokenableScheme from 'src/schemes/TokenableScheme'
-import Auth from 'src/core/auth'
-import { HTTPRequest, HTTPResponse } from 'src/index'
-import { SchemePartialOptions, SchemeCheck } from 'src/schemes'
-import CookieSchemeOptions from './contracts/CookieSchemeOptions'
+import type {
+  Auth, SchemePartialOptions, SchemeCheck,
+  HTTPRequest, HTTPResponse, TokenableScheme
+} from 'src'
+import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
+
+export interface CookieSchemeEndpoints extends LocalSchemeEndpoints {
+  csrf: HTTPRequest
+}
+
+export interface CookieSchemeCookie {
+  name: string
+}
+
+export interface CookieSchemeOptions extends LocalSchemeOptions {
+  endpoints: CookieSchemeEndpoints
+  cookie: CookieSchemeCookie
+}
+
 
 const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
   name: 'cookie',
@@ -21,11 +34,10 @@ const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
   }
 }
 
-export class CookieScheme<
-    OptionsT extends CookieSchemeOptions = CookieSchemeOptions
-  >
+export class CookieScheme<OptionsT extends CookieSchemeOptions = CookieSchemeOptions>
   extends LocalScheme<OptionsT>
   implements TokenableScheme<OptionsT> {
+
   constructor($auth: Auth, options: SchemePartialOptions<CookieSchemeOptions>) {
     super($auth, options, DEFAULTS)
   }
@@ -82,7 +94,3 @@ export class CookieScheme<
     return super.reset()
   }
 }
-
-export * from './contracts/CookieSchemeOptions'
-
-export default CookieScheme

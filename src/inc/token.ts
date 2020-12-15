@@ -1,10 +1,9 @@
+import type { Storage, TokenableScheme } from 'src'
 import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
-import TokenableScheme from 'src/schemes/TokenableScheme'
 import { addTokenPrefix } from 'src/utils'
-import Storage from 'src/core/storage'
-import TokenStatus from './token-status'
+import { TokenStatus } from './token-status'
 
-export default class Token {
+export class Token {
   public scheme: TokenableScheme
   public $storage: Storage
 
