@@ -53,6 +53,18 @@ export class Auth {
   }
 
   get strategy(): Scheme {
+    return this.getStrategy()
+  }
+
+  getStrategy(throwException = true): Scheme {
+    if (throwException) {
+      if (!this.$state.strategy) {
+        throw new Error('No strategy is set!')
+      }
+      if (!this.strategies[this.$state.strategy]) {
+        throw new Error('Strategy not supported: ' + this.$state.strategy)
+      }
+    }
     return this.strategies[this.$state.strategy]
   }
 
@@ -89,11 +101,11 @@ export class Auth {
     this.$storage.syncUniversal('strategy', this.options.defaultStrategy)
 
     // Set default strategy if current one is invalid
-    if (!this.strategy) {
+    if (!this.getStrategy(false)) {
       this.$storage.setUniversal('strategy', this.options.defaultStrategy)
 
       // Give up if still invalid
-      if (!this.strategy) {
+      if (!this.getStrategy(false)) {
         return Promise.resolve()
       }
     }
@@ -154,14 +166,16 @@ export class Auth {
   }
 
   mounted(...args: unknown[]): Promise<HTTPResponse | void> {
-    if (!this.strategy.mounted) {
+    if (!this.getStrategy().mounted) {
       return this.fetchUserOnce()
     }
 
-    return Promise.resolve(this.strategy.mounted(...args)).catch((error) => {
-      this.callOnError(error, { method: 'mounted' })
-      return Promise.reject(error)
-    })
+    return Promise.resolve(this.getStrategy().mounted(...args)).catch(
+      (error) => {
+        this.callOnError(error, { method: 'mounted' })
+        return Promise.reject(error)
+      }
+    )
   }
 
   loginWith(name: string, ...args: unknown[]): Promise<HTTPResponse | void> {
@@ -169,37 +183,41 @@ export class Auth {
   }
 
   login(...args: unknown[]): Promise<HTTPResponse | void> {
-    if (!this.strategy.login) {
+    if (!this.getStrategy().login) {
       return Promise.resolve()
     }
 
-    return this.wrapLogin(this.strategy.login(...args)).catch((error) => {
+    return this.wrapLogin(this.getStrategy().login(...args)).catch((error) => {
       this.callOnError(error, { method: 'login' })
       return Promise.reject(error)
     })
   }
 
   fetchUser(...args: unknown[]): Promise<HTTPResponse | void> {
-    if (!this.strategy.fetchUser) {
+    if (!this.getStrategy().fetchUser) {
       return Promise.resolve()
     }
 
-    return Promise.resolve(this.strategy.fetchUser(...args)).catch((error) => {
-      this.callOnError(error, { method: 'fetchUser' })
-      return Promise.reject(error)
-    })
+    return Promise.resolve(this.getStrategy().fetchUser(...args)).catch(
+      (error) => {
+        this.callOnError(error, { method: 'fetchUser' })
+        return Promise.reject(error)
+      }
+    )
   }
 
   logout(...args: unknown[]): Promise<void> {
-    if (!this.strategy.logout) {
+    if (!this.getStrategy().logout) {
       this.reset()
       return Promise.resolve()
     }
 
-    return Promise.resolve(this.strategy.logout(...args)).catch((error) => {
-      this.callOnError(error, { method: 'logout' })
-      return Promise.reject(error)
-    })
+    return Promise.resolve(this.getStrategy().logout(...args)).catch(
+      (error) => {
+        this.callOnError(error, { method: 'logout' })
+        return Promise.reject(error)
+      }
+    )
   }
 
   // ---------------------------------------------------------------
@@ -210,13 +228,13 @@ export class Auth {
     token: string | boolean,
     refreshToken?: string | boolean
   ): Promise<HTTPResponse | void> {
-    if (!this.strategy.setUserToken) {
-      ;(this.strategy as TokenableScheme).token.set(token)
+    if (!this.getStrategy().setUserToken) {
+      ;(this.getStrategy() as TokenableScheme).token.set(token)
       return Promise.resolve()
     }
 
     return Promise.resolve(
-      this.strategy.setUserToken(token, refreshToken)
+      this.getStrategy().setUserToken(token, refreshToken)
     ).catch((error) => {
       this.callOnError(error, { method: 'setUserToken' })
       return Promise.reject(error)
@@ -224,26 +242,26 @@ export class Auth {
   }
 
   reset(...args: unknown[]): void {
-    if (!this.strategy.reset) {
+    if (!this.getStrategy().reset) {
       this.setUser(false)
       // TODO: Check if is Tokenable Scheme
-      ;(this.strategy as TokenableScheme).token.reset()
+      ;(this.getStrategy() as TokenableScheme).token.reset()
       // TODO: Check if is Refreshable Scheme
-      ;(this.strategy as RefreshableScheme).refreshToken.reset()
+      ;(this.getStrategy() as RefreshableScheme).refreshToken.reset()
     }
 
-    return this.strategy.reset(
+    return this.getStrategy().reset(
       ...(args as [options?: { resetInterceptor: boolean }])
     )
   }
 
   refreshTokens(): Promise<HTTPResponse | void> {
-    if (!(this.strategy as RefreshableScheme).refreshController) {
+    if (!(this.getStrategy() as RefreshableScheme).refreshController) {
       return Promise.resolve()
     }
 
     return Promise.resolve(
-      (this.strategy as RefreshableScheme).refreshController.handleRefresh()
+      (this.getStrategy() as RefreshableScheme).refreshController.handleRefresh()
     ).catch((error) => {
       this.callOnError(error, { method: 'refreshTokens' })
       return Promise.reject(error)
@@ -251,11 +269,11 @@ export class Auth {
   }
 
   check(...args: unknown[]): SchemeCheck {
-    if (!this.strategy.check) {
+    if (!this.getStrategy().check) {
       return { valid: true }
     }
 
-    return this.strategy.check(...(args as [checkStatus: boolean]))
+    return this.getStrategy().check(...(args as [checkStatus: boolean]))
   }
 
   fetchUserOnce(...args: unknown[]): Promise<HTTPResponse | void> {
@@ -313,11 +331,11 @@ export class Auth {
     defaults?: HTTPRequest
   ): Promise<HTTPResponse> {
     // TODO: Check if is Tokenable Scheme
-    const token = (this.strategy as TokenableScheme).token.get()
+    const token = (this.getStrategy() as TokenableScheme).token.get()
 
     const _endpoint = Object.assign({}, defaults, endpoint)
 
-    // TODO: Use `this.strategy` instead of `this.strategies[strategy]`
+    // TODO: Use `this.getStrategy()` instead of `this.strategies[strategy]`
     const tokenName =
       (this.strategies[strategy] as TokenableScheme).options.token.name ||
       'Authorization'
