@@ -8,7 +8,7 @@ import type {
   HTTPResponse,
   SchemeCheck,
   Auth
-} from '..'
+} from '../types'
 import { getResponseProp } from '../utils'
 import { Token, RequestHandler } from '../inc'
 import { BaseScheme } from './base'

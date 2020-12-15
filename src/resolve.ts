@@ -3,7 +3,7 @@ import hash from 'hasha'
 import * as AUTH_PROVIDERS from './providers'
 import { ProviderAliases } from './providers'
 import type { ModuleOptions } from './options'
-import type { Strategy } from '.'
+import type { Strategy } from './types'
 
 const BuiltinSchemes = {
   local: 'LocalScheme',

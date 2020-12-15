@@ -6,7 +6,7 @@ import type {
   HTTPResponse,
   HTTPRequest,
   RefreshableSchemeOptions
-} from '..'
+} from '../types'
 import { cleanObj, getResponseProp } from '../utils'
 import {
   RefreshController,

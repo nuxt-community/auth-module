@@ -1,5 +1,5 @@
 import type { Middleware } from '@nuxt/types'
-import type { Route } from '..'
+import type { Route } from '../types'
 import { routeOption, getMatchedComponents, normalizePath } from '../utils'
 
 export const authMiddleware: Middleware = async (ctx) => {

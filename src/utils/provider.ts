@@ -2,13 +2,12 @@ import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
 import requrl from 'requrl'
+import type { StrategyOptions, HTTPRequest } from '../types'
 import type {
   Oauth2SchemeOptions,
   RefreshSchemeOptions,
-  StrategyOptions,
-  HTTPRequest,
   LocalSchemeOptions
-} from '..'
+} from '../schemes'
 
 export function assignDefaults<SOptions extends StrategyOptions>(
   strategy: SOptions,

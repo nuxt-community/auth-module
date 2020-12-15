@@ -1,5 +1,6 @@
 import jwtDecode, { InvalidTokenError, JwtPayload } from 'jwt-decode'
-import type { RefreshableScheme, Storage } from '..'
+import type { RefreshableScheme } from '../types'
+import type { Storage } from '../core'
 import { addTokenPrefix } from '../utils'
 import { TokenStatus } from './token-status'
 

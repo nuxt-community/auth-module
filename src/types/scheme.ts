@@ -1,4 +1,4 @@
-import type { HTTPRequest, HTTPResponse, Auth } from '..'
+import type { HTTPRequest, HTTPResponse, Auth } from '../types'
 import type {
   Token,
   RefreshToken,

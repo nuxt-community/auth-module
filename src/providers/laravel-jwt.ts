@@ -1,8 +1,5 @@
-import type {
-  ProviderPartialOptions,
-  ProviderOptions,
-  RefreshSchemeOptions
-} from '..'
+import type { ProviderPartialOptions, ProviderOptions } from '../types'
+import type { RefreshSchemeOptions } from '../schemes'
 import { assignDefaults, assignAbsoluteEndpoints } from '../utils/provider'
 
 export interface LaravelJWTProviderOptions

@@ -2,13 +2,13 @@ import type { Context } from '@nuxt/types'
 import type {
   HTTPRequest,
   HTTPResponse,
-  ModuleOptions,
   Route,
   Scheme,
   TokenableScheme,
   RefreshableScheme,
-  SchemeCheck
-} from '..'
+  SchemeCheck,
+  ModuleOptions
+} from '../types'
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import { Storage } from './storage'
 

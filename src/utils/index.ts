@@ -1,4 +1,4 @@
-import type { Route, HTTPResponse, RecursivePartial } from '..'
+import type { Route, HTTPResponse, RecursivePartial } from '../types'
 
 export const isUnset = (o: unknown): boolean =>
   typeof o === 'undefined' || o === null

@@ -1,5 +1,5 @@
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import type { TokenableScheme, RefreshableScheme, HTTPRequest } from '..'
+import type { TokenableScheme, RefreshableScheme, HTTPRequest } from '../types'
 import { ExpiredAuthSessionError } from './expired-auth-session-error'
 
 export class RequestHandler {

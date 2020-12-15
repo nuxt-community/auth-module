@@ -5,7 +5,7 @@ import type {
   HTTPRequest,
   HTTPResponse,
   TokenableScheme
-} from '..'
+} from '../types'
 import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
 
 export interface CookieSchemeEndpoints extends LocalSchemeEndpoints {

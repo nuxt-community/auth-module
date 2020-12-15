@@ -1,6 +1,6 @@
 // This entrypoint exports runtime (excluding module + providers) and all available types
 
-export type { ModuleOptions } from './options'
+export type { ModuleOptions } from './types'
 
 export * from './core'
 export * from './inc'

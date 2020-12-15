@@ -49,7 +49,7 @@ const authModule: Module<ModuleOptions> = function (moduleOptions) {
   }
 
   // Transpile and alias auth src
-  const runtime = resolve(__dirname, 'index')
+  const runtime = resolve(__dirname, 'runtime')
   this.options.alias['~auth/runtime'] = runtime
   this.options.build.transpile.push(__dirname)
 

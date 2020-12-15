@@ -11,7 +11,7 @@ import type {
   HTTPResponse,
   EndpointsOption,
   TokenableSchemeOptions
-} from '..'
+} from '../types'
 import {
   encodeQuery,
   getResponseProp,

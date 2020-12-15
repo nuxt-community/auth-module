@@ -2,12 +2,12 @@ import type {
   RefreshTokenOptions,
   TokenOptions,
   UserOptions,
-  RefreshSchemeOptions,
   RecursivePartial,
   ProviderPartialOptions,
-  ProviderOptions,
-  Oauth2SchemeOptions
-} from '..'
+  ProviderOptions
+} from '../types'
+import type { Oauth2SchemeOptions, RefreshSchemeOptions } from '../schemes'
+
 import {
   assignDefaults,
   addAuthorize,

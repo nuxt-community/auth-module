@@ -1,4 +1,5 @@
-import type { Auth, RefreshableScheme, HTTPResponse } from '..'
+import type { RefreshableScheme, HTTPResponse } from '../types'
+import type { Auth } from '../core'
 
 export class RefreshController {
   public $auth: Auth

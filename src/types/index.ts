@@ -5,3 +5,6 @@ export * from './router'
 export * from './scheme'
 export * from './strategy'
 export * from './utils'
+
+export type { ModuleOptions } from '../options'
+export type { Auth, Storage } from '../core'

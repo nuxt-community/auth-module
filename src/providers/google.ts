@@ -1,8 +1,5 @@
-import type {
-  ProviderPartialOptions,
-  ProviderOptions,
-  Oauth2SchemeOptions
-} from '..'
+import type { ProviderPartialOptions, ProviderOptions } from '../types'
+import type { Oauth2SchemeOptions } from '../schemes'
 import { assignDefaults } from '../utils/provider'
 
 export interface GoogleProviderOptions

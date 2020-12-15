@@ -6,22 +6,21 @@
   "license": "MIT",
   "sideEffects": "false",
   "exports": {
-    "./": {
+    "./dist/module": {
       "require": "./dist/module.js"
     },
-    "./dist/index": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+    "./dist/runtime": {
+      "import": "./dist/runtime.mjs",
+      "require": "./dist/runtime.js"
     }
   },
   "main": "./dist/module.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "templates"
   ],
   "scripts": {
-    "build": "siroc build",
+    "build": "siroc build && yarn tsc --emitDeclarationOnly",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
