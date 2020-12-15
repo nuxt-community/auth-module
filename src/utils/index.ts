@@ -119,9 +119,8 @@ export function decodeValue(val: unknown): unknown {
  * @return {*}          A property value
  */
 export function getProp(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   holder: Record<string, any>,
-  propName: string
+  propName: string | false
 ): unknown {
   if (!propName || !holder) {
     return holder
@@ -145,12 +144,12 @@ export function getProp(
 
 export function getResponseProp(
   response: HTTPResponse,
-  prop: string | boolean
+  prop: string | false
 ): unknown {
   if (typeof prop === 'string' && prop[0] === '.') {
     return getProp(response, prop.substring(1))
   } else {
-    return getProp(response.data, prop + '')
+    return getProp(response.data, prop)
   }
 }
 
