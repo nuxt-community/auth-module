@@ -4,6 +4,16 @@
   "description": "Authentication module for Nuxt.js",
   "repository": "nuxt-community/auth-module",
   "license": "MIT",
+  "sideEffects": "false",
+  "exports": {
+    "./": {
+      "require": "./dist/module.js"
+    },
+    "./dist/index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "main": "./dist/module.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -11,8 +21,7 @@
     "templates"
   ],
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
+    "build": "siroc build",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
@@ -23,6 +32,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.4",
+    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "consola": "^2.15.0",
     "cookie": "^0.4.1",
@@ -32,7 +42,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "nanoid": "^3.1.20",
-    "requrl": "^2.0.1"
+    "requrl": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "latest",
@@ -65,10 +75,14 @@
     "nuxt-edge": "latest",
     "playwright": "^1.6.2",
     "prettier": "latest",
+    "siroc": "^0.6.0",
     "standard-version": "latest",
     "ts-jest": "latest",
     "ts-loader": "^8.0.12",
     "typescript": "latest",
     "vue": "latest"
+  },
+  "peerDependencies": {
+    "vue": "*"
   }
 }
