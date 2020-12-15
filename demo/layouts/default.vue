@@ -40,10 +40,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import get from 'lodash.get'
 
-export default {
+export default Vue.extend({
   computed: {
     picture() {
       return (
@@ -53,5 +54,5 @@ export default {
       ) // GitHub
     }
   }
-}
+})
 </script>

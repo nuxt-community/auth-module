@@ -59,8 +59,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   middleware: ['auth'],
   data() {
     return {
@@ -129,10 +131,10 @@ export default {
     },
     updateDisplayedTokens() {
       this.tokenExpiresAt = this.getTokenExpirationDateString(
-        this.$auth.strategy.token._getExpiration()
+        this.$auth.strategy.token?._getExpiration()
       )
       this.refreshTokenExpiresAt = this.getTokenExpirationDateString(
-        this.$auth.strategy.refreshToken._getExpiration()
+        this.$auth.strategy.refreshToken?._getExpiration()
       )
     },
     getTokenExpirationDateString(tokenExpiration) {
@@ -143,5 +145,5 @@ export default {
       }
     }
   }
-}
+})
 </script>

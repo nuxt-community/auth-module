@@ -4,55 +4,57 @@
   "description": "Authentication module for Nuxt.js",
   "repository": "nuxt-community/auth-module",
   "license": "MIT",
-  "main": "./dist/module/index.js",
-  "types": "./dist/index.d.ts",
+  "sideEffects": "false",
+  "exports": {
+    "./dist/module": {
+      "require": "./dist/module.js"
+    },
+    "./dist/runtime": {
+      "import": "./dist/runtime.mjs",
+      "require": "./dist/runtime.js"
+    }
+  },
+  "main": "./dist/module.js",
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "index.d.ts"
   ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "esmodules": true
-          }
-        }
-      ]
-    ]
-  },
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
+    "build": "siroc build && yarn tsc --emitDeclarationOnly",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
     "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
-    "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
+    "test": "yarn lint && jest"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.4",
+    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "consola": "^2.15.0",
     "cookie": "^0.4.1",
     "defu": "^3.2.2",
-    "js-cookie": "^2.2.1",
+    "hasha": "^5.2.2",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.20",
-    "nanoid": "^3.1.20",
-    "requrl": "^2.0.1"
+    "requrl": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/preset-env": "latest",
+    "@babel/preset-typescript": "^7.12.7",
+    "@nuxt/test-utils": "^0.1.2",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/cookie-parser": "latest",
+    "@types/express-jwt": "latest",
     "@types/jest": "latest",
+    "@types/jsonwebtoken": "latest",
+    "@types/lodash.get": "latest",
     "@types/node": "latest",
     "@types/puppeteer": "latest",
     "babel-jest": "latest",
@@ -64,14 +66,20 @@
     "express": "latest",
     "express-jwt": "latest",
     "get-port": "latest",
-    "jest": "latest",
+    "jest": "^26.6.3",
     "jsdom": "latest",
     "lodash.get": "latest",
-    "nuxt-edge": "latest",
+    "nuxt": "^2.14.11",
+    "playwright": "^1.6.2",
     "prettier": "latest",
-    "puppeteer": "latest",
+    "siroc": "^0.6.0",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "typescript": "latest"
+    "ts-loader": "^8.0.12",
+    "typescript": "latest",
+    "vue": "latest"
+  },
+  "peerDependencies": {
+    "vue": "*"
   }
 }

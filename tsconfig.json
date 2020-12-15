@@ -4,17 +4,18 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": [
-      "dom"
+      "DOM"
     ],
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "strict": false,
     "declaration": true,
+    "baseUrl": ".",
     "outDir": "dist",
     "types": [
       "@types/node",
       "@nuxt/types"
-    ],
-    "skipLibCheck": true
+    ]
   },
   "include": [
     "./src"

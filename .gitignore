@@ -9,4 +9,3 @@ coverage
 dist
 package-lock.json
 _book
-types

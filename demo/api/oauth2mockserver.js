@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 
 // Generated at http://jwtbuilder.jamiekurtz.com/
 const TOKEN_NEVER_EXPIRING =
@@ -36,7 +36,7 @@ app.get('/cats', (_req, res) => {
 })
 
 // -- export app --
-module.exports = {
+export default {
   path: '/oauth2mockserver',
   handler: app
 }

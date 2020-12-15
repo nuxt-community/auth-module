@@ -21,12 +21,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { version } from '../../package.json'
 
-export default {
+export default Vue.extend({
   computed: {
     version: () => version
   }
-}
+})
 </script>
