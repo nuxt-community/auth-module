@@ -1,16 +1,26 @@
-import path from 'path'
-import { assignDefaults, assignAbsoluteEndpoints } from '../../../utils/provider'
+import type { ProviderPartialOptions, ProviderOptions } from '../types'
+import type { RefreshSchemeOptions } from '../schemes'
+import { assignDefaults, assignAbsoluteEndpoints } from '../utils/provider'
 
-export default function laravelJWT (_nuxt, strategy) {
+export interface LaravelJWTProviderOptions
+  extends ProviderOptions,
+    RefreshSchemeOptions {
+  url: string
+}
+
+export function laravelJWT(
+  _nuxt: any,
+  strategy: ProviderPartialOptions<LaravelJWTProviderOptions>
+): void {
   const { url } = strategy
 
   if (!url) {
     throw new Error('url is required for laravel jwt!')
   }
 
-  assignDefaults(strategy, {
-    scheme: path.resolve(__dirname, 'scheme'),
+  const DEFAULTS: typeof strategy = {
     name: 'laravelJWT',
+    scheme: 'laravelJWT',
     endpoints: {
       login: {
         url: url + '/api/auth/login'
@@ -41,7 +51,9 @@ export default function laravelJWT (_nuxt, strategy) {
     },
     clientId: false,
     grantType: false
-  })
+  }
+
+  assignDefaults(strategy, DEFAULTS)
 
   assignAbsoluteEndpoints(strategy)
 }

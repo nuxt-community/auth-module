@@ -1,7 +1,8 @@
-const express = require('express')
+import express from 'express'
 
 // Generated at http://jwtbuilder.jamiekurtz.com/
-const TOKEN_NEVER_EXPIRING = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1ODI0OTE3OTcsImV4cCI6MzI0NzIxNDQwMDAsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20ifQ.XMKfOS3xcScObdkZiRUxI5ZEVd-hh7TTq6wkykFMZCA'
+const TOKEN_NEVER_EXPIRING =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1ODI0OTE3OTcsImV4cCI6MzI0NzIxNDQwMDAsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20ifQ.XMKfOS3xcScObdkZiRUxI5ZEVd-hh7TTq6wkykFMZCA'
 
 // Create app
 const app = express()
@@ -31,13 +32,11 @@ app.get('/userinfo', (_req, res) => {
 
 // [GET] /cats
 app.get('/cats', (_req, res) => {
-  res.json([
-    'Tiger', 'Max', 'Smokey'
-  ])
+  res.json(['Tiger', 'Max', 'Smokey'])
 })
 
 // -- export app --
-module.exports = {
+export default {
   path: '/oauth2mockserver',
   handler: app
 }

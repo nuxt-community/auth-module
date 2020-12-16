@@ -1,7 +1,27 @@
-import type { SchemeCheck } from '../index'
-import LocalScheme from './local'
+import type {
+  Auth,
+  SchemePartialOptions,
+  SchemeCheck,
+  HTTPRequest,
+  HTTPResponse,
+  TokenableScheme
+} from '../types'
+import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
 
-const DEFAULTS = {
+export interface CookieSchemeEndpoints extends LocalSchemeEndpoints {
+  csrf: HTTPRequest
+}
+
+export interface CookieSchemeCookie {
+  name: string
+}
+
+export interface CookieSchemeOptions extends LocalSchemeOptions {
+  endpoints: CookieSchemeEndpoints
+  cookie: CookieSchemeCookie
+}
+
+const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
   name: 'cookie',
   cookie: {
     name: null
@@ -17,20 +37,27 @@ const DEFAULTS = {
   }
 }
 
-export default class CookieScheme extends LocalScheme {
-  constructor ($auth, options) {
+export class CookieScheme<
+    OptionsT extends CookieSchemeOptions = CookieSchemeOptions
+  >
+  extends LocalScheme<OptionsT>
+  implements TokenableScheme<OptionsT> {
+  constructor($auth: Auth, options: SchemePartialOptions<CookieSchemeOptions>) {
     super($auth, options, DEFAULTS)
   }
 
-  mounted () {
+  mounted(): Promise<HTTPResponse | void> {
     if (process.server) {
-      this.$auth.ctx.$axios.setHeader('referer', this.$auth.ctx.req.headers.host)
+      this.$auth.ctx.$axios.setHeader(
+        'referer',
+        this.$auth.ctx.req.headers.host
+      )
     }
 
     return super.mounted()
   }
 
-  check (): SchemeCheck {
+  check(): SchemeCheck {
     const response = { valid: false }
 
     if (!super.check().valid) {
@@ -47,7 +74,7 @@ export default class CookieScheme extends LocalScheme {
     return response
   }
 
-  async login (endpoint) {
+  async login(endpoint: HTTPRequest): Promise<HTTPResponse> {
     // Ditch any leftover local tokens before attempting to log in
     this.$auth.reset()
 
@@ -61,9 +88,11 @@ export default class CookieScheme extends LocalScheme {
     return super.login(endpoint, { reset: false })
   }
 
-  reset () {
+  reset(): void {
     if (this.options.cookie.name) {
-      this.$auth.$storage.setCookie(this.options.cookie.name, null, { prefix: '' })
+      this.$auth.$storage.setCookie(this.options.cookie.name, null, {
+        prefix: ''
+      })
     }
 
     return super.reset()

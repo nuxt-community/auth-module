@@ -1,9 +1,13 @@
 {
   "extends": [
-    "@nuxtjs/eslint-config-typescript"
+    "@nuxtjs/eslint-config-typescript",
+    "prettier",
+    "prettier/vue"
+  ],
+  "plugins": [
+    "prettier"
   ],
   "rules": {
-    "require-await": 0,
-    "no-useless-constructor": 0
+    "prettier/prettier": "error"
   }
 }
