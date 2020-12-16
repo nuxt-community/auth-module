@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
-  "mainEntryPointFilePath": "<projectFolder>/temp/types/runtime.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/temp/types/index.d.ts",
   "bundledPackages": [],
   "compiler": {},
   "apiReport": {

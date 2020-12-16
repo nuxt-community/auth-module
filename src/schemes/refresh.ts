@@ -1,5 +1,4 @@
 import type {
-  Auth,
   RefreshableScheme,
   SchemePartialOptions,
   SchemeCheck,
@@ -7,6 +6,7 @@ import type {
   HTTPRequest,
   RefreshableSchemeOptions
 } from '../types'
+import type { Auth } from '../core'
 import { cleanObj, getResponseProp } from '../utils'
 import {
   RefreshController,

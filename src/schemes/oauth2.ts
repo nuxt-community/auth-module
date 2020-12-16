@@ -1,7 +1,6 @@
 import requrl from 'requrl'
 import type {
   RefreshableScheme,
-  Auth,
   SchemePartialOptions,
   SchemeCheck,
   RefreshableSchemeOptions,
@@ -11,6 +10,7 @@ import type {
   EndpointsOption,
   TokenableSchemeOptions
 } from '../types'
+import type { Auth } from '../core'
 import {
   encodeQuery,
   getResponseProp,

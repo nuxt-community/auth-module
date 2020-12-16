@@ -6,9 +6,9 @@ import type {
   Scheme,
   TokenableScheme,
   RefreshableScheme,
-  SchemeCheck,
-  ModuleOptions
+  SchemeCheck
 } from '../types'
+import type { ModuleOptions } from '../options'
 import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
 import { Storage } from './storage'
 

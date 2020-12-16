@@ -6,9 +6,9 @@ import type {
   UserOptions,
   HTTPRequest,
   HTTPResponse,
-  SchemeCheck,
-  Auth
+  SchemeCheck
 } from '../types'
+import type { Auth } from '../core'
 import { getResponseProp } from '../utils'
 import { Token, RequestHandler } from '../inc'
 import { BaseScheme } from './base'

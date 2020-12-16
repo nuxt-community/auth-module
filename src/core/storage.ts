@@ -1,7 +1,7 @@
 import type { Context } from '@nuxt/types'
 import Vue from 'vue'
 import cookie from 'cookie'
-import type { ModuleOptions } from '../types'
+import type { ModuleOptions } from '../options'
 import { isUnset, isSet, decodeValue, encodeValue, getProp } from '../utils'
 
 // TODO: Normalize type at module itself

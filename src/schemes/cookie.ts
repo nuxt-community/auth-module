@@ -1,11 +1,11 @@
 import type {
-  Auth,
   SchemePartialOptions,
   SchemeCheck,
   HTTPRequest,
   HTTPResponse,
   TokenableScheme
 } from '../types'
+import type { Auth } from '../core'
 import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
 
 export interface CookieSchemeEndpoints extends LocalSchemeEndpoints {
