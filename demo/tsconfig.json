@@ -29,7 +29,7 @@
       "@types/cookie-parser",
       "@types/express-jwt",
       "@types/jsonwebtoken",
-      "../index"
+      "../src/shim"
     ]
   }
 }

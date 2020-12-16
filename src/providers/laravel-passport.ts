@@ -27,8 +27,8 @@ export interface LaravelPassportPasswordProviderOptions
   url: string
 }
 
-type PartialPassportOptions = ProviderPartialOptions<LaravelPassportProviderOptions>
-type PartialPassportPasswordOptions = ProviderPartialOptions<LaravelPassportPasswordProviderOptions>
+export type PartialPassportOptions = ProviderPartialOptions<LaravelPassportProviderOptions>
+export type PartialPassportPasswordOptions = ProviderPartialOptions<LaravelPassportPasswordProviderOptions>
 
 function isPasswordGrant(
   strategy: PartialPassportOptions | PartialPassportPasswordOptions

@@ -15,7 +15,8 @@
     "declarationDir": "temp/types",
     "types": [
       "@types/node",
-      "@nuxt/types"
+      "@nuxt/types",
+      "./src/shim"
     ]
   },
   "include": [
