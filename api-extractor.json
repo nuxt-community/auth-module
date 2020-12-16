@@ -11,7 +11,7 @@
   },
   "dtsRollup": {
     "enabled": true,
-    "untrimmedFilePath": "dist/types.d.ts"
+    "untrimmedFilePath": "dist/index.d.ts"
   },
   "tsdocMetadata": {},
   "messages": {

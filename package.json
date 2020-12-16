@@ -15,10 +15,10 @@
     }
   },
   "main": "./dist/module.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "dist",
-    "templates",
-    "index.d.ts"
+    "templates"
   ],
   "scripts": {
     "build": "siroc build && yarn build:types",
