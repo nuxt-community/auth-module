@@ -28,7 +28,7 @@
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
-    "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
+    "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
     "test": "yarn lint && jest"
   },
