@@ -30,6 +30,9 @@ auth: {
 ```
 
 ## Creating your own scheme
+
+<alert type="warning">As v5 still in development, there may be breaking changes to this feature.</alert>
+
 Sometimes the included schemes doesn't match your requirements. Creating your own scheme will provide 
 flexibility you need. You can create a new scheme from scratch or extend an existing scheme.
 
@@ -40,7 +43,7 @@ First, create your own scheme file in `~/schemes`. You can use a different path 
 > In this example we will be extending `local` scheme and overriding `fetchUser` method. We will transform the user object before setting it.
 
 ```js{}[~/schemes/customScheme.js]
-import LocalScheme from '~auth/schemes/local'
+import { LocalScheme } from '~auth/runtime'
 
 export default class CustomScheme extends LocalScheme {
   // Override `fetchUser` method of `local` scheme
@@ -101,3 +104,5 @@ That's it! Now you can log in using your new strategy.
 ```js
 this.$auth.loginWith('customStrategy', { /* ... */ })
 ```
+
+<alert type="success">If you think your custom scheme might be helpful to others, consider creating a GitHub Issue or Pull Request with your configuration.</alert>
