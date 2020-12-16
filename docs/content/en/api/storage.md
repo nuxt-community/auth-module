@@ -33,6 +33,7 @@ this.$auth.$storage.$state
 ```js
 this.$auth.$storage.setState(key, val)
 this.$auth.$storage.getState(key)
+this.$auth.$storage.removeState(key)
 
 // Watch state changes
 this.$auth.$storage.watchState('loggedIn', newValue => { })
@@ -41,8 +42,10 @@ this.$auth.$storage.watchState('loggedIn', newValue => { })
 ## Cookies
 
 ```js
+this.$auth.$storage.getCookies()
 this.$auth.$storage.setCookie(key, val, isJson)
 this.$auth.$storage.getCookie(key)
+this.$auth.$storage.removeCookie(key, isJson)
 ```
 
 ## Local Storage
@@ -50,4 +53,5 @@ this.$auth.$storage.getCookie(key)
 ```js
 this.$auth.$storage.setLocalStorage(key, val)
 this.$auth.$storage.getLocalStorage(key)
+this.$auth.$storage.removeLocalStorage(key)
 ```
