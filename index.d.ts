@@ -1,1 +1,1 @@
-export * from './dist/runtime'
+export * from './dist/types'

@@ -12,6 +12,7 @@
     "declaration": true,
     "baseUrl": ".",
     "outDir": "dist",
+    "declarationDir": "temp/types",
     "types": [
       "@types/node",
       "@nuxt/types"
