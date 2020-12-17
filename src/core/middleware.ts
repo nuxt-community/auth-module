@@ -50,7 +50,12 @@ export const authMiddleware: Middleware = async (ctx) => {
       // Token has expired. Check if refresh token is available.
       if (isRefreshable) {
         // Refresh token is available. Attempt refresh.
-        await ctx.$auth.refreshTokens()
+        try {
+          await ctx.$auth.refreshTokens()
+        } catch (error) {
+          // Reset when refresh was not successfull
+          ctx.$auth.reset()
+        }
       } else {
         // Refresh token is not available. Force reset.
         ctx.$auth.reset()
