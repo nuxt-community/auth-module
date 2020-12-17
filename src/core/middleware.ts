@@ -52,7 +52,7 @@ export const authMiddleware: Middleware = async (ctx) => {
         // Refresh token is available. Attempt refresh.
         try {
           await ctx.$auth.refreshTokens()
-        } catch(error) {
+        } catch (error) {
           // Reset when refresh was not successfull
           ctx.$auth.reset()
         }
