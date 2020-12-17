@@ -449,6 +449,7 @@ export class Oauth2Scheme<
       .request({
         method: 'post',
         url: this.options.endpoints.token,
+        baseURL: '',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
