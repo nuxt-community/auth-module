@@ -266,15 +266,18 @@ export class Storage {
       // Send Set-Cookie header from server side
       const cookies = (this.ctx.res.getHeader('Set-Cookie') as string[]) || []
       cookies.unshift(serializedCookie)
-      this.ctx.res.setHeader(
-        'Set-Cookie',
-        cookies.filter(
-          (v, i, arr) =>
-            arr.findIndex((val) =>
-              val.startsWith(v.substr(0, v.indexOf('=')))
-            ) === i
+      // check that header have not already been sent
+      if (!this.ctx.res.headersSent) {
+        this.ctx.res.setHeader(
+          'Set-Cookie',
+          cookies.filter(
+            (v, i, arr) =>
+              arr.findIndex((val) =>
+                val.startsWith(v.substr(0, v.indexOf('=')))
+              ) === i
+          )
         )
-      )
+      }
     }
 
     return value
