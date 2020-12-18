@@ -122,7 +122,7 @@ export function getProp(
   holder: Record<string, any>,
   propName: string | false
 ): unknown {
-  if (!propName || !holder) {
+  if (!propName || !holder || typeof holder !== 'object') {
     return holder
   }
 
