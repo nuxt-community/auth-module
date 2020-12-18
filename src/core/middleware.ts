@@ -31,17 +31,17 @@ export const authMiddleware: Middleware = async (ctx) => {
     normalizePath(ctx.route.path) === normalizePath(page)
 
   if (ctx.$auth.$state.loggedIn) {
-    // -- Authorized --
-    if (!login || insidePage(login) || pageIsInGuestMode) {
-      ctx.$auth.redirect('home')
-    }
-
     // Perform scheme checks.
     const {
       tokenExpired,
       refreshTokenExpired,
       isRefreshable
     } = ctx.$auth.check(true)
+
+    // -- Authorized --
+    if (!login || insidePage(login) || pageIsInGuestMode) {
+      ctx.$auth.redirect('home')
+    }
 
     // Refresh token has expired. There is no way to refresh. Force reset.
     if (refreshTokenExpired) {
