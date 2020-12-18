@@ -1,6 +1,6 @@
 <template>
   <div v-if="$auth.$state.busy" class="overlay">
-    <img src="~/assets/loading.svg" alt="Loading...">
+    <img src="~/assets/loading.svg" alt="Loading..." />
   </div>
 </template>
 

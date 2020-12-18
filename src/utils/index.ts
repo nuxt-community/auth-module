@@ -1,15 +1,25 @@
-export const isUnset = o => typeof o === 'undefined' || o === null
-export const isSet = o => !isUnset(o)
+import type { Route, HTTPResponse, RecursivePartial } from '../types'
 
-export function isSameURL (a, b) {
-  return a.split('?')[0].replace(/\/+$/, '') === b.split('?')[0].replace(/\/+$/, '')
+export const isUnset = (o: unknown): boolean =>
+  typeof o === 'undefined' || o === null
+
+export const isSet = (o: unknown): boolean => !isUnset(o)
+
+export function isSameURL(a: string, b: string): boolean {
+  return (
+    a.split('?')[0].replace(/\/+$/, '') === b.split('?')[0].replace(/\/+$/, '')
+  )
 }
 
-export function isRelativeURL (u) {
-  return u && u.length && /^\/([a-zA-Z0-9@\-%_~][/a-zA-Z0-9@\-%_~]*)?([?][^#]*)?(#[^#]*)?$/.test(u)
+export function isRelativeURL(u: string): boolean {
+  return (
+    u &&
+    u.length &&
+    /^\/([a-zA-Z0-9@\-%_~][/a-zA-Z0-9@\-%_~]*)?([?][^#]*)?(#[^#]*)?$/.test(u)
+  )
 }
 
-export function parseQuery (queryString) {
+export function parseQuery(queryString: string): Record<string, unknown> {
   const query = {}
   const pairs = queryString.split('&')
   for (let i = 0; i < pairs.length; i++) {
@@ -19,47 +29,57 @@ export function parseQuery (queryString) {
   return query
 }
 
-export function encodeQuery (queryObject: {[key: string]: string}) {
+export function encodeQuery(queryObject: {
+  [key: string]: string | number | boolean
+}): string {
   return Object.entries(queryObject)
     .filter(([_key, value]) => typeof value !== 'undefined')
-    .map(([key, value]) =>
-      encodeURIComponent(key) + (value != null ? '=' + encodeURIComponent(value) : '')
+    .map(
+      ([key, value]) =>
+        encodeURIComponent(key) +
+        (value != null ? '=' + encodeURIComponent(value) : '')
     )
     .join('&')
 }
 
-interface VueComponent { options: object, _Ctor: VueComponent }
-type match = { components: VueComponent[] }
-type Route = { matched: match[] }
-
-export function routeOption (route: Route, key, value) {
+export function routeOption(
+  route: Route,
+  key: string,
+  value: string | boolean
+): boolean {
   return route.matched.some((m) => {
     if (process.client) {
       // Client
       return Object.values(m.components).some(
-        component => component.options && component.options[key] === value
+        (component) => component.options && component.options[key] === value
       )
     } else {
       // SSR
-      return Object.values(m.components).some(component =>
+      return Object.values(m.components).some((component) =>
         Object.values(component._Ctor).some(
-          ctor => ctor.options && ctor.options[key] === value
+          (ctor) => ctor.options && ctor.options[key] === value
         )
       )
     }
   })
 }
 
-export function getMatchedComponents (route: Route, matches = []) {
-  return [].concat.apply([], route.matched.map(function (m, index) {
-    return Object.keys(m.components).map(function (key) {
-      matches.push(index)
-      return m.components[key]
+export function getMatchedComponents(
+  route: Route,
+  matches: unknown[] = []
+): unknown[] {
+  return [].concat(
+    ...[],
+    ...route.matched.map(function (m, index) {
+      return Object.keys(m.components).map(function (key) {
+        matches.push(index)
+        return m.components[key]
+      })
     })
-  }))
+  )
 }
 
-export function normalizePath (path = '') {
+export function normalizePath(path = ''): string {
   // Remove query string
   let result = path.split('?')[0]
 
@@ -71,20 +91,19 @@ export function normalizePath (path = '') {
   return result
 }
 
-export function encodeValue (val) {
+export function encodeValue(val: unknown): string {
   if (typeof val === 'string') {
     return val
   }
   return JSON.stringify(val)
 }
 
-export function decodeValue (val) {
+export function decodeValue(val: unknown): unknown {
   // Try to parse as json
   if (typeof val === 'string') {
     try {
       return JSON.parse(val)
-    } catch (_) {
-    }
+    } catch (_) {}
   }
 
   // Return as is
@@ -99,7 +118,10 @@ export function decodeValue (val) {
  * @param  {string} propName Dot notation, like 'this.a.b.c'
  * @return {*}          A property value
  */
-export function getProp (holder, propName) {
+export function getProp(
+  holder: Record<string, any>,
+  propName: string | false
+): unknown {
   if (!propName || !holder) {
     return holder
   }
@@ -108,9 +130,11 @@ export function getProp (holder, propName) {
     return holder[propName]
   }
 
-  const propParts = Array.isArray(propName) ? propName : (propName + '').split('.')
+  const propParts = Array.isArray(propName)
+    ? propName
+    : (propName + '').split('.')
 
-  let result = holder
+  let result: unknown = holder
   while (propParts.length && result) {
     result = result[propParts.shift()]
   }
@@ -118,8 +142,11 @@ export function getProp (holder, propName) {
   return result
 }
 
-export function getResponseProp (response, prop) {
-  if (prop[0] === '.') {
+export function getResponseProp(
+  response: HTTPResponse,
+  prop: string | false
+): unknown {
+  if (typeof prop === 'string' && prop[0] === '.') {
     return getProp(response, prop.substring(1))
   } else {
     return getProp(response.data, prop)
@@ -127,24 +154,31 @@ export function getResponseProp (response, prop) {
 }
 
 // Ie "Bearer " + token
-export function addTokenPrefix (token, tokenType) {
-  if (!token || !tokenType || token.startsWith(tokenType)) {
+export function addTokenPrefix(
+  token: string | boolean,
+  tokenType: string | false
+): string | boolean {
+  if (!token || !tokenType || (token + '').startsWith(tokenType)) {
     return token
   }
 
   return tokenType + ' ' + token
 }
 
-export function removeTokenPrefix (token, tokenType) {
+export function removeTokenPrefix(
+  token: string | boolean,
+  tokenType: string | false
+): string | boolean {
   if (!token || !tokenType) {
     return token
   }
 
-  return token.replace(tokenType + ' ', '')
+  return (token + '').replace(tokenType + ' ', '')
 }
 
-export function urlJoin (...args) {
-  return args.join('/')
+export function urlJoin(...args: string[]): string {
+  return args
+    .join('/')
     .replace(/[/]+/g, '/')
     .replace(/^(.+):\//, '$1://')
     .replace(/^file:/, 'file:/')
@@ -153,12 +187,25 @@ export function urlJoin (...args) {
     .replace('&', '?')
 }
 
-export function cleanObj (obj) {
+export function cleanObj<T extends Record<string, unknown>>(
+  obj: T
+): RecursivePartial<T> {
   for (const key in obj) {
     if (obj[key] === undefined) {
       delete obj[key]
     }
   }
 
-  return obj
+  return obj as RecursivePartial<T>
+}
+
+const characters =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+export function randomString(length) {
+  let result = ''
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
 }

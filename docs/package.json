@@ -1,10 +1,15 @@
 {
+  "name": "docs",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vuepress dev",
-    "build": "vuepress build"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
   },
-  "devDependencies": {
-    "vuepress": "^1.4.1"
+  "dependencies": {
+    "@nuxt/content-theme-docs": "^0.8.2",
+    "nuxt": "^2.14.12"
   }
 }

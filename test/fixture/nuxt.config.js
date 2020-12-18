@@ -2,13 +2,8 @@ import authAPI from '../../demo/api/auth'
 import authModuleDist from '../..'
 
 export default {
-  serverMiddleware: [
-    authAPI
-  ],
-  modules: [
-    '@nuxtjs/axios',
-    authModuleDist
-  ],
+  serverMiddleware: [authAPI],
+  modules: ['@nuxtjs/axios', authModuleDist],
   axios: {
     proxy: true
   },
@@ -16,9 +11,7 @@ export default {
     '/api': 'http://localhost:3000'
   },
   auth: {
-    plugins: [
-      '~/plugins/auth.js'
-    ],
+    plugins: ['~/plugins/auth.js'],
     strategies: {
       local: {
         token: {
