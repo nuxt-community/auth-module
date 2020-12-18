@@ -186,6 +186,12 @@ export class LocalScheme<
     // Fetch user if `autoFetch` is enabled
     if (this.options.user.autoFetch) {
       await this.fetchUser()
+    } else {
+      const user = getResponseProp(response, this.options.user.property)
+
+      if (user) {
+        this.$auth.setUser(user)
+      }
     }
 
     return response
