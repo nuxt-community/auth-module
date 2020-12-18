@@ -189,7 +189,7 @@ export class LocalScheme<
     } else {
       const user = getResponseProp(response, this.options.user.property)
 
-      if (user) {
+      if (this.check().valid && user) {
         this.$auth.setUser(user)
       }
     }
