@@ -28,9 +28,10 @@ const DEFAULTS: SchemePartialOptions<CookieSchemeOptions> = {
   },
   token: {
     type: '',
-    property: '.status',
+    property: '',
     maxAge: false,
-    global: false
+    global: false,
+    required: false
   },
   endpoints: {
     csrf: null
