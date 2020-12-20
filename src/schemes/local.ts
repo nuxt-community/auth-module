@@ -99,7 +99,7 @@ export class LocalScheme<
     const token = this.token.sync()
 
     // Token is required but not available
-    if (this.options.token.required && !token) {
+    if (!token) {
       return response
     }
 
@@ -248,13 +248,11 @@ export class LocalScheme<
   }
 
   protected updateTokens(response: HTTPResponse): void {
-    if (this.options.token.required) {
-      const token = getResponseProp(
-        response,
-        this.options.token.property
-      ) as string
-      this.token.set(token)
-    }
+    const token = this.options.token.required
+      ? (getResponseProp(response, this.options.token.property) as string)
+      : true
+
+    this.token.set(token)
   }
 
   protected initializeRequestInterceptor(): void {
