@@ -158,7 +158,12 @@ export function addTokenPrefix(
   token: string | boolean,
   tokenType: string | false
 ): string | boolean {
-  if (!token || !tokenType || (token + '').startsWith(tokenType)) {
+  if (
+    !token ||
+    !tokenType ||
+    typeof token !== 'string' ||
+    token.startsWith(tokenType)
+  ) {
     return token
   }
 
@@ -169,11 +174,11 @@ export function removeTokenPrefix(
   token: string | boolean,
   tokenType: string | false
 ): string | boolean {
-  if (!token || !tokenType) {
+  if (!token || !tokenType || typeof token !== 'string') {
     return token
   }
 
-  return (token + '').replace(tokenType + ' ', '')
+  return token.replace(tokenType + ' ', '')
 }
 
 export function urlJoin(...args: string[]): string {

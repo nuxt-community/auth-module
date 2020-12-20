@@ -24,8 +24,11 @@ export class Token {
     const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
 
     this._setToken(token)
-    this.scheme.requestHandler.setHeader(token)
     this._updateExpiration(token)
+
+    if (typeof token === 'string') {
+      this.scheme.requestHandler.setHeader(token)
+    }
 
     return token
   }
@@ -33,7 +36,10 @@ export class Token {
   sync(): string | boolean {
     const token = this._syncToken()
     this._syncExpiration()
-    this.scheme.requestHandler.setHeader(token)
+
+    if (typeof token === 'string') {
+      this.scheme.requestHandler.setHeader(token)
+    }
 
     return token
   }

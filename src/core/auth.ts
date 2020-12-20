@@ -342,7 +342,12 @@ export class Auth {
     if (!_endpoint.headers) {
       _endpoint.headers = {}
     }
-    if (!_endpoint.headers[tokenName] && isSet(token) && token) {
+    if (
+      !_endpoint.headers[tokenName] &&
+      isSet(token) &&
+      token &&
+      typeof token === 'string'
+    ) {
       _endpoint.headers[tokenName] = token
     }
 
