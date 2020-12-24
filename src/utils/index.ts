@@ -100,7 +100,7 @@ export function decodeValue (val) {
  * @return {*}          A property value
  */
 export function getProp (holder, propName) {
-  if (!propName || !holder) {
+  if (!propName || (!holder || typeof holder !== 'object') {
     return holder
   }
 
