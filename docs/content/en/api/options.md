@@ -5,7 +5,7 @@ position: 52
 category: API
 ---
 
-General options shared with all strategies. See [defaults.ts](https://github.com/nuxt-community/auth-module/blob/dev/src/module/defaults.ts) for defaults.
+General options shared with all strategies. See moduleDefaults in [options.ts](https://github.com/nuxt-community/auth-module/blob/dev/src/options.ts) for defaults.
 
 ## `redirect`
 
