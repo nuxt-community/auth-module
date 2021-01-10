@@ -39,7 +39,7 @@ this.$auth.loggedIn
 this.$store.state.auth.loggedIn
 ```
 
-Under the hood, auth uses attached [`$storage`](./storage.md) instance to provide this states.
+Under the hood, auth uses attached [`$storage`](./storage) instance to provide this states.
 
 
 ## methods
@@ -72,7 +72,7 @@ this.$auth.login(/* .... */)
 
 Set user data and update `loggedIn` state.
 
-> **TIP:** This function can be used to set the user using the login response after a successfully login, when [autoFetchUser](../schemes/local.md#autofetchuser) is disabled.
+> **TIP:** This function can be used to set the user using the login response after a successfully login, when [autoFetchUser](../schemes/local#autofetchuser) is disabled.
 
 ```js
 this.$auth.setUser(user)
@@ -159,4 +159,4 @@ export default function({ $auth }) {
 ## tokens
 
 **Token** and **Refresh Token** are available on `$auth.token` and `$auth.refreshToken`.
-Both have getters and setters and other helpers. Documented in [tokens.md](tokens.md)
+Both have getters and setters and other helpers. Documented in [Tokens](./tokens)
