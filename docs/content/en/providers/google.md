@@ -27,6 +27,13 @@ this.$auth.loginWith('google')
 
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2) and supports all scheme options.
 
+To add additional authentication parameters, append within params object like:
+
+```js
+this.$auth.loginWith('google', { params: { prompt: "select_account" } })
+```
+
+
 ## Obtaining `clientId`
 
 This option is **REQUIRED**. To obtain one, create your app in [Google API Console](https://console.developers.google.com), Create a new project and from Credentials tab, create a new "Oauth Client ID".
