@@ -31,7 +31,7 @@ Add `@nuxtjs/auth-next @nuxtjs/axios` dependencies to your project:
 
   ```bash
   npm install --save-exact @nuxtjs/auth-next
-  npm install @nuxtjs/auth-next @nuxtjs/axios
+  npm install @nuxtjs/axios
   ```
 
   </code-block>
