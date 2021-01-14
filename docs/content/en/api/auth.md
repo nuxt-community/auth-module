@@ -55,6 +55,8 @@ this.$auth.loginWith('local', /* .... */)
   .then(() => this.$toast.success('Logged In!'))
 ```
 
+> **TIP:** Example of strategy-specific args: `this.$auth.loginWith('google', { params: { prompt: "select_account" } })`
+
 ### `login(...args)`
 
 - Returns: `Promise`
