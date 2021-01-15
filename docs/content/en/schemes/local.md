@@ -64,11 +64,14 @@ export default {
 
 You'll need a backend server that implement the basics of authentication. As
 this is very security-sensitive code, we strongly recommend that you use an
-existing authentication backend library.
+established authentication library for your backend, too.
 
 The backend should verify the login credentials, then return a JSON body with
 the token that the frontend can use to act as this user. The JSON body format
 is configured in the [token section of the local scheme configuration](#token).
+
+> TIP: If you want to use cookies instead of token-based authentication, use the
+> [cookie](./cookie) scheme.
 
 The entire backend response is passed through to the `loginWith` response,
 so you can pass through additional information about the user, e.g. for
