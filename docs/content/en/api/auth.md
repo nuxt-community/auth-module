@@ -48,7 +48,7 @@ Under the hood, auth uses attached [`$storage`](./storage.md) instance to provid
 
 - Returns: `Promise`
 
-Set current strategy to `strategyName` and attempt login. Usage varies by current strategy; 
+Set current strategy to `strategyName` and attempt login. Usage varies by current strategy.
 
 ```js
 this.$auth.loginWith('local', { data: { /* data to post to server */ } })
