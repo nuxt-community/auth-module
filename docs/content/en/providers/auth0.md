@@ -93,7 +93,7 @@ auth: {
       scope: ['openid', 'profile', 'email', 'offline_access'],
       responseType: 'code',
       grantType: 'authorization_code',
-      codeChallengeMethod: 'S256',
+      codeChallengeMethod: 'RS256',
     }
   }
 }
