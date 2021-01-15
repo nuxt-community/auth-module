@@ -15,6 +15,12 @@ category: Schemes
 this.$auth.loginWith('social')
 ```
 
+Additional arguments can be passed through to Google as the `params` key of the second argument:
+
+```js
+this.$auth.loginWith('social', { params: { another_post_key: "value" } })
+```
+
 ## Token refresh
 
 If your provider issues refresh tokens, these will be used to refresh the token before every axios request.
