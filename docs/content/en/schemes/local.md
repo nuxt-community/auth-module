@@ -60,6 +60,29 @@ export default {
 </script>
 ```
 
+## Backend
+
+You'll need a backend server that implement the basics of authentication. As
+this is very security-sensitive code, we strongly recommend that you use an
+existing authentication backend library.
+
+The backend should verify the login credentials, then return a JSON body with
+the token that the frontend can use to act as this user. The JSON body format
+is configured in the [token section of the local scheme configuration](#token).
+
+The entire backend response is passed through to the `loginWith` response,
+so you can pass through additional information about the user, e.g. for
+authorization (which is out of scope of @nuxtjs/auth).
+
+If [`user.autoFetch` is true (default)](#user), then a request to
+`endpoints.user` immediately after a successful login. That endpoint should
+respond with the JSON information for a specific user. That information is
+assigned directly to [the user property](../api/auth#user).
+
+If you'd prefer to return the user's information directly from the login
+session, configure `user.autoFetch` to true, fetch the user information from the
+`loginWith` response, and pass it in to
+[`setUser`](../api/auth#setuseruser).
 
 ## Options
 
