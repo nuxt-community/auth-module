@@ -37,8 +37,8 @@
     "test": "yarn lint && jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.4",
-    "axios": "^0.21.0",
+    "@nuxtjs/axios": "^5.12.5",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "consola": "^2.15.0",
     "cookie": "^0.4.1",
