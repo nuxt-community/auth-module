@@ -15,7 +15,7 @@ category: Schemes
 this.$auth.loginWith('social')
 ```
 
-Additional arguments can be passed through to Google as the `params` key of the second argument:
+Additional arguments can be passed through to the OAuth provider using the `params` key of the second argument:
 
 ```js
 this.$auth.loginWith('social', { params: { another_post_key: "value" } })
