@@ -13,7 +13,7 @@ import type {
 import type { Auth } from '../core'
 import {
   encodeQuery,
-  getResponseProp,
+  getProp,
   normalizePath,
   parseQuery,
   removeTokenPrefix,
@@ -327,7 +327,7 @@ export class Oauth2Scheme<
       url: this.options.endpoints.userInfo
     })
 
-    this.$auth.setUser(getResponseProp(response, this.options.user.property))
+    this.$auth.setUser(getProp(response.data, this.options.user.property))
   }
 
   async _handleCallback(): Promise<boolean | void> {
@@ -396,11 +396,10 @@ export class Oauth2Scheme<
       })
 
       token =
-        (getResponseProp(response, this.options.token.property) as string) ||
-        token
+        (getProp(response.data, this.options.token.property) as string) || token
       refreshToken =
-        (getResponseProp(
-          response,
+        (getProp(
+          response.data,
           this.options.refreshToken.property
         ) as string) || refreshToken
     }
@@ -473,12 +472,9 @@ export class Oauth2Scheme<
   }
 
   protected updateTokens(response: HTTPResponse): void {
-    const token = getResponseProp(
-      response,
-      this.options.token.property
-    ) as string
-    const refreshToken = getResponseProp(
-      response,
+    const token = getProp(response.data, this.options.token.property) as string
+    const refreshToken = getProp(
+      response.data,
       this.options.refreshToken.property
     ) as string
 

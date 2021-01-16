@@ -65,7 +65,7 @@ export default class CustomScheme extends LocalScheme {
       endpoint,
       this.options.endpoints.user
     ).then((response) => {
-      const user = getResponseProp(response, this.options.user.property)
+      const user = getProp(response.data, this.options.user.property)
       
       // Transform the user object
       const customUser = {
