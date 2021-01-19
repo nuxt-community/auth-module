@@ -1,4 +1,4 @@
-import type { Route, HTTPResponse, RecursivePartial } from '../types'
+import type { Route, RecursivePartial } from '../types'
 
 export const isUnset = (o: unknown): boolean =>
   typeof o === 'undefined' || o === null
@@ -140,17 +140,6 @@ export function getProp(
   }
 
   return result
-}
-
-export function getResponseProp(
-  response: HTTPResponse,
-  prop: string | false
-): unknown {
-  if (typeof prop === 'string' && prop[0] === '.') {
-    return getProp(response, prop.substring(1))
-  } else {
-    return getProp(response.data, prop)
-  }
 }
 
 // Ie "Bearer " + token

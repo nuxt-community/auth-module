@@ -7,7 +7,7 @@ import type {
   RefreshableSchemeOptions
 } from '../types'
 import type { Auth } from '../core'
-import { cleanObj, getResponseProp } from '../utils'
+import { cleanObj, getProp } from '../utils'
 import {
   RefreshController,
   RefreshToken,
@@ -216,13 +216,10 @@ export class RefreshScheme<
     { isRefreshing = false, updateOnRefresh = true } = {}
   ): void {
     const token = this.options.token.required
-      ? (getResponseProp(response, this.options.token.property) as string)
+      ? (getProp(response.data, this.options.token.property) as string)
       : true
     const refreshToken = this.options.refreshToken.required
-      ? (getResponseProp(
-          response,
-          this.options.refreshToken.property
-        ) as string)
+      ? (getProp(response.data, this.options.refreshToken.property) as string)
       : true
 
     this.token.set(token)

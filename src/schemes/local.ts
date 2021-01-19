@@ -9,7 +9,7 @@ import type {
   SchemeCheck
 } from '../types'
 import type { Auth } from '../core'
-import { getResponseProp } from '../utils'
+import { getProp } from '../utils'
 import { Token, RequestHandler } from '../inc'
 import { BaseScheme } from './base'
 
@@ -214,9 +214,7 @@ export class LocalScheme<
     return this.$auth
       .requestWith(this.name, endpoint, this.options.endpoints.user)
       .then((response) => {
-        this.$auth.setUser(
-          getResponseProp(response, this.options.user.property)
-        )
+        this.$auth.setUser(getProp(response.data, this.options.user.property))
         return response
       })
       .catch((error) => {
@@ -249,7 +247,7 @@ export class LocalScheme<
 
   protected updateTokens(response: HTTPResponse): void {
     const token = this.options.token.required
-      ? (getResponseProp(response, this.options.token.property) as string)
+      ? (getProp(response.data, this.options.token.property) as string)
       : true
 
     this.token.set(token)
