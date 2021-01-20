@@ -1,7 +1,9 @@
-import theme from '@nuxt/content-theme-docs'
+import { withDocus } from 'docus'
 
-export default theme({
-  docs: {
-    primaryColor: '#00CD81'
+export default withDocus({
+  docus: {
+    colors: {
+      primary: '#00CD81'
+    }
   }
 })
