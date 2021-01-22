@@ -15,7 +15,7 @@ Read more in [Schemes and Strategies](./guide/scheme) section.
 
 Strategy is a configured instance of Scheme.
 
-Read more in [Schemes and Strategies](./guide/schemes) section.
+Read more in [Schemes and Strategies](./guide/scheme) section.
 
 ## Provider
 
