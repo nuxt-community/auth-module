@@ -66,6 +66,13 @@ You'll need a backend server that implement the basics of authentication. As
 this is very security-sensitive code, we strongly recommend that you use an
 established authentication library for your backend, too.
 
+The backend will, at minimum, need to handle login and logout. It will also, by
+default, need to include an endpoint to fetch user information (ID, email, etc).
+This can be disabled with `user.autoFetch = false` if your frontend doesn't need
+to know anyhting about your user.
+
+### Login
+
 The backend should verify the login credentials, then return a JSON body with
 the token that the frontend can use to act as this user. The JSON body format
 is configured in the [token section of the local scheme configuration](#token).
@@ -76,6 +83,8 @@ is configured in the [token section of the local scheme configuration](#token).
 The entire backend response is passed through to the `loginWith` response,
 so you can pass through additional information about the user, e.g. for
 authorization (which is out of scope of @nuxtjs/auth).
+
+### Fetch User
 
 If [`user.autoFetch` is true (default)](#user), then a request to
 `endpoints.user` immediately after a successful login. That endpoint should
