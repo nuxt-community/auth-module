@@ -210,7 +210,7 @@ Here you configure the user options.
 
 By default, auth will load the user's info using a second HTTP request after a
 successful login. This option disables that request, but does not disable
-fetching user info from the user envpoint; set `endpoints.user: false` for that.
+fetching user info from the user endpoint; set `endpoints.user: false` for that.
 
 > TIP: Set this to false when you want to return the user info from your login request to save an extra HTTP roundtrip. To do so, get the response from `loginWith` and pass the data to [setUser](../api/auth#setuser-user). Note that, unless you disable the user endpoint with `endpoints.user: false` you will still need to implement the user endpoint so that auth can fetch the user information on e.g. page refresh.
 
