@@ -9,7 +9,14 @@ import type {
   SchemeCheck
 } from '../types'
 import type { ModuleOptions } from '../options'
-import { routeOption, isRelativeURL, isSet, isSameURL, getProp } from '../utils'
+import {
+  routeOption,
+  isRelativeURL,
+  isSet,
+  isSameURL,
+  getProp,
+  normalizePath
+} from '../utils'
 import { Storage } from './storage'
 
 export type ErrorListener = (...args: unknown[]) => void
@@ -399,7 +406,11 @@ export class Auth {
 
     // Apply rewrites
     if (this.options.rewriteRedirects) {
-      if (name === 'login' && isRelativeURL(from) && !isSameURL(to, from)) {
+      if (
+        name === 'login' &&
+        isRelativeURL(from) &&
+        !isSameURL(this.ctx, to, from)
+      ) {
         this.$storage.setUniversal('redirect', from)
       }
 
@@ -417,12 +428,15 @@ export class Auth {
     to = this.callOnRedirect(to, from) || to
 
     // Prevent infinity redirects
-    if (isSameURL(to, from)) {
+    if (isSameURL(this.ctx, to, from)) {
       return
     }
 
     if (process.client) {
       if (noRouter) {
+        if (isRelativeURL(to) && !to.includes(this.ctx.base)) {
+          to = normalizePath('/' + this.ctx.base + '/' + to) // Don't pass in context to preserve base url
+        }
         window.location.replace(to)
       } else {
         this.ctx.redirect(to, this.ctx.query)

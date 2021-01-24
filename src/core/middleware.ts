@@ -28,7 +28,7 @@ export const authMiddleware: Middleware = async (ctx) => {
     'guest'
   )
   const insidePage = (page) =>
-    normalizePath(ctx.route.path) === normalizePath(page)
+    normalizePath(ctx.route.path, ctx) === normalizePath(page, ctx)
 
   if (ctx.$auth.$state.loggedIn) {
     // Perform scheme checks.

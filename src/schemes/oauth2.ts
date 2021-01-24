@@ -148,10 +148,11 @@ export class Oauth2Scheme<
   }
 
   protected get redirectURI(): string {
-    return (
-      this.options.redirectUri ||
-      urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
-    )
+    const basePath = this.$auth.ctx.base || ''
+    const path = normalizePath(
+      basePath + '/' + this.$auth.options.redirect.callback
+    ) // Don't pass in context since we want the base path
+    return this.options.redirectUri || urlJoin(requrl(this.req), path)
   }
 
   protected get logoutRedirectURI(): string {
@@ -334,8 +335,8 @@ export class Oauth2Scheme<
     // Handle callback only for specified route
     if (
       this.$auth.options.redirect &&
-      normalizePath(this.$auth.ctx.route.path) !==
-        normalizePath(this.$auth.options.redirect.callback)
+      normalizePath(this.$auth.ctx.route.path, this.$auth.ctx) !==
+        normalizePath(this.$auth.options.redirect.callback, this.$auth.ctx)
     ) {
       return
     }

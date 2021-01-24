@@ -1,3 +1,4 @@
+import type { Context } from '@nuxt/types'
 import type { Route, RecursivePartial } from '../types'
 
 export const isUnset = (o: unknown): boolean =>
@@ -5,11 +6,8 @@ export const isUnset = (o: unknown): boolean =>
 
 export const isSet = (o: unknown): boolean => !isUnset(o)
 
-export function isSameURL(a: string, b: string): boolean {
-  return (
-    a.split('?')[0].replace(/\/+$/, '') === b.split('?')[0].replace(/\/+$/, '')
-  )
-}
+export const isSameURL = (ctx: Context, a: string, b: string): boolean =>
+  normalizePath(a, ctx) === normalizePath(b, ctx)
 
 export function isRelativeURL(u: string): boolean {
   return (
@@ -79,14 +77,22 @@ export function getMatchedComponents(
   )
 }
 
-export function normalizePath(path = ''): string {
+export function normalizePath(path = '', ctx?: Context): string {
   // Remove query string
   let result = path.split('?')[0]
+
+  // Remove base path
+  if (ctx && ctx.base) {
+    result = result.replace(ctx.base, '/')
+  }
 
   // Remove redundant / from the end of path
   if (result.charAt(result.length - 1) === '/') {
     result = result.slice(0, -1)
   }
+
+  // Remove duplicate slashes
+  result = result.replace(/\/+/g, '/')
 
   return result
 }
