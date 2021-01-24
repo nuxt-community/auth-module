@@ -92,7 +92,7 @@ respond with the JSON information for a specific user. That information is
 assigned directly to [the user property](../api/auth#user).
 
 If you'd prefer to return the user's information directly from the login
-session, configure `user.autoFetch` to true, fetch the user information from the
+session, configure `user.autoFetch` to false, fetch the user information from the
 `loginWith` response, and pass it in to
 [`setUser`](../api/auth#setuseruser).
 
