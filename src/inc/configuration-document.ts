@@ -1,9 +1,6 @@
 import defu from 'defu'
-import {
-  OpenIDConnectScheme,
-  OpenIDConnectSchemeEndpoints
-} from 'src/schemes/openIDConnect'
-import { OpenIDConnectConfigurationDocument } from 'src/types/OpenIDConnectConfigurationDocument'
+import { OpenIDConnectScheme, OpenIDConnectSchemeEndpoints } from '../schemes'
+import { OpenIDConnectConfigurationDocument } from '../types'
 import { Storage } from '../'
 
 class ConfigurationDocumentRequestError extends Error {
@@ -82,13 +79,40 @@ export class ConfigurationDocument {
     Object.keys(mapping).forEach((optionsKey) => {
       const configDocument = this.get()
       const configDocumentKey = mapping[optionsKey]
-      const configDocumentValue = configDocument[configDocumentKey]
-      const optionsValue = this.scheme.options[optionsKey]
+      const configDocumentValues = configDocument[configDocumentKey]
+      const optionsValues = this.scheme.options[optionsKey]
 
-      if (typeof configDocumentValue !== 'undefined') {
-        if (!configDocumentValue.includes(optionsValue)) {
+      if (typeof configDocumentValues !== 'undefined') {
+        if (
+          Array.isArray(optionsValues) &&
+          Array.isArray(configDocumentValues)
+        ) {
+          optionsValues.forEach((optionsValue) => {
+            if (!configDocumentValues.includes(optionsValue)) {
+              ConfigurationDocumentWarning(
+                `A value of scheme options ${optionsKey} is not supported by ${configDocumentKey} of by Authorization Server.`
+              )
+            }
+          })
+        }
+
+        if (
+          !Array.isArray(optionsValues) &&
+          Array.isArray(configDocumentValues) &&
+          !configDocumentValues.includes(optionsValues)
+        ) {
           ConfigurationDocumentWarning(
-            `Value of ${optionsKey} is not supported by Authorization Server.`
+            `Value of scheme option ${optionsKey} is not supported by ${configDocumentKey} of by Authorization Server.`
+          )
+        }
+
+        if (
+          !Array.isArray(optionsValues) &&
+          !Array.isArray(configDocumentValues) &&
+          configDocumentValues !== optionsValues
+        ) {
+          ConfigurationDocumentWarning(
+            `Value of scheme option ${optionsKey} is not supported by ${configDocumentKey} of by Authorization Server.`
           )
         }
       }

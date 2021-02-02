@@ -1,4 +1,4 @@
-import { IdTokenableSchemeOptions } from 'src/types'
+import { IdTokenableSchemeOptions } from '../types'
 import { encodeQuery, parseQuery, normalizePath, getProp } from '../utils'
 import { IdToken, ConfigurationDocument } from '../inc'
 import type {
@@ -271,7 +271,8 @@ export class OpenIDConnectScheme<
         ) as string) || refreshToken
       idToken =
         // @ts-ignore
-        (getProp(response, this.options.idToken.property) as string) || idToken
+        (getProp(response.data, this.options.idToken.property) as string) ||
+        idToken
     }
 
     if (!token || !token.length) {
