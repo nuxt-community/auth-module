@@ -148,10 +148,11 @@ export class Oauth2Scheme<
   }
 
   protected get redirectURI(): string {
-    return (
-      this.options.redirectUri ||
-      urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
-    )
+    const basePath = this.$auth.ctx.base || ''
+    const path = normalizePath(
+      basePath + '/' + this.$auth.options.redirect.callback
+    ) // Don't pass in context since we want the base path
+    return this.options.redirectUri || urlJoin(requrl(this.req), path)
   }
 
   protected get logoutRedirectURI(): string {
@@ -257,7 +258,7 @@ export class Oauth2Scheme<
     // Set Nonce Value if response_type contains id_token to mitigate Replay Attacks
     // More Info: https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes
     // More Info: https://tools.ietf.org/html/draft-ietf-oauth-v2-threatmodel-06#section-4.6.2
-    if (opts.response_type.includes('id_token')) {
+    if (opts.response_type.includes('token')) {
       opts.nonce = _opts.nonce || randomString(10)
     }
 
@@ -334,8 +335,8 @@ export class Oauth2Scheme<
     // Handle callback only for specified route
     if (
       this.$auth.options.redirect &&
-      normalizePath(this.$auth.ctx.route.path) !==
-        normalizePath(this.$auth.options.redirect.callback)
+      normalizePath(this.$auth.ctx.route.path, this.$auth.ctx) !==
+        normalizePath(this.$auth.options.redirect.callback, this.$auth.ctx)
     ) {
       return
     }

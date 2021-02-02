@@ -60,6 +60,49 @@ export default {
 </script>
 ```
 
+## Backend
+
+You'll need a backend server that implement the basics of authentication. As
+this is very security-sensitive code, we strongly recommend that you use an
+established authentication library for your backend, too.
+
+The backend will, at minimum, need to handle login and logout. It will also, by
+default, need to include an endpoint to fetch user information (ID, email, etc).
+This can be disabled with [`endpoints.user = false`](/schemes/local#user) if
+your frontend doesn't need to know anything about your user. In this case,
+`this.$auth.user` will be `{}`.
+
+### Login
+
+The backend should verify the login credentials, then return a JSON body with
+the token that the frontend can use to act as this user. The JSON body format
+is configured in the [token section of the local scheme configuration](#token).
+
+> TIP: If you want to use cookies instead of token-based authentication, use the
+> [cookie](./cookie) scheme.
+
+The entire backend response is passed through to the `loginWith` response,
+so you can pass through additional information about the user, e.g. for
+authorization (which is out of scope of @nuxtjs/auth).
+
+### Fetch User
+
+The auth module does not persist information about the user, so there needs to
+be a way to fetch the user's information on e.g. page reload. That's what the
+user endpoint is for. By default, this is also called after a successful login.
+
+If [`user.autoFetch` is true (default)](#user), then a request to
+`endpoints.user` is sent immediately after a successful login. That endpoint
+should respond with the JSON information for a specific user, which is
+assigned directly to [the user property](../api/auth#user).
+
+If you'd prefer to return the user's information directly from the login
+session, configure `user.autoFetch` to false, fetch the user information from the
+`loginWith` response, and pass it in to [`setUser`](../api/auth#setuseruser).
+
+If you want to disable fetching user info entirely, set `endpoints.user: false`.
+This will mean the user info endpoint is never called, but will also mean the
+frontend doesn't know anything about the user; `this.$auth.user` will be `{}`.
 
 ## Options
 
@@ -165,10 +208,11 @@ Here you configure the user options.
 
 - Default: `true`
 
+By default, auth will load the user's info using a second HTTP request after a
+successful login. This option disables that request, but does not disable
+fetching user info from the user endpoint; set `endpoints.user: false` for that.
 
-This option can be used to disable user fetch after login.
-
-> TIP: It is useful when your login response already have the user. To manually set the user, use [setUser](../api/auth#setuser-user).
+> TIP: Set this to false when you want to return the user info from your login request to save an extra HTTP roundtrip. To do so, get the response from `loginWith` and pass the data to [setUser](../api/auth#setuser-user). Note that, unless you disable the user endpoint with `endpoints.user: false` you will still need to implement the user endpoint so that auth can fetch the user information on e.g. page refresh.
 
 ### `clientId`
 
