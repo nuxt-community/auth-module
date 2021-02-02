@@ -1,8 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const jwt = require('express-jwt')
-const jsonwebtoken = require('jsonwebtoken')
+import express from 'express'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+import jwt from 'express-jwt'
+import jsonwebtoken from 'jsonwebtoken'
 
 // Create app
 const app = express()
@@ -123,7 +123,7 @@ app.use((err, _req, res) => {
 })
 
 // -- export app --
-module.exports = {
+export default {
   path: '/api/auth',
   handler: app
 }

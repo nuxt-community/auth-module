@@ -1,6 +1,10 @@
 import defu from 'defu'
-import type { Scheme, OpenIDConnectConfigurationDocument } from '../index'
-import Storage from '../core/storage'
+import {
+  OpenIDConnectScheme,
+  OpenIDConnectSchemeEndpoints
+} from 'src/schemes/openIDConnect'
+import { OpenIDConnectConfigurationDocument } from 'src/types/OpenIDConnectConfigurationDocument'
+import { Storage } from '../'
 
 class ConfigurationDocumentRequestError extends Error {
   constructor() {
@@ -14,12 +18,12 @@ const ConfigurationDocumentWarning = (message: string) =>
   // eslint-disable-next-line no-console
   console.warn(`[AUTH] [OPENID CONNECT] Invalid configuration. ${message}`)
 
-export default class ConfigurationDocument {
-  public scheme: Scheme
+export class ConfigurationDocument {
+  public scheme: OpenIDConnectScheme
   public $storage: Storage
   public key: string
 
-  constructor(scheme: Scheme, storage: Storage) {
+  constructor(scheme: OpenIDConnectScheme, storage: Storage) {
     this.scheme = scheme
     this.$storage = storage
     this.key = '_configuration_document.' + this.scheme.name
@@ -107,7 +111,7 @@ export default class ConfigurationDocument {
       token: configurationDocument.token_endpoint,
       userInfo: configurationDocument.userinfo_endpoint,
       logout: configurationDocument.end_session_endpoint
-    })
+    }) as OpenIDConnectSchemeEndpoints
   }
 
   reset() {

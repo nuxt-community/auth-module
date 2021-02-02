@@ -1,16 +1,29 @@
-import { AxiosResponse } from 'axios'
+import { IdTokenableSchemeOptions } from 'src/types'
+import { encodeQuery, parseQuery, normalizePath, getProp } from '../utils'
+import { IdToken, ConfigurationDocument } from '../inc'
+import type {
+  Auth,
+  HTTPResponse,
+  SchemeCheck,
+  SchemePartialOptions
+} from '../index'
 import {
-  encodeQuery,
-  parseQuery,
-  normalizePath,
-  getResponseProp
-} from '../utils'
-import IdToken from '../inc/id-token'
-import ConfigurationDocument from '../inc/configuration-document'
-import type { SchemeCheck } from '../index'
-import Oauth2Scheme from './oauth2'
+  Oauth2Scheme,
+  Oauth2SchemeEndpoints,
+  Oauth2SchemeOptions
+} from './oauth2'
 
-const DEFAULTS = {
+export interface OpenIDConnectSchemeEndpoints extends Oauth2SchemeEndpoints {
+  configuration: string
+}
+
+export interface OpenIDConnectSchemeOptions
+  extends Oauth2SchemeOptions,
+    IdTokenableSchemeOptions {
+  endpoints: OpenIDConnectSchemeEndpoints
+}
+
+const DEFAULTS: SchemePartialOptions<OpenIDConnectSchemeOptions> = {
   name: 'openIDConnect',
   idToken: {
     property: 'id_token',
@@ -21,34 +34,37 @@ const DEFAULTS = {
   codeChallengeMethod: 'S256'
 }
 
-export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
+export class OpenIDConnectScheme<
+  OptionsT extends OpenIDConnectSchemeOptions = OpenIDConnectSchemeOptions
+> extends Oauth2Scheme<OptionsT> {
   public idToken: IdToken
   public configurationDocument: ConfigurationDocument
 
-  constructor($auth: any, options: any, ...defaults: any) {
-    super($auth, options, ...defaults, DEFAULTS)
+  constructor(
+    $auth: Auth,
+    options: SchemePartialOptions<OpenIDConnectSchemeOptions>,
+    ...defaults: SchemePartialOptions<OpenIDConnectSchemeOptions>[]
+  ) {
+    super(
+      $auth,
+      options as OptionsT,
+      ...(defaults as OptionsT[]),
+      DEFAULTS as OptionsT
+    )
 
+    // Initialize ID Token instance
     this.idToken = new IdToken(this, this.$auth.$storage)
+
+    // Initialize ConfigurationDocument
     this.configurationDocument = new ConfigurationDocument(
       this,
       this.$auth.$storage
     )
   }
 
-  _updateTokens(response: AxiosResponse<any>) {
-    const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = getResponseProp(
-      response,
-      this.options.refreshToken.property
-    )
-
-    const idToken = getResponseProp(response, this.options.idToken.property)
-
-    this.token.set(token)
-
-    if (refreshToken) {
-      this.refreshToken.set(refreshToken)
-    }
+  protected updateTokens(response: HTTPResponse): void {
+    super.updateTokens(response)
+    const idToken = getProp(response, this.options.idToken.property) as string
 
     if (idToken) {
       this.idToken.set(idToken)
@@ -146,7 +162,7 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
     if (this.options.endpoints.logout) {
       const opts = {
         id_token_hint: this.idToken.get(),
-        post_logout_redirect_uri: this._logoutRedirectURI
+        post_logout_redirect_uri: this.logoutRedirectURI
       }
       const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
       window.location.replace(url)
@@ -193,12 +209,18 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
 
     const hash = parseQuery(this.$auth.ctx.route.hash.substr(1))
     const parsedQuery = Object.assign({}, this.$auth.ctx.route.query, hash)
+
     // accessToken/idToken
-    let token = parsedQuery[this.options.token.property]
+    let token: string = parsedQuery[this.options.token.property] as string
+
     // refresh token
-    let refreshToken = parsedQuery[this.options.refreshToken.property]
+    let refreshToken: string
+    if (this.options.refreshToken.property) {
+      refreshToken = parsedQuery[this.options.refreshToken.property] as string
+    }
+
     // id token
-    let idToken = parsedQuery[this.options.idToken.property]
+    let idToken = parsedQuery[this.options.idToken.property] as string
 
     // Validate state
     const state = this.$auth.$storage.getUniversal(this.name + '.state')
@@ -230,9 +252,9 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
         url: this.options.endpoints.token,
         baseURL: '',
         data: encodeQuery({
-          code: parsedQuery.code,
+          code: parsedQuery.code as string,
           client_id: this.options.clientId,
-          redirect_uri: this._redirectURI,
+          redirect_uri: this.redirectURI,
           response_type: this.options.responseType,
           audience: this.options.audience,
           grant_type: this.options.grantType,
@@ -240,13 +262,16 @@ export default class OpenIDConnectScheme extends Oauth2Scheme<typeof DEFAULTS> {
         })
       })
 
-      token = getResponseProp(response, this.options.token.property) || token
+      token =
+        (getProp(response.data, this.options.token.property) as string) || token
       refreshToken =
-        getResponseProp(response, this.options.refreshToken.property) ||
-        refreshToken
+        (getProp(
+          response.data,
+          this.options.refreshToken.property
+        ) as string) || refreshToken
       idToken =
         // @ts-ignore
-        getResponseProp(response, this.options.idToken.property) || idToken
+        (getProp(response, this.options.idToken.property) as string) || idToken
     }
 
     if (!token || !token.length) {

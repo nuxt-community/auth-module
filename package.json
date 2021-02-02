@@ -4,50 +4,56 @@
   "description": "Authentication module for Nuxt.js",
   "repository": "nuxt-community/auth-module",
   "license": "MIT",
-  "main": "./dist/module/index.js",
-  "types": "./dist/index.d.ts",
+  "sideEffects": "false",
+  "exports": {
+    ".": {
+      "require": "./dist/module.js"
+    },
+    "./dist/module": {
+      "require": "./dist/module.js"
+    },
+    "./dist/runtime": {
+      "import": "./dist/runtime.mjs",
+      "require": "./dist/runtime.js"
+    }
+  },
+  "main": "./dist/module.js",
+  "typings": "./index.d.ts",
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "index.d.ts"
   ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "esmodules": true
-          }
-        }
-      ]
-    ]
-  },
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
+    "build": "siroc build && yarn build:types",
+    "build:types": "./scripts/types.sh",
+    "bump-next": "jiti ./scripts/bump-next",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
-    "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
+    "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
     "test": "yarn lint && yarn build && jest --runInBand"
   },
   "dependencies": {
-    "@nuxtjs/axios": "5.12.1",
+    "@nuxtjs/axios": "^5.12.5",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "consola": "^2.15.0",
     "cookie": "^0.4.1",
     "defu": "^3.2.2",
-    "js-cookie": "^2.2.1",
+    "hasha": "^5.2.2",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.20",
-    "nanoid": "^3.1.20",
-    "requrl": "^2.0.1"
+    "requrl": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/preset-env": "latest",
+    "@babel/preset-typescript": "^7.12.7",
+    "@microsoft/api-documenter": "^7.12.4",
+    "@microsoft/api-extractor": "^7.13.0",
+    "@nuxt/test-utils": "^0.1.2",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
@@ -73,9 +79,15 @@
     "nuxt-edge": "latest",
     "oidc-provider": "^6.29.9",
     "prettier": "latest",
-    "puppeteer": "latest",
+    "puppeteer": "^6.0.0",
+    "siroc": "^0.6.0",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "typescript": "latest"
+    "ts-loader": "^8.0.14",
+    "typescript": "latest",
+    "vue": "latest"
+  },
+  "peerDependencies": {
+    "vue": "*"
   }
 }

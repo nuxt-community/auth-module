@@ -1,6 +1,6 @@
-const path = require('path')
-const fs = require('fs')
-const { execSync } = require('child_process')
+import path from 'path'
+import fs from 'fs'
+import { execSync } from 'child_process'
 
 const pkgPath = path.resolve(__dirname, '../package.json')
 const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))

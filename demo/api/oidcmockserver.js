@@ -51,9 +51,7 @@ const provider = (config) => {
     ],
 
     // Force refresh token issueing
-    issueRefreshToken: async () => {
-      return true
-    }
+    issueRefreshToken: () => Promise.resolve(true)
   })
 }
 

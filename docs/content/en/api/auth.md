@@ -48,10 +48,13 @@ Under the hood, auth uses attached [`$storage`](./storage.md) instance to provid
 
 - Returns: `Promise`
 
-Set current strategy to `strategyName` and try to do login. Usage varies by current strategy.
+Set current strategy to `strategyName` and attempt login. Usage varies by current strategy.
 
 ```js
-this.$auth.loginWith('local', /* .... */)
+this.$auth.loginWith('local', { data: { /* data to post to server */ } })
+  .then(() => this.$toast.success('Logged In!'))
+ 
+this.$auth.loginWith('google', { params: { /* additional authentication parameters */ } })
   .then(() => this.$toast.success('Logged In!'))
 ```
 

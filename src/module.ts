@@ -1,16 +1,28 @@
 import { resolve, join } from 'path'
-import merge from 'lodash/merge'
-import uniq from 'lodash/uniq'
-import defaults from './defaults'
+import type { Module } from '@nuxt/types'
+import defu from 'defu'
+import { ModuleOptions, moduleDefaults } from './options'
 import { resolveStrategies } from './resolve'
 
-export default function (moduleOptions) {
+const authModule: Module<ModuleOptions> = function (moduleOptions) {
   // Merge all option sources
-  const options = merge({}, defaults, moduleOptions, this.options.auth)
+  const options: ModuleOptions = defu(
+    moduleOptions,
+    this.options.auth,
+    moduleDefaults
+  )
 
   // Resolve strategies
   const { strategies, strategyScheme } = resolveStrategies(this.nuxt, options)
   delete options.strategies
+
+  // Resolve required imports
+  const _uniqueImports = new Set()
+  const schemeImports = Object.values(strategyScheme).filter((i) => {
+    if (_uniqueImports.has(i.as)) return false
+    _uniqueImports.add(i.as)
+    return true
+  })
 
   // Set defaultStrategy
   options.defaultStrategy =
@@ -18,13 +30,13 @@ export default function (moduleOptions) {
 
   // Add plugin
   const { dst } = this.addTemplate({
-    src: resolve(__dirname, '../../templates/plugin.js'),
+    src: resolve(__dirname, '../templates/plugin.js'),
     fileName: join('auth.js'),
     options: {
       options,
       strategies,
-      uniqueSchemes: uniq([...strategyScheme.values()]),
-      strategyScheme
+      strategyScheme,
+      schemeImports
     }
   })
 
@@ -37,10 +49,14 @@ export default function (moduleOptions) {
   }
 
   // Transpile and alias auth src
-  const srcDir = resolve(__dirname, '..')
-  this.options.alias['~auth'] = srcDir
-  this.options.build.transpile.push(srcDir)
+  const runtime = resolve(__dirname, 'runtime')
+  this.options.alias['~auth/runtime'] = runtime
+  this.options.build.transpile.push(__dirname)
 
   // Transpile nanoid (used for oauth2) for IE11 support (#472)
   this.options.build.transpile.push(/^nanoid/)
 }
+
+// TODO: Add meta
+
+export default authModule

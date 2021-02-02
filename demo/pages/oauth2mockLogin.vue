@@ -23,8 +23,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   methods: {
     login() {
       const hash = this.parseQuery(this.$auth.ctx.route.hash.substr(1))
@@ -42,5 +44,5 @@ export default {
       return query
     }
   }
-}
+})
 </script>

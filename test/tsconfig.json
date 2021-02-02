@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": [
-      "dom"
+      "DOM"
     ],
     "esModuleInterop": true,
     "allowJs": true,
@@ -19,7 +19,6 @@
       "@nuxt/types",
       "@nuxtjs/axios",
       "../src/index"
-    ],
-    "skipLibCheck": true
+    ]
   }
 }

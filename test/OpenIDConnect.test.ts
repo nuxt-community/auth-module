@@ -4,6 +4,7 @@ import {
   setup as setupDevServer,
   teardown as teardownDevServer
 } from 'jest-dev-server'
+import { OpenIDConnectScheme } from '../src/schemes/openIDConnect'
 
 const exec = util.promisify(execSync)
 const browserTimeout = 25 * 1000
@@ -31,13 +32,14 @@ const setup = async (options) => {
 }
 
 const getAuthDataFromWindow = () =>
-  page.evaluate(async () => {
+  page.evaluate(() => {
+    const strategy = (window.$nuxt.$auth
+      .strategy as unknown) as OpenIDConnectScheme
     return {
       axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
-      token: window.$nuxt.$auth.strategy.token.get(),
-      expiresAt: window.$nuxt.$auth.strategy.token._getExpiration(),
-      idToken: window.$nuxt.$auth.strategy.idToken.get(),
-      refreshToken: window.$nuxt.$auth.strategy.refreshToken.get(),
+      token: strategy.token.get(),
+      idToken: strategy.idToken.get(),
+      refreshToken: strategy.refreshToken.get(),
       user: window.$nuxt.$auth.user
     }
   })
@@ -147,7 +149,6 @@ describe('OpenID Connect', () => {
             token: loginToken,
             idToken: loginIdToken,
             refreshToken: loginRefreshToken,
-            expiresAt: loginExpiresAt,
             user: loginUser,
             axiosBearer: loginAxiosBearer
           } = await getAuthDataFromWindow()
@@ -158,7 +159,6 @@ describe('OpenID Connect', () => {
           expect(loginToken).toBeDefined()
           expect(loginIdToken).toBeDefined()
           expect(loginRefreshToken).toBeDefined()
-          expect(loginExpiresAt).toBeDefined()
           expect(loginUser).toBeDefined()
           expect(loginUser.sub).toBe('test_username')
 
@@ -170,7 +170,6 @@ describe('OpenID Connect', () => {
             token: refreshedToken,
             idToken: refreshedIdToken,
             refreshToken: refreshedRefreshToken,
-            expiresAt: refreshedExpiresAt,
             axiosBearer: refreshedAxiosBearer,
             user: refreshedUser
           } = await getAuthDataFromWindow()
@@ -185,8 +184,6 @@ describe('OpenID Connect', () => {
           expect(refreshedIdToken).not.toEqual(loginIdToken)
           expect(refreshedRefreshToken).toBeDefined()
           expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
-          expect(refreshedExpiresAt).toBeDefined()
-          expect(refreshedExpiresAt).toBeGreaterThanOrEqual(loginExpiresAt)
           expect(refreshedUser).toBeDefined()
           expect(refreshedUser.sub).toBe('test_username')
         })
@@ -239,13 +236,13 @@ describe('OpenID Connect', () => {
           async () =>
             await window.$nuxt.$auth.setStrategy('oidcAuthorizationCode')
         )
-        await page.waitFor(1000)
-        const activeStrategy = await page.evaluate(async () => ({
-          name: window.$nuxt.$auth.strategy.name,
-          userInfoEndpoint:
-            window.$nuxt.$auth.strategy.options.endpoints.userInfo,
-          logoutRedirectUri:
-            window.$nuxt.$auth.strategy.options.logoutRedirectUri
+        await page.waitForTimeout(1000)
+        const strategy = (window.$nuxt.$auth
+          .strategy as unknown) as OpenIDConnectScheme
+        const activeStrategy = await page.evaluate(() => ({
+          name: strategy.name,
+          userInfoEndpoint: strategy.options.endpoints.userInfo,
+          logoutRedirectUri: strategy.options.logoutRedirectUri
         }))
         expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
         expect(activeStrategy.logoutRedirectUri).toEqual(
