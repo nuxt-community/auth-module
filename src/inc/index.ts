@@ -1,3 +1,4 @@
+export * from './configuration-document-request-error'
 export * from './configuration-document'
 export * from './expired-auth-session-error'
 export * from './refresh-controller'

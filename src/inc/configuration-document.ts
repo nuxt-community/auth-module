@@ -2,13 +2,7 @@ import defu from 'defu'
 import { OpenIDConnectScheme, OpenIDConnectSchemeEndpoints } from '../schemes'
 import { OpenIDConnectConfigurationDocument } from '../types'
 import { Storage } from '../'
-
-class ConfigurationDocumentRequestError extends Error {
-  constructor() {
-    super('Error loading OpenIDConnect configuration document')
-    this.name = 'ConfigurationDocumentRequestError'
-  }
-}
+import { ConfigurationDocumentRequestError } from './configuration-document-request-error'
 
 // eslint-disable-next-line no-console
 const ConfigurationDocumentWarning = (message: string) =>
