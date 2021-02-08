@@ -4,7 +4,6 @@ import { OpenIDConnectConfigurationDocument } from '../types'
 import { Storage } from '../'
 import { ConfigurationDocumentRequestError } from './configuration-document-request-error'
 
-// eslint-disable-next-line no-console
 const ConfigurationDocumentWarning = (message: string) =>
   // eslint-disable-next-line no-console
   console.warn(`[AUTH] [OPENID CONNECT] Invalid configuration. ${message}`)
