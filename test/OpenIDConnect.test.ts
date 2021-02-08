@@ -1,37 +1,14 @@
-import util from 'util'
-import { exec as execSync } from 'child_process'
-import {
-  setup as setupDevServer,
-  teardown as teardownDevServer
-} from 'jest-dev-server'
+import { setupTest, createPage } from '@nuxt/test-utils'
+import { Page } from 'playwright'
 import { OpenIDConnectScheme } from '../src/schemes/openIDConnect'
 
-const exec = util.promisify(execSync)
-const browserTimeout = 25 * 1000
 const port = 3000
-const url = (p) => 'http://localhost:' + port + p
 
-const MODES_TO_TEST = { UNIVERSAL: 'UNIVERSAL', SPA: 'SPA' }
+const MODES_TO_TEST = { UNIVERSAL: 'universal', SPA: 'spa' }
 
-const nuxtCommand = (type, options) =>
-  [
-    'yarn nuxt',
-    type,
-    'test/fixture',
-    ...(options.configFilePath ? [`-c ${options.configFilePath}`] : []),
-    ...(options.spa ? ['--spa'] : [])
-  ].join(' ')
+type Mode = 'universal' | 'spa'
 
-const setup = async (options) => {
-  await exec(nuxtCommand('build', options))
-  await setupDevServer({
-    command: nuxtCommand('start', options),
-    port: 3000,
-    launchTimeout: browserTimeout
-  })
-}
-
-const getAuthDataFromWindow = () =>
+const getAuthDataFromWindow = (page: Page) =>
   page.evaluate(() => {
     const strategy = (window.$nuxt.$auth
       .strategy as unknown) as OpenIDConnectScheme
@@ -44,7 +21,7 @@ const getAuthDataFromWindow = () =>
     }
   })
 
-const loginWithOidc = async () => {
+const loginWithOidc = async (page: Page) => {
   await page.waitForFunction('!!window.$nuxt')
   await page.evaluate(async () => {
     await window.$nuxt.$auth.loginWith('oidcAuthorizationCode')
@@ -73,12 +50,11 @@ const loginWithOidc = async () => {
   expect(page.url()).toContain(`http://localhost:${port}`)
 }
 
-const logoutWithOidc = async () => {
+const logoutWithOidc = async (page: Page) => {
   await page.evaluate(async () => {
     await window.$nuxt.$auth.logout()
   })
 
-  await page.waitForNavigation()
   expect(page.url()).toContain('/oidc/connect/endsession')
 
   await page.click('[value="yes"][name="logout"]')
@@ -88,22 +64,20 @@ const logoutWithOidc = async () => {
 }
 
 describe('OpenID Connect', () => {
-  describe.each(Object.keys(MODES_TO_TEST))('%s', (mode) => {
+  describe.each(Object.values(MODES_TO_TEST))('%s', (mode: Mode) => {
     describe('Default fixture', () => {
-      beforeAll(async () => {
-        await setup({ spa: mode === MODES_TO_TEST.SPA })
-      }, browserTimeout)
-
-      beforeEach(async () => {
-        await jestPuppeteer.resetBrowser()
-      })
-
-      afterAll(async () => {
-        await teardownDevServer()
+      setupTest({
+        browser: true,
+        config: {
+          mode,
+          server: {
+            port
+          }
+        }
       })
 
       test('initial state', async () => {
-        await page.goto(url('/'))
+        const page = await createPage('/')
         // @ts-ignore
         const state = await page.evaluate(() => window.__NUXT__.state)
 
@@ -120,8 +94,8 @@ describe('OpenID Connect', () => {
 
       describe('Authorization Code Flow', () => {
         test('login', async () => {
-          await page.goto(url('/'))
-          await loginWithOidc()
+          const page = await createPage('/')
+          await loginWithOidc(page)
 
           const {
             token,
@@ -129,7 +103,7 @@ describe('OpenID Connect', () => {
             axiosBearer,
             idToken,
             refreshToken
-          } = await getAuthDataFromWindow()
+          } = await getAuthDataFromWindow(page)
 
           expect(axiosBearer).toBeDefined()
           expect(axiosBearer.split(' ')).toHaveLength(2)
@@ -142,8 +116,8 @@ describe('OpenID Connect', () => {
         })
 
         test('refresh', async () => {
-          await page.goto(url('/'))
-          await loginWithOidc()
+          const page = await createPage('/')
+          await loginWithOidc(page)
 
           const {
             token: loginToken,
@@ -151,7 +125,7 @@ describe('OpenID Connect', () => {
             refreshToken: loginRefreshToken,
             user: loginUser,
             axiosBearer: loginAxiosBearer
-          } = await getAuthDataFromWindow()
+          } = await getAuthDataFromWindow(page)
 
           expect(loginAxiosBearer).toBeDefined()
           expect(loginAxiosBearer.split(' ')).toHaveLength(2)
@@ -172,7 +146,7 @@ describe('OpenID Connect', () => {
             refreshToken: refreshedRefreshToken,
             axiosBearer: refreshedAxiosBearer,
             user: refreshedUser
-          } = await getAuthDataFromWindow()
+          } = await getAuthDataFromWindow(page)
 
           expect(refreshedAxiosBearer).toBeDefined()
           expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
@@ -189,23 +163,23 @@ describe('OpenID Connect', () => {
         })
 
         test('logout', async () => {
-          await page.goto(url('/'))
-          await loginWithOidc()
+          const page = await createPage('/')
+          await loginWithOidc(page)
 
           const {
             token: loginToken,
             axiosBearer: loginAxiosBearer
-          } = await getAuthDataFromWindow()
+          } = await getAuthDataFromWindow(page)
 
           expect(loginAxiosBearer).toBeDefined()
           expect(loginToken).toBeDefined()
 
-          await logoutWithOidc()
+          await logoutWithOidc(page)
 
           const {
             token: logoutToken,
             axiosBearer: logoutAxiosBearer
-          } = await getAuthDataFromWindow()
+          } = await getAuthDataFromWindow(page)
 
           expect(logoutToken).toBeFalsy()
           expect(logoutAxiosBearer).toBeUndefined()
@@ -214,36 +188,34 @@ describe('OpenID Connect', () => {
     })
 
     describe('Custom fixture', () => {
-      beforeAll(async () => {
-        await setup({
-          spa: mode === MODES_TO_TEST.SPA,
-          configFilePath: 'nuxt.config.custom.js'
-        })
-      }, browserTimeout)
-
-      beforeEach(async () => {
-        await jestPuppeteer.resetBrowser()
-      })
-
-      afterAll(async () => {
-        await teardownDevServer()
+      setupTest({
+        browser: true,
+        configFile: 'nuxt.config.custom.js',
+        config: {
+          mode,
+          server: {
+            port
+          }
+        }
       })
 
       test("Default auth endpoints won't be overwritten by configuration document", async () => {
-        await page.goto(url('/'))
+        const page = await createPage('/')
         await page.waitForFunction('!!window.$nuxt')
         await page.evaluate(
           async () =>
             await window.$nuxt.$auth.setStrategy('oidcAuthorizationCode')
         )
         await page.waitForTimeout(1000)
-        const strategy = (window.$nuxt.$auth
-          .strategy as unknown) as OpenIDConnectScheme
-        const activeStrategy = await page.evaluate(() => ({
-          name: strategy.name,
-          userInfoEndpoint: strategy.options.endpoints.userInfo,
-          logoutRedirectUri: strategy.options.logoutRedirectUri
-        }))
+        const activeStrategy = await page.evaluate(() => {
+          const strategy = (window.$nuxt.$auth
+            .strategy as unknown) as OpenIDConnectScheme
+          return {
+            name: strategy.name,
+            userInfoEndpoint: strategy.options.endpoints.userInfo,
+            logoutRedirectUri: strategy.options.logoutRedirectUri
+          }
+        })
         expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
         expect(activeStrategy.logoutRedirectUri).toEqual(
           'http://localhost:4000'
