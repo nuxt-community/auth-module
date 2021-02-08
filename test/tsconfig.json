@@ -14,8 +14,6 @@
       "@types/node",
       "@types/jest",
       "@types/puppeteer",
-      "@types/jest-environment-puppeteer",
-      "@types/expect-puppeteer",
       "@nuxt/types",
       "@nuxtjs/axios",
       "../src/index"

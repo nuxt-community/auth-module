@@ -54,6 +54,9 @@ jobs:
       - name: Build Module
         run: yarn build
 
+      - name: Build Fixture
+        run: yarn nuxt build test/fixture
+
       - name: Tests
         run: yarn jest --runInBand
 
