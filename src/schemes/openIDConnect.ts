@@ -64,7 +64,10 @@ export class OpenIDConnectScheme<
 
   protected updateTokens(response: HTTPResponse): void {
     super.updateTokens(response)
-    const idToken = getProp(response, this.options.idToken.property) as string
+    const idToken = getProp(
+      response.data,
+      this.options.idToken.property
+    ) as string
 
     if (idToken) {
       this.idToken.set(idToken)
