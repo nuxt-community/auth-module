@@ -58,7 +58,7 @@ jobs:
         run: yarn nuxt build test/fixture
 
       - name: Tests
-        run: yarn jest --runInBand
+        run: yarn jest
 
       # - name: Coverage
       #   uses: codecov/codecov-action@v1
