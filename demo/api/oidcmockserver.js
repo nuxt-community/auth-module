@@ -1,6 +1,18 @@
 const { Provider } = require('oidc-provider')
 const defu = require('defu')
 
+// Suppress oidc-provider logging on test run
+if (process.env.NODE_ENV === 'test') {
+  // eslint-disable-next-line no-console
+  console.warn = () => {
+    /* Do nothing */
+  }
+  // eslint-disable-next-line no-console
+  console.info = () => {
+    /* Do nothing */
+  }
+}
+
 const DEFAULTS = {
   port: 3000,
   path: '/oidc',
