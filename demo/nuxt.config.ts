@@ -10,14 +10,13 @@ export default <NuxtConfig>{
     '~/api/oauth2mockserver',
     {
       path: '/oidc',
-      handler: (req, res) =>
-        oidcMockServer(req, res, {
-          port: 3000,
-          path: '/oidc',
-          redirect: {
-            callback: '/callback'
-          }
-        })
+      handler: oidcMockServer({
+        port: 3000,
+        path: '/oidc',
+        redirect: {
+          callback: '/callback'
+        }
+      })
     }
   ],
   buildModules: ['@nuxt/typescript-build'],

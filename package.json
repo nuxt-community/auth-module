@@ -34,7 +34,7 @@
     "lint-fix": "yarn lint --fix",
     "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
-    "test": "yarn lint && jest"
+    "test": "yarn lint && jest --runInBand"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.0",
@@ -73,14 +73,13 @@
     "eslint-plugin-prettier": "latest",
     "express": "latest",
     "express-jwt": "latest",
-    "get-port": "latest",
     "jest": "^26.6.3",
     "jiti": "^0.1.20",
     "jsdom": "latest",
     "lodash.get": "latest",
     "nuxt": "^2.14.12",
     "oidc-provider": "^6.29.9",
-    "playwright": "^1.8.0",
+    "playwright": "^1.8.1",
     "prettier": "latest",
     "siroc": "^0.6.3",
     "standard-version": "latest",

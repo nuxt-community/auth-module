@@ -2,17 +2,20 @@ import authAPI from '../../demo/api/auth'
 import authModuleDist from '../..'
 import oidcMockServer from '../../demo/api/oidcmockserver'
 
-export default {
+export default ({ port = 3000 } = {}) => ({
+  server: {
+    port
+  },
   serverMiddleware: [
     authAPI,
-    { path: '/oidc', handler: (req, res) => oidcMockServer(req, res, 3000) }
+    { path: '/oidc', handler: oidcMockServer({ port }) }
   ],
   modules: ['@nuxtjs/axios', authModuleDist],
   axios: {
     proxy: true
   },
   proxy: {
-    '/api': 'http://localhost:3000'
+    '/api': `http://localhost:${port}`
   },
   auth: {
     plugins: ['~/plugins/auth.js'],
@@ -44,12 +47,11 @@ export default {
         scope: ['openid', 'profile', 'offline_access'],
         grantType: 'authorization_code',
         clientId: 'oidc_authorization_code_client',
-        logoutRedirectUri: 'http://localhost:3000',
+        logoutRedirectUri: `http://localhost:${port}`,
         endpoints: {
-          configuration:
-            'http://localhost:3000/oidc/.well-known/openid-configuration'
+          configuration: `http://localhost:${port}/oidc/.well-known/openid-configuration`
         }
       }
     }
   }
-}
+})

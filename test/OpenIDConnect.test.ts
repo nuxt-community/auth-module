@@ -2,11 +2,14 @@ import { setupTest, createPage } from '@nuxt/test-utils'
 import { Page } from 'playwright'
 import { OpenIDConnectScheme } from '../src/schemes/openIDConnect'
 
-const port = 3000
-
-const MODES_TO_TEST = { UNIVERSAL: 'universal', SPA: 'spa' }
-
 type Mode = 'universal' | 'spa'
+
+const MODES_TO_TEST: Mode[] = ['universal', 'spa']
+const FIXTURES_TO_TEST = ['nuxt.config.custom.js', 'nuxt.config.js']
+const OPEN_ID_CONNECT_TESTS = MODES_TO_TEST.reduce(
+  (acc, mode) => acc.concat(FIXTURES_TO_TEST.map((fixture) => [mode, fixture])),
+  []
+)
 
 const getAuthDataFromWindow = (page: Page) =>
   page.evaluate(() => {
@@ -21,7 +24,7 @@ const getAuthDataFromWindow = (page: Page) =>
     }
   })
 
-const loginWithOidc = async (page: Page) => {
+const loginWithOidc = async (page: Page, port: number) => {
   await page.waitForFunction('!!window.$nuxt')
   await page.evaluate(async () => {
     await window.$nuxt.$auth.loginWith('oidcAuthorizationCode')
@@ -50,7 +53,7 @@ const loginWithOidc = async (page: Page) => {
   expect(page.url()).toContain(`http://localhost:${port}`)
 }
 
-const logoutWithOidc = async (page: Page) => {
+const logoutWithOidc = async (page: Page, port: number) => {
   await page.evaluate(async () => {
     await window.$nuxt.$auth.logout()
   })
@@ -64,164 +67,156 @@ const logoutWithOidc = async (page: Page) => {
 }
 
 describe('OpenID Connect', () => {
-  describe.each(Object.values(MODES_TO_TEST))('%s', (mode: Mode) => {
-    describe('Default fixture', () => {
+  describe.each(OPEN_ID_CONNECT_TESTS)(
+    '%s - %s',
+    (mode: Mode, fixture: string) => {
+      const { default: fixtureConfig } = require(`./fixture/${fixture}`)
+      const port = 3000 + Math.floor(Math.random() * 1000) + 1
+
       setupTest({
         browser: true,
+        configFile: 'nuxt.config.empty.js',
         config: {
-          mode,
-          server: {
-            port
-          }
+          ...fixtureConfig({ port }),
+          mode
         }
       })
 
-      test('initial state', async () => {
-        const page = await createPage('/')
-        // @ts-ignore
-        const state = await page.evaluate(() => window.__NUXT__.state)
-
-        if (mode === MODES_TO_TEST.SPA) {
-          expect(state).toBeUndefined()
-        } else {
-          expect(state.auth).toEqual({
-            user: null,
-            loggedIn: false,
-            strategy: 'local'
-          })
-        }
-      })
-
-      describe('Authorization Code Flow', () => {
-        test('login', async () => {
+      if (fixture.includes('custom')) {
+        test("Default auth endpoints won't be overwritten by configuration document", async () => {
           const page = await createPage('/')
-          await loginWithOidc(page)
+          await page.waitForFunction('!!window.$nuxt')
+          await page.evaluate(
+            async () =>
+              await window.$nuxt.$auth.setStrategy('oidcAuthorizationCode')
+          )
+          await page.waitForTimeout(1000)
+          const activeStrategy = await page.evaluate(() => {
+            const strategy = (window.$nuxt.$auth
+              .strategy as unknown) as OpenIDConnectScheme
+            return {
+              name: strategy.name,
+              userInfoEndpoint: strategy.options.endpoints.userInfo,
+              logoutRedirectUri: strategy.options.logoutRedirectUri
+            }
+          })
+          expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
+          expect(activeStrategy.logoutRedirectUri).toEqual(
+            'http://localhost:4000'
+          )
+          expect(activeStrategy.userInfoEndpoint).toEqual('/something/random')
+        })
+      } else {
+        test('initial state', async () => {
+          const page = await createPage('/')
+          // @ts-ignore
+          const state = await page.evaluate(() => window.__NUXT__.state)
 
-          const {
-            token,
-            user,
-            axiosBearer,
-            idToken,
-            refreshToken
-          } = await getAuthDataFromWindow(page)
-
-          expect(axiosBearer).toBeDefined()
-          expect(axiosBearer.split(' ')).toHaveLength(2)
-          expect(axiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
-          expect(token).toBeDefined()
-          expect(idToken).toBeDefined()
-          expect(refreshToken).toBeDefined()
-          expect(user).toBeDefined()
-          expect(user.sub).toBe('test_username')
+          if (mode === 'spa') {
+            expect(state).toBeUndefined()
+          } else {
+            expect(state.auth).toEqual({
+              user: null,
+              loggedIn: false,
+              strategy: 'local'
+            })
+          }
         })
 
-        test('refresh', async () => {
-          const page = await createPage('/')
-          await loginWithOidc(page)
+        describe('Authorization Code Flow', () => {
+          test('login', async () => {
+            const page = await createPage('/')
+            await loginWithOidc(page, port)
 
-          const {
-            token: loginToken,
-            idToken: loginIdToken,
-            refreshToken: loginRefreshToken,
-            user: loginUser,
-            axiosBearer: loginAxiosBearer
-          } = await getAuthDataFromWindow(page)
+            const {
+              token,
+              user,
+              axiosBearer,
+              idToken,
+              refreshToken
+            } = await getAuthDataFromWindow(page)
 
-          expect(loginAxiosBearer).toBeDefined()
-          expect(loginAxiosBearer.split(' ')).toHaveLength(2)
-          expect(loginAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
-          expect(loginToken).toBeDefined()
-          expect(loginIdToken).toBeDefined()
-          expect(loginRefreshToken).toBeDefined()
-          expect(loginUser).toBeDefined()
-          expect(loginUser.sub).toBe('test_username')
-
-          await page.evaluate(async () => {
-            await window.$nuxt.$auth.refreshTokens()
+            expect(axiosBearer).toBeDefined()
+            expect(axiosBearer.split(' ')).toHaveLength(2)
+            expect(axiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+            expect(token).toBeDefined()
+            expect(idToken).toBeDefined()
+            expect(refreshToken).toBeDefined()
+            expect(user).toBeDefined()
+            expect(user.sub).toBe('test_username')
           })
 
-          const {
-            token: refreshedToken,
-            idToken: refreshedIdToken,
-            refreshToken: refreshedRefreshToken,
-            axiosBearer: refreshedAxiosBearer,
-            user: refreshedUser
-          } = await getAuthDataFromWindow(page)
+          test('refresh', async () => {
+            const page = await createPage('/')
+            await loginWithOidc(page, port)
 
-          expect(refreshedAxiosBearer).toBeDefined()
-          expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
-          expect(refreshedAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
-          expect(refreshedAxiosBearer).not.toEqual(loginAxiosBearer)
-          expect(refreshedToken).toBeDefined()
-          expect(refreshedToken).not.toEqual(loginToken)
-          expect(refreshedIdToken).toBeDefined()
-          expect(refreshedIdToken).not.toEqual(loginIdToken)
-          expect(refreshedRefreshToken).toBeDefined()
-          expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
-          expect(refreshedUser).toBeDefined()
-          expect(refreshedUser.sub).toBe('test_username')
+            const {
+              token: loginToken,
+              idToken: loginIdToken,
+              refreshToken: loginRefreshToken,
+              user: loginUser,
+              axiosBearer: loginAxiosBearer
+            } = await getAuthDataFromWindow(page)
+
+            expect(loginAxiosBearer).toBeDefined()
+            expect(loginAxiosBearer.split(' ')).toHaveLength(2)
+            expect(loginAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+            expect(loginToken).toBeDefined()
+            expect(loginIdToken).toBeDefined()
+            expect(loginRefreshToken).toBeDefined()
+            expect(loginUser).toBeDefined()
+            expect(loginUser.sub).toBe('test_username')
+
+            await page.evaluate(async () => {
+              await window.$nuxt.$auth.refreshTokens()
+            })
+
+            const {
+              token: refreshedToken,
+              idToken: refreshedIdToken,
+              refreshToken: refreshedRefreshToken,
+              axiosBearer: refreshedAxiosBearer,
+              user: refreshedUser
+            } = await getAuthDataFromWindow(page)
+
+            expect(refreshedAxiosBearer).toBeDefined()
+            expect(refreshedAxiosBearer.split(' ')).toHaveLength(2)
+            expect(refreshedAxiosBearer.split(' ')[0]).toMatch(/^Bearer$/i)
+            expect(refreshedAxiosBearer).not.toEqual(loginAxiosBearer)
+            expect(refreshedToken).toBeDefined()
+            expect(refreshedToken).not.toEqual(loginToken)
+            expect(refreshedIdToken).toBeDefined()
+            expect(refreshedIdToken).not.toEqual(loginIdToken)
+            expect(refreshedRefreshToken).toBeDefined()
+            expect(refreshedRefreshToken).not.toEqual(loginRefreshToken)
+            expect(refreshedUser).toBeDefined()
+            expect(refreshedUser.sub).toBe('test_username')
+          })
+
+          test('logout', async () => {
+            const page = await createPage('/')
+            await loginWithOidc(page, port)
+
+            const {
+              token: loginToken,
+              axiosBearer: loginAxiosBearer
+            } = await getAuthDataFromWindow(page)
+
+            expect(loginAxiosBearer).toBeDefined()
+            expect(loginToken).toBeDefined()
+
+            await logoutWithOidc(page, port)
+
+            const {
+              token: logoutToken,
+              axiosBearer: logoutAxiosBearer
+            } = await getAuthDataFromWindow(page)
+
+            expect(logoutToken).toBeFalsy()
+            expect(logoutAxiosBearer).toBeUndefined()
+          })
         })
-
-        test('logout', async () => {
-          const page = await createPage('/')
-          await loginWithOidc(page)
-
-          const {
-            token: loginToken,
-            axiosBearer: loginAxiosBearer
-          } = await getAuthDataFromWindow(page)
-
-          expect(loginAxiosBearer).toBeDefined()
-          expect(loginToken).toBeDefined()
-
-          await logoutWithOidc(page)
-
-          const {
-            token: logoutToken,
-            axiosBearer: logoutAxiosBearer
-          } = await getAuthDataFromWindow(page)
-
-          expect(logoutToken).toBeFalsy()
-          expect(logoutAxiosBearer).toBeUndefined()
-        })
-      })
-    })
-
-    describe('Custom fixture', () => {
-      setupTest({
-        browser: true,
-        configFile: 'nuxt.config.custom.js',
-        config: {
-          mode,
-          server: {
-            port
-          }
-        }
-      })
-
-      test("Default auth endpoints won't be overwritten by configuration document", async () => {
-        const page = await createPage('/')
-        await page.waitForFunction('!!window.$nuxt')
-        await page.evaluate(
-          async () =>
-            await window.$nuxt.$auth.setStrategy('oidcAuthorizationCode')
-        )
-        await page.waitForTimeout(1000)
-        const activeStrategy = await page.evaluate(() => {
-          const strategy = (window.$nuxt.$auth
-            .strategy as unknown) as OpenIDConnectScheme
-          return {
-            name: strategy.name,
-            userInfoEndpoint: strategy.options.endpoints.userInfo,
-            logoutRedirectUri: strategy.options.logoutRedirectUri
-          }
-        })
-        expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
-        expect(activeStrategy.logoutRedirectUri).toEqual(
-          'http://localhost:4000'
-        )
-        expect(activeStrategy.userInfoEndpoint).toEqual('/something/random')
-      })
-    })
-  })
+      }
+    }
+  )
 })

@@ -8,7 +8,7 @@ describe('e2e', () => {
 
   test('initial state', async () => {
     const page = await createPage('/')
-
+    await page.waitForFunction('!!window.$nuxt')
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const state = await page.evaluate(() => window.__NUXT__.state)
