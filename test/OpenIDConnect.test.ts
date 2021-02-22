@@ -2,12 +2,10 @@ import { setupTest, createPage } from '@nuxt/test-utils'
 import { Page } from 'playwright'
 import { OpenIDConnectScheme } from '../src/schemes/openIDConnect'
 
-type Mode = 'universal' | 'spa'
-
-const MODES_TO_TEST: Mode[] = ['universal', 'spa']
+const SSR_MODES_TO_TEST = [true, false]
 const FIXTURES_TO_TEST = ['nuxt.config.custom.js', 'nuxt.config.js']
-const OPEN_ID_CONNECT_TESTS = MODES_TO_TEST.reduce(
-  (acc, mode) => acc.concat(FIXTURES_TO_TEST.map((fixture) => [mode, fixture])),
+const OPEN_ID_CONNECT_TESTS = SSR_MODES_TO_TEST.reduce(
+  (acc, ssr) => acc.concat(FIXTURES_TO_TEST.map((fixture) => [ssr, fixture])),
   []
 )
 
@@ -68,8 +66,8 @@ const logoutWithOidc = async (page: Page, port: number) => {
 
 describe('OpenID Connect', () => {
   describe.each(OPEN_ID_CONNECT_TESTS)(
-    '%s - %s',
-    (mode: Mode, fixture: string) => {
+    'SSR: %s - Fixture: %s',
+    (ssr: boolean, fixture: string) => {
       const { default: fixtureConfig } = require(`./fixture/${fixture}`)
       const port = 3000 + Math.floor(Math.random() * 1000) + 1
 
@@ -78,7 +76,7 @@ describe('OpenID Connect', () => {
         configFile: 'nuxt.config.empty.js',
         config: {
           ...fixtureConfig({ port }),
-          mode
+          ssr
         }
       })
 
@@ -112,7 +110,7 @@ describe('OpenID Connect', () => {
           // @ts-ignore
           const state = await page.evaluate(() => window.__NUXT__.state)
 
-          if (mode === 'spa') {
+          if (!ssr) {
             expect(state).toBeUndefined()
           } else {
             expect(state.auth).toEqual({
