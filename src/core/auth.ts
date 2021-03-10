@@ -236,7 +236,7 @@ export class Auth {
     refreshToken?: string | boolean
   ): Promise<HTTPResponse | void> {
     if (!this.getStrategy().setUserToken) {
-      ;(this.getStrategy() as TokenableScheme).token.set(token)
+      (this.getStrategy() as TokenableScheme).token.set(token)
       return Promise.resolve()
     }
 
