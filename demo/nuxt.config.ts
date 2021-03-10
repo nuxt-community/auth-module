@@ -1,12 +1,13 @@
-import authModule from '../src/module'
+import { NuxtConfig } from '@nuxt/types'
 
-export default {
+export default <NuxtConfig>{
   build: {
     extractCSS: true
   },
   serverMiddleware: ['~/api/auth', '~/api/oauth2mockserver'],
   buildModules: ['@nuxt/typescript-build'],
-  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', authModule],
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '../src/module'],
+  components: true,
   axios: {
     proxy: true
   },
@@ -68,7 +69,6 @@ export default {
       //   clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       // },
       laravelJWT: {
-        provider: 'laravel/jwt',
         url: '/laravel',
         endpoints: {
           login: {
@@ -86,11 +86,9 @@ export default {
         }
       },
       laravelSanctum: {
-        provider: 'laravel/sanctum',
         url: '/laravel'
       },
       laravelPassport: {
-        provider: 'laravel/passport',
         url: 'https://laravel-auth.nuxtjs.app',
         endpoints: {
           userInfo: '/api/auth/passport/user'
@@ -106,7 +104,7 @@ export default {
       },
       laravelPassportPasswordGrant: {
         name: 'laravelPassportPassword',
-        provider: 'laravel/passport',
+        provider: 'laravelPassport',
         url: '/laravel',
         endpoints: {
           user: {

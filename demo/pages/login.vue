@@ -108,11 +108,10 @@
   </div>
 </template>
 
-<script>
-import busyOverlay from '~/components/busy-overlay'
+<script lang="ts">
+import Vue from 'vue'
 
-export default {
-  components: { busyOverlay },
+export default Vue.extend({
   middleware: ['auth'],
   data() {
     return {
@@ -156,7 +155,7 @@ export default {
     }
   },
   methods: {
-    async login() {
+    login() {
       this.error = null
 
       return this.$auth
@@ -166,12 +165,14 @@ export default {
             password: this.password
           }
         })
-        .catch((e) => {
-          this.error = e.response.data
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.error(err)
+          this.error = err.response?.data
         })
     },
 
-    async localRefresh() {
+    localRefresh() {
       this.error = null
 
       return this.$auth
@@ -181,12 +182,14 @@ export default {
             password: this.password
           }
         })
-        .catch((e) => {
-          this.error = e.response.data
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.error(err)
+          this.error = err.response?.data
         })
     },
 
-    async loginJWT() {
+    loginJWT() {
       this.error = null
 
       return this.$auth
@@ -201,7 +204,7 @@ export default {
         })
     },
 
-    async loginPassport() {
+    loginPassport() {
       this.error = null
 
       return this.$auth.loginWith('laravelPassport').catch((e) => {
@@ -209,7 +212,7 @@ export default {
       })
     },
 
-    async loginPassportGrantFlow() {
+    loginPassportGrantFlow() {
       this.error = null
 
       return this.$auth
@@ -224,7 +227,7 @@ export default {
         })
     },
 
-    async loginSanctum() {
+    loginSanctum() {
       this.error = null
 
       return this.$auth
@@ -239,7 +242,7 @@ export default {
         })
     }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -3,3 +3,5 @@ node_modules
 .nuxt
 dist
 docs/static/sw.js
+test/fixture
+temp

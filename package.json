@@ -4,55 +4,65 @@
   "description": "Authentication module for Nuxt.js",
   "repository": "nuxt-community/auth-module",
   "license": "MIT",
-  "main": "./dist/module/index.js",
-  "types": "./dist/index.d.ts",
+  "sideEffects": "false",
+  "exports": {
+    ".": {
+      "require": "./dist/module.js"
+    },
+    "./dist/module": {
+      "require": "./dist/module.js"
+    },
+    "./dist/runtime": {
+      "import": "./dist/runtime.mjs",
+      "require": "./dist/runtime.js"
+    }
+  },
+  "main": "./dist/module.js",
+  "typings": "./index.d.ts",
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "index.d.ts"
   ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "esmodules": true
-          }
-        }
-      ]
-    ]
-  },
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
+    "build": "siroc build && yarn build:types",
+    "build:types": "./scripts/types.sh",
+    "bump-next": "jiti ./scripts/bump-next",
     "dev": "nuxt-ts demo",
     "heroku-postbuild": "nuxt-ts build demo",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint-fix": "yarn lint --fix",
-    "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
+    "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
-    "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
+    "test": "yarn lint && jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "5.12.1",
+    "@nuxtjs/axios": "^5.13.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
-    "consola": "^2.15.0",
+    "consola": "^2.15.3",
     "cookie": "^0.4.1",
     "defu": "^3.2.2",
-    "js-cookie": "^2.2.1",
+    "hasha": "^5.2.2",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.20",
-    "nanoid": "^3.1.20",
-    "requrl": "^2.0.1"
+    "requrl": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/preset-env": "latest",
+    "@babel/preset-typescript": "^7.12.13",
+    "@microsoft/api-documenter": "^7.12.7",
+    "@microsoft/api-extractor": "^7.13.1",
+    "@nuxt/test-utils": "^0.1.2",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/cookie-parser": "latest",
+    "@types/express-jwt": "latest",
     "@types/jest": "latest",
+    "@types/jsonwebtoken": "latest",
+    "@types/lodash.get": "latest",
     "@types/node": "latest",
     "@types/puppeteer": "latest",
     "babel-jest": "latest",
@@ -64,14 +74,21 @@
     "express": "latest",
     "express-jwt": "latest",
     "get-port": "latest",
-    "jest": "latest",
+    "jest": "^26.6.3",
+    "jiti": "^0.1.20",
     "jsdom": "latest",
     "lodash.get": "latest",
-    "nuxt-edge": "latest",
+    "nuxt": "^2.14.12",
+    "playwright": "^1.8.0",
     "prettier": "latest",
-    "puppeteer": "latest",
+    "siroc": "^0.6.3",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "typescript": "latest"
+    "ts-loader": "^8.0.15",
+    "typescript": "latest",
+    "vue": "latest"
+  },
+  "peerDependencies": {
+    "vue": "*"
   }
 }

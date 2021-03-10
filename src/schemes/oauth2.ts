@@ -1,22 +1,69 @@
-import { nanoid } from 'nanoid'
 import requrl from 'requrl'
+import type {
+  RefreshableScheme,
+  SchemePartialOptions,
+  SchemeCheck,
+  RefreshableSchemeOptions,
+  UserOptions,
+  SchemeOptions,
+  HTTPResponse,
+  EndpointsOption,
+  TokenableSchemeOptions
+} from '../types'
+import type { Auth } from '../core'
 import {
   encodeQuery,
-  getResponseProp,
+  getProp,
   normalizePath,
   parseQuery,
   removeTokenPrefix,
-  urlJoin
+  urlJoin,
+  randomString
 } from '../utils'
-import RefreshController from '../inc/refresh-controller'
-import RequestHandler from '../inc/request-handler'
-import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
-import Token from '../inc/token'
-import RefreshToken from '../inc/refresh-token'
-import type { SchemeCheck } from '../index'
-import BaseScheme from './_scheme'
+import {
+  RefreshController,
+  RequestHandler,
+  ExpiredAuthSessionError,
+  Token,
+  RefreshToken
+} from '../inc'
+import { BaseScheme } from './base'
 
-const DEFAULTS = {
+export interface Oauth2SchemeEndpoints extends EndpointsOption {
+  authorization: string
+  token: string
+  userInfo: string
+  logout: string | false
+}
+
+export interface Oauth2SchemeOptions
+  extends SchemeOptions,
+    TokenableSchemeOptions,
+    RefreshableSchemeOptions {
+  endpoints: Oauth2SchemeEndpoints
+  user: UserOptions
+  responseMode: 'query.jwt' | 'fragment.jwt' | 'form_post.jwt' | 'jwt'
+  responseType: 'code' | 'token' | 'id_token' | 'none' | string
+  grantType:
+    | 'implicit'
+    | 'authorization_code'
+    | 'client_credentials'
+    | 'password'
+    | 'refresh_token'
+    | 'urn:ietf:params:oauth:grant-type:device_code'
+  accessType: 'online' | 'offline'
+  redirectUri: string
+  logoutRedirectUri: string
+  clientId: string | number
+  scope: string | string[]
+  state: string
+  codeChallengeMethod: 'implicit' | 'S256' | 'plain'
+  acrValues: string
+  audience: string
+  autoLogout: boolean
+}
+
+const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   name: 'oauth2',
   accessType: null,
   redirectUri: null,
@@ -56,15 +103,28 @@ const DEFAULTS = {
   codeChallengeMethod: 'implicit'
 }
 
-export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
+export class Oauth2Scheme<
+    OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions
+  >
+  extends BaseScheme<OptionsT>
+  implements RefreshableScheme {
   public req
   public token: Token
   public refreshToken: RefreshToken
   public refreshController: RefreshController
   public requestHandler: RequestHandler
 
-  constructor($auth, options, ...defaults) {
-    super($auth, options, ...defaults, DEFAULTS)
+  constructor(
+    $auth: Auth,
+    options: SchemePartialOptions<Oauth2SchemeOptions>,
+    ...defaults: SchemePartialOptions<Oauth2SchemeOptions>[]
+  ) {
+    super(
+      $auth,
+      options as OptionsT,
+      ...(defaults as OptionsT[]),
+      DEFAULTS as OptionsT
+    )
 
     this.req = $auth.ctx.req
 
@@ -81,38 +141,25 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
   }
 
-  get _scope() {
+  protected get scope(): string {
     return Array.isArray(this.options.scope)
       ? this.options.scope.join(' ')
       : this.options.scope
   }
 
-  get _redirectURI() {
-    return (
-      this.options.redirectUri ||
-      urlJoin(requrl(this.req), this.$auth.options.redirect.callback)
-    )
+  protected get redirectURI(): string {
+    const basePath = this.$auth.ctx.base || ''
+    const path = normalizePath(
+      basePath + '/' + this.$auth.options.redirect.callback
+    ) // Don't pass in context since we want the base path
+    return this.options.redirectUri || urlJoin(requrl(this.req), path)
   }
 
-  get _logoutRedirectURI() {
+  protected get logoutRedirectURI(): string {
     return (
       this.options.logoutRedirectUri ||
       urlJoin(requrl(this.req), this.$auth.options.redirect.logout)
     )
-  }
-
-  _updateTokens(response) {
-    const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = getResponseProp(
-      response,
-      this.options.refreshToken.property
-    )
-
-    this.token.set(token)
-
-    if (refreshToken) {
-      this.refreshToken.set(refreshToken)
-    }
   }
 
   check(checkStatus = false): SchemeCheck {
@@ -158,7 +205,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return response
   }
 
-  async mounted() {
+  async mounted(): Promise<HTTPResponse | void> {
     const { tokenExpired, refreshTokenExpired } = this.check(true)
 
     // Force reset if refresh token has expired
@@ -180,57 +227,26 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     }
   }
 
-  reset() {
+  reset(): void {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()
     this.requestHandler.reset()
   }
 
-  _generateRandomString() {
-    const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
-    window.crypto.getRandomValues(array)
-    return Array.from(array, (dec) => ('0' + dec.toString(16)).substr(-2)).join(
-      ''
-    )
-  }
-
-  _sha256(plain) {
-    const encoder = new TextEncoder()
-    const data = encoder.encode(plain)
-    return window.crypto.subtle.digest('SHA-256', data)
-  }
-
-  _base64UrlEncode(str) {
-    // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
-    // btoa accepts chars only within ascii 0-255 and base64 encodes them.
-    // Then convert the base64 encoded to base64url encoded
-    //   (replace + with -, replace / with _, trim trailing =)
-    return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '')
-  }
-
-  async _pkceChallengeFromVerifier(v, hashValue) {
-    if (hashValue) {
-      const hashed = await this._sha256(v)
-      return this._base64UrlEncode(hashed)
-    }
-    return v // plain is plain - url-encoded by default
-  }
-
-  async login(_opts: { state?; params?; nonce? } = {}) {
+  async login(
+    _opts: { state?: string; params?; nonce?: string } = {}
+  ): Promise<void> {
     const opts = {
       protocol: 'oauth2',
       response_type: this.options.responseType,
       access_type: this.options.accessType,
       client_id: this.options.clientId,
-      redirect_uri: this._redirectURI,
-      scope: this._scope,
+      redirect_uri: this.redirectURI,
+      scope: this.scope,
       // Note: The primary reason for using the state parameter is to mitigate CSRF attacks.
       // https://auth0.com/docs/protocols/oauth2/oauth-state
-      state: _opts.state || nanoid(),
+      state: _opts.state || randomString(10),
       code_challenge_method: this.options.codeChallengeMethod,
       ..._opts.params
     }
@@ -242,10 +258,8 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     // Set Nonce Value if response_type contains id_token to mitigate Replay Attacks
     // More Info: https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes
     // More Info: https://tools.ietf.org/html/draft-ietf-oauth-v2-threatmodel-06#section-4.6.2
-    if (opts.response_type.includes('id_token')) {
-      // nanoid auto-generates an URL Friendly, unique Cryptographic string
-      // Recommended by Auth0 on https://auth0.com/docs/api-auth/tutorials/nonce
-      opts.nonce = _opts.nonce || nanoid()
+    if (opts.response_type.includes('token')) {
+      opts.nonce = _opts.nonce || randomString(10)
     }
 
     if (opts.code_challenge_method) {
@@ -253,14 +267,14 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         case 'plain':
         case 'S256':
           {
-            const state = this._generateRandomString()
+            const state = this.generateRandomString()
             this.$auth.$storage.setUniversal(this.name + '.pkce_state', state)
-            const codeVerifier = this._generateRandomString()
+            const codeVerifier = this.generateRandomString()
             this.$auth.$storage.setUniversal(
               this.name + '.pkce_code_verifier',
               codeVerifier
             )
-            const codeChallenge = await this._pkceChallengeFromVerifier(
+            const codeChallenge = await this.pkceChallengeFromVerifier(
               codeVerifier,
               opts.code_challenge_method === 'S256'
             )
@@ -288,11 +302,11 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     window.location.replace(url)
   }
 
-  logout() {
+  logout(): void {
     if (this.options.endpoints.logout) {
       const opts = {
-        client_id: this.options.clientId,
-        logout_uri: this._logoutRedirectURI
+        client_id: this.options.clientId + '',
+        logout_uri: this.logoutRedirectURI
       }
       const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
       window.location.replace(url)
@@ -300,7 +314,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return this.$auth.reset()
   }
 
-  async fetchUser() {
+  async fetchUser(): Promise<void> {
     if (!this.check().valid) {
       return
     }
@@ -314,15 +328,15 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       url: this.options.endpoints.userInfo
     })
 
-    this.$auth.setUser(getResponseProp(response, this.options.user.property))
+    this.$auth.setUser(getProp(response.data, this.options.user.property))
   }
 
-  async _handleCallback() {
+  async _handleCallback(): Promise<boolean | void> {
     // Handle callback only for specified route
     if (
       this.$auth.options.redirect &&
-      normalizePath(this.$auth.ctx.route.path) !==
-        normalizePath(this.$auth.options.redirect.callback)
+      normalizePath(this.$auth.ctx.route.path, this.$auth.ctx) !==
+        normalizePath(this.$auth.options.redirect.callback, this.$auth.ctx)
     ) {
       return
     }
@@ -334,9 +348,13 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     const hash = parseQuery(this.$auth.ctx.route.hash.substr(1))
     const parsedQuery = Object.assign({}, this.$auth.ctx.route.query, hash)
     // accessToken/idToken
-    let token = parsedQuery[this.options.token.property]
+    let token: string = parsedQuery[this.options.token.property] as string
     // refresh token
-    let refreshToken = parsedQuery[this.options.refreshToken.property]
+    let refreshToken: string
+
+    if (this.options.refreshToken.property) {
+      refreshToken = parsedQuery[this.options.refreshToken.property] as string
+    }
 
     // Validate state
     const state = this.$auth.$storage.getUniversal(this.name + '.state')
@@ -368,9 +386,9 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         url: this.options.endpoints.token,
         baseURL: '',
         data: encodeQuery({
-          code: parsedQuery.code,
-          client_id: this.options.clientId,
-          redirect_uri: this._redirectURI,
+          code: parsedQuery.code as string,
+          client_id: this.options.clientId + '',
+          redirect_uri: this.redirectURI,
           response_type: this.options.responseType,
           audience: this.options.audience,
           grant_type: this.options.grantType,
@@ -378,10 +396,13 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         })
       })
 
-      token = getResponseProp(response, this.options.token.property) || token
+      token =
+        (getProp(response.data, this.options.token.property) as string) || token
       refreshToken =
-        getResponseProp(response, this.options.refreshToken.property) ||
-        refreshToken
+        (getProp(
+          response.data,
+          this.options.refreshToken.property
+        ) as string) || refreshToken
     }
 
     if (!token || !token.length) {
@@ -402,7 +423,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
     return true // True means a redirect happened
   }
 
-  async refreshTokens() {
+  async refreshTokens(): Promise<HTTPResponse | void> {
     // Get refresh token
     const refreshToken = this.refreshToken.get()
 
@@ -428,6 +449,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
       .request({
         method: 'post',
         url: this.options.endpoints.token,
+        baseURL: '',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -436,7 +458,7 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
             refreshToken,
             this.options.token.type
           ),
-          client_id: this.options.clientId,
+          client_id: this.options.clientId + '',
           grant_type: 'refresh_token'
         })
       })
@@ -445,8 +467,58 @@ export default class Oauth2Scheme extends BaseScheme<typeof DEFAULTS> {
         return Promise.reject(error)
       })
 
-    this._updateTokens(response)
+    this.updateTokens(response)
 
     return response
+  }
+
+  protected updateTokens(response: HTTPResponse): void {
+    const token = getProp(response.data, this.options.token.property) as string
+    const refreshToken = getProp(
+      response.data,
+      this.options.refreshToken.property
+    ) as string
+
+    this.token.set(token)
+
+    if (refreshToken) {
+      this.refreshToken.set(refreshToken)
+    }
+  }
+
+  protected async pkceChallengeFromVerifier(
+    v: string,
+    hashValue: boolean
+  ): Promise<string> {
+    if (hashValue) {
+      const hashed = await this._sha256(v)
+      return this._base64UrlEncode(hashed)
+    }
+    return v // plain is plain - url-encoded by default
+  }
+
+  protected generateRandomString(): string {
+    const array = new Uint32Array(28) // this is of minimum required length for servers with PKCE-enabled
+    window.crypto.getRandomValues(array)
+    return Array.from(array, (dec) => ('0' + dec.toString(16)).substr(-2)).join(
+      ''
+    )
+  }
+
+  private _sha256(plain: string): Promise<ArrayBuffer> {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(plain)
+    return window.crypto.subtle.digest('SHA-256', data)
+  }
+
+  private _base64UrlEncode(str: ArrayBuffer): string {
+    // Convert the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
+    // btoa accepts chars only within ascii 0-255 and base64 encodes them.
+    // Then convert the base64 encoded to base64url encoded
+    //   (replace + with -, replace / with _, trim trailing =)
+    return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '')
   }
 }

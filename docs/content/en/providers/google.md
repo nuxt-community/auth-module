@@ -25,6 +25,12 @@ Anywhere in your application logic:
 this.$auth.loginWith('google')
 ```
 
+Additional arguments can be passed through to Google as the `params` key of the second argument:
+
+```js
+this.$auth.loginWith('google', { params: { prompt: "select_account" } })
+```
+
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2) and supports all scheme options.
 
 ## Obtaining `clientId`

@@ -1,11 +1,32 @@
-import { cleanObj, getResponseProp } from '../utils'
-import RefreshController from '../inc/refresh-controller'
-import ExpiredAuthSessionError from '../inc/expired-auth-session-error'
-import RefreshToken from '../inc/refresh-token'
-import type { SchemeCheck } from '../index'
-import LocalScheme from './local'
+import type {
+  RefreshableScheme,
+  SchemePartialOptions,
+  SchemeCheck,
+  HTTPResponse,
+  HTTPRequest,
+  RefreshableSchemeOptions
+} from '../types'
+import type { Auth } from '../core'
+import { cleanObj, getProp } from '../utils'
+import {
+  RefreshController,
+  RefreshToken,
+  ExpiredAuthSessionError
+} from '../inc'
+import { LocalScheme, LocalSchemeEndpoints, LocalSchemeOptions } from './local'
 
-const DEFAULTS = {
+export interface RefreshSchemeEndpoints extends LocalSchemeEndpoints {
+  refresh: HTTPRequest
+}
+
+export interface RefreshSchemeOptions
+  extends LocalSchemeOptions,
+    RefreshableSchemeOptions {
+  endpoints: RefreshSchemeEndpoints
+  autoLogout: boolean
+}
+
+const DEFAULTS: SchemePartialOptions<RefreshSchemeOptions> = {
   name: 'refresh',
   endpoints: {
     refresh: {
@@ -25,11 +46,18 @@ const DEFAULTS = {
   autoLogout: false
 }
 
-export default class RefreshScheme extends LocalScheme {
+export class RefreshScheme<
+    OptionsT extends RefreshSchemeOptions = RefreshSchemeOptions
+  >
+  extends LocalScheme<OptionsT>
+  implements RefreshableScheme<OptionsT> {
   public refreshToken: RefreshToken
   public refreshController: RefreshController
 
-  constructor($auth, options) {
+  constructor(
+    $auth: Auth,
+    options: SchemePartialOptions<RefreshSchemeOptions>
+  ) {
     super($auth, options, DEFAULTS)
 
     // Initialize Refresh Token instance
@@ -37,30 +65,6 @@ export default class RefreshScheme extends LocalScheme {
 
     // Initialize Refresh Controller
     this.refreshController = new RefreshController(this)
-  }
-
-  _updateTokens(
-    response,
-    { isRefreshing = false, updateOnRefresh = true } = {}
-  ) {
-    const token = getResponseProp(response, this.options.token.property)
-    const refreshToken = this.options.refreshToken.required
-      ? getResponseProp(response, this.options.refreshToken.property)
-      : true
-
-    this.token.set(token)
-
-    // Update refresh token if defined and if `isRefreshing` is `false`
-    // If `isRefreshing` is `true`, then only update if `updateOnRefresh` is also `true`
-    if (refreshToken && (!isRefreshing || (isRefreshing && updateOnRefresh))) {
-      this.refreshToken.set(refreshToken)
-    }
-  }
-
-  _initializeRequestInterceptor() {
-    this.requestHandler.initializeRequestInterceptor(
-      this.options.endpoints.refresh.url
-    )
   }
 
   check(checkStatus = false): SchemeCheck {
@@ -106,7 +110,7 @@ export default class RefreshScheme extends LocalScheme {
     return response
   }
 
-  mounted() {
+  mounted(): Promise<HTTPResponse | void> {
     return super.mounted({
       tokenCallback: () => {
         if (this.options.autoLogout) {
@@ -119,15 +123,15 @@ export default class RefreshScheme extends LocalScheme {
     })
   }
 
-  async refreshTokens() {
+  refreshTokens(): Promise<HTTPResponse | void> {
     // Refresh endpoint is disabled
     if (!this.options.endpoints.refresh) {
-      return
+      return Promise.resolve()
     }
 
     // Token and refresh token are required but not available
     if (!this.check().valid) {
-      return
+      return Promise.resolve()
     }
 
     // Get refresh token status
@@ -153,7 +157,7 @@ export default class RefreshScheme extends LocalScheme {
     }
 
     // Add refresh token to payload if required
-    if (this.options.refreshToken.required) {
+    if (this.options.refreshToken.required && this.options.refreshToken.data) {
       endpoint.data[this.options.refreshToken.data] = this.refreshToken.get()
     }
 
@@ -174,7 +178,7 @@ export default class RefreshScheme extends LocalScheme {
       .request(endpoint, this.options.endpoints.refresh)
       .then((response) => {
         // Update tokens
-        this._updateTokens(response, { isRefreshing: true })
+        this.updateTokens(response, { isRefreshing: true })
         return response
       })
       .catch((error) => {
@@ -183,7 +187,10 @@ export default class RefreshScheme extends LocalScheme {
       })
   }
 
-  async setUserToken(token, refreshToken?) {
+  setUserToken(
+    token: string | boolean,
+    refreshToken?: string | boolean
+  ): Promise<HTTPResponse | void> {
     this.token.set(token)
 
     if (refreshToken) {
@@ -194,7 +201,7 @@ export default class RefreshScheme extends LocalScheme {
     return this.fetchUser()
   }
 
-  reset({ resetInterceptor = true } = {}) {
+  reset({ resetInterceptor = true } = {}): void {
     this.$auth.setUser(false)
     this.token.reset()
     this.refreshToken.reset()
@@ -202,5 +209,31 @@ export default class RefreshScheme extends LocalScheme {
     if (resetInterceptor) {
       this.requestHandler.reset()
     }
+  }
+
+  protected updateTokens(
+    response: HTTPResponse,
+    { isRefreshing = false, updateOnRefresh = true } = {}
+  ): void {
+    const token = this.options.token.required
+      ? (getProp(response.data, this.options.token.property) as string)
+      : true
+    const refreshToken = this.options.refreshToken.required
+      ? (getProp(response.data, this.options.refreshToken.property) as string)
+      : true
+
+    this.token.set(token)
+
+    // Update refresh token if defined and if `isRefreshing` is `false`
+    // If `isRefreshing` is `true`, then only update if `updateOnRefresh` is also `true`
+    if (refreshToken && (!isRefreshing || (isRefreshing && updateOnRefresh))) {
+      this.refreshToken.set(refreshToken)
+    }
+  }
+
+  protected initializeRequestInterceptor(): void {
+    this.requestHandler.initializeRequestInterceptor(
+      this.options.endpoints.refresh.url
+    )
   }
 }
