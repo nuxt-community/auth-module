@@ -1,8 +1,8 @@
+import qs from 'querystring'
 import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
 import requrl from 'requrl'
-import qs from 'querystring'
 import type { StrategyOptions, HTTPRequest } from '../types'
 import type {
   Oauth2SchemeOptions,

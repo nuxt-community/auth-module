@@ -21,7 +21,7 @@ export default function discord(
     scope: ['identify', 'email']
   }
 
-  assignDefaults(strategy, DEFAULTS);
+  assignDefaults(strategy, DEFAULTS)
 
   addAuthorize(nuxt, strategy, true)
 }
