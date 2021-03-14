@@ -211,10 +211,6 @@ export class RefreshScheme<
     }
   }
 
-  protected extractToken(response: HTTPResponse): string {
-    return getProp(response.data, this.options.token.property) as string
-  }
-
   protected extractRefreshToken(response: HTTPResponse): string {
     return getProp(response.data, this.options.refreshToken.property) as string
   }
