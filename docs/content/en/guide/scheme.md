@@ -8,7 +8,7 @@ Schemes define authentication logic. Strategy is a configured instance of Scheme
 
 `auth.strategies` option is an object. Keys are strategy name and values are configuration.
 
-```js
+```js{}[nuxt.config.js]
 auth: {
   strategies: {
     local: { /* ... */ },
@@ -19,7 +19,7 @@ auth: {
 
 By default, **instance names are the same as scheme names**. If you want more flexibility by providing your own scheme or having multiple instances of the same scheme you can use the `scheme` property:
 
-```js
+```js{}[nuxt.config.js]
 auth: {
   strategies: {
     local1: { scheme: 'local', /* ... */ },
