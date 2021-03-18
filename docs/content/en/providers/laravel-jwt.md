@@ -17,7 +17,7 @@ auth: {
   strategies: {
     'laravelJWT': {
       provider: 'laravel/jwt',
-      url: '<laravel url>'
+      url: '<laravel url>',
       endpoints: {
         ...
       },
