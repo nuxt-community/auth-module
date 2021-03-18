@@ -13,7 +13,7 @@ export function isRelativeURL(u: string): boolean {
   return (
     u &&
     u.length &&
-    /^\/([a-zA-Z0-9@\-%_~.][/a-zA-Z0-9@\-%_~.]*)?([?][^#]*)?(#[^#]*)?$/.test(u)
+    /^\/([a-zA-Z0-9@\-%_~.:][/a-zA-Z0-9@\-%_~.:]*)?([?][^#]*)?(#[^#]*)?$/.test(u)
   )
 }
 
