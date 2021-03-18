@@ -6,7 +6,7 @@ export interface DiscordProviderOptions
   extends ProviderOptions,
     Oauth2SchemeOptions {}
 
-export default function discord(
+export function discord(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   nuxt: any,
   strategy: ProviderPartialOptions<DiscordProviderOptions>
