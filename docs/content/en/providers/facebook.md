@@ -1,7 +1,7 @@
 ---
 title: Facebook
 description: This provider is based on oauth2 scheme and supports all scheme options
-position: 32
+position: 33
 category: Providers
 ---
 
