@@ -75,7 +75,7 @@
     "express-jwt": "latest",
     "get-port": "latest",
     "jest": "^26.6.3",
-    "jiti": "^0.1.20",
+    "jiti": "^1.9.1",
     "jsdom": "latest",
     "lodash.get": "latest",
     "nuxt": "^2.14.12",
