@@ -30,7 +30,7 @@ const DEFAULTS: SchemePartialOptions<OpenIDConnectSchemeOptions> = {
   scope: ['openid', 'profile', 'offline_access'],
   idToken: {
     property: 'id_token',
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 1800,
     prefix: '_id_token.',
     expirationPrefix: '_id_token_expiration.'
   },
