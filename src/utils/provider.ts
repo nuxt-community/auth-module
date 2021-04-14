@@ -1,3 +1,4 @@
+import qs from 'querystring'
 import defu from 'defu'
 import axios from 'axios'
 import bodyParser from 'body-parser'
@@ -20,7 +21,8 @@ export function addAuthorize<
   SOptions extends StrategyOptions<Oauth2SchemeOptions>
 >(
   nuxt: any, // eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  strategy: SOptions
+  strategy: SOptions,
+  useForms: boolean = false
 ): void {
   // Get clientSecret, clientId, endpoints.token and audience
   const clientSecret = strategy.clientSecret
@@ -69,24 +71,34 @@ export function addAuthorize<
           return next()
         }
 
+        let data: qs.ParsedUrlQueryInput | string = {
+          client_id: clientID,
+          client_secret: clientSecret,
+          refresh_token: refreshToken,
+          grant_type: grantType,
+          response_type: responseType,
+          redirect_uri: redirectUri,
+          audience,
+          code_verifier: codeVerifier,
+          code
+        }
+
+        const headers = {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+
+        if (useForms) {
+          data = qs.stringify(data)
+          headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        }
+
         axios
           .request({
             method: 'post',
             url: tokenEndpoint,
-            data: {
-              client_id: clientID,
-              client_secret: clientSecret,
-              refresh_token: refreshToken,
-              grant_type: grantType,
-              response_type: responseType,
-              redirect_uri: redirectUri,
-              audience,
-              code_verifier: codeVerifier,
-              code
-            },
-            headers: {
-              Accept: 'application/json'
-            }
+            data,
+            headers
           })
           .then((response) => {
             res.end(JSON.stringify(response.data))

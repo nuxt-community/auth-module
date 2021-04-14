@@ -1,7 +1,7 @@
 ---
 title: Laravel JWT
 description: This provider is for the Laravel JWT
-position: 35
+position: 36
 category: Providers
 ---
 
@@ -17,7 +17,7 @@ auth: {
   strategies: {
     'laravelJWT': {
       provider: 'laravel/jwt',
-      url: '<laravel url>'
+      url: '<laravel url>',
       endpoints: {
         ...
       },
