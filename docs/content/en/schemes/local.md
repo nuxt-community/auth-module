@@ -165,6 +165,14 @@ Here you configure the token options.
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 
+#### `prefix`
+
+- Default: `_token.`
+
+`prefix` sets the token prefix in the state. 
+
+**Note: if you are using vuex, the token will only appear in the `auth` state if the prefix does _not_ start with an underscore (`_`).**
+
 #### `required`
 
 - Default: `true`
