@@ -25,6 +25,9 @@ export interface OpenIDConnectSchemeOptions
 
 const DEFAULTS: SchemePartialOptions<OpenIDConnectSchemeOptions> = {
   name: 'openIDConnect',
+  responseType: 'code',
+  grantType: 'authorization_code',
+  scope: ['openid', 'profile', 'offline_access'],
   idToken: {
     property: 'id_token',
     maxAge: 60 * 60 * 24 * 30,
