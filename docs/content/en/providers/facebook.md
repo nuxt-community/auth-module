@@ -5,7 +5,7 @@ position: 33
 category: Providers
 ---
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/facebook/index.ts)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/facebook.ts)
 
 ## Usage
 
