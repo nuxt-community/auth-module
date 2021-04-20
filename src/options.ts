@@ -30,9 +30,11 @@ export interface ModuleOptions {
         }
       }
     | false
-  localStorage: {
-    prefix: string
-  }
+  localStorage: 
+    | {
+        prefix: string
+      }
+   | false
   strategies: {
     [strategy: string]: Strategy
   }
