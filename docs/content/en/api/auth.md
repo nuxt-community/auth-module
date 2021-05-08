@@ -162,4 +162,4 @@ export default function({ $auth }) {
 ## tokens
 
 **Token** and **Refresh Token** are available on `$auth.token` and `$auth.refreshToken`.
-Both have getters and setters and other helpers. Documented in [tokens.md](tokens.md)
+Both have getters and setters and other helpers. Documented in [tokens.md](./tokens)
