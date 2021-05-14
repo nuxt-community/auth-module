@@ -34,13 +34,12 @@ export class Auth {
   private _stateWarnShown: boolean
   private _getStateWarnShown: boolean
 
-  constructor(ctx: Context, options: ModuleOptions) {
+  constructor(ctx: Context, vueSet: Function, options: ModuleOptions) {
     this.ctx = ctx
     this.options = options
-
     // Storage & State
     const initialState = { user: null, loggedIn: false }
-    const storage = new Storage(ctx, { ...options, ...{ initialState } })
+    const storage = new Storage(ctx, vueSet, { ...options, ...{ initialState } })
     this.$storage = storage
     this.$state = storage.state
   }

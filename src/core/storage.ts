@@ -1,5 +1,4 @@
 import type { Context } from '@nuxt/types'
-import Vue from 'vue'
 import cookie from 'cookie'
 import type { ModuleOptions } from '../options'
 import { isUnset, isSet, decodeValue, encodeValue, getProp } from '../utils'
@@ -23,10 +22,12 @@ export class Storage {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _state: any
   private _useVuex: boolean
+  private readonly _vueSet: Function
 
-  constructor(ctx: Context, options: StorageOptions) {
+  constructor(ctx: Context, vueSet: Function, options: StorageOptions) {
     this.ctx = ctx
     this.options = options
+    this._vueSet = vueSet
 
     this._initState()
   }
@@ -106,7 +107,7 @@ export class Storage {
   _initState(): void {
     // Private state is suitable to keep information not being exposed to Vuex store
     // This helps prevent stealing token from SSR response HTML
-    Vue.set(this, '_state', {})
+    this._vueSet(this, '_state', {})
 
     // Use vuex for local state's if possible
     this._useVuex = this.options.vuex && !!this.ctx.store
@@ -116,8 +117,8 @@ export class Storage {
         namespaced: true,
         state: () => this.options.initialState,
         mutations: {
-          SET(state, payload) {
-            Vue.set(state, payload.key, payload.value)
+          SET: (state, payload) => {
+            this._vueSet(state, payload.key, payload.value)
           }
         }
       }
@@ -130,20 +131,20 @@ export class Storage {
 
       this.state = this.ctx.store.state[this.options.vuex.namespace]
     } else {
-      Vue.set(this, 'state', {})
+      this._vueSet(this, 'state', {})
     }
   }
 
   setState<V extends unknown>(key: string, value: V): V {
     if (key[0] === '_') {
-      Vue.set(this._state, key, value)
+      this._vueSet(this._state, key, value)
     } else if (this._useVuex) {
       this.ctx.store.commit(this.options.vuex.namespace + '/SET', {
         key,
         value
       })
     } else {
-      Vue.set(this.state, key, value)
+      this._vueSet(this.state, key, value)
     }
 
     return value

@@ -1,5 +1,6 @@
 import Middleware from './middleware'
 import { Auth, authMiddleware, ExpiredAuthSessionError } from '~auth/runtime'
+import Vue from 'vue'
 
 // Active schemes
 <%= options.schemeImports.map(i => `import { ${i.name}${i.name !== i.as ? ' as ' + i.as : '' } } from '${i.from}'`).join('\n') %>
@@ -9,9 +10,8 @@ Middleware.auth = authMiddleware
 export default function (ctx, inject) {
   // Options
   const options = <%= JSON.stringify(options.options, null, 2) %>
-
   // Create a new Auth instance
-  const $auth = new Auth(ctx, options)
+  const $auth = new Auth(ctx, Vue.set, options)
 
   // Register strategies
   <%=
