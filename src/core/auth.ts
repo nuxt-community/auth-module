@@ -39,7 +39,10 @@ export class Auth {
     this.options = options
     // Storage & State
     const initialState = { user: null, loggedIn: false }
-    const storage = new Storage(ctx, vueSet, { ...options, ...{ initialState } })
+    const storage = new Storage(ctx, vueSet, {
+      ...options,
+      ...{ initialState }
+    })
     this.$storage = storage
     this.$state = storage.state
   }
