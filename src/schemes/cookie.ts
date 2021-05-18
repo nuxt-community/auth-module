@@ -61,10 +61,6 @@ export class CookieScheme<
   check(): SchemeCheck {
     const response = { valid: false }
 
-    if (!super.check().valid) {
-      return response
-    }
-
     if (this.options.cookie.name) {
       const cookies = this.$auth.$storage.getCookies()
       response.valid = Boolean(cookies[this.options.cookie.name])
