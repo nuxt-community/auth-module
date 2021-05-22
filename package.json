@@ -84,7 +84,7 @@
     "siroc": "^0.6.3",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "ts-loader": "^8.0.15",
+    "ts-loader": "^9.2.2",
     "typescript": "latest",
     "vue": "latest"
   },
