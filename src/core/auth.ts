@@ -1,4 +1,5 @@
 import type { Context } from '@nuxt/types'
+import requrl from 'requrl'
 import type {
   HTTPRequest,
   HTTPResponse,
@@ -316,6 +317,11 @@ export class Auth {
       typeof defaults === 'object'
         ? Object.assign({}, defaults, endpoint)
         : endpoint
+
+    // Fix baseURL for relative endpoints
+    if (isRelativeURL(_endpoint.url)) {
+      _endpoint.baseURL = requrl(this.ctx.req)
+    }
 
     if (!this.ctx.app.$axios) {
       // eslint-disable-next-line no-console
