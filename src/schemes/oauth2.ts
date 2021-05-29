@@ -384,6 +384,7 @@ export class Oauth2Scheme<
       const response = await this.$auth.request({
         method: 'post',
         url: this.options.endpoints.token,
+        baseURL: '',
         data: encodeQuery({
           code: parsedQuery.code as string,
           client_id: this.options.clientId + '',
@@ -448,6 +449,7 @@ export class Oauth2Scheme<
       .request({
         method: 'post',
         url: this.options.endpoints.token,
+        baseURL: '',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
