@@ -76,8 +76,12 @@ export function laravelPassport(
       scheme: 'refresh',
       endpoints: {
         token: url + '/oauth/token',
-        login: {},
-        refresh: {},
+        login: {
+          baseURL: ''
+        },
+        refresh: {
+          baseURL: ''
+        },
         logout: false,
         user: {
           url: url + '/api/auth/user'
