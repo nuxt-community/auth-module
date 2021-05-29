@@ -319,7 +319,7 @@ export class Auth {
         : endpoint
 
     // Fix baseURL for relative endpoints
-    if (isRelativeURL(_endpoint.url)) {
+    if (_endpoint.baseURL === '') {
       _endpoint.baseURL = requrl(this.ctx.req)
     }
 
