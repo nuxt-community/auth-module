@@ -34,7 +34,7 @@
     "lint-fix": "yarn lint --fix",
     "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt-ts start demo",
-    "test": "yarn lint && jest --runInBand"
+    "test": "yarn lint && jest"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.0",
