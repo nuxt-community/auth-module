@@ -131,6 +131,11 @@ export class Storage {
       this.state = this.ctx.store.state[this.options.vuex.namespace]
     } else {
       Vue.set(this, 'state', {})
+
+      // eslint-disable-next-line no-console
+      console.warn(
+        '[AUTH] The Vuex Store is not activated. To activate it, see https://nuxtjs.org/docs/2.x/directory-structure/store'
+      )
     }
   }
 
