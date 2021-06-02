@@ -21,6 +21,8 @@ Initiate **RefreshController** in constructor
 ```js
 export class SchemeName {
   constructor (auth, options) {
+    super(auth, options)
+    
     ...
 
     this.refreshController = new RefreshController(this)

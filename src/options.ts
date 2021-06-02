@@ -1,7 +1,7 @@
 import type { Strategy } from './types'
 
 export interface ModuleOptions {
-  plugins?: string[] | { src: string; ssr: boolean }[]
+  plugins?: Array<string | { src: string; ssr: boolean }>
   ignoreExceptions: boolean
   resetOnError: boolean | ((...args: unknown[]) => boolean)
   defaultStrategy: string
@@ -30,9 +30,11 @@ export interface ModuleOptions {
         }
       }
     | false
-  localStorage: {
-    prefix: string
-  }
+  localStorage:
+    | {
+        prefix: string
+      }
+    | false
   strategies: {
     [strategy: string]: Strategy
   }

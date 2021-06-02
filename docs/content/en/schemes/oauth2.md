@@ -194,4 +194,4 @@ Provides metadata to supply additional information to the authorization server. 
 
 - Default: `false`
 
-If the token has expired, it will prevent the token from being refreshed on load the page and force logout the user.
+If the token has expired, it will prevent the token from being refreshed on the reload of the page and will force the logout of the user.
