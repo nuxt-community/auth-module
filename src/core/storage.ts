@@ -134,7 +134,7 @@ export class Storage {
 
       // eslint-disable-next-line no-console
       console.warn(
-        '[AUTH] The Vuex Store is not activated. This might cause issues in auth module behaivior, like redirects not working propertly.' +
+        '[AUTH] The Vuex Store is not activated. This might cause issues in auth module behavior, like redirects not working properly.' +
         'To activate it, see https://nuxtjs.org/docs/2.x/directory-structure/store'
       )
     }
