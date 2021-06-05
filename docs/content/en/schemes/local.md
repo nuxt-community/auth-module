@@ -139,6 +139,7 @@ auth: {
     local: {
       token: {
         required: false,
+        global: true,
         type: false
       },
       endpoints: {
@@ -163,6 +164,8 @@ Here you configure the token options.
 
 #### `property`
 
+- Default: `true`
+
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 
 #### `required`
@@ -174,6 +177,13 @@ This option can be used to disable all token handling.
 ::: tip
 Useful for Cookie only flows.
 :::
+
+#### `global`
+
+- Default: `true`
+
+This determines if the authentication token is automatically included in all custom axios requests.
+
 
 #### `name`
 

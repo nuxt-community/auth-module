@@ -45,12 +45,14 @@ Default:
 ```js
 auth: {
   token: {
-    prefix: '_token.'
+    prefix: '_token.',
+    global: true,
   }
 }
 ```
 
 * **prefix** - Default prefix used in building a key for token storage across all storage providers.
+* **global** - Whether to automatically include the authentication token in all axios requests.
 
 ## `localStorage`
 
@@ -69,7 +71,7 @@ auth: {
 You can disable use of localStorage by setting `localStorage` to `false`, like so:
 
 ```js
-auth {
+auth: {
   localStorage: false
 }
 ```
@@ -104,7 +106,7 @@ Note: Using cookies is effectively **required** for univeral mode (SSR) apps bec
 You can disable use of cookie storage by setting `cookie` to `false`, like so:
 
 ```js
-auth: {
+auth: {
   cookie: false
 }
 ```
