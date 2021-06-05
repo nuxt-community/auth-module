@@ -114,6 +114,7 @@ auth: {
     local: {
       token: {
         property: 'token',
+        global: true,
         // required: true,
         // type: 'Bearer'
       },
@@ -139,7 +140,6 @@ auth: {
     local: {
       token: {
         required: false,
-        global: true,
         type: false
       },
       endpoints: {
@@ -163,8 +163,6 @@ To disable each endpoint, simply set its value to `false`.
 Here you configure the token options.
 
 #### `property`
-
-- Default: `true`
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
 

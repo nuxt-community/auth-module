@@ -74,10 +74,10 @@ auth: {
       token: {
         property: 'access_token',
         maxAge: 1800,
+        global: true,
         // type: 'Bearer'
       },
       refreshToken: {
-        global: true,
         property: 'refresh_token',
         data: 'refresh_token',
         maxAge: 60 * 60 * 24 * 30
