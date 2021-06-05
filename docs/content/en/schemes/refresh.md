@@ -74,6 +74,7 @@ auth: {
       token: {
         property: 'access_token',
         maxAge: 1800,
+        global: true,
         // type: 'Bearer'
       },
       refreshToken: {
@@ -112,6 +113,12 @@ Here you configure the token options.
 #### `property`
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.token`.
+
+#### `global`
+
+- Default: `true`
+
+This determines if the authentication token is automatically included in all custom axios requests.
 
 #### `name`
 
