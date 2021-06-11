@@ -9,12 +9,14 @@ export interface ModuleOptions {
   rewriteRedirects: boolean
   fullPathRedirect: boolean
   scopeKey: string
-  redirect: {
-    login: string
-    logout: string
-    callback: string
-    home: string
-  }
+  redirect: 
+    | {
+        login: string | false
+        logout: string | false
+        callback: string | false
+        home: string | false
+      }
+    | false
   vuex: {
     namespace: string
   }
