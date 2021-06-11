@@ -9,7 +9,7 @@ export interface ModuleOptions {
   rewriteRedirects: boolean
   fullPathRedirect: boolean
   scopeKey: string
-  redirect: 
+  redirect:
     | {
         login: string | false
         logout: string | false
