@@ -18,7 +18,7 @@ auth: {
   strategies: {
     auth0: {
       domain: 'domain.auth0.com',
-      clientId: '....',
+      client_id: '....',
       audience: 'https://my-api-domain.com/'
     }
   }
@@ -88,7 +88,7 @@ auth: {
   strategies: {
     auth0: {
       domain: 'domain.auth0.com',
-      clientId: '....',
+      client_id: '....',
       audience: 'https://my-api-domain.com/',
       scope: ['openid', 'profile', 'email', 'offline_access'],
       responseType: 'code',
