@@ -18,7 +18,8 @@ import {
   parseQuery,
   removeTokenPrefix,
   urlJoin,
-  randomString
+  randomString,
+  isSet
 } from '../utils'
 import {
   RefreshController,
@@ -101,6 +102,11 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   },
   responseType: 'token',
   codeChallengeMethod: 'implicit'
+}
+
+const enum RedirectType {
+  BROWSER_REDIRECT = 'browser-redirect',
+  ROUTER_REDIRECT = 'router-redirect'
 }
 
 export class Oauth2Scheme<
@@ -220,9 +226,9 @@ export class Oauth2Scheme<
     )
 
     // Handle callbacks on page load
-    const redirected = await this._handleCallback()
+    const redirectType = await this._handleCallback()
 
-    if (!redirected) {
+    if (redirectType === RedirectType.ROUTER_REDIRECT) {
       return this.$auth.fetchUserOnce()
     }
   }
@@ -331,7 +337,7 @@ export class Oauth2Scheme<
     this.$auth.setUser(getProp(response.data, this.options.user.property))
   }
 
-  async _handleCallback(): Promise<boolean | void> {
+  async _handleCallback(): Promise<RedirectType | void> {
     // Handle callback only for specified route
     if (
       this.$auth.options.redirect &&
@@ -417,10 +423,19 @@ export class Oauth2Scheme<
       this.refreshToken.set(refreshToken)
     }
 
-    // Redirect to home
-    this.$auth.redirect('home', true)
+    const redirectType = this.callBackRedirectType()
+    const noRouter = redirectType === RedirectType.BROWSER_REDIRECT
 
-    return true // True means a redirect happened
+    // Redirect to home
+    this.$auth.redirect('home', noRouter)
+
+    return redirectType
+  }
+
+  callBackRedirectType () {
+    return !this.$auth.options.localStorage &&
+      !this.$auth.options.cookie &&
+      isSet(this.$auth.options.vuex) ? RedirectType.ROUTER_REDIRECT : RedirectType.BROWSER_REDIRECT
   }
 
   async refreshTokens(): Promise<HTTPResponse | void> {
