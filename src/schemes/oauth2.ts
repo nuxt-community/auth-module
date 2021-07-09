@@ -433,9 +433,11 @@ export class Oauth2Scheme<
   }
 
   callBackRedirectType() {
-    return !this.$auth.options.localStorage &&
-      !this.$auth.options.cookie &&
-      isSet(this.$auth.options.vuex) ? RedirectType.ROUTER_REDIRECT : RedirectType.BROWSER_REDIRECT
+    if(!this.$auth.options.localStorage && !this.$auth.options.cookie &&
+      isSet(this.$auth.options.vuex)) {
+      return RedirectType.ROUTER_REDIRECT
+    }
+    return RedirectType.BROWSER_REDIRECT
   }
 
   async refreshTokens(): Promise<HTTPResponse | void> {
