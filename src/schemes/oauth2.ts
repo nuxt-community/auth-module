@@ -418,7 +418,7 @@ export class Oauth2Scheme<
     }
 
     // Redirect to home
-    if (this.options.watchLoggedIn) {
+    if (this.$auth.options.watchLoggedIn) {
       this.$auth.redirect('home', true)
       return true // True means a redirect happened
     }
