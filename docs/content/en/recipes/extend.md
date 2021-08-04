@@ -10,7 +10,7 @@ If you have plugins that need to access `$auth`, you can use `auth.plugins` opti
 ```js{}[nuxt.config.js]
 {
   modules: [
-    '@nuxtjs/auth'
+    '@nuxtjs/auth-next'
   ],
   auth: {
      plugins: [ '~/plugins/auth.js' ]
