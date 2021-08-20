@@ -18,7 +18,7 @@ auth: {
   strategies: {
     cookie: {
       cookie: {
-        // (optional) If set we check this cookie exsistence for loggedIn check
+        // (optional) If set we check this cookie existence for loggedIn check
         name: 'XSRF-TOKEN',
       },
       endpoints: {
