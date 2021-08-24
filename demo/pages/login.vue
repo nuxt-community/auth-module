@@ -168,7 +168,8 @@ export default Vue.extend({
         .catch((err) => {
           // eslint-disable-next-line no-console
           console.error(err)
-          this.error = err.response?.data
+          const responseData = err.response?.data
+          this.error = responseData?.error ?? responseData
         })
     },
 
