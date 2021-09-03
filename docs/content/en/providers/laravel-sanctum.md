@@ -14,7 +14,7 @@ Laravel Sanctum provides a featherweight authentication system for SPAs (single 
 ```js
 auth: {
   strategies: {
-    'laravelSanctum': {
+    laravelSanctum: {
       provider: 'laravel/sanctum',
       url: '<laravel url>'
     },
@@ -38,7 +38,7 @@ auth: {
   },
   auth: {
     strategies: {
-      'laravelSanctum': {
+      laravelSanctum: {
         provider: 'laravel/sanctum',
         url: '<laravel url>'
       }
