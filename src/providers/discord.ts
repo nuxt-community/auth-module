@@ -18,7 +18,9 @@ export function discord(
       token: 'https://discord.com/api/oauth2/token',
       userInfo: 'https://discord.com/api/users/@me'
     },
-    scope: ['identify', 'email']
+    scope: ['identify', 'email'],
+    grantType: 'authorization_code',
+    codeChallengeMethod: 'S256'
   }
 
   assignDefaults(strategy, DEFAULTS)
