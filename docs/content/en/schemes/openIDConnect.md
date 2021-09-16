@@ -28,8 +28,8 @@ Minimal configuration:
 ```js
 auth: {
   strategies: {
-    social: {
-      name: 'openIDConnect',
+    oidc: {
+      scheme: 'openIDConnect',
       clientId: 'CLIENT_ID',
       endpoints: {
         configuration: 'https://accounts.google.com/.well-known/openid-configuration',
@@ -43,8 +43,8 @@ Default configuration:
 ```js
 auth: {
   strategies: {
-    social: {
-      name: 'openIDConnect',
+    oidc: {
+      scheme: 'openIDConnect',
       endpoints: {
         configuration: 'https://accounts.google.com/.well-known/openid-configuration',
       },
