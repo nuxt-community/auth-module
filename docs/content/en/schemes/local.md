@@ -114,6 +114,7 @@ auth: {
     local: {
       token: {
         property: 'token',
+        global: true,
         // required: true,
         // type: 'Bearer'
       },
@@ -174,6 +175,13 @@ This option can be used to disable all token handling.
 ::: tip
 Useful for Cookie only flows.
 :::
+
+#### `global`
+
+- Default: `true`
+
+This determines if the authentication token is automatically included in all custom axios requests.
+
 
 #### `name`
 

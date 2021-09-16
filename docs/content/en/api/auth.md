@@ -161,5 +161,5 @@ export default function({ $auth }) {
 
 ## tokens
 
-**Token** and **Refresh Token** are available on `$auth.token` and `$auth.refreshToken`.
+**Token** and **Refresh Token** are available on `$auth.strategy.token` and `$auth.strategy.refreshToken`.
 Both have getters and setters and other helpers. Documented in [tokens.md](./tokens)
