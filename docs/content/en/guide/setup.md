@@ -53,7 +53,7 @@ Then, add `@nuxtjs/auth-next` to the `modules` section of `nuxt.config.js`:
 
 <alert type="warning">
 
-When adding `auth-module` to a new Nuxt project ensure you have [activated the Vuex store](https://nuxtjs.org/guide/vuex-store/#activate-the-store). More information on how to do that can be found on the [Nuxt Getting Started Guide](https://nuxtjs.org/guides/directory-structure/store).
+When adding `auth-module` to a new Nuxt project ensure you have [activated the Vuex store](https://nuxtjs.org/docs/directory-structure/store#activate-the-store). More information on how to do that can be found on the [Nuxt Getting Started Guide](https://nuxtjs.org/docs/directory-structure/store).
 
 </alert>
 

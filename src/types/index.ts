@@ -1,3 +1,4 @@
+export * from './openIDConnectConfigurationDocument'
 export * from './provider'
 export * from './request'
 export * from './router'

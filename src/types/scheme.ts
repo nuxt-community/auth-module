@@ -2,6 +2,7 @@ import type { HTTPRequest, HTTPResponse } from '../types'
 import type { Auth } from '../core'
 import type {
   Token,
+  IdToken,
   RefreshToken,
   RefreshController,
   RequestHandler
@@ -32,6 +33,7 @@ export interface SchemeCheck {
   valid: boolean
   tokenExpired?: boolean
   refreshTokenExpired?: boolean
+  idTokenExpired?: boolean
   isRefreshable?: boolean
 }
 export interface Scheme<OptionsT extends SchemeOptions = SchemeOptions> {
@@ -72,6 +74,19 @@ export interface TokenableScheme<
   OptionsT extends TokenableSchemeOptions = TokenableSchemeOptions
 > extends Scheme<OptionsT> {
   token: Token
+  requestHandler: RequestHandler
+}
+
+// ID Token
+
+export interface IdTokenableSchemeOptions extends SchemeOptions {
+  idToken: TokenOptions
+}
+
+export interface IdTokenableScheme<
+  OptionsT extends IdTokenableSchemeOptions = IdTokenableSchemeOptions
+> extends Scheme<OptionsT> {
+  idToken: IdToken
   requestHandler: RequestHandler
 }
 
