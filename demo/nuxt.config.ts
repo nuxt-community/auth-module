@@ -1,10 +1,24 @@
 import { NuxtConfig } from '@nuxt/types'
+import oidcMockServer from './api/oidcmockserver'
 
 export default <NuxtConfig>{
   build: {
     extractCSS: true
   },
-  serverMiddleware: ['~/api/auth', '~/api/oauth2mockserver'],
+  serverMiddleware: [
+    '~/api/auth',
+    '~/api/oauth2mockserver',
+    {
+      path: '/oidc',
+      handler: oidcMockServer({
+        port: 3000,
+        path: '/oidc',
+        redirect: {
+          callback: '/callback'
+        }
+      })
+    }
+  ],
   buildModules: ['@nuxt/typescript-build'],
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios', '../src/module'],
   components: true,
@@ -131,6 +145,18 @@ export default <NuxtConfig>{
         responseType: 'code',
         grantType: 'authorization_code',
         clientId: 'test-client'
+      },
+      oidcmock: {
+        scheme: 'openIDConnect',
+        responseType: 'code',
+        scope: ['openid', 'profile', 'offline_access'],
+        grantType: 'authorization_code',
+        clientId: 'oidc_authorization_code_client',
+        logoutRedirectUri: 'http://localhost:3000',
+        endpoints: {
+          configuration:
+            'http://localhost:3000/oidc/.well-known/openid-configuration'
+        }
       }
     }
   }

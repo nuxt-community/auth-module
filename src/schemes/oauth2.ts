@@ -75,10 +75,10 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
   acrValues: null,
   autoLogout: false,
   endpoints: {
-    logout: '',
-    authorization: '',
-    token: '',
-    userInfo: ''
+    logout: null,
+    authorization: null,
+    token: null,
+    userInfo: null
   },
   scope: [],
   token: {

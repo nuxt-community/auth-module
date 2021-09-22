@@ -9,6 +9,7 @@ const BuiltinSchemes = {
   local: 'LocalScheme',
   cookie: 'CookieScheme',
   oauth2: 'Oauth2Scheme',
+  openIDConnect: 'OpenIDConnectScheme',
   refresh: 'RefreshScheme',
   laravelJWT: 'LaravelJWTScheme',
   auth0: 'Auth0Scheme'
