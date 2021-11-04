@@ -13,6 +13,8 @@ Auth Module for [NuxtJS](https://nuxtjs.org).
 
 Zero-boilerplate authentication support for Nuxt.js!
 
+The module authenticates users using a configurable authentication [Scheme](/guide/scheme) or by using one the directly supported [providers](/guide/provider). It  provides an [API](https://auth.nuxtjs.org/) for triggering authentication and accessing resulting user information. While it takes care of [storing](/api/storage) the information on the client-side, it does NOT implement session handling or provide session based authentication on the Nuxt server.
+
 ## Getting Started
 
 If it is first time using this module, reading resources below in order is recommended:
