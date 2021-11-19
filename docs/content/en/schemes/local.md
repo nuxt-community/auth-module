@@ -206,7 +206,7 @@ By default is set to 30 minutes.
 
 ### `user`
 
-Here you configure the user options.
+Here you configure the user options. Note that these options should be set in local.user and _not_ in the user endpoints options (local.endpoints.user). Refer to the example above for further clarification.
 
 #### `property`
 
