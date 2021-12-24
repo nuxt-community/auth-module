@@ -1,4 +1,6 @@
 {
+  "separateMajorMinor": true,
+  "separateMultipleMajor": true
   "extends": [
     "@nuxtjs"
   ]
