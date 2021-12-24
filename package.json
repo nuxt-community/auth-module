@@ -79,7 +79,7 @@
     "lodash.get": "latest",
     "nuxt": "^2.14.12",
     "oidc-provider": "^6.29.11",
-    "playwright": "^1.8.1",
+    "playwright": "^1.17.1",
     "prettier": "latest",
     "siroc": "^0.6.7",
     "standard-version": "latest",
