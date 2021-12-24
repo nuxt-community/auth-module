@@ -81,7 +81,7 @@
     "oidc-provider": "^6.29.11",
     "playwright": "^1.17.1",
     "prettier": "latest",
-    "siroc": "^0.6.7",
+    "siroc": "^0.16.0",
     "standard-version": "latest",
     "ts-jest": "latest",
     "ts-loader": "^9.2.6",
