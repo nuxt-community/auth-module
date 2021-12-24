@@ -84,7 +84,6 @@
     "siroc": "^0.16.0",
     "standard-version": "latest",
     "ts-jest": "latest",
-    "//": "ts-loader v9 requires webpack 5",
     "ts-loader": "<9",
     "typescript": "latest",
     "vue": "latest"
