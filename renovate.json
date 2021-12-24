@@ -1,7 +1,5 @@
 {
-  "separateMajorMinor": true,
-  "separateMultipleMajor": true
   "extends": [
-    "@nuxtjs"
+    "@nuxtjs", ":separateMultipleMajorReleases", ":separatePatchReleases"
   ]
 }
