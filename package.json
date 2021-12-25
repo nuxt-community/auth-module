@@ -77,7 +77,7 @@
     "jiti": "^1.12.9",
     "jsdom": "latest",
     "lodash.get": "latest",
-    "nuxt": "^2.14.12",
+    "nuxt": "^2.15.8",
     "oidc-provider": "^6.31.1",
     "playwright": "^1.17.1",
     "prettier": "latest",
