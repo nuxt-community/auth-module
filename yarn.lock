@@ -1198,15 +1198,6 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-typescript@^7.12.17":
-  version "7.16.5"
-  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.16.5.tgz#b86a5b0ae739ba741347d2f58c52f52e63cf1ba1"
-  integrity sha512-lmAWRoJ9iOSvs3DqOndQpj8XqXkzaiQs50VG/zESiI9D3eoZhGriU675xNCr0UwvsuXrhMAGvyk1w+EVWF3u8Q==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.16.5"
-    "@babel/helper-validator-option" "^7.14.5"
-    "@babel/plugin-transform-typescript" "^7.16.1"
-
 "@babel/preset-typescript@^7.13.0":
   version "7.13.0"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.13.0.tgz#ab107e5f050609d806fbb039bec553b33462c60a"
@@ -1215,6 +1206,15 @@
     "@babel/helper-plugin-utils" "^7.13.0"
     "@babel/helper-validator-option" "^7.12.17"
     "@babel/plugin-transform-typescript" "^7.13.0"
+
+"@babel/preset-typescript@^7.16.5":
+  version "7.16.5"
+  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.16.5.tgz#b86a5b0ae739ba741347d2f58c52f52e63cf1ba1"
+  integrity sha512-lmAWRoJ9iOSvs3DqOndQpj8XqXkzaiQs50VG/zESiI9D3eoZhGriU675xNCr0UwvsuXrhMAGvyk1w+EVWF3u8Q==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.16.5"
+    "@babel/helper-validator-option" "^7.14.5"
+    "@babel/plugin-transform-typescript" "^7.16.1"
 
 "@babel/runtime@^7.12.5", "@babel/runtime@^7.8.4":
   version "7.12.5"
@@ -1610,7 +1610,7 @@
   dependencies:
     vary "^1.1.2"
 
-"@microsoft/api-documenter@^7.12.22":
+"@microsoft/api-documenter@^7.13.77":
   version "7.13.77"
   resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.13.77.tgz#9760b42553679695620b578436ce14c357454e88"
   integrity sha512-kot4VJlQUd7i0mFSM7IjyOhF0WWyVrmN9x3sXmd72imgCg9w795QHSkphJ7Qc6ZjhHcolaJvBByEPTKG4exZmA==
@@ -1632,7 +1632,7 @@
     "@microsoft/tsdoc-config" "~0.15.2"
     "@rushstack/node-core-library" "3.44.2"
 
-"@microsoft/api-extractor@^7.13.5":
+"@microsoft/api-extractor@^7.19.2":
   version "7.19.2"
   resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.19.2.tgz#8c546003523163c1432f6e19506065f790d6182c"
   integrity sha512-LxSa9lwp7eYtM4i5y/1n79QpotPKlmpCrVQbkb0LAHE1sCRHpZDTb6p3cMJthDhYPMjAYKOLfq639GwtZrg23Q==
@@ -8620,7 +8620,7 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@^27.0.6:
+jest@^27.4.5:
   version "27.4.5"
   resolved "https://registry.yarnpkg.com/jest/-/jest-27.4.5.tgz#66e45acba44137fac26be9d3cc5bb031e136dc0f"
   integrity sha512-uT5MiVN3Jppt314kidCk47MYIRilJjA/l2mxwiuzzxGUeJIvA8/pDaJOAX5KWvjAo7SCydcW0/4WEtgbLMiJkg==
@@ -8634,7 +8634,7 @@ jiti@^0.1.16, jiti@^0.1.17:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-0.1.17.tgz#b693a29c94d0ca4f82a4624b40dd9915527416be"
   integrity sha512-IlUGuEHKA44dqJoSqpv1poIRyyi31ciEmpLlRZCmo9TasVSZhwfmaVUuQVs26EHuwYdx+NirOm41+wbykH/+9Q==
 
-jiti@^1.11.0, jiti@^1.12.9, jiti@^1.9.2:
+jiti@^1.11.0, jiti@^1.12.9:
   version "1.12.9"
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.12.9.tgz#2ce45b265cfc8dc91ebd70a5204807cf915291bc"
   integrity sha512-TdcJywkQtcwLxogc4rSMAi479G2eDPzfW0fLySks7TPhgZZ4s/tM6stnzayIh3gS/db3zExWJyUx4cNWrwAmoQ==
@@ -10098,7 +10098,7 @@ object.values@^1.1.0, object.values@^1.1.1:
     es-abstract "^1.18.0-next.1"
     has "^1.0.3"
 
-oidc-provider@^6.29.11:
+oidc-provider@^6.31.1:
   version "6.31.1"
   resolved "https://registry.yarnpkg.com/oidc-provider/-/oidc-provider-6.31.1.tgz#2a059fd8437bb8b7bae9a8957a90a895d78a1720"
   integrity sha512-YYfcJKGrobdaW2v7bx5crd4yfxFTKAoOTHdQs/gsu6fwzc/yD/qjforQX2VgbTX+ySK8nm7EaAwJuJJSFRo1MA==
