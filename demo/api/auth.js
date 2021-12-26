@@ -1,15 +1,15 @@
 import express from 'express'
-import bodyParser from 'body-parser'
+import { json as bodyParserJson } from 'body-parser'
 import cookieParser from 'cookie-parser'
 import jwt from 'express-jwt'
-import jsonwebtoken from 'jsonwebtoken'
+import { sign as jwtSign } from 'jsonwebtoken'
 
 // Create app
 const app = express()
 
 // Install middleware
 app.use(cookieParser())
-app.use(bodyParser.json())
+app.use(bodyParserJson())
 
 // JWT middleware
 app.use(
@@ -38,7 +38,7 @@ app.post('/login', (req, res) => {
     throw new Error('Invalid username or password')
   }
 
-  const accessToken = jsonwebtoken.sign(
+  const accessToken = jwtSign(
     {
       username,
       picture: 'https://github.com/nuxt.png',
@@ -77,7 +77,7 @@ app.post('/refresh', (req, res) => {
     const newRefreshToken =
       Math.floor(Math.random() * (1000000000000000 - 1 + 1)) + 1
     delete refreshTokens[refreshToken]
-    const accessToken = jsonwebtoken.sign(
+    const accessToken = jwtSign(
       {
         user: user.username,
         picture: 'https://github.com/nuxt.png',

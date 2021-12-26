@@ -1,7 +1,10 @@
 import qs from 'querystring'
 import defu from 'defu'
 import axios from 'axios'
-import bodyParser from 'body-parser'
+import {
+  json as bodyParserJson,
+  urlencoded as bodyParserUrlEncoded
+} from 'body-parser'
 import requrl from 'requrl'
 import type { StrategyOptions, HTTPRequest } from '../types'
 import type {
@@ -41,7 +44,7 @@ export function addAuthorize<
   strategy.responseType = 'code'
 
   // Form data parser
-  const formMiddleware = bodyParser.urlencoded({ extended: true })
+  const formMiddleware = bodyParserUrlEncoded({ extended: true })
 
   // Register endpoint
   nuxt.options.serverMiddleware.unshift({
@@ -132,7 +135,7 @@ export function initializePasswordGrantFlow<
   strategy.endpoints.refresh.url = endpoint
 
   // Form data parser
-  const formMiddleware = bodyParser.json()
+  const formMiddleware = bodyParserJson()
 
   // Register endpoint
   nuxt.options.serverMiddleware.unshift({
