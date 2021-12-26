@@ -75,6 +75,7 @@
     "express-jwt": "latest",
     "jest": "^27.4.5",
     "jiti": "^1.12.9",
+    "jquery": "latest",
     "jsdom": "latest",
     "lodash.get": "latest",
     "nuxt": "^2.15.8",
@@ -86,7 +87,8 @@
     "ts-jest": "latest",
     "ts-loader": "<9",
     "typescript": "latest",
-    "vue": "latest"
+    "vue": "latest",
+    "webpack": "<5"
   },
   "peerDependencies": {
     "vue": "*"
