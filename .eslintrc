@@ -1,8 +1,7 @@
 {
   "extends": [
     "@nuxtjs/eslint-config-typescript",
-    "prettier",
-    "prettier/vue"
+    "prettier"
   ],
   "plugins": [
     "prettier"
