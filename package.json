@@ -70,7 +70,7 @@
     "cookie-parser": "^1.4.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.2",
     "express-jwt": "^6.1.0",
     "jest": "^27.4.5",
