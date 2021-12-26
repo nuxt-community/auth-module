@@ -1,5 +1,7 @@
 import { existsSync } from 'fs'
 import hash from 'hasha'
+// TODO: Decide if we should change this approach
+// eslint-disable-next-line import/namespace
 import * as AUTH_PROVIDERS from './providers'
 import { ProviderAliases } from './providers'
 import type { ModuleOptions } from './options'
@@ -119,7 +121,9 @@ export function resolveProvider(
 
   provider = (ProviderAliases[provider] || provider) as string
 
+  // eslint-disable-next-line import/namespace
   if (AUTH_PROVIDERS[provider]) {
+    // eslint-disable-next-line import/namespace
     return AUTH_PROVIDERS[provider]
   }
 
