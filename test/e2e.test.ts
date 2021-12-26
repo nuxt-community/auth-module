@@ -30,8 +30,8 @@ describe('e2e', () => {
         const response = await window.$nuxt.$auth.loginWith('local', {
           data: { username: 'test_username', password: '123' }
         })
-        const strategy = (window.$nuxt.$auth
-          .strategy as unknown) as TokenableScheme
+        const strategy = window.$nuxt.$auth
+          .strategy as unknown as TokenableScheme
 
         return {
           axiosBearer:
@@ -69,8 +69,8 @@ describe('e2e', () => {
       const loginResponse = await window.$nuxt.$auth.loginWith('localRefresh', {
         data: { username: 'test_username', password: '123' }
       })
-      const strategy = (window.$nuxt.$auth
-        .strategy as unknown) as RefreshableScheme
+      const strategy = window.$nuxt.$auth
+        .strategy as unknown as RefreshableScheme
 
       return {
         loginAxiosBearer:
@@ -103,8 +103,8 @@ describe('e2e', () => {
       refreshedResponse
     } = await page.evaluate(async () => {
       const refreshedResponse = await window.$nuxt.$auth.refreshTokens()
-      const strategy = (window.$nuxt.$auth
-        .strategy as unknown) as RefreshableScheme
+      const strategy = window.$nuxt.$auth
+        .strategy as unknown as RefreshableScheme
 
       return {
         refreshedAxiosBearer:
@@ -144,8 +144,7 @@ describe('e2e', () => {
         data: { username: 'test_username', password: '123' }
       })
 
-      const strategy = (window.$nuxt.$auth
-        .strategy as unknown) as TokenableScheme
+      const strategy = window.$nuxt.$auth.strategy as unknown as TokenableScheme
 
       return {
         loginAxiosBearer:
@@ -160,8 +159,7 @@ describe('e2e', () => {
     const { logoutToken, logoutAxiosBearer } = await page.evaluate(async () => {
       await window.$nuxt.$auth.logout()
 
-      const strategy = (window.$nuxt.$auth
-        .strategy as unknown) as TokenableScheme
+      const strategy = window.$nuxt.$auth.strategy as unknown as TokenableScheme
 
       return {
         logoutAxiosBearer:

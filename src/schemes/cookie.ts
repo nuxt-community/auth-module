@@ -42,7 +42,8 @@ export class CookieScheme<
     OptionsT extends CookieSchemeOptions = CookieSchemeOptions
   >
   extends LocalScheme<OptionsT>
-  implements TokenableScheme<OptionsT> {
+  implements TokenableScheme<OptionsT>
+{
   constructor($auth: Auth, options: SchemePartialOptions<CookieSchemeOptions>) {
     super($auth, options, DEFAULTS)
   }

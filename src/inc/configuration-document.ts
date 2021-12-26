@@ -44,8 +44,9 @@ export class ConfigurationDocument {
 
   async request() {
     // Get Configuration document from state hydration
-    const serverDoc: OpenIDConnectConfigurationDocument = this.scheme.$auth.ctx
-      ?.nuxtState?.$auth?.openIDConnect?.configurationDocument
+    const serverDoc: OpenIDConnectConfigurationDocument =
+      this.scheme.$auth.ctx?.nuxtState?.$auth?.openIDConnect
+        ?.configurationDocument
     if (process.client && serverDoc) {
       this.set(serverDoc)
     }

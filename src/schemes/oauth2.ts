@@ -107,7 +107,8 @@ export class Oauth2Scheme<
     OptionsT extends Oauth2SchemeOptions = Oauth2SchemeOptions
   >
   extends BaseScheme<OptionsT>
-  implements RefreshableScheme {
+  implements RefreshableScheme
+{
   public req
   public token: Token
   public refreshToken: RefreshToken

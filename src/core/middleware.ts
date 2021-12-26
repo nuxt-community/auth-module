@@ -5,7 +5,7 @@ import { routeOption, getMatchedComponents, normalizePath } from '../utils'
 export const authMiddleware: Middleware = async (ctx) => {
   // Disable middleware if options: { auth: false } is set on the route
   // TODO: Why Router is incompatible?
-  if (routeOption((ctx.route as unknown) as Route, 'auth', false)) {
+  if (routeOption(ctx.route as unknown as Route, 'auth', false)) {
     return
   }
 
@@ -13,7 +13,7 @@ export const authMiddleware: Middleware = async (ctx) => {
   const matches = []
   const Components = getMatchedComponents(
     // TODO: Why Router is incompatible?
-    (ctx.route as unknown) as Route,
+    ctx.route as unknown as Route,
     matches
   )
   if (!Components.length) {
@@ -23,7 +23,7 @@ export const authMiddleware: Middleware = async (ctx) => {
   const { login, callback } = ctx.$auth.options.redirect
   const pageIsInGuestMode = routeOption(
     // TODO: Why Router is incompatible?
-    (ctx.route as unknown) as Route,
+    ctx.route as unknown as Route,
     'auth',
     'guest'
   )
@@ -32,11 +32,8 @@ export const authMiddleware: Middleware = async (ctx) => {
 
   if (ctx.$auth.$state.loggedIn) {
     // Perform scheme checks.
-    const {
-      tokenExpired,
-      refreshTokenExpired,
-      isRefreshable
-    } = ctx.$auth.check(true)
+    const { tokenExpired, refreshTokenExpired, isRefreshable } =
+      ctx.$auth.check(true)
 
     // -- Authorized --
     if (!login || insidePage(login) || pageIsInGuestMode) {

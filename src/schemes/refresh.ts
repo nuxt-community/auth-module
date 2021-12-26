@@ -50,7 +50,8 @@ export class RefreshScheme<
     OptionsT extends RefreshSchemeOptions = RefreshSchemeOptions
   >
   extends LocalScheme<OptionsT>
-  implements RefreshableScheme<OptionsT> {
+  implements RefreshableScheme<OptionsT>
+{
   public refreshToken: RefreshToken
   public refreshController: RefreshController
 
