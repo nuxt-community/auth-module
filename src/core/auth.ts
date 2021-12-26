@@ -331,7 +331,7 @@ export class Auth {
       return
     }
 
-    return this.ctx.app.$axios.request(_endpoint).catch((error) => {
+    return this.ctx.app.$axios.request(_endpoint as any).catch((error) => {
       // Call all error handlers
       this.callOnError(error, { method: 'request' })
 
