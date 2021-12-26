@@ -129,7 +129,7 @@ export class Auth {
         this.$storage.watchState('loggedIn', (loggedIn) => {
           if (
             // TODO: Why Router is incompatible?
-            !routeOption((this.ctx.route as unknown) as Route, 'auth', false)
+            !routeOption(this.ctx.route as unknown as Route, 'auth', false)
           ) {
             this.redirect(loggedIn ? 'home' : 'logout')
           }
@@ -269,7 +269,9 @@ export class Auth {
     }
 
     return Promise.resolve(
-      (this.getStrategy() as RefreshableScheme).refreshController.handleRefresh()
+      (
+        this.getStrategy() as RefreshableScheme
+      ).refreshController.handleRefresh()
     ).catch((error) => {
       this.callOnError(error, { method: 'refreshTokens' })
       return Promise.reject(error)

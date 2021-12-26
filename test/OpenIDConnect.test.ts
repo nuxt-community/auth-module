@@ -11,8 +11,8 @@ const OPEN_ID_CONNECT_TESTS = SSR_MODES_TO_TEST.reduce(
 
 const getAuthDataFromWindow = (page: Page) =>
   page.evaluate(() => {
-    const strategy = (window.$nuxt.$auth
-      .strategy as unknown) as OpenIDConnectScheme
+    const strategy = window.$nuxt.$auth
+      .strategy as unknown as OpenIDConnectScheme
     return {
       axiosBearer: window.$nuxt.$axios.defaults.headers.common.Authorization,
       token: strategy.token.get(),
@@ -90,8 +90,8 @@ describe('OpenID Connect', () => {
           )
           await page.waitForTimeout(1000)
           const activeStrategy = await page.evaluate(() => {
-            const strategy = (window.$nuxt.$auth
-              .strategy as unknown) as OpenIDConnectScheme
+            const strategy = window.$nuxt.$auth
+              .strategy as unknown as OpenIDConnectScheme
             return {
               name: strategy.name,
               userInfoEndpoint: strategy.options.endpoints.userInfo,
@@ -126,13 +126,8 @@ describe('OpenID Connect', () => {
             const page = await createPage('/')
             await loginWithOidc(page, port)
 
-            const {
-              token,
-              user,
-              axiosBearer,
-              idToken,
-              refreshToken
-            } = await getAuthDataFromWindow(page)
+            const { token, user, axiosBearer, idToken, refreshToken } =
+              await getAuthDataFromWindow(page)
 
             expect(axiosBearer).toBeDefined()
             expect(axiosBearer.split(' ')).toHaveLength(2)
@@ -195,20 +190,16 @@ describe('OpenID Connect', () => {
             const page = await createPage('/')
             await loginWithOidc(page, port)
 
-            const {
-              token: loginToken,
-              axiosBearer: loginAxiosBearer
-            } = await getAuthDataFromWindow(page)
+            const { token: loginToken, axiosBearer: loginAxiosBearer } =
+              await getAuthDataFromWindow(page)
 
             expect(loginAxiosBearer).toBeDefined()
             expect(loginToken).toBeDefined()
 
             await logoutWithOidc(page, port)
 
-            const {
-              token: logoutToken,
-              axiosBearer: logoutAxiosBearer
-            } = await getAuthDataFromWindow(page)
+            const { token: logoutToken, axiosBearer: logoutAxiosBearer } =
+              await getAuthDataFromWindow(page)
 
             expect(logoutToken).toBeFalsy()
             expect(logoutAxiosBearer).toBeUndefined()

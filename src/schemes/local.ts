@@ -66,7 +66,8 @@ export class LocalScheme<
     OptionsT extends LocalSchemeOptions = LocalSchemeOptions
   >
   extends BaseScheme<OptionsT>
-  implements TokenableScheme<OptionsT> {
+  implements TokenableScheme<OptionsT>
+{
   public token: Token
   public requestHandler: RequestHandler
 

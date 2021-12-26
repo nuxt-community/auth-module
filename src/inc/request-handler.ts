@@ -39,12 +39,8 @@ export class RequestHandler {
       }
 
       // Perform scheme checks.
-      const {
-        valid,
-        tokenExpired,
-        refreshTokenExpired,
-        isRefreshable
-      } = this.scheme.check(true)
+      const { valid, tokenExpired, refreshTokenExpired, isRefreshable } =
+        this.scheme.check(true)
       let isValid = valid
 
       // Refresh token has expired. There is no way to refresh. Force reset.
