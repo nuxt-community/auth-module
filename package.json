@@ -59,7 +59,7 @@
     "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",
-    "@types/express-jwt": "^0.0.42",
+    "@types/express-jwt": "^6.0.4",
     "@types/jest": "^26.0.24",
     "@types/jsonwebtoken": "^8.5.6",
     "@types/lodash.get": "^4.4.6",
