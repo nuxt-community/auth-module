@@ -9,5 +9,13 @@
   ],
   "rules": {
     "prettier/prettier": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["demo/pages/**/*.vue", "demo/layouts/**/*.vue"],
+      "rules": {
+        "vue/multi-word-component-names": "off",
+      },
+    },
+  ],
 }
