@@ -27,7 +27,7 @@ To do a password based login by sending credentials in request body as a JSON ob
       </div>
       <div>
         <label>Password</label>
-        <input type="text" v-model="login.password" />
+        <input type="password" v-model="login.password" />
       </div>
       <div>
         <button type="submit">Submit</button>
@@ -49,7 +49,7 @@ export default {
   methods: {
     async userLogin() {
       try {
-        let response = await this.$auth.loginWith('local', { data: this.login })
+        const response = await this.$auth.loginWith('local', { data: this.login })
         console.log(response)
       } catch (err) {
         console.log(err)
