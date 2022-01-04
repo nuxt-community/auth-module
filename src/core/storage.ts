@@ -189,7 +189,7 @@ export class Storage {
       return this.removeLocalStorage(key)
     }
 
-    if (typeof localStorage === 'undefined' || !this.options.localStorage) {
+    if (!this.options.localStorage || typeof localStorage === 'undefined') {
       return
     }
 
@@ -207,7 +207,7 @@ export class Storage {
   }
 
   getLocalStorage(key: string): unknown {
-    if (typeof localStorage === 'undefined' || !this.options.localStorage) {
+    if (!this.options.localStorage || typeof localStorage === 'undefined') {
       return
     }
 
@@ -219,7 +219,7 @@ export class Storage {
   }
 
   removeLocalStorage(key: string): void {
-    if (typeof localStorage === 'undefined' || !this.options.localStorage) {
+    if (!this.options.localStorage || typeof localStorage === 'undefined') {
       return
     }
 
