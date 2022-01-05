@@ -18,6 +18,7 @@
     }
   },
   "main": "./dist/module.js",
+  "types": "./dist/index.d.ts",
   "typings": "./index.d.ts",
   "files": [
     "dist",
