@@ -189,6 +189,7 @@ export class Storage {
       return this.removeLocalStorage(key)
     }
 
+    // evaluate localStorage first to avoid issues with loading in an iframe
     if (!this.options.localStorage || typeof localStorage === 'undefined') {
       return
     }
@@ -207,6 +208,7 @@ export class Storage {
   }
 
   getLocalStorage(key: string): unknown {
+    // evaluate localStorage first to avoid issues with loading in an iframe
     if (!this.options.localStorage || typeof localStorage === 'undefined') {
       return
     }
@@ -219,6 +221,7 @@ export class Storage {
   }
 
   removeLocalStorage(key: string): void {
+    // evaluate localStorage first to avoid issues with loading in an iframe
     if (!this.options.localStorage || typeof localStorage === 'undefined') {
       return
     }
