@@ -38,6 +38,14 @@ $ yarn install
 $ yarn dev
 ```
 
+Running tests for development:
+
+```bash
+$ yarn build
+$ yarn nuxt build test/fixture
+$ yarn jest
+```
+
 ## License
 
 [MIT License](./LICENSE) - Copyright (c) Nuxt Community
