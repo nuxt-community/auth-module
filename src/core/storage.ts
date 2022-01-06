@@ -189,7 +189,7 @@ export class Storage {
       return this.removeLocalStorage(key)
     }
 
-    if (typeof localStorage === 'undefined' || !this.options.localStorage) {
+    if (!this.localStorageEnabled() || !this.options.localStorage) {
       return
     }
 
@@ -207,7 +207,7 @@ export class Storage {
   }
 
   getLocalStorage(key: string): unknown {
-    if (typeof localStorage === 'undefined' || !this.options.localStorage) {
+    if (!this.localStorageEnabled() || !this.options.localStorage) {
       return
     }
 
@@ -219,7 +219,7 @@ export class Storage {
   }
 
   removeLocalStorage(key: string): void {
-    if (typeof localStorage === 'undefined' || !this.options.localStorage) {
+    if (!this.localStorageEnabled() || !this.options.localStorage) {
       return
     }
 
@@ -304,5 +304,25 @@ export class Storage {
 
   removeCookie(key: string, options?: { prefix?: string }): void {
     this.setCookie(key, undefined, options)
+  }
+
+  localStorageEnabled(): boolean {
+    // There's no great way to check if localStorage is enabled; most solutions
+    // error out. So have to use this hacky approach :\
+    // https://stackoverflow.com/questions/16427636/check-if-localstorage-is-available
+    const test = 'test'
+    try {
+      localStorage.setItem(test, test)
+      localStorage.removeItem(test)
+      return true
+    } catch (e) {
+      if (this.options.localStorage) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[AUTH] Local storage is enabled in config, but browser doesn't support it"
+        )
+      }
+      return false
+    }
   }
 }
