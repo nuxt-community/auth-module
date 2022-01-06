@@ -1212,7 +1212,7 @@
   dependencies:
     vary "^1.1.2"
 
-"@microsoft/api-documenter@^7.14.0":
+"@microsoft/api-documenter@^7.14.1":
   version "7.14.1"
   resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.14.1.tgz#e3b008c51fef4f31b9e53e3c4c8c81b87d89b9b4"
   integrity sha512-IFwS3TzVxFh9LSGJuYOWiZ5V+AdYfnLE+WC/VKpeHnSsiW1goLEO+qkoqonvirJr/jQTNuC7NScIjXS2pXODMQ==
@@ -1234,7 +1234,7 @@
     "@microsoft/tsdoc-config" "~0.15.2"
     "@rushstack/node-core-library" "3.45.0"
 
-"@microsoft/api-extractor@^7.19.3":
+"@microsoft/api-extractor@^7.19.4":
   version "7.19.4"
   resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.19.4.tgz#95d43d410a1dfb28a02062c4693bcb9c52afe9eb"
   integrity sha512-iehC6YA3DGJvxTUaK7HUtQmP6hAQU07+Q/OR8TG4dVR6KpqCi9UPEVk8AgCvQkiK+6FbVEFQTx0qLuYk4EeuHg==
