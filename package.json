@@ -62,7 +62,7 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/express-jwt": "^6.0.4",
     "@types/jest": "^27.4.0",
-    "@types/jsonwebtoken": "^8.5.6",
+    "@types/jsonwebtoken": "^8.5.7",
     "@types/lodash.get": "^4.4.6",
     "@types/node": "^16.11.19",
     "@types/puppeteer": "^5.4.4",
