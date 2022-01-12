@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
     "@babel/preset-typescript": "^7.16.7",
     "@microsoft/api-documenter": "^7.14.1",
     "@microsoft/api-extractor": "^7.19.4",
