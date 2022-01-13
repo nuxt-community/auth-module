@@ -189,11 +189,11 @@ export class Storage {
       return this.removeLocalStorage(key)
     }
 
-    if (!this.localStorageEnabled() || !this.options.localStorage) {
+    if (!this.isLocalStorageEnabled()) {
       return
     }
 
-    const _key = this.options.localStorage.prefix + key
+    const _key = this.getPrefix() + key
 
     try {
       localStorage.setItem(_key, encodeValue(value))
@@ -207,11 +207,11 @@ export class Storage {
   }
 
   getLocalStorage(key: string): unknown {
-    if (!this.localStorageEnabled() || !this.options.localStorage) {
+    if (!this.isLocalStorageEnabled()) {
       return
     }
 
-    const _key = this.options.localStorage.prefix + key
+    const _key = this.getPrefix() + key
 
     const value = localStorage.getItem(_key)
 
@@ -219,11 +219,12 @@ export class Storage {
   }
 
   removeLocalStorage(key: string): void {
-    if (!this.localStorageEnabled() || !this.options.localStorage) {
+    if (!this.isLocalStorageEnabled()) {
       return
     }
 
-    const _key = this.options.localStorage.prefix + key
+    const _key = this.getPrefix() + key
+
     localStorage.removeItem(_key)
   }
 
@@ -307,7 +308,24 @@ export class Storage {
     this.setCookie(key, undefined, options)
   }
 
-  localStorageEnabled(): boolean {
+  getPrefix(): string {
+    if (!this.options.localStorage) {
+      throw new Error('Cannot get prefix; localStorage is off')
+    }
+    return this.options.localStorage.prefix
+  }
+
+  isLocalStorageEnabled(): boolean {
+    // Disabled by configuration
+    if (!this.options.localStorage) {
+      return false
+    }
+
+    // Local Storage only exists in the browser
+    if (!process.client) {
+      return false
+    }
+
     // There's no great way to check if localStorage is enabled; most solutions
     // error out. So have to use this hacky approach :\
     // https://stackoverflow.com/questions/16427636/check-if-localstorage-is-available
@@ -317,10 +335,11 @@ export class Storage {
       localStorage.removeItem(test)
       return true
     } catch (e) {
-      if (this.options.localStorage) {
+      if (!this.options.ignoreExceptions) {
         // eslint-disable-next-line no-console
         console.warn(
-          "[AUTH] Local storage is enabled in config, but browser doesn't support it"
+          "[AUTH] Local storage is enabled in config, but browser doesn't" +
+            ' support it'
         )
       }
       return false
