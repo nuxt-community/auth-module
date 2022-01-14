@@ -57,7 +57,7 @@ export interface Oauth2SchemeOptions
   clientId: string | number
   scope: string | string[]
   state: string
-  codeChallengeMethod: 'implicit' | 'S256' | 'plain'
+  codeChallengeMethod: 'implicit' | 'S256' | 'plain' | ''
   acrValues: string
   audience: string
   autoLogout: boolean
@@ -259,7 +259,7 @@ export class Oauth2Scheme<
     // Set Nonce Value if response_type contains id_token to mitigate Replay Attacks
     // More Info: https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes
     // More Info: https://tools.ietf.org/html/draft-ietf-oauth-v2-threatmodel-06#section-4.6.2
-    if (opts.response_type.includes('token')) {
+    if (opts.response_type.includes('id_token')) {
       opts.nonce = _opts.nonce || randomString(10)
     }
 
