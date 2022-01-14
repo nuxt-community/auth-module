@@ -1,7 +1,7 @@
 ---
 title: Laravel Sanctum
 description: This provider is for the Laravel Sanctum
-position: 38
+position: 39
 category: Providers
 ---
 
@@ -59,4 +59,3 @@ this.$auth.loginWith('laravelSanctum', {
 ```
 
 💁 This provider is based on [cookie scheme](../schemes/cookie) and supports all scheme options.
-
