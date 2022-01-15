@@ -232,6 +232,9 @@ export class Storage {
   // Cookies
   // ------------------------------------
   getCookies(): Record<string, unknown> {
+    if (!this.isCookiesEnabled()) {
+      return
+    }
     const cookieStr = process.client
       ? document.cookie
       : this.ctx.req.headers.cookie
@@ -245,6 +248,10 @@ export class Storage {
     options: { prefix?: string } = {}
   ): V {
     if (!this.options.cookie || (process.server && !this.ctx.res)) {
+      return
+    }
+
+    if (!this.isCookiesEnabled()) {
       return
     }
 
@@ -290,6 +297,10 @@ export class Storage {
 
   getCookie(key: string): unknown {
     if (!this.options.cookie || (process.server && !this.ctx.req)) {
+      return
+    }
+
+    if (!this.isCookiesEnabled()) {
       return
     }
 
@@ -339,6 +350,29 @@ export class Storage {
         // eslint-disable-next-line no-console
         console.warn(
           "[AUTH] Local storage is enabled in config, but browser doesn't" +
+            ' support it'
+        )
+      }
+      return false
+    }
+  }
+
+  isCookiesEnabled(): boolean {
+    // Disabled by configuration
+    if (!this.options.cookie) {
+      return false
+    }
+
+    const test = 'test'
+    try {
+      this.setCookie(test, test)
+      this.removeCookie(test)
+      return true
+    } catch (e) {
+      if (!this.options.ignoreExceptions) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[AUTH] Cookies is enabled in config, but browser doesn't" +
             ' support it'
         )
       }
