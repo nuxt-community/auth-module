@@ -47,6 +47,9 @@ export class Storage {
     // Local Storage
     this.setLocalStorage(key, value)
 
+    // Session Storage
+    this.setSessionStorage(key, value)
+
     // Local state
     this.setState(key, value)
 
@@ -193,7 +196,7 @@ export class Storage {
       return
     }
 
-    const _key = this.getPrefix() + key
+    const _key = this.getLocalStoragePrefix() + key
 
     try {
       localStorage.setItem(_key, encodeValue(value))
@@ -211,7 +214,7 @@ export class Storage {
       return
     }
 
-    const _key = this.getPrefix() + key
+    const _key = this.getLocalStoragePrefix() + key
 
     const value = localStorage.getItem(_key)
 
@@ -223,7 +226,7 @@ export class Storage {
       return
     }
 
-    const _key = this.getPrefix() + key
+    const _key = this.getLocalStoragePrefix() + key
 
     localStorage.removeItem(_key)
   }
@@ -308,7 +311,7 @@ export class Storage {
     this.setCookie(key, undefined, options)
   }
 
-  getPrefix(): string {
+  getLocalStoragePrefix(): string {
     if (!this.options.localStorage) {
       throw new Error('Cannot get prefix; localStorage is off')
     }
@@ -339,6 +342,91 @@ export class Storage {
         // eslint-disable-next-line no-console
         console.warn(
           "[AUTH] Local storage is enabled in config, but browser doesn't" +
+            ' support it'
+        )
+      }
+      return false
+    }
+  }
+
+  // ------------------------------------
+  // Session Storage
+  // ------------------------------------
+
+  setSessionStorage<V extends unknown>(key: string, value: V): V | void {
+    // Unset null, undefined
+    if (isUnset(value)) {
+      return this.removeSessionStorage(key)
+    }
+
+    if (!this.isSessionStorageEnabled()) {
+      return
+    }
+
+    const _key = this.getSessionStoragePrefix() + key
+
+    try {
+      sessionStorage.setItem(_key, encodeValue(value))
+    } catch (e) {
+      if (!this.options.ignoreExceptions) {
+        throw e
+      }
+    }
+
+    return value
+  }
+
+  getSessionStorage(key: string): unknown {
+    if (!this.isSessionStorageEnabled()) {
+      return
+    }
+
+    const _key = this.getSessionStoragePrefix() + key
+
+    const value = sessionStorage.getItem(_key)
+
+    return decodeValue(value)
+  }
+
+  removeSessionStorage(key: string): void {
+    if (!this.isSessionStorageEnabled()) {
+      return
+    }
+
+    const _key = this.getSessionStoragePrefix() + key
+
+    sessionStorage.removeItem(_key)
+  }
+
+  getSessionStoragePrefix(): string {
+    if (!this.options.sessionStorage) {
+      throw new Error('Cannot get prefix; sessionStorage is off')
+    }
+    return this.options.sessionStorage.prefix
+  }
+
+  isSessionStorageEnabled(): boolean {
+    // Disabled by configuration
+    if (!this.options.sessionStorage) {
+      return false
+    }
+
+    // Session Storage only exists in the browser
+    if (!process.client) {
+      return false
+    }
+
+    // There is no proper way to check if the sessionStorage is available, same as with the localStorage.
+    const test = 'test'
+    try {
+      sessionStorage.setItem(test, test)
+      sessionStorage.removeItem(test)
+      return true
+    } catch (e) {
+      if (!this.options.ignoreExceptions) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[AUTH] Session storage is enabled in config, but browser doesn't" +
             ' support it'
         )
       }

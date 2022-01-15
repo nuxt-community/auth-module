@@ -35,6 +35,11 @@ export interface ModuleOptions {
         prefix: string
       }
     | false
+  sessionStorage:
+    | {
+        prefix: string
+      }
+    | false
   strategies: {
     [strategy: string]: Strategy
   }
@@ -84,6 +89,10 @@ export const moduleDefaults: ModuleOptions = {
   // -- localStorage Store --
 
   localStorage: {
+    prefix: 'auth.'
+  },
+
+  sessionStorage: {
     prefix: 'auth.'
   },
 
