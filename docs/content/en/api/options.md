@@ -22,10 +22,10 @@ auth: {
 }
 ```
 
-* `login`: User will be redirected to this path if *login is required*.
-* `logout`: User will be redirected to this path if *after logout, current route is protected*.
-* `home`: User will be redirected to this path *after login*. (`rewriteRedirects` will rewrite this path)
-* `callback`: User will be redirected to this path by the identity provider *after login*. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider)
+- `login`: User will be redirected to this path if _login is required_.
+- `logout`: User will be redirected to this path if _after logout, current route is protected_.
+- `home`: User will be redirected to this path _after login_. (`rewriteRedirects` will rewrite this path)
+- `callback`: User will be redirected to this path by the identity provider _after login_. (Should match configured `Allowed Callback URLs` (or similar setting) in your app/client with the identity provider)
 
 Each redirect path can be disabled by setting to `false`.
 Also you can disable all redirects by setting `redirect` to `false`
@@ -38,7 +38,7 @@ When enabled (default) user will be redirected on login/logouts.
 
 ## `token`
 
-Auth tokens are stored in various storage providers (cookie, localStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy}`. See [auth.ts - Token helpers](https://github.com/nuxt-community/auth-module/blob/dev/src/core/auth.ts#L160) and [storage.ts](https://github.com/nuxt-community/auth-module/blob/dev/src/core/storage.ts) for more details.
+Auth tokens are stored in various storage providers (cookie, localStorage, sessionStorage, vuex) on user login to provide a seamless auth experience across server-side rendering (SSR) and client-side rendering. Tokens are stored under with storage keys of the format: `{storageProvider.prefix}{token.prefix}{strategy}`. See [auth.ts - Token helpers](https://github.com/nuxt-community/auth-module/blob/dev/src/core/auth.ts#L160) and [storage.ts](https://github.com/nuxt-community/auth-module/blob/dev/src/core/storage.ts) for more details.
 
 Default:
 
@@ -51,8 +51,8 @@ auth: {
 }
 ```
 
-* **prefix** - Default prefix used in building a key for token storage across all storage providers.
-* **global** - Whether to automatically include the authentication token in all axios requests.
+- **prefix** - Default prefix used in building a key for token storage across all storage providers.
+- **global** - Whether to automatically include the authentication token in all axios requests.
 
 ## `localStorage`
 
@@ -66,7 +66,7 @@ auth: {
 }
 ```
 
-* **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
+- **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
 
 You can disable use of localStorage by setting `localStorage` to `false`, like so:
 
@@ -77,6 +77,30 @@ auth: {
 ```
 
 Otherwise the auth token will be stored in localStorage at a default key of: `auth._token.{provider}`.
+
+## `sessionStorage`
+
+Default:
+
+```js
+auth: {
+  sessionStorage: {
+    prefix: 'auth.'
+  }
+}
+```
+
+- **prefix** - Default token prefix used in building a key for token storage in the browser's sessionStorage.
+
+You can disable use of sessionStorage by setting `sessionStorage` to `false`, like so:
+
+```js
+auth: {
+  sessionStorage: false
+}
+```
+
+Otherwise the auth token will be stored in sessionStorage at a default key of: `auth._token.{provider}`.
 
 ## `cookie`
 
@@ -93,13 +117,13 @@ auth: {
 }
 ```
 
-* **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
-* **options** - Additional cookie options, passed to [cookie](https://www.npmjs.com/package/cookie).
-  * `path` - path where the cookie is visible. Default is '/'.
-  * `expires` - can be used to specify cookie lifetime in `Number` of days or specific `Date`. Default is session only.
-  * `maxAge` - Specifies the number (in seconds) to be the value for the `Max-Age` (preferred over `expires`)
-  * `domain` - domain (and by extension subdomain/s) where the cookie is visible. Default is domain and all subdomains.
-  * `secure` - sets whether the cookie requires a secure protocol (https). Default is false, **should be set to true if possible**.
+- **prefix** - Default token prefix used in building a key for token storage in the browser's localStorage.
+- **options** - Additional cookie options, passed to [cookie](https://www.npmjs.com/package/cookie).
+  - `path` - path where the cookie is visible. Default is '/'.
+  - `expires` - can be used to specify cookie lifetime in `Number` of days or specific `Date`. Default is session only.
+  - `maxAge` - Specifies the number (in seconds) to be the value for the `Max-Age` (preferred over `expires`)
+  - `domain` - domain (and by extension subdomain/s) where the cookie is visible. Default is domain and all subdomains.
+  - `secure` - sets whether the cookie requires a secure protocol (https). Default is false, **should be set to true if possible**.
 
 Note: Using cookies is effectively **required** for universal mode (SSR) apps because authentication on first page load occurs **only** on the server side and local storage is not available on the server.
 
@@ -121,7 +145,7 @@ See [Extending Auth Plugin](/recipes/extend)
 
 ## `resetOnError`
 
-* Default: `false`
+- Default: `false`
 
 Either a boolean or a function is accepted. If a function is passed, it will take the same arguments as `onError` handlers and return `Boolean` to inform whether a reset should be performed.
 
@@ -129,7 +153,7 @@ If enabled, user will be automatically logged out if an error happens. (For exam
 
 ## `rewriteRedirects`
 
-* Default: `true`
+- Default: `true`
 
 If enabled, user will redirect back to the original guarded route instead of `redirect.home`.
 
@@ -141,12 +165,12 @@ If true, use the full route path with query parameters for redirect
 
 ## `vuex.namespace`
 
-* Default: `auth`
+- Default: `auth`
 
 Vuex store namespace for keeping state.
 
 ## `scopeKey`
 
-* Default: `scope`
+- Default: `scope`
 
 `user` object property used for scope checking (`hasScope`). Can be either an array or an object.
