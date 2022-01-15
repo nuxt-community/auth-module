@@ -10,3 +10,4 @@ dist
 package-lock.json
 _book
 temp
+demo/.env
