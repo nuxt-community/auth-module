@@ -56,4 +56,6 @@ const provider = (config) => {
   })
 }
 
-module.exports = (config = {}) => provider(config).callback
+module.exports = (config = {}) => {
+  return provider(config).callback()
+}
