@@ -59,4 +59,3 @@ this.$auth.loginWith('laravelSanctum', {
 ```
 
 💁 This provider is based on [cookie scheme](../schemes/cookie) and supports all scheme options.
-

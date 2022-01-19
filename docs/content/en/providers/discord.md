@@ -31,4 +31,3 @@ this.$auth.loginWith('discord')
 ## Obtaining `clientId` and `clientSecret`
 
 This option is **REQUIRED**. To obtain one, create your app in [Create a new Oauth APP](https://discord.com/developers/applications) and use provided "Client ID" and "Client Secret".
-

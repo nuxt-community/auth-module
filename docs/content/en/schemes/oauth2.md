@@ -18,7 +18,7 @@ this.$auth.loginWith('social')
 Additional arguments can be passed through to the OAuth provider using the `params` key of the second argument:
 
 ```js
-this.$auth.loginWith('social', { params: { another_post_key: "value" } })
+this.$auth.loginWith('social', { params: { another_post_key: 'value' } })
 ```
 
 ## Token refresh
@@ -175,7 +175,7 @@ Should be an absolute path to the welcome screen
 
 ### `scope`
 
-**REQUIRED** -  Oauth2 access scopes.
+**REQUIRED** - Oauth2 access scopes.
 
 ### `state`
 
@@ -188,6 +188,7 @@ By default is set to random generated string.
 By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
 
 ### `acrValues`
+
 Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
 
 ### `autoLogout`

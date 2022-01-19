@@ -37,7 +37,7 @@ this.$auth.strategy.token.sync()
 
 ### `reset()`
 
-Universally set token to `false`.  It also clear request header.
+Universally set token to `false`. It also clear request header.
 
 ```js
 this.$auth.strategy.token.reset()
@@ -45,7 +45,7 @@ this.$auth.strategy.token.reset()
 
 ### `status()`
 
-Get token status. 
+Get token status.
 
 ```js
 this.$auth.strategy.token.status()
@@ -115,7 +115,7 @@ this.$auth.strategy.refreshToken.reset()
 
 ### `status()`
 
-Get token status. 
+Get token status.
 
 ```js
 this.$auth.strategy.refreshToken.status()

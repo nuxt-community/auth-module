@@ -184,11 +184,11 @@ Here you configure the user options. Note that these options should be set in lo
 #### `property`
 
 `property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.user`.
- 
+
 #### `autoFetch`
- 
+
 - Default: `true`
- 
+
 This option can be used to disable user fetch after login. It is useful when your login response already have the user.
 
 ### `clientId`

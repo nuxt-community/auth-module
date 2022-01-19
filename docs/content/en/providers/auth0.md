@@ -35,7 +35,6 @@ User will be redirected to a page like this:
 
 <img align="center" src="https://cdn2.auth0.com/docs/media/articles/web/hosted-login.png">
 
-
 💁 This provider is based on [oauth2 scheme](../schemes/oauth2) and supports all scheme options.
 
 ## Obtaining `clientId`, `domain`, and `audience`
@@ -53,9 +52,10 @@ You can get your `clientId` and `domain` the Settings section for your client in
 On logout, local `auth` is reset and you will be instantly redirected to `Auth0` so your session is destroyed remotely as well. After that, you will be redirected back to your website by `Auth0`.
 
 To make sure you are redirected to the right page, you need to setup two things:
-* Go to into the `Tenant Settings` > `Advanced` and enter the allowed URL(s) you can redirect to in `Allowed Logout URLs`, such as `http://localhost:3000`
-* Add `logoutRedirectUri` to your config and add the value you just configured:
-  
+
+- Go to into the `Tenant Settings` > `Advanced` and enter the allowed URL(s) you can redirect to in `Allowed Logout URLs`, such as `http://localhost:3000`
+- Add `logoutRedirectUri` to your config and add the value you just configured:
+
 ```js
 auth: {
   strategies: {
@@ -72,12 +72,14 @@ Now you can logout calling the `logout` function:
 await this.$auth.logout()
 ```
 
-## PKCE Grant flow 
+## PKCE Grant flow
 
 From [Auth0](https://auth0.com/docs/flows/concepts/auth-code-pkce)
+
 > The PKCE-enhanced Authorization Code Flow introduces a secret created by the calling application that can be verified by the authorization server;this secret is called the Code Verifier. Additionally, the calling app creates a transform value of the Code Verifier called the Code Challenge and sends this value over HTTPS to retrieve an Authorization Code. This way, a malicious attacker can only intercept the Authorization Code, and they cannot exchange it for a token without the Code Verifier.
 
 To configure the `PKCE Grant flow` instead of the default `Implicit Grant flow`, additions have to be made to the `Auth0 settings` and to `nuxt.config.js`:
+
 - Applications > "your app" > Settings > Application Type > choose Native
 - Applications > "your app" > Settings > Show Advanced Settings > Grant Types > enable Refresh Token (and disable Implicit)
 - APIs > "your api" > Allow Offline Access > enable
