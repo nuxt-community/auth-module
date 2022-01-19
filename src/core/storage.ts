@@ -363,20 +363,21 @@ export class Storage {
       return false
     }
 
-    const test = 'test'
-    try {
-      this.setCookie(test, test)
-      this.removeCookie(test)
+    // Server can only assume cookies are enabled, it's up to the client browser
+    // to create them or not
+    if (process.server) {
       return true
-    } catch (e) {
-      if (!this.options.ignoreExceptions) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          "[AUTH] Cookies is enabled in config, but browser doesn't" +
-            ' support it'
-        )
-      }
-      return false
     }
+
+    if (window.navigator.cookieEnabled) {
+      return true
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "[AUTH] Cookies is enabled in config, but browser doesn't" +
+          ' support it'
+      )
+    }
+    return false
   }
 }
