@@ -88,8 +88,13 @@ export function addAuthorize<
           'Content-Type': 'application/json'
         }
 
-        if (tokenEndpoint.toLowerCase() === 'https://accounts.spotify.com/api/token') {
-          headers['Authorization'] = 'Basic ' + Buffer.from(clientID + ':' + clientSecret).toString('base64') // eslint-disable-line no-use-before-define
+        if (
+          tokenEndpoint.toLowerCase() ===
+          'https://accounts.spotify.com/api/token'
+        ) {
+          headers['Authorization'] =
+            'Basic ' +
+            Buffer.from(clientID + ':' + clientSecret).toString('base64') // eslint-disable-line no-use-before-define
         } // Checking for Spotify because Spotify has their Auth in Header
 
         if (useForms) {
