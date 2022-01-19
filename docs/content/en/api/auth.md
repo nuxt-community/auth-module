@@ -39,8 +39,7 @@ this.$auth.loggedIn
 this.$store.state.auth.loggedIn
 ```
 
-Under the hood, auth uses attached [`$storage`](./storage.md) instance to provide this states.
-
+Under the hood, auth uses attached [`$storage`](./storage) instance to provide this states.
 
 ## methods
 
@@ -51,10 +50,20 @@ Under the hood, auth uses attached [`$storage`](./storage.md) instance to provid
 Set current strategy to `strategyName` and attempt login. Usage varies by current strategy.
 
 ```js
-this.$auth.loginWith('local', { data: { /* data to post to server */ } })
+this.$auth
+  .loginWith('local', {
+    data: {
+      /* data to post to server */
+    }
+  })
   .then(() => this.$toast.success('Logged In!'))
- 
-this.$auth.loginWith('google', { params: { /* additional authentication parameters */ } })
+
+this.$auth
+  .loginWith('google', {
+    params: {
+      /* additional authentication parameters */
+    }
+  })
   .then(() => this.$toast.success('Logged In!'))
 ```
 
@@ -67,8 +76,7 @@ Login using active strategy. Usage varies by current strategy.
 > **TIP:** Using `loginWith` is recommended instead of this function!
 
 ```js
-this.$auth.login(/* .... */)
-  .then(() => this.$toast.success('Logged In!'))
+this.$auth.login(/* .... */).then(() => this.$toast.success('Logged In!'))
 ```
 
 ### `setUser(user)`
@@ -90,7 +98,8 @@ Set the auth token and optionally the refresh token, then it will fetch the user
 > **TIP:** This function can properly set the user after registration
 
 ```js
-this.$auth.setUserToken(token, refreshToken)
+this.$auth
+  .setUserToken(token, refreshToken)
   .then(() => this.$toast.success('User set!'))
 ```
 
@@ -125,7 +134,7 @@ this.$auth.hasScope('admin')
 
 ### `refreshTokens()`
 
-Refreshes tokens if *refresh token* is available and not expired. This only works when logged in.
+Refreshes tokens if _refresh token_ is available and not expired. This only works when logged in.
 
 ```js
 // Refresh tokens
@@ -139,7 +148,7 @@ this.$auth.refreshTokens()
 Listen for auth errors: (`plugins/auth.js`)
 
 ```js
-export default function({ $auth }) {
+export default function ({ $auth }) {
   $auth.onError((error, name, endpoint) => {
     console.error(name, error)
   })
@@ -148,10 +157,10 @@ export default function({ $auth }) {
 
 ### `onRedirect(handler)`
 
- Pre-process URLs before redirect: (`plugins/auth.js`)
+Pre-process URLs before redirect: (`plugins/auth.js`)
 
- ```js
-export default function({ $auth }) {
+```js
+export default function ({ $auth }) {
   $auth.onRedirect((to, from) => {
     console.error(to)
     // you can optionally change `to` by returning a new value
