@@ -10,11 +10,11 @@ export interface ModuleOptions {
   fullPathRedirect: boolean
   scopeKey: string
   redirect: {
-    login: string | boolean
-    logout: string | boolean
-    callback: string | boolean
-    home: string | boolean
-  } | boolean
+    login: string
+    logout: string
+    callback: string
+    home: string
+  }
   vuex: {
     namespace: string
   }
