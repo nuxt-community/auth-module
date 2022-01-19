@@ -92,9 +92,10 @@ export function addAuthorize<
           tokenEndpoint.toLowerCase() ===
           'https://accounts.spotify.com/api/token'
         ) {
-          headers['Authorization'] =
+          // @ts-ignore
+          headers.Authorization =
             'Basic ' +
-            Buffer.from(clientID + ':' + clientSecret).toString('base64') // eslint-disable-line no-use-before-define
+            Buffer.from(clientID + ':' + clientSecret).toString('base64')
         } // Checking for Spotify because Spotify has their Auth in Header
 
         if (useForms) {
