@@ -31,8 +31,8 @@
     "bump-next": "jiti ./scripts/bump-next",
     "dev": "nuxt demo",
     "heroku-postbuild": "nuxt build demo",
-    "lint": "eslint --ext .ts,.js,.vue .",
-    "lint-fix": "yarn lint --fix",
+    "lint": "eslint --ext .ts,.js,.vue . && prettier --check .",
+    "lint-fix": "yarn lint --fix && prettier --write",
     "release": "yarn build && standard-version && git push --follow-tags && npm publish",
     "start": "nuxt start demo",
     "test": "yarn lint && jest"
