@@ -95,7 +95,8 @@ describe('OpenID Connect', () => {
             return {
               name: strategy.name,
               userInfoEndpoint: strategy.options.endpoints.userInfo,
-              logoutRedirectUri: strategy.options.logoutRedirectUri
+              logoutRedirectUri: strategy.options.logoutRedirectUri,
+              scope: strategy.options.scope
             }
           })
           expect(activeStrategy.name).toEqual('oidcAuthorizationCode')
@@ -103,6 +104,9 @@ describe('OpenID Connect', () => {
             'http://localhost:4000'
           )
           expect(activeStrategy.userInfoEndpoint).toEqual('/something/random')
+          expect(activeStrategy.scope).toEqual(
+            expect.not.arrayContaining(['offline_access'])
+          )
         })
       } else {
         test('initial state', async () => {
