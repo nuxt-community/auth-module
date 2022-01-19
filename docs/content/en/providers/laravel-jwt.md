@@ -5,7 +5,6 @@ position: 36
 category: Providers
 ---
 
-
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravel-jwt.ts)
 
 This provider is for the [Laravel JWT](https://github.com/tymondesigns/jwt-auth). Please make sure to follow our guide on the route configuration on this page to avoid issues on the authentication.
@@ -113,7 +112,6 @@ Laravel JWT does not provide a refresh token; the [`token`](https://github.com/t
 Our provider will manage the refresh automatically based on the `token` life.
 
 The default `token` lifetime is `1 hour` and the `refreshToken` is `2 weeks` based on the config. Make sure that your Laravel JWT config matches our Auth Nuxt Laravel JWT config as shown below:
-
 
 ```js
 auth: {

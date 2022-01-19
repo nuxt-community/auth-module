@@ -36,7 +36,7 @@ this.$auth.$storage.getState(key)
 this.$auth.$storage.removeState(key)
 
 // Watch state changes
-this.$auth.$storage.watchState('loggedIn', newValue => { })
+this.$auth.$storage.watchState('loggedIn', (newValue) => {})
 ```
 
 ## Cookies

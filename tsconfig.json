@@ -3,9 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": [
-      "DOM"
-    ],
+    "lib": ["DOM"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": false,
@@ -13,13 +11,7 @@
     "baseUrl": ".",
     "outDir": "dist",
     "declarationDir": "temp/types",
-    "types": [
-      "@types/node",
-      "@nuxt/types",
-      "./src/shim"
-    ]
+    "types": ["@types/node", "@nuxt/types", "./src/shim"]
   },
-  "include": [
-    "./src"
- ]
+  "include": ["./src"]
 }

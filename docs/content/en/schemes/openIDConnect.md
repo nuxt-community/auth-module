@@ -24,7 +24,9 @@ this.$auth.loginWith('openIDConnect', { params: { another_post_key: 'value' } })
 ```
 
 ## Options
+
 Minimal configuration:
+
 ```js
 auth: {
   strategies: {
@@ -40,6 +42,7 @@ auth: {
 ```
 
 Default configuration:
+
 ```js
 auth: {
   strategies: {
@@ -70,9 +73,9 @@ Each endpoint is used to make requests using axios. They are basically extending
 #### `configuration`
 
 **REQUIRED** - Endpoint to request the provider's metadata document to automatically set the endpoints. A metadata document that contains most of the OpenID Provider's information, such as the URLs to use and the location of the service's public signing keys. You can find this document by appending the discovery document path (/.well-known/openid-configuration) to the authority URL (https://example.com).
- 
+
 Eg. `https://example.com/.well-known/openid-configuration`
- 
+
 More info: https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig
 
 Each endpoint defined in the OAuth2 scheme can also be used in the OpenID Connect scheme configuration. This will override the information provided by the configuration document.

@@ -5,7 +5,6 @@ position: 54
 category: API
 ---
 
-
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/inc/refresh-controller.ts)
 
 **Refresh Controller** can be initialized in a scheme to add refresh support.
@@ -22,7 +21,7 @@ Initiate **RefreshController** in constructor
 export class SchemeName {
   constructor (auth, options) {
     super(auth, options)
-    
+
     ...
 
     this.refreshController = new RefreshController(this)

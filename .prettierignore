@@ -4,3 +4,4 @@ node_modules
 dist
 docs/static/sw.js
 temp
+coverage/

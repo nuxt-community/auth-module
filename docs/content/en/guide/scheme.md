@@ -4,6 +4,7 @@ description: Schemes define authentication logic. Strategy is a configured insta
 position: 4
 category: Guide
 ---
+
 Schemes define authentication logic. Strategy is a configured instance of Scheme. You can have multiple schemes and strategies in your project.
 
 `auth.strategies` option is an object. Keys are strategy name and values are configuration.
@@ -33,7 +34,7 @@ auth: {
 
 <alert type="warning">As v5 still in development, there may be breaking changes to this feature.</alert>
 
-Sometimes the included schemes doesn't match your requirements. Creating your own scheme will provide 
+Sometimes the included schemes doesn't match your requirements. Creating your own scheme will provide
 flexibility you need. You can create a new scheme from scratch or extend an existing scheme.
 
 > **Note** A list of available scheme methods will be added in future releases.
@@ -58,7 +59,7 @@ export default class CustomScheme extends LocalScheme {
       this.$auth.setUser({})
       return
     }
-    
+
     // Try to fetch user and then set
     return this.$auth.requestWith(
       this.name,
@@ -66,14 +67,14 @@ export default class CustomScheme extends LocalScheme {
       this.options.endpoints.user
     ).then((response) => {
       const user = getProp(response.data, this.options.user.property)
-      
+
       // Transform the user object
       const customUser = {
         ...user,
         fullName: user.firstName + ' ' + user.lastName,
         roles: ['user']
       }
-      
+
       // Set the custom user
       // The `customUser` object will be accessible through `this.$auth.user`
       // Like `this.$auth.user.fullName` or `this.$auth.user.roles`
@@ -101,8 +102,11 @@ auth: {
 ```
 
 That's it! Now you can log in using your new strategy.
+
 ```js
-this.$auth.loginWith('customStrategy', { /* ... */ })
+this.$auth.loginWith('customStrategy', {
+  /* ... */
+})
 ```
 
 <alert type="success">If you think your custom scheme might be helpful to others, consider creating a GitHub Issue or Pull Request with your configuration.</alert>

@@ -34,4 +34,3 @@ this.$auth.loginWith('facebook')
 ## Obtaining `clientId`
 
 This option is **REQUIRED**. To obtain one, create your app in [Facebook Developers](https://developers.facebook.com) and add "Facebook Login" product. Then set valid callback URLs. Client ID is same as your "App ID".
-

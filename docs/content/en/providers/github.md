@@ -7,7 +7,6 @@ category: Providers
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/github.ts)
 
-
 ## Usage
 
 ```js
@@ -32,4 +31,3 @@ this.$auth.loginWith('github')
 ## Obtaining `clientId` and `clientSecret`
 
 This option is **REQUIRED**. To obtain one, create your app in [Create a new Oauth APP](https://github.com/settings/applications/new) and use provided "Client ID" and "Client Secret".
-
