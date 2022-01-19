@@ -82,8 +82,8 @@ export function addAuthorize<
           code_verifier: codeVerifier,
           code
         }
-
-        let headers = {
+        /* eslint no-var: */
+        var headers = {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
