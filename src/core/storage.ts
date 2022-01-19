@@ -377,7 +377,7 @@ export class Storage {
         "[AUTH] Cookies is enabled in config, but browser doesn't" +
           ' support it'
       )
+      return false
     }
-    return false
   }
 }
