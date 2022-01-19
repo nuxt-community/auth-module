@@ -232,6 +232,9 @@ export class Storage {
   // Cookies
   // ------------------------------------
   getCookies(): Record<string, unknown> {
+    if (!this.isCookiesEnabled()) {
+      return
+    }
     const cookieStr = process.client
       ? document.cookie
       : this.ctx.req.headers.cookie
@@ -245,6 +248,10 @@ export class Storage {
     options: { prefix?: string } = {}
   ): V {
     if (!this.options.cookie || (process.server && !this.ctx.res)) {
+      return
+    }
+
+    if (!this.isCookiesEnabled()) {
       return
     }
 
@@ -290,6 +297,10 @@ export class Storage {
 
   getCookie(key: string): unknown {
     if (!this.options.cookie || (process.server && !this.ctx.req)) {
+      return
+    }
+
+    if (!this.isCookiesEnabled()) {
       return
     }
 
@@ -342,6 +353,30 @@ export class Storage {
             ' support it'
         )
       }
+      return false
+    }
+  }
+
+  isCookiesEnabled(): boolean {
+    // Disabled by configuration
+    if (!this.options.cookie) {
+      return false
+    }
+
+    // Server can only assume cookies are enabled, it's up to the client browser
+    // to create them or not
+    if (process.server) {
+      return true
+    }
+
+    if (window.navigator.cookieEnabled) {
+      return true
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "[AUTH] Cookies is enabled in config, but browser doesn't" +
+          ' support it'
+      )
       return false
     }
   }
