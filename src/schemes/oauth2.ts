@@ -459,6 +459,7 @@ export class Oauth2Scheme<
             refreshToken,
             this.options.token.type
           ),
+          scopes: this.scope,
           client_id: this.options.clientId + '',
           grant_type: 'refresh_token'
         })
