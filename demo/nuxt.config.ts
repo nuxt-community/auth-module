@@ -79,10 +79,6 @@ export default <NuxtConfig>{
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET
       },
-      spotify: {
-        clientId: process.env.SPOTIFY_CLIENT_ID,
-        clientSecret: process.env.SPOTIFY_CLIENT_SECRET
-      },
       // twitter: {
       //   clientId: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       // },

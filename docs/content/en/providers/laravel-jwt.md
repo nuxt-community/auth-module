@@ -1,7 +1,7 @@
 ---
 title: Laravel JWT
 description: This provider is for the Laravel JWT
-position: 37
+position: 36
 category: Providers
 ---
 

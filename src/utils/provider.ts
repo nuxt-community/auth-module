@@ -83,19 +83,10 @@ export function addAuthorize<
           code
         }
 
-        var headers = {
+        const headers = {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
-
-        if (
-          tokenEndpoint.toLowerCase() ===
-          'https://accounts.spotify.com/api/token'
-        ) {
-          headers['Authorization'] =
-            'Basic ' +
-            Buffer.from(clientID + ':' + clientSecret).toString('base64')
-        } //SPOTIFY CHECK
 
         if (useForms) {
           data = qs.stringify(data)
