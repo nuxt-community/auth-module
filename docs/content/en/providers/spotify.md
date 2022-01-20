@@ -7,6 +7,8 @@ category: Providers
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/spotify.ts)
 
+⚠️ The Spotify provider is **still under development**, you can always use it in your local development.
+
 ## Usage
 
 ```js
