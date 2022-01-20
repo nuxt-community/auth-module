@@ -49,10 +49,10 @@
     "requrl": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.8",
+    "@babel/core": "^7.16.10",
+    "@babel/preset-env": "^7.16.10",
     "@babel/preset-typescript": "^7.16.7",
-    "@microsoft/api-documenter": "^7.14.1",
+    "@microsoft/api-documenter": "^7.14.2",
     "@microsoft/api-extractor": "^7.19.4",
     "@nuxt/test-utils": "^0.2.2",
     "@nuxt/types": "^2.15.8",
