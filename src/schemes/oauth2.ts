@@ -424,9 +424,10 @@ export class Oauth2Scheme<
     }
 
     // Redirect to home
-    this.$auth.redirect('home', true)
-
-    return true // True means a redirect happened
+    if (this.$auth.options.watchLoggedIn) {
+      this.$auth.redirect('home', true)
+      return true // True means a redirect happened
+    }
   }
 
   async refreshTokens(): Promise<HTTPResponse | void> {
