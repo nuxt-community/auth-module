@@ -51,7 +51,7 @@ google: {
         responseType: 'code',
         endpoints: {
           token: 'http://localhost:8000/user/google/', // somm backend url to resolve your auth with google and give you the token back
-          userInfo: 'http://localhost:8000/auth/user/' // the endpoint to get the user info after you recived the token
+          userInfo: 'http://localhost:8000/auth/user/' // the endpoint to get the user info after you received the token
         },
       },
 ```
