@@ -49,7 +49,7 @@
     "requrl": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.10",
+    "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@microsoft/api-documenter": "^7.15.0",
