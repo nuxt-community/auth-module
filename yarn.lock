@@ -1212,10 +1212,10 @@
   dependencies:
     vary "^1.1.2"
 
-"@microsoft/api-documenter@^7.15.0":
-  version "7.15.0"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.15.0.tgz#e6cf24fc0e2f18a71dcf4c5c8100cc083167a81e"
-  integrity sha512-0KvwFamTIGZk6VE71F5gdDLxszLet0A1PEeb87RTdxr4KC0/yVFQvDyj+ck+HVr5+Exf6RyzIHfou0sgJl9SDA==
+"@microsoft/api-documenter@^7.15.1":
+  version "7.15.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.15.1.tgz#2ac4ea475b0b54c0aa664e04b6e85828982ae226"
+  integrity sha512-4NBMYriTV6m5RIrXzzQAWr6IjgIcTQ8cSPGBtcFpA30Knyfrjag0i87QjlXZhiPS48NtwRrn9ktzd6q0WthO3A==
   dependencies:
     "@microsoft/api-extractor-model" "7.15.3"
     "@microsoft/tsdoc" "0.13.2"
