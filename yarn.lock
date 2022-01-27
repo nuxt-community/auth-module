@@ -7708,6 +7708,11 @@ jiti@^1.11.0, jiti@^1.12.9, jiti@^1.9.2:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.12.9.tgz#2ce45b265cfc8dc91ebd70a5204807cf915291bc"
   integrity sha512-TdcJywkQtcwLxogc4rSMAi479G2eDPzfW0fLySks7TPhgZZ4s/tM6stnzayIh3gS/db3zExWJyUx4cNWrwAmoQ==
 
+jiti@^1.12.14:
+  version "1.12.14"
+  resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.12.14.tgz#001e583136fce21d62585491aab96c9be1ea1f16"
+  integrity sha512-rR+9GYXtYiIod1x+EHFYcTyqIPG4cAHG3WYGHkk71MVjzPCJwOI4E27BPOXQhUf1viglcLtqj3WotFIOJQwM+g==
+
 jju@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
