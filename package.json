@@ -64,7 +64,7 @@
     "@types/jest": "^27.4.0",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/lodash.get": "^4.4.6",
-    "@types/node": "^16.11.21",
+    "@types/node": "^16.11.22",
     "@types/puppeteer": "^5.4.4",
     "babel-jest": "^27.4.6",
     "bootstrap-vue": "^2.21.2",
