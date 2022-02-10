@@ -52,8 +52,16 @@ const provider = (config) => {
     ],
 
     // Force refresh token issueing
-    issueRefreshToken: () => Promise.resolve(true)
+    issueRefreshToken: () => Promise.resolve(true),
+
+    // It's just a demo, we don't care about CORS
+    // https://github.com/panva/node-oidc-provider/blob/main/docs/README.md#clientbasedcors
+    clientBasedCORS() {
+      return true
+    }
   })
 }
 
-module.exports = (config = {}) => provider(config).callback
+module.exports = (config = {}) => {
+  return provider(config).callback()
+}

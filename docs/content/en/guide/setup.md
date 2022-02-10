@@ -21,18 +21,18 @@ Add `@nuxtjs/auth-next @nuxtjs/axios` dependencies to your project:
 <code-group>
   <code-block label="yarn" active>
 
-  ```bash
-  yarn add --exact @nuxtjs/auth-next
-  yarn add @nuxtjs/axios
-  ```
+```bash
+yarn add --exact @nuxtjs/auth-next
+yarn add @nuxtjs/axios
+```
 
   </code-block>
   <code-block label="npm">
 
-  ```bash
-  npm install --save-exact @nuxtjs/auth-next
-  npm install @nuxtjs/axios
-  ```
+```bash
+npm install --save-exact @nuxtjs/auth-next
+npm install @nuxtjs/axios
+```
 
   </code-block>
 </code-group>

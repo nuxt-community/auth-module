@@ -49,7 +49,9 @@ export default {
   methods: {
     async userLogin() {
       try {
-        const response = await this.$auth.loginWith('local', { data: this.login })
+        const response = await this.$auth.loginWith('local', {
+          data: this.login
+        })
         console.log(response)
       } catch (err) {
         console.log(err)
@@ -170,7 +172,7 @@ Here you configure the token options.
 
 - Default: `_token.`
 
-`prefix` sets the token prefix in the state. 
+`prefix` sets the token prefix in the state.
 
 **Note: if you are using vuex, the token will only appear in the `auth` state if the prefix does _not_ start with an underscore (`_`).**
 
@@ -189,7 +191,6 @@ Useful for Cookie only flows.
 - Default: `true`
 
 This determines if the authentication token is automatically included in all custom axios requests.
-
 
 #### `name`
 

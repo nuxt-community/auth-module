@@ -3,9 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": [
-      "DOM"
-    ],
+    "lib": ["DOM"],
     "esModuleInterop": true,
     "allowJs": true,
     "noEmit": true,
