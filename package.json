@@ -88,7 +88,7 @@
     "ts-jest": "^27.1.3",
     "ts-loader": "^8.3.0",
     "typescript": "^4.5.5",
-    "vue": "2.6.14",
+    "vue": "3.2.31",
     "webpack": "<5"
   },
   "peerDependencies": {
