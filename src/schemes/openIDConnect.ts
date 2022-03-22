@@ -113,15 +113,27 @@ export class OpenIDConnectScheme<
       return response
     }
 
-    // Id token has expired. Force reset.
-    if (idTokenStatus.expired()) {
-      response.idTokenExpired = true
-      return response
-    }
-
     // Token has expired, Force reset.
     if (tokenStatus.expired()) {
       response.tokenExpired = true
+      return response
+    }
+
+    /**
+    Id token has expired. Force reset.
+
+    idToken needs to be set after token because the access_token
+    is sent in the Authorization header when making an axios request. If
+    the access_token is expired, we need to refresh that token before
+    continuing.
+
+    Checking whether the id_token has expired doesn't guarantee a successful
+    call to the (a) back end and typically the id_token has a different
+    (shorter) expiry schedule to the access_token.
+    */
+
+    if (idTokenStatus.expired()) {
+      response.idTokenExpired = true
       return response
     }
 
