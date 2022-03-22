@@ -119,6 +119,7 @@ export class OpenIDConnectScheme<
       return response
     }
 
+
     /**
     Id token has expired. Force reset.
 
