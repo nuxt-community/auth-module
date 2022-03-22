@@ -122,9 +122,10 @@ export class OpenIDConnectScheme<
     /**
     Id token has expired. Force reset.
 
-    This ordering is required, because it is the access_token is sent in the
-    Authorization header when making an axios request. If the access_token
-    is expired, we need to refresh that token before continuing.
+    idToken needs to be set after token because it is the access_token
+    is sent in the Authorization header when making an axios request. If
+    the access_token is expired, we need to refresh that token before
+    continuing.
 
     Checking whether the id_token has expired doesn't guarantee a successful
     call to the (a) back end and typically the id_token has a different
