@@ -355,6 +355,9 @@ export class Oauth2Scheme<
     const parsedQuery = Object.assign({}, this.$auth.ctx.route.query, hash)
     // accessToken/idToken
     let token: string = parsedQuery[this.options.token.property] as string
+    // recommended accessToken lifetime
+    let tokenExpiresIn: number | boolean = false
+
     // refresh token
     let refreshToken: string
 
@@ -404,6 +407,8 @@ export class Oauth2Scheme<
 
       token =
         (getProp(response.data, this.options.token.property) as string) || token
+      tokenExpiresIn = 
+        (getProp(response.data, 'expires_in') as number) || tokenExpiresIn
       refreshToken =
         (getProp(
           response.data,
@@ -416,7 +421,7 @@ export class Oauth2Scheme<
     }
 
     // Set token
-    this.token.set(token)
+    this.token.set(token, tokenExpiresIn)
 
     // Store refresh token
     if (refreshToken && refreshToken.length) {

@@ -20,11 +20,11 @@ export class Token {
     return this.$storage.getUniversal(_key) as string | boolean
   }
 
-  set(tokenValue: string | boolean): string | boolean {
+  set(tokenValue: string | boolean, expiresIn: number | boolean = false): string | boolean {
     const token = addTokenPrefix(tokenValue, this.scheme.options.token.type)
 
     this._setToken(token)
-    this._updateExpiration(token)
+    this._updateExpiration(token, expiresIn)
 
     if (typeof token === 'string') {
       this.scheme.requestHandler.setHeader(token)
@@ -72,10 +72,11 @@ export class Token {
     return this.$storage.syncUniversal(_key) as number | false
   }
 
-  private _updateExpiration(token: string | boolean): number | false | void {
+  private _updateExpiration(token: string | boolean , expiresIn: number | boolean): number | false | void {
     let tokenExpiration
     const _tokenIssuedAtMillis = Date.now()
-    const _tokenTTLMillis = Number(this.scheme.options.token.maxAge) * 1000
+    const _maxAge = expiresIn ? expiresIn : this.scheme.options.token.maxAge
+    const _tokenTTLMillis = Number(_maxAge) * 1000
     const _tokenExpiresAtMillis = _tokenTTLMillis
       ? _tokenIssuedAtMillis + _tokenTTLMillis
       : 0
