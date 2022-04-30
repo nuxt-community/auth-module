@@ -28,27 +28,26 @@ const refreshTokens = {}
 
 // [POST] /login
 app.post('/login', (req, res) => {
-  const { username, password } = req.body
+  const { username, password, expiryTime } = req.body
   const valid = username.length && password === '123'
   const expiresIn = 15
   const refreshToken =
     Math.floor(Math.random() * (1000000000000000 - 1 + 1)) + 1
 
+  const payload = {
+    username,
+    picture: 'https://github.com/nuxt.png',
+    name: 'User ' + username,
+    scope: ['test', 'user']
+  }
   if (!valid) {
     throw new Error('Invalid username or password')
   }
 
   const accessToken = jsonwebtoken.sign(
-    {
-      username,
-      picture: 'https://github.com/nuxt.png',
-      name: 'User ' + username,
-      scope: ['test', 'user']
-    },
+    expiryTime ? { ...payload, exp: expiryTime } : payload,
     'dummy',
-    {
-      expiresIn
-    }
+    expiryTime ? {} : { expiresIn }
   )
 
   refreshTokens[refreshToken] = {
