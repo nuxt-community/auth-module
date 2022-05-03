@@ -58,8 +58,8 @@ export class RequestHandler {
         }
 
         // Refresh token is available. Attempt refresh.
-        isValid = await (this.scheme as RefreshableScheme)
-          .refreshTokens()
+        isValid = await (this.scheme as RefreshableScheme).refreshController
+          .handleRefresh()
           .then(() => true)
           .catch(() => {
             // Tokens couldn't be refreshed. Force reset.
