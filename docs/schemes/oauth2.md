@@ -1,6 +1,6 @@
 # Oauth2
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/schemes/oauth2.js)
 
 `oauth2` supports various oauth2 login flows. There are many pre-configured providers like [auth0](../providers/auth0.md) that you may use instead of directly using this scheme.
 
@@ -57,7 +57,7 @@ If using Google code authorization flow (`response_type: 'code'`) set to `offlin
 
 ### `access_token_endpoint`
 
-If using Google code authorization flow (`response_type: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/lib/schemes/oauth2.js)
+If using Google code authorization flow (`response_type: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/masterlib/schemes/oauth2.js)
 
 ### `token_type`
 

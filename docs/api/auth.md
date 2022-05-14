@@ -1,6 +1,6 @@
 # auth
 
-[Source Code](https://github.com/nuxt-community/auth-module/blob/dev/lib/core/auth.js)
+[Source Code](https://github.com/nuxt-community/auth-module/blob/master/lib/core/auth.js)
 
 This module globally injects `$auth` instance, meaning that you can access it anywhere using `this.$auth`.
 For plugins, asyncData, fetch, nuxtServerInit and Middleware, you can access it from `context.$auth`.
@@ -61,6 +61,16 @@ Login using active strategy. Usage varies by current strategy.
 ```js
 this.$auth.login(/* .... */)
   .then(() => this.$toast.success('Logged In!'))
+```
+
+### `setUser(user)`
+
+Set user data and update `loggedIn` state.
+
+> **TIP:** This function can be used to set the user using the login response after a successfully login, when [autoFetchUser](../schemes/local.md#autofetchuser) is disabled.
+
+```js
+this.$auth.setUser(user)
 ```
 
 ### `setUserToken(token)`

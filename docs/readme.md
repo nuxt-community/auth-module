@@ -4,10 +4,10 @@ Zero-boilerplate authentication support for Nuxt.js!
 
 ## Getting Started
 
-If it is first time using this module, reading resources below in order is recommended:
+If this is your first time using this module, then we recommend reading these resources:
 
 1. [Add auth and axios modules](./guide/setup.md)
-2. [Setup auth middleware](./guide/middleware.md)
+2. [Set up auth middleware](./guide/middleware.md)
 3. [Configure local scheme](./schemes/local.md)
 4. [Customize options](./api/options.md)
 5. [Use `$auth` service](./api/auth.md)
