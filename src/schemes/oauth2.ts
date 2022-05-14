@@ -61,6 +61,9 @@ export interface Oauth2SchemeOptions
   acrValues: string
   audience: string
   autoLogout: boolean
+  popupMode: boolean
+  popupWidth: number
+  popupHeight: number
 }
 
 const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
@@ -100,7 +103,10 @@ const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
     property: false
   },
   responseType: 'token',
-  codeChallengeMethod: 'implicit'
+  codeChallengeMethod: 'implicit',
+  popupMode: false,
+  popupWidth: 400,
+  popupHeight: 600
 }
 
 export class Oauth2Scheme<
@@ -114,6 +120,7 @@ export class Oauth2Scheme<
   public refreshToken: RefreshToken
   public refreshController: RefreshController
   public requestHandler: RequestHandler
+  private popupWindowReference: Window
 
   constructor(
     $auth: Auth,
@@ -140,6 +147,9 @@ export class Oauth2Scheme<
 
     // Initialize Request Handler
     this.requestHandler = new RequestHandler(this, this.$auth.ctx.$axios)
+
+    // Intialize Popup Window Reference
+    this.popupWindowReference = null
   }
 
   protected get scope(): string {
@@ -249,6 +259,9 @@ export class Oauth2Scheme<
       // https://auth0.com/docs/protocols/oauth2/oauth-state
       state: _opts.state || randomString(10),
       code_challenge_method: this.options.codeChallengeMethod,
+      popup_mode: this.options.popupMode,
+      popup_width: this.options.popupWidth,
+      popup_height: this.options.popupHeight,
       ..._opts.params
     }
 
@@ -305,7 +318,68 @@ export class Oauth2Scheme<
 
     const url = this.options.endpoints.authorization + '?' + encodeQuery(opts)
 
-    window.location.replace(url)
+    if (opts.popup_mode) {
+      if (
+        this.popupWindowReference === null ||
+        this.popupWindowReference.closed
+      ) {
+        // Window features to center popup in middle of parent window
+        const windowFeatures = this.getPopUpWindowFeatures(
+          window,
+          opts.popup_width,
+          opts.popup_height
+        )
+
+        this.popupWindowReference = window.open(
+          url,
+          'nuxt-auth-popup',
+          windowFeatures
+        )
+
+        let strategy = this.$auth.$state.strategy
+
+        let listener = this.popupCallback.bind(this)
+
+        // setting listener to know about approval from oauth provider
+        window.addEventListener('message', listener)
+
+        // watching pop up window and clearing listener when it closes
+        // or is being used by a different provider
+        let checkPopUpInterval = setInterval(() => {
+          if (
+            this.popupWindowReference.closed ||
+            strategy !== this.$auth.$state.strategy
+          ) {
+            window.removeEventListener('message', listener)
+            this.popupWindowReference = null
+            clearInterval(checkPopUpInterval)
+          }
+        }, 500)
+      } else {
+        this.popupWindowReference.focus()
+      }
+    } else {
+      window.location.replace(url)
+    }
+  }
+
+  popupCallback(event: MessageEvent): void {
+    const isLogInSuccessful: boolean = !!event.data.isLoggedIn
+    if (isLogInSuccessful) {
+      this.$auth.fetchUserOnce()
+    }
+  }
+
+  getPopUpWindowFeatures(
+    window: Window,
+    popup_width: number,
+    popup_height: number
+  ): string {
+    const top =
+      window.top.outerHeight / 2 + window.top.screenY - popup_height / 2
+    const left =
+      window.top.outerWidth / 2 + window.top.screenX - popup_width / 2
+    return `toolbar=no, menubar=no, width=${popup_width}, height=${popup_height}, top=${top}, left=${left}`
   }
 
   logout(): void {
@@ -423,8 +497,15 @@ export class Oauth2Scheme<
       this.refreshToken.set(refreshToken)
     }
 
+    // Inform parent window and close if in popup
+    if (this.options.popupMode) {
+      if (window.opener) {
+        window.opener.postMessage({ isLoggedIn: true })
+        window.close()
+      }
+    }
     // Redirect to home
-    if (this.$auth.options.watchLoggedIn) {
+    else if (this.$auth.options.watchLoggedIn) {
       this.$auth.redirect('home', true)
       return true // True means a redirect happened
     }
