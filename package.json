@@ -1,6 +1,6 @@
 {
   "name": "@yashx/nuxt-auth-popup",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Fork of Authentication module for Nuxt.js with popup support",
   "repository": "yashx/auth-module",
   "license": "MIT",
@@ -33,7 +33,7 @@
     "heroku-postbuild": "nuxt build demo",
     "lint": "eslint --ext .ts,.js,.vue . && prettier --check .",
     "lint-fix": "eslint --ext .ts,.js,.vue --fix . && prettier --write .",
-    "release": "yarn build && standard-version && git push --follow-tags && npm publish",
+    "release": "yarn build && standard-version && git push --follow-tags && npm publish --access public",
     "start": "nuxt start demo",
     "test": "yarn lint && jest"
   },
