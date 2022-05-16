@@ -1,8 +1,8 @@
 {
-  "name": "@nuxtjs/auth",
-  "version": "5.0.0-dev",
-  "description": "Authentication module for Nuxt.js",
-  "repository": "nuxt-community/auth-module",
+  "name": "@yashx/nuxt-auth-popup",
+  "version": "6.0.0",
+  "description": "Fork of Authentication module for Nuxt.js with popup support",
+  "repository": "yashx/auth-module",
   "license": "MIT",
   "sideEffects": "false",
   "exports": {
