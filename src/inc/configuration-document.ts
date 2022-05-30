@@ -73,7 +73,7 @@ export class ConfigurationDocument {
 
   validate() {
     const mapping = {
-      responseType: 'response_type_supported',
+      responseType: 'response_types_supported',
       scope: 'scopes_supported',
       grantType: 'grant_types_supported',
       acrValues: 'acr_values_supported'
