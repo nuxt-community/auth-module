@@ -156,9 +156,7 @@ auth: {
 
 Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
 
-::: tip
-To disable each endpoint, simply set its value to `false`.
-:::
+> TIP: To disable each endpoint, simply set its value to `false`.
 
 ### `token`
 
@@ -182,9 +180,7 @@ Here you configure the token options.
 
 This option can be used to disable all token handling.
 
-::: tip
-Useful for Cookie only flows.
-:::
+> TIP: Useful for Cookie only flows.
 
 #### `global`
 
