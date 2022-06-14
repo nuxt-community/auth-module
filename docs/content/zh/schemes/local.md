@@ -2,7 +2,7 @@
 title: Local
 description: 对于像JWT这样的流，local是默认的基于 credentials/token 的方案。
 position: 22
-category: Schemes
+category: 方案
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/local.ts)

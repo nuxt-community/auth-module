@@ -1,44 +1,43 @@
 ---
 title: OAuth2
-description: oauth2 supports various oauth2 login flows. There are many pre-configured providers like auth0 that you may use instead of directly using this scheme.
+description: Oauth2支持多种Oauth2登录流程。您可以使用许多预先配置的提供程序(如auth0)，而不是直接使用此模式。
 position: 23
-category: Schemes
+category: 方案
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/oauth2.ts)
 
-`oauth2` supports various oauth2 login flows. There are many pre-configured providers like [auth0](../../providers/auth0) that you may use instead of directly using this scheme.
+`oauth2` 支持各种 oauth2 登录流。您可以使用许多预配置的提供程序如 [auth0](../../providers/auth0) 而不是直接使用此方案。
 
-## Usage
+## 使用
 
 ```js
 this.$auth.loginWith('social')
 ```
 
-Additional arguments can be passed through to the OAuth provider using the `params` key of the second argument:
+可以使用第二个参数的 `params` 键将其他参数传递给 OAuth 提供程序：
 
 ```js
 this.$auth.loginWith('social', { params: { another_post_key: 'value' } })
 ```
 
-## Token refresh
+## Token 刷新
 
-If your provider issues refresh tokens, these will be used to refresh the token before every axios request.
-Note: This feature is only supported for jwt tokens.
+如果提供程序颁发刷新 token ，这些 token 将用于在每次 axios 请求之前刷新 token 。注意：此功能仅支持 jwt  token 。
 
-### Behavior when the refresh token has expired
+### 刷新 token 过期时的行为
 
-If the refresh token has expired, the token cannot be refreshed. You can find the different behavior for server and client side below.
+如果刷新 token 已过期，则无法刷新 token 。您可以在下面找到服务器端和客户端的不同行为。
 
-#### Server side (during page reload or initial navigation)
+#### 服务器端（在页面重新加载或初始导航期间）
 
-The user is logged out and navigated to the **home** page.
+用户已注销并导航到 **home** 页面.
 
-#### Client side (Client initiated axios request)
+#### 客户端（客户端启动的 axios 请求）
 
-The user is logged out and navigated to the **logout** page, for explicitly explaining what happened.
+用户已注销并导航到**注销**页面，以明确解释发生的情况。
 
-## Options
+## 选项
 
 ```js
 auth: {
@@ -79,120 +78,120 @@ auth: {
 
 ### `endpoints`
 
-Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
+每个端点都用于使用 axios 发出请求。他们基本上是在扩展Axios [Request Config](https://github.com/axios/axios#request-config).
 
 #### `authorization`
 
-**REQUIRED** - Endpoint to start login flow. Depends on oauth service.
+**必须** - 用于启动登录流的终结点。取决于 oauth 服务。
 
 #### `userInfo`
 
-While not a part of oauth2 spec, almost all oauth2 providers expose this endpoint to get user profile.
+虽然不是 oauth2 规范的一部分，但几乎所有 oauth2 提供程序都公开此终结点以获取用户配置文件。
 
 #### `token`
 
-If using Google code authorization flow (`responseType: 'code'`) provide a URI for a service that accepts a POST request with JSON payload containing a `code` property, and returns tokens [exchanged by provider](https://developers.google.com/identity/protocols/OpenIDConnect#exchangecode) for `code`. See [source code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/oauth2.ts)
+如果使用 Google 代码授权流程 (`responseType: 'code'`) 为接受 POST 请求的服务提供 URI，该请求带有包含 `code` 属性的 JSON 有效负载，并返回 token  [由提供者交换](https://developers .google.com/identity/protocols/OpenIDConnect#exchangecode) 用于“代码”。 参见[源代码](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/oauth2.ts)
 
-If a `false` value is set, we only do login without fetching user profile.
+如果设置了 `false` 值，我们只会登录而不获取用户配置文件。
 
 #### `logout`
 
-Endpoint to logout user from Oauth2 provider's system. Ensures that a user is signed out of the current authorization session.
+从 Oauth2 提供者的系统中注销用户的端点。 确保用户退出当前授权会话。
 
 ### token
 
 #### `property`
 
-- Default: `access_token`
+- 默认值: `access_token`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.access_token`.
+`property` 可用于指定响应 JSON 的哪个字段用于值。 直接使用 API 响应可以是 `false`，也可以是更复杂的，比如 `auth.access_token`。
 
-::: tip
-If you need to use the IdToken instead of the AccessToken, set this option to `id_token`.
+::: 提示
+如果您需要使用 IdToken 而不是 AccessToken，请将此选项设置为 `id_token`。
 :::
 
 #### `type`
 
-- Default: `Bearer`
+- 默认值: `Bearer`
 
-It will be used in `Authorization` header of axios requests.
+它将用于 axios 请求的 `Authorization` 标头。
 
 #### `maxAge`
 
-- Default: `1800`
+- 默认值: `1800`
 
-Here you set the expiration time of the token, in **seconds**.
-This time will be used if for some reason we couldn't decode the token to get the expiration date.
+在这里设置 token 的过期时间，单位为**秒**。
+如果由于某种原因我们无法解码 token 以获取到期日期，则将使用此时间。
 
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+应与登录页面或欢迎屏幕的相对路径相同。 （[示例]（https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue））
 
-By default is set to 30 minutes.
+默认情况下设置为 30 天。
 
 ### `refreshToken`
 
 #### `property`
 
-- Default: `refresh_token`
+- 默认值: `refresh_token`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.refresh_token`.
+`property` 可用于指定响应 JSON 的哪个字段用于值。 直接使用 API 响应或者更复杂的比如 auth.refresh_token 可以是 `false`。
 
 #### `maxAge`
 
-- Default: `60 * 60 * 24 * 30`
+- 默认值: `60 * 60 * 24 * 30`
 
-Here you set the expiration time of the refresh token, in **seconds**.
-This time will be used if for some reason we couldn't decode the token to get the expiration date.
+在这里，您可以设置 token 的过期时间以**秒为单位**.
+如果由于某种原因我们无法解码 token 以获取到期日期，则将使用此时间。
 
-By default is set to 30 days.
+默认情况下设置为 30 天。
 
 ### `responseType`
 
-- Default: `token`
+- 默认值: `token`
 
-If you use `code` you may have to implement a server side logic to sign the response code.
+如果您使用 `code` ，您可能必须实现服务器端逻辑来签署响应代码。
 
 ### `grantType`
 
-Set to `authorization_code` for authorization code flow.
+设置为 `authorization_code` 以获取授权代码流。
 
 ### `accessType`
 
-If using Google code authorization flow (`responseType: 'code'`) set to `offline` to ensure a refresh token is returned in the initial login request. (See [Google documentation](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens))
+如果使用 Google 代码授权流程 (`responseType: 'code'`) 设置为 `offline` 以确保在初始登录请求中返回刷新 token 。 （请参阅 [Google 文档](https://developers.google.com/identity/protocols/OpenIDConnect#refresh-tokens)）
 
 ### `redirectUri`
 
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+应与登录页面或欢迎屏幕的相对路径相同。 （[示例]（https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue））
 
-By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
+默认情况下，它将从 `redirect.callback` 选项推断。 （默认为`/login`）
 
 ### `logoutRedirectUri`
 
-Should be an absolute path to the welcome screen
+应该是欢迎页面的绝对路径
 
 ### `clientId`
 
-**REQUIRED** - oauth2 client id.
+**必须** - oauth2 客户端 ID
 
 ### `scope`
 
-**REQUIRED** - Oauth2 access scopes.
+**必须** - Oauth2 访问作用域。
 
 ### `state`
 
-The primary reason for using the state parameter is to mitigate CSRF attacks. ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
+使用 state 参数的主要原因是缓解 CSRF 攻击 ([read more](https://auth0.com/docs/protocols/oauth2/oauth-state))
 
-By default is set to random generated string.
+默认情况下设置为随机生成的字符串。
 
 ### `codeChallengeMethod`
 
-By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
+默认为'implicit'，即当前工作流实现。为了支持PKCE ('pixy')协议，有效的选项包括'S256'和'plain'。((了解更多)(https://tools.ietf.org/html/rfc7636))
 
 ### `acrValues`
 
-Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
+提供元数据以向授权服务器提供其他信息。([read more](https://ldapwiki.com/wiki/Acr_values))
 
 ### `autoLogout`
 
-- Default: `false`
+- 默认值: `false`
 
-If the token has expired, it will prevent the token from being refreshed on the reload of the page and will force the logout of the user.
+如果 token 已过期，它将阻止在重新加载页面时刷新 token ，并将强制用户注销。
