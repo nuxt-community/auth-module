@@ -10,7 +10,7 @@ category: ''
 
 身份验证模块 [NuxtJS](https://nuxtjs.org).
 
-Nuxt.js 身份验证模块(Zero-boilerplate)对零模板的支持！`Zero-boilerplate` 是一个新的组件库概念，用于提供方法而不提供其主要的样式，更加的符合开发者自定义的需求。
+Nuxt.js 身份验证模块引入了一个新的概念，即对零模板(Zero-boilerplate)的支持！`Zero-boilerplate` 是一个新的组件库概念，用于提供方法而不提供其主要的样式，更加的符合开发者自定义的需求。
 
 Nuxt-auth 的使用可以通过配置来进行集成站点中的身份验证 [方案](/guide/scheme) 或者使用由供应商所开发，可以直接支持集成的 [DEMO](/guide/provider). 提供了重要的[API](https://auth.nuxtjs.org/) 虽然它负责在客户端 [存储信息](/api/storage) 但它不会在NuxtJS服务器上实现会话处理或提供基于会话的身份验证。
 
