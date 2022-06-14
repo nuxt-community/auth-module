@@ -1,28 +1,28 @@
 ---
 title: Cookie
-description: 'You can enable `auth` middleware either globally or per route.'
+description: '你可以在全局或每条路由上启用' auth '中间件。'
 position: 21
-category: Schemes
+category: 方案
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/cookie.ts)
 
-`cookie` is an extended version of [local scheme](../local), which instead of using a token, depends on cookie set by auth provider.
+`cookie` 是 [本地方案](../local) 的扩展版本, 它依赖于身份验证提供程序设置的 Cookie，而不是使用 token。
 
-## Options
+## 选项
 
-**NOTE:** All [local scheme](./local) options are also supported.
+**注意:** [本地方案](./local) 还支持所有选项
 
 ```js
 auth: {
   strategies: {
     cookie: {
       cookie: {
-        // (optional) If set, we check this cookie existence for loggedIn check
+      //(可选)如果设置为loggedIn，我们检查cookie是否存在
         name: 'XSRF-TOKEN',
       },
       endpoints: {
-        // (optional) If set, we send a get request to this endpoint before login
+      //(可选)如果设置了，我们在登录之前向这个端点发送一个get请求
         csrf: {
           url: ''
         }

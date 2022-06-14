@@ -2,7 +2,7 @@
 title: 中间件
 description: '您可以通过全局或按路由启用中间件'
 position: 3
-category: Guide
+category: 指南
 ---
 
 你可以启用 `auth` 中间件，可以是全局的，也可以是按照路由的。

@@ -2,7 +2,7 @@
 title: 方案与策略
 description: 方案是定义身份验证的逻辑。策略是Scheme的一个配置实例。在项目中可以有多种方案和策略
 position: 4
-category: Guide
+category: 指南
 ---
 
 方案定义身份验证逻辑。策略是方案的已配置实例。您的项目中可以有多个方案和策略。
