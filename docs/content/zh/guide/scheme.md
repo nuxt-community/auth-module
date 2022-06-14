@@ -1,13 +1,13 @@
 ---
-title: Schemes
-description: Schemes define authentication logic. Strategy is a configured instance of Scheme. You can have multiple schemes and strategies in your project.
+title: 方案与策略
+description: 方案是定义身份验证的逻辑。策略是Scheme的一个配置实例。在项目中可以有多种方案和策略
 position: 4
 category: Guide
 ---
 
-Schemes define authentication logic. Strategy is a configured instance of Scheme. You can have multiple schemes and strategies in your project.
+方案定义身份验证逻辑。策略是方案的已配置实例。您的项目中可以有多个方案和策略。
 
-`auth.strategies` option is an object. Keys are strategy name and values are configuration.
+`auth.strategies` 选项是一个对象。键是策略名称，值是配置。
 
 ```js{}[nuxt.config.js]
 auth: {
@@ -18,7 +18,7 @@ auth: {
 }
 ```
 
-By default, **instance names are the same as scheme names**. If you want more flexibility by providing your own scheme or having multiple instances of the same scheme you can use the `scheme` property:
+默认情况下，**实例名称与方案名称相同**. 如果您希望通过提供自己的方案或拥有同一方案的多个实例来获得更大的灵活性，则可以使用以下属性 `scheme'
 
 ```js{}[nuxt.config.js]
 auth: {
@@ -30,37 +30,36 @@ auth: {
 }
 ```
 
-## Creating your own scheme
+## 创建自己的策略
 
-<alert type="warning">As v5 still in development, there may be breaking changes to this feature.</alert>
+<alert type="warning">由于 v5 仍在开发中，因此此功能可能会有重大改变</alert>
 
-Sometimes the included schemes doesn't match your requirements. Creating your own scheme will provide
-flexibility you need. You can create a new scheme from scratch or extend an existing scheme.
+有时，包含的方案不符合您的要求。创建您自己的方案将提供您所需的灵活性。您可以从头开始创建新方案或扩展现有方案。
 
-> **Note** A list of available scheme methods will be added in future releases.
+> **注意** 在将来的版本中将添加可用方案方法的列表。
 
-First, create your own scheme file in `~/schemes`. You can use a different path if you want.
+首先，在中创建自己的方案文件 `~/schemes` 中（如果您愿意，可以使用不同的路径。)
 
-> In this example we will be extending `local` scheme and overriding `fetchUser` method. We will transform the user object before setting it.
+> 在这个例子中，我们将进行扩展 `local` 方案和覆盖 `fetchUser` 方法。我们将在设置用户对象之前转换它。
 
 ```js{}[~/schemes/customScheme.js]
 import { LocalScheme } from '~auth/runtime'
 
 export default class CustomScheme extends LocalScheme {
-  // Override `fetchUser` method of `local` scheme
+  //覆盖' local '方案的' fetchUser '方法
   async fetchUser (endpoint) {
     // Token is required but not available
     if (!this.check().valid) {
       return
     }
 
-    // User endpoint is disabled.
+    // 禁止用户端点
     if (!this.options.endpoints.user) {
       this.$auth.setUser({})
       return
     }
 
-    // Try to fetch user and then set
+    // 尝试获取用户，然后设置
     return this.$auth.requestWith(
       this.name,
       endpoint,
@@ -68,15 +67,15 @@ export default class CustomScheme extends LocalScheme {
     ).then((response) => {
       const user = getProp(response.data, this.options.user.property)
 
-      // Transform the user object
+      // 转换用户对象
       const customUser = {
         ...user,
         fullName: user.firstName + ' ' + user.lastName,
         roles: ['user']
       }
 
-      // Set the custom user
-      // The `customUser` object will be accessible through `this.$auth.user`
+      // 设置自定义用户
+      // ' customUser '对象可以通过' this.$auth.user '访问
       // Like `this.$auth.user.fullName` or `this.$auth.user.roles`
       this.$auth.setUser(customUser)
 
@@ -88,7 +87,7 @@ export default class CustomScheme extends LocalScheme {
 }
 ```
 
-Then set your new scheme in the auth config.
+然后在身份验证配置中设置新方案。
 
 ```js{}[nuxt.config.js]
 auth: {
@@ -101,7 +100,7 @@ auth: {
 }
 ```
 
-That's it! Now you can log in using your new strategy.
+就是这样！现在，您可以使用新策略登录。
 
 ```js
 this.$auth.loginWith('customStrategy', {
@@ -109,4 +108,4 @@ this.$auth.loginWith('customStrategy', {
 })
 ```
 
-<alert type="success">If you think your custom scheme might be helpful to others, consider creating a GitHub Issue or Pull Request with your configuration.</alert>
+<alert type="success">如果您认为您的自定义方案可能对其他人有帮助，请考虑使用您的配置创建 GitHub 问题或拉取请求。</alert>
