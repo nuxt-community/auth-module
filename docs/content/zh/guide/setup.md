@@ -1,22 +1,22 @@
 ---
-title: Setup
-description: 'Zero-boilerplate authentication support for Nuxt.js!'
+title: 安装
+description: 'Nuxt.js 身份验证模块对零模板的支持'
 position: 2
-category: Guide
+category: 指南
 ---
 
-- [Installation](#installation)
-- [Using with TypeScript](#using-with-typescript)
+- [安装](#installation)
+- [使用 TypeScript](#using-with-typescript)
 
 ## Installation
 
 <alert type="info">
 
-Check the [Nuxt.js documentation](https://nuxtjs.org/guides/configuration-glossary/configuration-modules) for more information about installing and using modules in Nuxt.js.
+有关在 Nuxt-auth 安装过程和使用模块更多的信息，请查阅 [Nuxt.js 文档](https://nuxtjs.org/guides/configuration-glossary/configuration-modules)
 
 </alert>
 
-Add `@nuxtjs/auth-next @nuxtjs/axios` dependencies to your project:
+向项目添加依赖项：`@nuxtjs/auth-next @nuxtjs/axios`
 
 <code-group>
   <code-block label="yarn" active>
@@ -37,7 +37,7 @@ npm install @nuxtjs/axios
   </code-block>
 </code-group>
 
-Then, add `@nuxtjs/auth-next` to the `modules` section of `nuxt.config.js`:
+然后, 添加到以下部分 `@nuxtjs/auth-next` `modules` `nuxt.config.js`
 
 ```js{}[nuxt.config.js]
 {
@@ -53,19 +53,18 @@ Then, add `@nuxtjs/auth-next` to the `modules` section of `nuxt.config.js`:
 
 <alert type="warning">
 
-When adding `auth-module` to a new Nuxt project ensure you have [activated the Vuex store](https://nuxtjs.org/docs/directory-structure/store#activate-the-store). More information on how to do that can be found on the [Nuxt Getting Started Guide](https://nuxtjs.org/docs/directory-structure/store).
+添加新的项目时，请确保已激活 [Vuex store](https://nuxtjs.org/docs/directory-structure/store#activate-the-store)。有关如何执行此操作的更多信息，请参阅 [Nuxt 入门指南e](https://nuxtjs.org/docs/directory-structure/store). `auth-module`
 
 </alert>
 
-## Using with TypeScript
-
+## 与 TypeScript 一起使用
 <alert type="info">
 
-For more information about using TypeScript in your Nuxt.js project, visit the [Nuxt Typescript documentation](https://typescript.nuxtjs.org/).
+有关在 Nuxt.js 项目中使用 TypeScript 的更多信息，请访问 [Nuxt Typescript 文档](https://typescript.nuxtjs.org/).
 
 </alert>
 
-Add `@nuxtjs/auth-next` to the `compilerOptions.types` section of your project's `tsconfig.json` file:
+添加到项目文件的某个部分: `@nuxtjs/auth-next` `compilerOptions.types` `tsconfig.json`
 
 ```json{}[tsconfig.json]
 {
@@ -79,6 +78,6 @@ Add `@nuxtjs/auth-next` to the `compilerOptions.types` section of your project's
 
 <alert type="warning">
 
-If you still receive errors after installing the types package, it may be necessary to restart your code editor so that the new types are recognized.
+如果在安装类型包后仍然收到错误，则可能需要重新启动项目才能识别新类型。
 
 </alert>
