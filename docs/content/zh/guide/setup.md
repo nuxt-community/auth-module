@@ -1,5 +1,5 @@
 ---
-title: 安装
+title: 设置
 description: 'Nuxt.js 身份验证模块对零模板的支持'
 position: 2
 category: 指南
@@ -16,7 +16,7 @@ category: 指南
 
 </alert>
 
-向项目添加依赖项：`@nuxtjs/auth-next @nuxtjs/axios`
+添加 `@nuxtjs/auth-next @nuxtjs/axios` 对项目的依赖性：
 
 <code-group>
   <code-block label="yarn" active>
@@ -37,7 +37,7 @@ npm install @nuxtjs/axios
   </code-block>
 </code-group>
 
-然后, 添加到以下部分 `@nuxtjs/auth-next` `modules` `nuxt.config.js`
+然后, 添加 `@nuxtjs/auth-next` 到以下到 `nuxt.config.js` 文件中的`modules` 部分
 
 ```js{}[nuxt.config.js]
 {
@@ -64,7 +64,7 @@ npm install @nuxtjs/axios
 
 </alert>
 
-添加到项目文件的某个部分: `@nuxtjs/auth-next` `compilerOptions.types` `tsconfig.json`
+添加 `@nuxtjs/auth-next` 到 `tsconfig.json` 文件内的 `compilerOptions.types` 项目部分
 
 ```json{}[tsconfig.json]
 {

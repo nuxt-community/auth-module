@@ -1,14 +1,15 @@
 ---
-title: Middleware
-description: 'You can enable `auth` middleware either globally or per route.'
+title: 中间件
+description: '您可以通过全局或按路由启用中间件'
 position: 3
 category: Guide
 ---
 
-You can enable `auth` middleware either globally or per route.
-When this middleware is enabled on a route and `loggedIn` is `false` user will be redirected to `redirect.login` route. (`/login` by default)
+你可以启用 `auth` 中间件，可以是全局的，也可以是按照路由的。
+当这个中间件在路由 `loggedIn` 是 `false` 用户将被重定向到
+`redirect.login` 路由中. (在默认情况下是 `/login` 路由)
 
-Setting per route:
+每个路由的设置:
 
 ```js
 export default {
@@ -16,7 +17,7 @@ export default {
 }
 ```
 
-Globally setting in `nuxt.config.js`:
+在全局内容中设置 `nuxt.config.js`:
 
 ```js{}[nuxt.config.js]
 router: {
@@ -24,7 +25,7 @@ router: {
 }
 ```
 
-In case of global usage, you can set `auth` option to `false` in a specific component and the middleware will ignore that route.
+在全局中使用可以设置 `auth` 参数为 `false` 在特定的组件中，中间件会忽略该路由。
 
 ```js
 export default {
@@ -32,7 +33,7 @@ export default {
 }
 ```
 
-You can set `auth` option to `guest` in a specific component. When this middleware is enabled on a route and `loggedIn` is `true` user will be redirected to `redirect.home` route. (`/` by default)
+可以设置 `auth` 选项到 `guest` 在特定组件中。当这个中间件在路由和 `loggedIn` 是 `true` 是，用户将被重定向到 `redirect.home` 路由中. (`/` 是默认的)
 
 ```js
 export default {
