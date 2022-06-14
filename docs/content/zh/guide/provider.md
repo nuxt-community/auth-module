@@ -1,9 +1,8 @@
 ---
-title: Providers
-description: Providers are an abstraction on top of Schemes.
+title: 供应商
+description: 提供者是方案之上的一个抽象。
 position: 5
 category: Guide
 ---
 
-Providers are an abstraction on top of Schemes.
-They make it super easy to integrate with popular authentication services. They can do even more by provider required server-side changes such as token signing and you can also write your own provider.
+提供程序是方案之上的抽象。它们使与流行的身份验证服务集成变得非常容易。他们可以通过提供程序所需的服务器端更改（如令牌签名）执行更多操作，您还可以编写自己的提供程序。
