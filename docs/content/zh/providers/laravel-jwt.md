@@ -2,7 +2,7 @@
 title: Laravel JWT
 description: This provider is for the Laravel JWT
 position: 36
-category: Providers
+category: 供应商
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravel-jwt.ts)

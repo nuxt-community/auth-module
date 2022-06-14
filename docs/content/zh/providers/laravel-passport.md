@@ -2,7 +2,7 @@
 title: Laravel Passport
 description: This provider is for the Laravel Passport
 position: 37
-category: Providers
+category: 供应商
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/laravel-passport.ts)

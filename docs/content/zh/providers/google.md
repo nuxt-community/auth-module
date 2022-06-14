@@ -2,7 +2,7 @@
 title: Google
 description: This provider is based on oauth2 scheme and supports all scheme options
 position: 35
-category: Providers
+category: 供应商
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/google.ts)

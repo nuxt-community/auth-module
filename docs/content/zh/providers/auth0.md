@@ -2,7 +2,7 @@
 title: Auth0
 description: Auth0 is a great authentication-as-a-service platform for free!
 position: 31
-category: Providers
+category: 供应商
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/providers/auth0.ts)

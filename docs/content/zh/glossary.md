@@ -1,24 +1,24 @@
 ---
-title: Glossary
-description: Glossary of auth terms
+title: 术语表
+description: nuxt-auth 术语词汇表
 position: 71
-category: Glossary
+category: 术语表
 ---
 
-## Scheme
+## 方案
 
-Schemes define authentication logic.
+方案定义身份验证逻辑。
 
-Read more in [Schemes and Strategies](./guide/scheme) section.
+在 [方案和策略](./guide/scheme) 部分中阅读更多内容。
 
-## Strategy
+## 策略
 
-Strategy is a configured instance of Scheme.
+策略是方案的已配置实例。
 
-Read more in [Schemes and Strategies](./guide/scheme) section.
+在 [方案和策略](./guide/scheme) 部分中阅读更多内容。
 
-## Provider
+## 供应商
 
-Provider auto-configures schemes.
+提供程序自动配置方案。
 
-Read more in [Providers](./guide/provider) section.
+在 [供应商](./guide/provider) 部分中阅读更多内容。
