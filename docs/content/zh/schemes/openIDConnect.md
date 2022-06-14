@@ -1,15 +1,15 @@
 ---
 title: OpenIDConnect
-description: OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol. It enables Clients to verify the identity of the End-User based on the authentication performed by an Authorization Server, as well as to obtain basic profile information about the End-User in an interoperable and REST-like manner.
+description: OpenID Connect 1.0是在OAuth 2.0协议之上的一个简单的身份层。它使客户端能够根据授权服务器执行的身份验证来验证最终用户的身份，并以一种可互操作的rest式方式获得关于最终用户的基本概要信息。
 position: 23
-category: Schemes
+category: 方案
 ---
 
 [Source Code](https://github.com/nuxt-community/auth-module/blob/dev/src/schemes/openIDConnect.ts)
 
-As the OpenID Connect is a layer on top of the OAuth 2.0 protocol, this scheme extends the OAuth 2.0 scheme.
+由于OpenID Connect是OAuth 2.0协议之上的一层，因此该方案扩展了OAuth 2.0方案。
 
-Please see the [OAuth2 scheme](./oauth2) for more information.
+请参阅 [OAuth2 方案](./oauth2) 了解更多信息。
 
 ## Usage
 
@@ -17,15 +17,15 @@ Please see the [OAuth2 scheme](./oauth2) for more information.
 this.$auth.loginWith('openIDConnect')
 ```
 
-Additional arguments can be passed through to the OpenID Connect provider using the `params` key of the second argument:
+可以使用第二个参数的 `params` 键将其他参数传递给 OpenID Connect 提供程序：
 
 ```js
 this.$auth.loginWith('openIDConnect', { params: { another_post_key: 'value' } })
 ```
 
-## Options
+## 选项
 
-Minimal configuration:
+最小配置：
 
 ```js
 auth: {
@@ -41,7 +41,7 @@ auth: {
 }
 ```
 
-Default configuration:
+默认配置：
 
 ```js
 auth: {
@@ -68,125 +68,125 @@ auth: {
 
 ### `endpoints`
 
-Each endpoint is used to make requests using axios. They are basically extending Axios [Request Config](https://github.com/axios/axios#request-config).
+每个端点都用于使用 axios 发出请求。他们基本上是在扩展Axios [Request Config](https://github.com/axios/axios#request-config).
 
 #### `configuration`
 
-**REQUIRED** - Endpoint to request the provider's metadata document to automatically set the endpoints. A metadata document that contains most of the OpenID Provider's information, such as the URLs to use and the location of the service's public signing keys. You can find this document by appending the discovery document path (/.well-known/openid-configuration) to the authority URL (https://example.com).
+**必要的** -用于请求提供程序的元数据文档以自动设置终结点的终结点。包含 OpenID 提供程序的大部分信息（如要使用的 URL 和服务的公共签名密钥的位置）的元数据文档。您可以通过将发现文档路径（/.well-known/openid-configuration）附加到颁发机构 URL (https://example.com).来查找此文档。
 
-Eg. `https://example.com/.well-known/openid-configuration`
+例如. `https://example.com/.well-known/openid-configuration`
 
-More info: https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig
+更多信息: https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig
 
-Each endpoint defined in the OAuth2 scheme can also be used in the OpenID Connect scheme configuration. This will override the information provided by the configuration document.
+OAuth2 方案中定义的每个终结点也可以在 OpenID Connect 方案配置中使用。这将覆盖配置文档提供的信息。
 
 ### `clientId`
 
-**REQUIRED** - OpenID Connect client id.
+**必要的** - OpenID 连接客户端 ID。
 
 ### `scope`
 
-- Default: `['openid', 'profile', 'offline_access']`
+- 默认: `['openid', 'profile', 'offline_access']`
 
-OpenID Connect access scopes.
+OpenID Connect 访问范围。
 
 ### `token`
 
-Access token
+访问令牌
 
 #### `property`
 
-- Default: `access_token`
+- 默认: `access_token`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.access_token`.
+`property` 可用于指定响应 JSON 的哪个字段用于值。 直接使用 API 响应可以是 `false`，也可以是更复杂的，比如 `auth.access_token`。
 
 #### `type`
 
-- Default: `Bearer`
+- 默认: `Bearer`
 
-It will be used in `Authorization` header of axios requests.
+它将用于 axios 请求的 `Authorization` 标头。
 
 #### `maxAge`
 
-- Default: `1800`
+- 默认: `1800`
 
-Here you set the expiration time of the token, in **seconds**.
-This time will be used if for some reason we couldn't decode the token to get the expiration date.
+在这里设置令牌的过期时间，单位为**秒**。
+如果由于某种原因我们无法解码令牌以获取到期日期，则将使用此时间。
 
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+应与登录页面相同或欢迎屏幕的相对路径。 ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
 
-By default is set to 30 minutes.
+默认情况下设置为 30 分钟。
 
 ### `idToken`
 
-The OpenIDConnect scheme will save both the access and ID token. This because to end the user-session at the authorization server, the ID token needs to be part of the logout request via the required parameter `id_token_hint`.
+OpenIDConnect 方案将保存访问和 ID 令牌。 这是因为要在授权服务器上结束用户会话，ID 令牌需要通过必要的参数“id_token_hint”作为注销请求的一部分。
 
 #### `property`
 
-- Default: `id_token`
+- 默认: `id_token`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.id_token`.
+`property` 可用于指定响应 JSON 的哪个字段用于值。 直接使用 API 响应可以是 `false`，也可以是更复杂的，比如 `auth.id_token`。
 
 #### `maxAge`
 
-- Default: `1800`
+- 默认: `1800`
 
-Here you set the expiration time of the ID token, in **seconds**.
-This time will be used if for some reason we couldn't decode the ID token to get the expiration date.
+此处设置 ID 令牌的过期时间，单位为**秒**。
+如果由于某种原因我们无法解码 ID 令牌以获取到期日期，则将使用此时间。
 
-By default is set to 30 minutes.
+默认设置为 30 分钟。
 
 ### `refreshToken`
 
 #### `property`
 
-- Default: `refresh_token`
+- 默认: `refresh_token`
 
-`property` can be used to specify which field of the response JSON to be used for value. It can be `false` to directly use API response or being more complicated like `auth.refresh_token`.
+`property` 可用于指定响应 JSON 的哪个字段用于值。 直接使用 API 响应或者更复杂的比如 auth.refresh_token 可以是 `false`。
 
 #### `maxAge`
 
-- Default: `60 * 60 * 24 * 30`
+- 默认: `60 * 60 * 24 * 30`
 
-Here you set the expiration time of the refresh token, in **seconds**.
-This time will be used if for some reason we couldn't decode the token to get the expiration date.
+此处设置刷新令牌的过期时间，单位为**秒**。
+如果由于某种原因我们无法解码令牌以获取到期日期，则将使用此时间。
 
-By default is set to 30 days.
+默认设置为 30 天。
 
 ### `responseType`
 
-- Default: `code`
+- 默认: `code`
 
-Set to `code` for authorization code flow.
+设置为 `code` 以获取授权代码流。
 
 ### `grantType`
 
-- Default: `authorization_code`
+- 默认: `authorization_code`
 
-Set to `authorization_code` for authorization code flow.
+设置为 `authorization_code` 以获取授权代码流。
 
 ### `redirectUri`
 
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+应与登录页面或欢迎页面的相对路径相同。([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
 
-By default it will be inferred from `redirect.callback` option. (Defaults to `/login`)
+默认情况下，它将从 `redirect.callback` 选项推断。 （默认为`/login`）
 
 ### `logoutRedirectUri`
 
-Should be an absolute path to the welcome screen
+应该是欢迎页面的绝对路径
 
 ### `codeChallengeMethod`
 
-By default is 'implicit' which is the current workflow implementation. In order to support PKCE ('pixy') protocol, valid options include 'S256' and 'plain'. ([read more](https://tools.ietf.org/html/rfc7636))
+默认情况下是 `implicit`，这是当前的工作流实现。 为了支持 PKCE ('pixy') 协议，有效选项包括 'S256' 和 'plain'。 ([阅读更多](https://tools.ietf.org/html/rfc7636))
 
-Default: `S256`
+默认: `S256`
 
 ### `acrValues`
 
-Provides metadata to supply additional information to the authorization server. ([read more](https://ldapwiki.com/wiki/Acr_values))
+提供元数据以向授权服务器提供附加信息。 ([阅读更多](https://ldapwiki.com/wiki/Acr_values))
 
 ### `autoLogout`
 
-- Default: `false`
+- 默认: `false`
 
-If the token has expired, it will prevent the token from being refreshed on load the page and force logout the user.
+如果令牌已过期，它将阻止令牌在加载页面时刷新并强制注销使用r.
