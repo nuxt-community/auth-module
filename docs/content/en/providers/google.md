@@ -44,14 +44,14 @@ You will receive clientID and secret key. copy the clientId to your nuxt config 
 You will need to handel to auth with a server side like Django, Node, Go ect.
 after that you config will look like that
 
-```
+```js
 google: {
         clientId: '<you client id>',
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
-          token: 'http://localhost:8000/user/google/', // somm backend url to resolve your auth with google and give you the token back
-          userInfo: 'http://localhost:8000/auth/user/' // the endpoint to get the user info after you received the token
+          token: 'http://localhost:8000/user/google/', // your backend url to resolve your auth with google and give you the token back
+          userInfo: 'http://localhost:8000/auth/user/' // your endpoint to get the user info after you received the token
         },
       },
 ```
