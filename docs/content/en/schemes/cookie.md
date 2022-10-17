@@ -11,7 +11,7 @@ category: Schemes
 
 ## Options
 
-**NOTE:** All [local scheme](./local) options are also supported.
+**NOTE:** All [local scheme](../schemes/cookie) options are also supported.
 
 ```js
 auth: {
