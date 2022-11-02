@@ -54,6 +54,7 @@ export class RefreshScheme<
 {
   public refreshToken: RefreshToken
   public refreshController: RefreshController
+  public refreshRequest: Promise<HTTPResponse> | null = null
 
   constructor(
     $auth: Auth,
@@ -174,9 +175,15 @@ export class RefreshScheme<
 
     cleanObj(endpoint.data)
 
-    // Make refresh request
-    return this.$auth
-      .request(endpoint, this.options.endpoints.refresh)
+    // When calling refreshTokens() multiple times (parallel axios request)
+    // Use the same promise as the first refresh request
+    // or making a refresh request if does not exist
+    // instead of making parallel refresh request
+    this.refreshRequest =
+      this.refreshRequest ||
+      this.$auth.request(endpoint, this.options.endpoints.refresh)
+
+    return this.refreshRequest
       .then((response) => {
         // Update tokens
         this.updateTokens(response, { isRefreshing: true })
@@ -185,6 +192,10 @@ export class RefreshScheme<
       .catch((error) => {
         this.$auth.callOnError(error, { method: 'refreshToken' })
         return Promise.reject(error)
+      })
+      .finally(() => {
+        // Reset the refresh request
+        this.refreshRequest = null
       })
   }
 
