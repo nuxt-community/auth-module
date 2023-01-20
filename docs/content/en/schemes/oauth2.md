@@ -124,7 +124,7 @@ It will be used in `Authorization` header of axios requests.
 Here you set the expiration time of the token, in **seconds**.
 This time will be used if for some reason we couldn't decode the token to get the expiration date.
 
-Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/examples/demo/pages/callback.vue))
+Should be same as login page or relative path to welcome screen. ([example](https://github.com/nuxt-community/auth-module/blob/dev/demo/pages/callback.vue))
 
 By default is set to 30 minutes.
 
