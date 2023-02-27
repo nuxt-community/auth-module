@@ -21,3 +21,10 @@ with to avoid updating with breaking changes since package is auto published.
 This package is stable in regards of options and behavior but is missing many key improvements and may contain bugs.
 
 Please see [nuxt-community/auth-module#893](https://github.com/nuxt-community/auth-module/issues/893) for more context.
+
+## Nuxt 3 Suppport
+
+Nuxt 3 comes with built-in utilities to support session and authentication. We are working on a new official module. Meanwhile, we recommend: 
+
+- [auth starter template](https://github.com/nuxt/examples/tree/main/auth/local) for Nuxt 3
+- [sidebase nuxt auth](https://sidebase.io/nuxt-auth/getting-started) powered by Auth.js
