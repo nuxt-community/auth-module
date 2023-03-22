@@ -82,7 +82,7 @@ export class Token {
 
     try {
       tokenExpiration =
-        jwtDecode<JwtPayload>(token + '').exp * 1000 || _tokenExpiresAtMillis
+      _tokenExpiresAtMillis || jwtDecode<JwtPayload>(token + '').exp * 1000
     } catch (error) {
       // If the token is not jwt, we can't decode and refresh it, use _tokenExpiresAt value
       tokenExpiration = _tokenExpiresAtMillis
