@@ -1,8 +1,8 @@
 {
-  "name": "@nuxtjs/auth",
+  "name": "@nuxtjs/auth-next",
   "version": "5.0.0-dev",
   "description": "Authentication module for Nuxt.js",
-  "repository": "nuxt-community/auth-module",
+  "repository": "Smartleader/auth-module",
   "license": "MIT",
   "sideEffects": "false",
   "exports": {
