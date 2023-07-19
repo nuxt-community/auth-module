@@ -54,7 +54,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@microsoft/api-documenter": "^7.17.0",
     "@microsoft/api-extractor": "^7.20.0",
-    "@nuxt/test-utils": "^0.2.2",
+    "@nuxt/test-utils": "^3.6.5",
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxt/typescript-runtime": "^2.1.0",
