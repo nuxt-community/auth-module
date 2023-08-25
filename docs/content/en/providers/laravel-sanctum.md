@@ -1,7 +1,7 @@
 ---
 title: Laravel Sanctum
 description: This provider is for the Laravel Sanctum
-position: 38
+position: 39
 category: Providers
 ---
 
