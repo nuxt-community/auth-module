@@ -1,5 +1,5 @@
 <h1 align="center" >🔑 Auth Module</h1>
-<p align="center">Zero-boilerplate authentication support for Nuxt.js!</p>
+<p align="center">Zero-boilerplate authentication support for Nuxt 2!</p>
 
 <p align="center">
 <a href="https://david-dm.org/nuxt-community/auth-module">
