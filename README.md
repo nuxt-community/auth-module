@@ -27,7 +27,7 @@
 <a href="https://auth.nuxtjs.org">Read Documentation</a>
 </p>
 
-## Nuxt 3 Suppport
+## Nuxt 3 Support
 
 Nuxt 3 comes with built-in utilities to support session and authentication. We are working on a new official module. Meanwhile, we recommend: 
 
