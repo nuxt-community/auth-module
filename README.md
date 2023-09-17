@@ -31,11 +31,11 @@
 
 Nuxt 3 comes with built-in utilities to support session and authentication. We are working on a new official module. 
 
-Meanwhile, we recommend: 
+Meanwhile, we recommend:
 
-- [Auth starter template](https://github.com/nuxt/examples/tree/main/auth/local) for Nuxt 3
-- [sidebase - Nuxt Auth](https://sidebase.io/nuxt-auth/getting-started) powered by Auth.js
-- [Lucia - Nuxt](https://lucia-auth.com/guidebook/sign-in-with-username-and-password/nuxt/)
+- [Sidebase Nuxt Auth](https://github.com/sidebase/nuxt-auth) based on next-auth
+- [AuthJs Nuxt](https://github.com/Hebilicious/authjs-nuxt) based on Auth.js
+- Implement your own auth using [Lucia](https://lucia-auth.com/guidebook/sign-in-with-username-and-password/nuxt/) or [Nuxt Auth Template](https://github.com/nuxt/examples/tree/main/auth/local)
 
 **🚧 please see [status page](http://auth.nuxtjs.org/status) in documentation.**
 
