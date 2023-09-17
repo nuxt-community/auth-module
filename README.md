@@ -23,10 +23,6 @@
 </a>
 </p>
 
-<p align="center">
-<a href="https://auth.nuxtjs.org">Read Documentation</a>
-</p>
-
 ## Nuxt 3 Support
 
 Nuxt 3 comes with built-in utilities to support session and authentication. We are working on a new official module. 
@@ -36,6 +32,11 @@ Meanwhile, we recommend:
 - [Sidebase Nuxt Auth](https://github.com/sidebase/nuxt-auth) based on next-auth
 - [AuthJs Nuxt](https://github.com/Hebilicious/authjs-nuxt) based on Auth.js
 - Implement your own auth using [Lucia](https://lucia-auth.com/guidebook/sign-in-with-username-and-password/nuxt/) or [Nuxt Auth Template](https://github.com/nuxt/examples/tree/main/auth/local)
+
+
+## Nuxt 2 Installation and Usage
+
+<a href="https://auth.nuxtjs.org">Read Documentation</a>
 
 **🚧 please see [status page](http://auth.nuxtjs.org/status) in documentation.**
 
