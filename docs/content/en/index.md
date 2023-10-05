@@ -8,11 +8,21 @@ category: ''
 <img src="/preview.png" class="light-img" />
 <img src="/preview-dark.png" class="dark-img" />
 
-Auth Module for [NuxtJS](https://nuxtjs.org).
+Auth Module for [Nuxt 2](https://v2.nuxt.com).
 
-Zero-boilerplate authentication support for Nuxt.js!
+Zero-boilerplate authentication support for Nuxt 2!
 
 The module authenticates users using a configurable authentication [scheme](/guide/scheme) or by using one of the directly supported [providers](/guide/provider). It provides an [API](https://auth.nuxtjs.org/) for triggering authentication and accessing resulting user information. While it takes care of [storing](/api/storage) the information on the client-side, it does NOT implement session handling or provide session based authentication on the NuxtJS server.
+
+## Nuxt 3 Support
+
+Nuxt 3 comes with built-in utilities to support session and authentication. We are working on a new official module. 
+
+Meanwhile, we recommend:
+
+- [Sidebase Nuxt Auth](https://github.com/sidebase/nuxt-auth) based on next-auth
+- [AuthJs Nuxt](https://github.com/Hebilicious/authjs-nuxt) based on Auth.js
+- Implement your own auth using [Lucia](https://lucia-auth.com/guidebook/sign-in-with-username-and-password/nuxt/) or [Nuxt Auth Template](https://github.com/nuxt/examples/tree/main/auth/local)
 
 ## Getting Started
 
