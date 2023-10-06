@@ -44,7 +44,7 @@ export default ({ port = 3000 } = {}) => ({
       oidcAuthorizationCode: {
         scheme: 'openIDConnect',
         responseType: 'code',
-        scope: ['openid', 'profile', 'offline_access'],
+        scope: ['openid', 'profile'],
         grantType: 'authorization_code',
         clientId: 'oidc_authorization_code_client',
         logoutRedirectUri: `http://localhost:${port}`,
