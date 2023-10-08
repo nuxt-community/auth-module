@@ -41,7 +41,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "axios": "^0.26.1",
     "body-parser": "^1.19.2",
-    "consola": "^2.15.3",
+    "consola": "^3.2.3",
     "cookie": "^0.4.2",
     "defu": "^5.0.1",
     "hasha": "^5.2.2",
