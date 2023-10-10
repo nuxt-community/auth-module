@@ -59,6 +59,11 @@ export function laravelSanctum(
     },
     user: {
       property: false
+    },
+    token: {
+      // Must be Bearer type:
+      // https://laravel.com/docs/8.x/sanctum#issuing-api-tokens
+      type: 'Bearer'
     }
   }
 
