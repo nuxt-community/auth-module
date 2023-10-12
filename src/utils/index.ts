@@ -92,6 +92,11 @@ export function normalizePath(path = '', ctx?: Context): string {
     result = result.replace(ctx.base, '/')
   }
 
+  // Remove index.html suffix
+  if (result.match(/index\.html?$/)) {
+    result = result.replace(/index\.html?$/, '')
+  }
+
   // Remove redundant / from the end of path
   if (result.charAt(result.length - 1) === '/') {
     result = result.slice(0, -1)
