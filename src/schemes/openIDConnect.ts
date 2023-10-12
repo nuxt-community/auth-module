@@ -182,7 +182,16 @@ export class OpenIDConnectScheme<
         id_token_hint: this.idToken.get(),
         post_logout_redirect_uri: this.logoutRedirectURI
       }
-      const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
+
+      let url = this.options.endpoints.logout
+      // Logout endpoint URL may already contain query params
+      if (url.split('/').splice(-1)[0].indexOf('?') === -1 ) {
+        url = url + '?' + encodeQuery(opts)
+      }
+      else {
+        url = url + '&' + encodeQuery(opts)
+      }
+
       window.location.replace(url)
     }
     return this.$auth.reset()
