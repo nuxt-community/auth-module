@@ -73,7 +73,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.3",
-    "express-jwt": "^6.1.1",
+    "express-jwt": "^8.4.1",
     "jest": "^27.5.1",
     "jiti": "^1.13.0",
     "jquery": "^3.6.0",
