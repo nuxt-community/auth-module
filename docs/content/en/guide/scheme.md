@@ -34,7 +34,7 @@ auth: {
 
 <alert type="warning">As v5 still in development, there may be breaking changes to this feature.</alert>
 
-Sometimes the included schemes doesn't match your requirements. Creating your own scheme will provide
+Sometimes the included schemes don't match your requirements. Creating your own scheme will provide
 flexibility you need. You can create a new scheme from scratch or extend an existing scheme.
 
 > **Note** A list of available scheme methods will be added in future releases.
