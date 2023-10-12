@@ -108,7 +108,7 @@ It will be used in `Authorization` header of axios requests.
 
 #### `maxAge`
 
-- Default: `1800`
+- Default: `60 * 30`
 
 Here you set the expiration time of the token, in **seconds**.
 This time will be used if for some reason we couldn't decode the token to get the expiration date.
@@ -129,7 +129,7 @@ The OpenIDConnect scheme will save both the access and ID token. This because to
 
 #### `maxAge`
 
-- Default: `1800`
+- Default: `60 * 30`
 
 Here you set the expiration time of the ID token, in **seconds**.
 This time will be used if for some reason we couldn't decode the ID token to get the expiration date.
