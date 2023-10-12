@@ -9,7 +9,7 @@ category: Schemes
 
 `local` is the default, credentials/token based scheme for flows like `JWT`.
 
-**Note:** You can use [cookie scheme](./cookie) which is based on local but modified for cookie based APIs.
+**Note:** You can use [cookie scheme](../schemes/cookie) which is based on local but modified for cookie based APIs.
 
 By default `local` scheme is enabled and preconfigured. You can set `strategies.local` to `false` to disable it.
 
