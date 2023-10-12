@@ -23,9 +23,9 @@ By default, **instance names are the same as scheme names**. If you want more fl
 ```js{}[nuxt.config.js]
 auth: {
   strategies: {
-    local1: { scheme: 'local', /* ... */ },
-    local2: { scheme: 'local', /* ... */ },
-    custom: { scheme: '~/schemes/customStrategy', /* ... */ },
+    local1: { _scheme: 'local', /* ... */ },
+    local2: { _scheme: 'local', /* ... */ },
+    custom: { _scheme: '~/schemes/customStrategy', /* ... */ },
   }
 }
 ```
@@ -94,7 +94,7 @@ Then set your new scheme in the auth config.
 auth: {
   strategies: {
     customStrategy: {
-      scheme: '~/schemes/customScheme',
+      _scheme: '~/schemes/customScheme',
       /* ... */
     }
   }
