@@ -5,6 +5,6 @@ position: 50
 category: API
 ---
 
-- [options](./api/options)
-- [auth](./api/auth)
-- [storage](./api/storage)
+- [options](../api/options)
+- [auth](../api/auth)
+- [storage](../api/storage)
