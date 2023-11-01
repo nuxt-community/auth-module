@@ -83,9 +83,14 @@ export function getMatchedComponents(
   )
 }
 
-export function normalizePath(path = '', ctx?: Context): string {
+export function normalizePath(
+  path = '',
+  ctx?: Context,
+  preserveQuery = false
+): string {
   // Remove query string
-  let result = path.split('?')[0]
+  const parts = path.split('?')
+  let result = parts[0]
 
   // Remove base path
   if (ctx && ctx.base) {
@@ -100,7 +105,7 @@ export function normalizePath(path = '', ctx?: Context): string {
   // Remove duplicate slashes
   result = result.replace(/\/+/g, '/')
 
-  return result
+  return result + (preserveQuery && parts.length > 1 ? '?' + parts[1] : '')
 }
 
 export function encodeValue(val: unknown): string {
