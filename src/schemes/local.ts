@@ -256,9 +256,13 @@ export class LocalScheme<
     }
   }
 
+  protected extractToken(response: HTTPResponse): string {
+    return getProp(response.data, this.options.token.property) as string
+  }
+
   protected updateTokens(response: HTTPResponse): void {
     const token = this.options.token.required
-      ? (getProp(response.data, this.options.token.property) as string)
+      ? this.extractToken(response)
       : true
 
     this.token.set(token)
