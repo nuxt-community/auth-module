@@ -43,7 +43,7 @@
     "body-parser": "^1.19.2",
     "consola": "^2.15.3",
     "cookie": "^0.4.2",
-    "defu": "^5.0.1",
+    "defu": "^6.1.4",
     "hasha": "^5.2.2",
     "jwt-decode": "^3.1.2",
     "requrl": "^3.0.2"
