@@ -303,8 +303,8 @@ export class Oauth2Scheme<
 
     this.$auth.$storage.setUniversal(this.name + '.state', opts.state)
 
-    const url = this.options.endpoints.authorization + '?' + encodeQuery(opts)
-
+    const urlConcat = this.options.endpoints.authorization.includes('?') ? '&' : '?';
+    const url = this.options.endpoints.authorization + urlConcat + encodeQuery(opts)
     window.location.replace(url)
   }
 
@@ -314,7 +314,8 @@ export class Oauth2Scheme<
         client_id: this.options.clientId + '',
         logout_uri: this.logoutRedirectURI
       }
-      const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
+      const urlConcat = this.options.endpoints.logout.includes('?') ? '&' : '?';
+      const url = this.options.endpoints.logout + urlConcat + encodeQuery(opts)
       window.location.replace(url)
     }
     return this.$auth.reset()
