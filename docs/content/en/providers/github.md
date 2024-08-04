@@ -1,7 +1,7 @@
 ---
 title: GitHub
 description: This provider is based on oauth2 scheme and supports all scheme options
-position: 34
+position: 35
 category: Providers
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Extending Auth plugin
 description: If you have plugins that need to access `$auth`, you can use `auth.plugins` option.
-position: 41
+position: 42
 category: Recipes
 ---
 

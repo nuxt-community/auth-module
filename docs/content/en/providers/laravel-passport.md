@@ -1,7 +1,7 @@
 ---
 title: Laravel Passport
 description: This provider is for the Laravel Passport
-position: 37
+position: 38
 category: Providers
 ---
 
