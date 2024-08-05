@@ -312,7 +312,7 @@ export class Oauth2Scheme<
     if (this.options.endpoints.logout) {
       const opts = {
         client_id: this.options.clientId + '',
-        logout_uri: this.logoutRedirectURI
+        redirect_uri: this.logoutRedirectURI
       }
       const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
       window.location.replace(url)
