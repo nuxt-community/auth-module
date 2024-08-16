@@ -303,7 +303,14 @@ export class Oauth2Scheme<
 
     this.$auth.$storage.setUniversal(this.name + '.state', opts.state)
 
-    const url = this.options.endpoints.authorization + '?' + encodeQuery(opts)
+    let url = this.options.endpoints.authorization
+    // Authorization endpoint URL may already contain query params
+    if (url.split('/').splice(-1)[0].indexOf('?') === -1 ) {
+      url = url + '?' + encodeQuery(opts)
+    }
+    else {
+      url = url + '&' + encodeQuery(opts)
+    }
 
     window.location.replace(url)
   }
@@ -314,7 +321,16 @@ export class Oauth2Scheme<
         client_id: this.options.clientId + '',
         logout_uri: this.logoutRedirectURI
       }
-      const url = this.options.endpoints.logout + '?' + encodeQuery(opts)
+
+      let url = this.options.endpoints.logout
+      // Logout endpoint URL may already contain query params
+      if (url.split('/').splice(-1)[0].indexOf('?') === -1 ) {
+        url = url + '?' + encodeQuery(opts)
+      }
+      else {
+        url = url + '&' + encodeQuery(opts)
+      }
+
       window.location.replace(url)
     }
     return this.$auth.reset()
