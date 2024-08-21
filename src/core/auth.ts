@@ -443,7 +443,7 @@ export class Auth {
     if (process.client) {
       if (noRouter) {
         if (isRelativeURL(to) && !to.includes(this.ctx.base)) {
-          to = normalizePath('/' + this.ctx.base + '/' + to) // Don't pass in context to preserve base url
+          to = normalizePath('/' + this.ctx.base) + to // Don't pass in context to preserve base url
         }
         window.location.replace(to)
       } else {
