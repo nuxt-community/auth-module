@@ -41,7 +41,7 @@ Sections two - scopes - for most users email and profile will be enough.
 Press save and countinue.
 Go To Credentials click create credentials -> OAuth client ID and select web app.
 You will receive clientID and secret key. copy the clientId to your nuxt config file.
-You will need to handel to auth with a server side like Django, Node, Go ect.
+You will need to handel to auth with a server side like Django, Node, Go etc.
 after that you config will look like that
 
 ```js
