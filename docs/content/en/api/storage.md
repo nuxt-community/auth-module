@@ -27,7 +27,7 @@ Access to local state:
 ```js
 this.$auth.$state
 // OR
-this.$auth.$storage.$state
+this.$auth.$storage.state
 ```
 
 ```js
