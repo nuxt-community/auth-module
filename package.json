@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "axios": "^0.26.1",
+    "axios": "^1.7.7",
     "body-parser": "^1.19.2",
     "consola": "^2.15.3",
     "cookie": "^0.4.2",
