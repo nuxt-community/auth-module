@@ -118,6 +118,12 @@ export class OpenIDConnectScheme<
       response.tokenExpired = true
       return response
     }
+    
+    // Id token has expired. Force reset.
+    if (idTokenStatus.expired()) {
+      response.idTokenExpired = true
+      return response
+    }
 
     /**
     Id token has expired. Force reset.
