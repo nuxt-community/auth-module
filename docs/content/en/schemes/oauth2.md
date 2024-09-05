@@ -66,6 +66,7 @@ auth: {
       redirectUri: undefined,
       logoutRedirectUri: undefined,
       clientId: 'SET_ME',
+      clientSecretTransport: 'body',
       scope: ['openid', 'profile', 'email'],
       state: 'UNIQUE_AND_NON_GUESSABLE',
       codeChallengeMethod: '',
@@ -172,6 +173,14 @@ Should be an absolute path to the welcome screen
 ### `clientId`
 
 **REQUIRED** - oauth2 client id.
+
+### `clientSecretTransport`
+
+- Default: `body`
+
+If set to `body` the `client-secret` is transported within the payload.
+
+If set to `authorization_header` the `client-secret` is only part of the authorization header (Base64 client-id:client-secret). It is not part of the payload anymore.
 
 ### `scope`
 
