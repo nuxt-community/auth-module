@@ -23,7 +23,7 @@ Meanwhile, we recommend:
 - [Nuxt Auth Utils](https://github.com/atinux/nuxt-auth-utils)
 - [Sidebase Nuxt Auth](https://github.com/sidebase/nuxt-auth) based on next-auth
 - [AuthJs Nuxt](https://github.com/Hebilicious/authjs-nuxt) based on Auth.js
-- Implement your own auth using [Lucia](https://lucia-auth.com/guidebook/sign-in-with-username-and-password/nuxt/) or [Nuxt Auth Template](https://github.com/nuxt/examples/tree/main/auth/local)
+- Implement your own auth using [Lucia](https://lucia-auth.com/guidebook/sign-in-with-username-and-password/nuxt/) or [Nuxt Auth Template](https://github.com/nuxt/examples/tree/main/examples/auth/local)
 
 ## Getting Started
 
