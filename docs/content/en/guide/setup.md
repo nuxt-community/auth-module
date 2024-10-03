@@ -69,11 +69,11 @@ Add `@nuxtjs/auth-next` to the `compilerOptions.types` section of your project's
 
 ```json{}[tsconfig.json]
 {
-  compilerOptions: {
+  "compilerOptions": {
     "types": [
-      "@nuxtjs/auth-next",
+      "@nuxtjs/auth-next"
     ]
-  },
+  }
 }
 ```
 
