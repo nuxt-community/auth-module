@@ -14,13 +14,13 @@ Please see the [OAuth2 scheme](./oauth2) for more information.
 ## Usage
 
 ```js
-this.$auth.loginWith('openIDConnect')
+this.$auth.loginWith('oidc')
 ```
 
 Additional arguments can be passed through to the OpenID Connect provider using the `params` key of the second argument:
 
 ```js
-this.$auth.loginWith('openIDConnect', { params: { another_post_key: 'value' } })
+this.$auth.loginWith('oidc', { params: { another_post_key: 'value' } })
 ```
 
 ## Options
