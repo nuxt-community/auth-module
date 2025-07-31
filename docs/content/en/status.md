@@ -22,7 +22,7 @@ This package is stable in regards of options and behavior but is missing many ke
 
 Please see [nuxt-community/auth-module#893](https://github.com/nuxt-community/auth-module/issues/893) for more context.
 
-## Nuxt 3 Suppport
+## Nuxt 3 Support
 
 Nuxt 3 comes with built-in utilities to support session and authentication. We are working on a new official module. Meanwhile, we recommend: 
 
