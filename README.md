@@ -1,3 +1,6 @@
+> [!NOTE]
+> This repository is archived. `@nuxtjs/auth` was built for Nuxt 2, which reached end of life on June 30, 2024. For Nuxt 3+, see [`nuxt-auth-utils`](https://github.com/atinux/nuxt-auth-utils).
+
 <h1 align="center" >🔑 Auth Module</h1>
 <p align="center">Zero-boilerplate authentication support for Nuxt 2!</p>
 
